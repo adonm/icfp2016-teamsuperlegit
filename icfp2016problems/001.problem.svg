@@ -1,3 +1,15 @@
 <svg viewBox="0 0 1 1" xmlns="http://www.w3.org/2000/svg">
-<path d="M0,0 l1,0 l1,1 l0,1" fill="none" stroke="black" stroke-width="3"/>
+<defs>
+<marker id="ArrowStart" orient="auto" style="overflow:visible">
+<path d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z" fill="crimson" transform="scale(0.2) rotate(180) translate(10,0)"/>
+</marker>
+<marker id="ArrowEnd" orient="auto" style="overflow:visible">
+<path d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z" fill="crimson" transform="scale(0.2) rotate(180) translate(10,0)"/>
+</marker>
+</defs>
+<path d="M0,0 L1,0 L1,1 L0,1 z" fill="none" stroke="black" stroke-width="0.02"/>
+<path d="M0,0 L1,0" fill="none" marker-end="url(#ArrowEnd)" marker-start="url(#ArrowStart)" stroke="crimson" stroke-dasharray="0.01,0.01" stroke-width="0.015"/>
+<path d="M0,0 L0,1" fill="none" marker-end="url(#ArrowEnd)" marker-start="url(#ArrowStart)" stroke="crimson" stroke-dasharray="0.01,0.01" stroke-width="0.015"/>
+<path d="M1,0 L1,1" fill="none" marker-end="url(#ArrowEnd)" marker-start="url(#ArrowStart)" stroke="crimson" stroke-dasharray="0.01,0.01" stroke-width="0.015"/>
+<path d="M0,1 L1,1" fill="none" marker-end="url(#ArrowEnd)" marker-start="url(#ArrowStart)" stroke="crimson" stroke-dasharray="0.01,0.01" stroke-width="0.015"/>
 </svg>
