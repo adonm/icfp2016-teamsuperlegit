@@ -9,24 +9,6 @@ extern crate num;
 use num::rational::BigRational;
 use num::ToPrimitive;
 
-pub trait ToF64 {
-	fn to_f64(&self) -> f64;
-}
-
-impl ToF64 for i32 {
-	fn to_f64(&self) -> f64 { *self as f64 }
-}
-
-impl ToF64 for BigRational {
-	fn to_f64(&self) -> f64 {
-		// BUG converts very large negatives to positive infinity
-		self.numer().to_f64().unwrap_or(INFINITY) / self.denom().to_f64().unwrap_or(1.0)
-	}
-}
-
-pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
-impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
-
 #[derive(Debug,PartialEq)]
 pub struct Point<N: Num> {
 	pub x: N,
@@ -46,9 +28,30 @@ pub struct Polygon<N: Num> {
 	pub points: Vec<Point<N>>,
 }
 
-pub type Shape<N> = Vec<Polygon<N>>;
+#[derive(Debug)]
+pub struct Shape<N: Num> {
+	pub polys: Vec<Polygon<N>>,
+}
 
 pub type Skeleton<N> = Vec<Line<N>>;
+
+pub trait ToF64 {
+	fn to_f64(&self) -> f64;
+}
+
+impl ToF64 for i32 {
+	fn to_f64(&self) -> f64 { *self as f64 }
+}
+
+impl ToF64 for BigRational {
+	fn to_f64(&self) -> f64 {
+		// BUG converts very large negatives to positive infinity
+		self.numer().to_f64().unwrap_or(INFINITY) / self.denom().to_f64().unwrap_or(1.0)
+	}
+}
+
+pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
+impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
 
 impl<N: Num> Add for Point<N> {
 	type Output=Self;
@@ -84,12 +87,27 @@ impl<N: Num> Polygon<N> {
 		Polygon{points: points, area: area, is_hole: clockwise}
 	}
 
-	pub fn is_hole(self) -> bool {
+	pub fn is_hole(&self) -> bool {
 		self.is_hole
 	}
 
-	pub fn area(self) -> f64 {
+	pub fn area(&self) -> f64 {
 		self.area
+	}
+}
+
+impl<N: Num> Shape<N> {
+	pub fn new(polys: Vec<Polygon<N>>) -> Shape<N> {
+		Shape{polys: polys}
+	}
+
+	pub fn area(self) -> f64 {
+		let mut a = 0.0;
+		for p in self.polys {
+			let sgn = if p.is_hole() { -1.0 } else { 1.0 };
+			a += sgn * p.area();
+		}
+		a
 	}
 }
 
@@ -142,13 +160,19 @@ mod tests {
 	fn test_clockwise() {
 		assert!(!Polygon::new(vec!(p(0, 0), p(1, 0), p(1, 1), p(0, 1))).is_hole());
 		assert!(Polygon::new(vec!(p(0, 0), p(0, 1), p(1, 1), p(1, 0))).is_hole());
+		assert!(Polygon::new(vec!(p(1, 1), p(1, 2), p(2, 2), p(2, 1))).is_hole());
 	}
 
 	#[test]
 	fn test_area() {
 		assert_eq!(1.0, Polygon::new(vec!(p(0, 0), p(1, 0), p(1, 1), p(0, 1))).area());
 		assert_eq!(1.0, Polygon::new(vec!(p(0, 0), p(0, 1), p(1, 1), p(1, 0))).area());
-		assert_eq!(4.0, Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).area());
+		let p22 = Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2)));
+		assert_eq!(4.0, p22.area());
+		let p44 = Polygon::new(vec!(p(0, 0), p(4, 0), p(4, 4), p(0, 4)));
+		let hole12 = Polygon::new(vec!(p(1, 1), p(1, 2), p(2, 2), p(2, 1)));
+		assert!(hole12.is_hole());
+		assert_eq!(15.0, Shape::new(vec!(p44, hole12)).area());
 	}
 
 	#[test]

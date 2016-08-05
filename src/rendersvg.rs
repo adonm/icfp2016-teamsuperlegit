@@ -31,7 +31,7 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	defs = defs.add(marker_end);
 	document = document.add(defs);
 
-	for polygon in shape {
+	for polygon in shape.polys {
 		let mut iter = polygon.points.iter();		
 		let startpoint = iter.next().unwrap();
 		let mut data = element::path::Data::new().move_to((startpoint.x.to_f64(), startpoint.y.to_f64()));
