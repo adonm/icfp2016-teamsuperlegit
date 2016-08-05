@@ -5,6 +5,7 @@ use std::vec::Vec;
 use rustc_serialize::json::Json;
 
 mod core;
+mod solver;
 mod parse;
 mod rendersvg;
 mod restapi;
@@ -29,10 +30,12 @@ fn main() {
 	use std::process;
 	// setup directories for outputs
 	std::fs::create_dir_all(BASEPATH).unwrap();
+    let help_string = "Cmds: updatecontest, drawproblem, solveproblem, ...";
 	if env::args().len() < 2 {
-		println!("Cmds: updatecontest, drawproblems, ...");
+		println!("{:?}", help_string);
 		process::exit(1);
 	}
+
 	let cmd = env::args().nth(1).unwrap();
 	println!("Running {:?}", cmd);
 	match cmd.trim() {
@@ -58,8 +61,14 @@ fn main() {
 			let (shape, skeleton) = parse::parse::<BigRational, std::fs::File>(file).unwrap();
 			rendersvg::draw_svg(shape, skeleton, &filename)
 		},
+        "solveproblem" => {
+            let id = env::args().nth(2).unwrap().parse::<i64>().unwrap();
+			let file = std::fs::File::open(format!("{}/{:03}.problem.txt", BASEPATH, id)).unwrap();
+			let (shape, skeleton) = parse::parse::<BigRational, std::fs::File>(file).unwrap();
+            solver::solve(shape, skeleton)
+        },
 		_ => {
-			println!("Cmds: updatecontest, drawproblem, ...");
+			println!("{:?}", help_string);
 			process::exit(1);
 		}
 	}
