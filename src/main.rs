@@ -5,6 +5,7 @@ use std::vec::Vec;
 use rustc_serialize::json::Json;
 
 mod core;
+mod generator;
 mod solver;
 mod parse;
 mod rendersvg;
