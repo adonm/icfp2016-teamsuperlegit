@@ -19,7 +19,7 @@ pub struct Point<N: Num> {
 
 #[derive(Debug,Clone)]
 pub struct Line<N: Num> {
-	pub p1: Point<N>, 
+	pub p1: Point<N>,
 	pub p2: Point<N>
 }
 
@@ -44,19 +44,19 @@ pub struct Skeleton<N: Num> {
 
 pub trait ToF64 {
 	fn to_f64(&self) -> f64;
-    fn from_f64(f64) -> Self;
+		fn from_f64(f64) -> Self;
 }
 
 impl ToF64 for i32 {
 	fn to_f64(&self) -> f64 { *self as f64 }
-    
-    fn from_f64(f: f64) -> Self { f as i32 }
+
+		fn from_f64(f: f64) -> Self { f as i32 }
 }
 
 impl ToF64 for f64 {
 
-    fn to_f64(&self) -> f64 { *self }
-    fn from_f64(f: f64) -> Self { f }
+		fn to_f64(&self) -> f64 { *self }
+		fn from_f64(f: f64) -> Self { f }
 }
 
 impl ToF64 for BigRational {
@@ -64,8 +64,8 @@ impl ToF64 for BigRational {
 		// BUG converts very large negatives to positive infinity
 		self.numer().to_f64().unwrap_or(INFINITY) / self.denom().to_f64().unwrap_or(1.0)
 	}
-    
-    fn from_f64(f: f64) -> Self { BigRational::from_float(f).unwrap() }
+
+		fn from_f64(f: f64) -> Self { BigRational::from_float(f).unwrap() }
 }
 
 pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + PartialOrd + ToF64 + Clone {}
@@ -83,14 +83,14 @@ pub fn dot<N: Num>(l0: &Line<N>, l1: &Line<N>) -> f64 {
 	let p0 = &l0.p1;
 	let p1 = &l0.p2;
 	let p2 = &l1.p2;
-	
+
 	let dx1 = p1.x.to_f64() - p0.x.to_f64();
 	let dx2 = p2.x.to_f64() - p1.x.to_f64();
 	let dy1 = p1.y.to_f64() - p0.y.to_f64();
 	let dy2 = p2.y.to_f64() - p1.y.to_f64();
-	
+
 	dx1*dy2 - dy1*dx2
-	
+
 }
 
 pub fn is_convex<N: Num>(l0: &Line<N>, l1: &Line<N>) -> bool {
@@ -123,37 +123,42 @@ impl<'a, N: Num> Sub for &'a Point<N> {
 	}
 }
 
-
 pub fn v_distance<N: Num>(p: &Point<N>) -> f64 {
 	return (p.x.to_f64().powi(2) + p.y.to_f64().powi(2)).sqrt();
 }
 
 
 pub fn normalize_line<N:Num>(start: &Point<N>, dir: &Point<N>) -> Point<N> {
-    
-    let f : f64 = 1.0 / v_distance(dir);
-    Point{x: N::from_f64(f * dir.x.to_f64() + start.x.to_f64()), y: N::from_f64(f * dir.y.to_f64() + start.y.to_f64())}
-    
+
+		let f : f64 = 1.0 / v_distance(dir);
+		Point{x: N::from_f64(f * dir.x.to_f64() + start.x.to_f64()), y: N::from_f64(f * dir.y.to_f64() + start.y.to_f64())}
+
 }
 
 // l0.p2 and l1.p1 are the same since this is where the lines join
 // l0 and l1 must be perpendicular
 pub fn square_from_corner<N:Num>(l0: &Line<N>, l1: &Line<N>) -> Polygon<N> {
-    
-    if l0.p2 != l1.p1 {
-        panic!("Lines must join");
-    }
-    
-    let p1 = normalize_line(&l0.p2, &(&l0.p1-&l0.p2));
-    let p2 = normalize_line(&p1, &(&l1.p2-&l1.p1));
-    let poly = Polygon::new(vec!(
-        l0.p2.clone(),
-        p1,
-        p2,
-        normalize_line(&l0.p2, &(&l1.p2-&l0.p2))));
-    
-    poly
-    
+
+		if l0.p2 != l1.p1 {
+				panic!("Lines must join");
+		}
+
+		let p1 = normalize_line(&l0.p2, &(&l0.p1-&l0.p2));
+		let p2 = normalize_line(&p1, &(&l1.p2-&l1.p1));
+		let poly = Polygon::new(vec!(
+				l0.p2.clone(),
+				p1,
+				p2,
+				normalize_line(&l0.p2, &(&l1.p2-&l0.p2))));
+
+		poly
+
+}
+
+impl<N: Num> Point<N> {
+	pub fn to_f64(&self) -> Point<f64> {
+		Point{x: self.x.to_f64(), y: self.y.to_f64()}
+	}
 }
 
 impl<N: Num> Polygon<N> {
@@ -178,7 +183,7 @@ impl<N: Num> Polygon<N> {
 		self.corners.clone()
 	}
 
-  // Returns the longest edge of this polygon
+	// Returns the longest edge of this polygon
 	pub fn longest_edge(self) -> (Point<N>, Point<N>) {
 		let mut max: f64 = p_distance(&self.points.last().unwrap(), &self.points[0]);
 		let mut longest: (Point<N>, Point<N>) = (self.points.last().unwrap().clone(), self.points[0].clone());
@@ -191,6 +196,58 @@ impl<N: Num> Polygon<N> {
 		}
 
 		return longest;
+	}
+
+	// Return the first vertex where this polygon departs the unit square - the
+	// vertex closest to 0,0 that lies on the unit square.
+	//
+	// The polygon must be convex (no holes)
+	//
+	// If some element of the polygon lies outside the unit square, we'll still
+	// find the vertex closest to 0,0.
+	//
+	// If no vertex of the polygon lies on the unit square, throw an exception
+	pub fn lowest_unit_vertex(self) -> Option<Point<f64>> {
+		let xx = Line::new(Point{x: 0.0, y: 0.0}, Point{x: 1.0, y: 0.0});
+		let yx = Line::new(Point{x: 1.0, y: 0.0}, Point{x: 1.0, y: 1.0});
+		let xy = Line::new(Point{x: 1.0, y: 1.0}, Point{x: 0.0, y: 1.0});
+		let yy = Line::new(Point{x: 0.0, y: 1.0}, Point{x: 0.0, y: 0.0});
+
+		let mut candidates = Vec::new();
+
+		// Search the axes in order of close-ness to 0,0
+		for boundary in [xx, yy, yx, xy].iter() {
+			// Build a list of points coincident to this axis
+			for point in self.points.clone() {
+				if boundary.coincident(point.to_f64()) {
+					candidates.push(point.to_f64());
+				}
+			}
+
+			// If we found any points, don't try any other axes
+			if candidates.len() > 0 {
+				break;
+			}
+		}
+
+		// No verticies coincident with the unit square
+		if candidates.len() == 0 {
+			return None;
+		}
+
+		// Pick the closest point from the candidates
+		let origin = Point{x: 0.0, y: 0.0};
+		let mut min = candidates[0].clone();
+		for point in candidates {
+			if p_distance(&origin, &point.to_f64()) < p_distance(&origin, &min) {
+				min = point;
+			}
+		}
+
+		// I can't get this to work --blinken
+		//return candidates.min_by_key(|point| p_distance(&origin, *point));
+
+		Some(min)
 	}
 }
 
@@ -207,6 +264,11 @@ impl<N: Num> Shape<N> {
 		}
 		a
 	}
+
+	// Runs lowest_unit_vertex on the first polygon in this shape - see above
+	pub fn lowest_unit_vertex(self) -> Option<Point<f64>> {
+		self.polys[0].clone().lowest_unit_vertex()
+	}
 }
 
 impl<N: Num> Line<N> {
@@ -214,12 +276,12 @@ impl<N: Num> Line<N> {
 		return Line{p1: p1, p2: p2};
 	}
 
-  // Returns the length of this line
+	// Returns the length of this line
 	pub fn len(&self) -> f64 {
 		return p_distance(&self.p1, &self.p2);
 	}
 
-  // True if point lies on this line
+	// True if point lies on this line
 	pub fn coincident(&self, point: Point<N>) -> bool {
 		return p_distance(&self.p1, &point) + p_distance(&point, &self.p2) == self.len();
 	}
@@ -244,12 +306,12 @@ impl<N: Num> Skeleton<N> {
 		return self.lines.clone();
 	}
 
-  // Returns the number of lines composing this skeleton
+	// Returns the number of lines composing this skeleton
 	pub fn len(self) -> usize {
 		return self.lines.len();
 	}
 
-  // Returns the longest edge in this skeleton
+	// Returns the longest edge in this skeleton
 	pub fn longest_edge(self) -> Line<N> {
 		let mut longest: Line<N> = self.lines[0].clone();
 		for line in self.lines {
@@ -317,35 +379,33 @@ mod tests {
 	fn p(x: i32, y: i32) -> Point<i32> {
 		Point{x: x, y: y}
 	}
+
 	fn p64(x: f64, y: f64) -> Point<f64> {
 		Point{x: x, y: y}
 	}
-    
+
 	#[test]
-    fn square_from_corner_test(){
-        
-        
+	fn square_from_corner_test(){
 		let l1 = Line{ p1: p64(-1.0/2.0,1.0/2.0), p2: p64(0.0,0.0) };
 		let l2 = Line{ p1: p64(0.0,0.0), p2: p64(1.0/2.0,1.0/2.0) };
-        
-        let poly = square_from_corner(&l1,&l2);
-        
-        println!("{:?}",poly);
-        
-    }
-	
+
+		let poly = square_from_corner(&l1,&l2);
+
+		println!("{:?}",poly);
+	}
+
 	#[test]
 	fn test_is_convex_1(){
 		let l1 = Line{ p1: p(1,1), p2: p(2,2) };
 		let l2 = Line{ p1: p(2,2), p2: p(3,1) };
-		
+
 		assert!(is_convex(&l1,&l2)==false);
 	}
 	#[test]
 	fn test_is_convex_2(){
 		let l1 = Line{ p1: p(1,1), p2: p(2,2) };
 		let l2 = Line{ p1: p(2,2), p2: p(3,4) };
-		
+
 		assert!(is_convex(&l1,&l2)==true);
 	}
 
@@ -398,6 +458,18 @@ mod tests {
 		assert_eq!(0.5f64, "4328029871649615121465353437184/8656059743299229793415925725865".parse::<BigRational>().unwrap().to_f64());
 		assert_eq!(0.25f64, "1/4".parse::<BigRational>().unwrap().to_f64());
 		assert_eq!(1.1f64, "11/10".parse::<BigRational>().unwrap().to_f64());
+	}
+
+	#[test]
+	fn test_lowest_unit_vertex() {
+		let a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(1.0, 0.5), p64(0.5, 0.5)));
+		assert_eq!(p64(0.0,0.0), a.lowest_unit_vertex().unwrap());
+
+		let b = Polygon::new(vec!(p64(0.0, 0.7), p64(0.5, 0.0), p64(1.0, 0.5), p64(0.5, 0.9)));
+		assert_eq!(p64(0.5,0.0), b.lowest_unit_vertex().unwrap());
+
+		let c = Polygon::new(vec!(p64(0.0, 2.0), p64(1.0, 2.0), p64(1.0, 3.0), p64(0.0, 3.0)));
+		assert_eq!(None, c.lowest_unit_vertex());
 	}
 
 }
