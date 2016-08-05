@@ -3,7 +3,6 @@ extern crate rustc_serialize;
 use rustc_serialize::json::Json;
 use std::fs;
 use std::io::Read;
-use std::process::Command;
 use std::path::Path;
 use std::vec::Vec;
 use std::time::Duration;
@@ -11,39 +10,8 @@ use std::thread;
 
 const BASEPATH: &'static str = "icfp2016problems";
 
-fn save_problem(probnum: i32) {
-    println!("{:?}", Command::new("sh")
-                        .arg("-c")
-                        .arg("echo hello")
-                        .output()
-                        .expect("failed to execute proces"));
-}
-
-fn create_svg(probnum: i32) {
-    use svg::Document;
-    use svg::node::element::Path;
-    use svg::node::element::path::Data;
-    let data = Data::new()
-                .move_to((10, 10))
-                .line_by((0, 50))
-                .line_by((50, 0))
-                .line_by((0, -50))
-                .close();
-
-    let path = Path::new()
-                    .set("fill", "none")
-                    .set("stroke", "black")
-                    .set("stroke-width", 3)
-                    .set("d", data);
-
-    let document = Document::new()
-                            .set("viewBox", (0, 0, 70, 70))
-                            .add(path);
-
-    svg::save(format!("{}/{}.svg", BASEPATH, probnum), &document).unwrap();
-}
-
 fn download(filename: &str, apipathname: &str) {
+    use std::process::Command;
     // Get latest snapshot
     let path = format!("{}/{}", BASEPATH, filename);
     let path_arg = path.clone();
@@ -86,7 +54,39 @@ fn save_problems(problems: Vec<Json>) -> Vec<Json> {
         let blob = format!("blob/{}", hash);
         let filename = format!("{:03}.problem.txt", id);
         download(&filename, &blob);
-        println!("{:?}", problem);
+    }
+    return problems
+}
+
+fn draw_problems(problems: Vec<Json>) -> Vec<Json> {
+    use svg::Document;
+    use svg::node::element::Path;
+    use svg::node::element::path::Data;
+    for problem in &problems {
+        let id = problem.find_path(&["problem_id"]).unwrap().as_i64().unwrap();
+        let filename = format!("{:03}.problem.svg", id);
+        let mut problem_txt = String::new();
+        let mut file = fs::File::open(format!("{}/{:03}.problem.txt", BASEPATH, id)).unwrap();
+        file.read_to_string(&mut problem_txt).unwrap();
+        let spec = problem_txt.split("\n");
+        for line in spec {
+            println!("{}", line);
+        }
+        let data = Data::new()
+                        .move_to((10, 10))
+                        .line_by((0, 50))
+                        .line_by((50, 0))
+                        .line_by((0, -50))
+                        .close();
+        let path = Path::new()
+                        .set("fill", "none")
+                        .set("stroke", "black")
+                        .set("stroke-width", 3)
+                        .set("d", data);
+        let document = Document::new()
+                                .set("viewBox", (0, 0, 70, 70))
+                                .add(path);
+        svg::save(format!("{}/{}", BASEPATH, filename), &document).unwrap();
     }
     return problems
 }
@@ -96,10 +96,9 @@ fn main() {
     fs::create_dir_all(BASEPATH);
     // grab contest snapshots
     let problems = get_contest_meta();
+    // save the problem blobs
     let problems = save_problems(problems);
-    save_problems(problems);
-
-    // save a problem (should be a loop)
-    save_problem(1);
-    create_svg(1);
+    // draw svgs of each one
+    let problems = draw_problems(problems);
+    // solve_problems(problems)?
 }
