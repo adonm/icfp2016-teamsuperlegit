@@ -28,40 +28,40 @@ pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul + Div + Sized + FromStr
 impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
 
 #[derive(Debug,PartialEq)]
-pub struct Point<T: Num> {
-	pub x: T,
-	pub y: T,
+pub struct Point<N: Num> {
+	pub x: N,
+	pub y: N,
 }
 
 #[derive(Debug)]
-pub struct Line<T: Num>(pub Point<T>, pub Point<T>);
+pub struct Line<N: Num>(pub Point<N>, pub Point<N>);
 
 #[derive(Debug)]
-pub struct Polygon<T: Num> {
+pub struct Polygon<N: Num> {
 	is_hole: bool,
-	pub points: Vec<Point<T>>,
+	pub points: Vec<Point<N>>,
 }
 
-pub type Shape<T> = Vec<Polygon<T>>;
+pub type Shape<N> = Vec<Polygon<N>>;
 
-pub type Skeleton<T> = Vec<Line<T>>;
+pub type Skeleton<N> = Vec<Line<N>>;
 
-impl<T: Num> Add for Point<T> where T: Add<Output=T> {
+impl<N: Num> Add for Point<N> where N: Add<Output=N> {
 	type Output=Self;
-	fn add(self, other: Point<T>) -> Self {
+	fn add(self, other: Point<N>) -> Self {
 		Point{x: self.x + other.x, y: self.y + other.y}
 	}
 }
 
-impl<T: Num> Sub for Point<T> where T: Sub<Output=T> {
+impl<N: Num> Sub for Point<N> where N: Sub<Output=N> {
 	type Output=Self;
-	fn sub(self, other: Point<T>) -> Self {
-		Point::<T>{x: self.x - other.x, y: self.y - other.y}
+	fn sub(self, other: Point<N>) -> Self {
+		Point::<N>{x: self.x - other.x, y: self.y - other.y}
 	}
 }
 
-impl<T: Num> Polygon<T> where T: Sub<Output=T>+Add<Output=T> {
-	pub fn new(points: Vec<Point<T>>) -> Polygon<T> {
+impl<N: Num> Polygon<N> where N: Sub<Output=N>+Add<Output=N> {
+	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
 		let clockwise = is_clockwise(&points);
 		Polygon{points: points, is_hole: clockwise}
 	}
@@ -71,13 +71,13 @@ impl<T: Num> Polygon<T> where T: Sub<Output=T>+Add<Output=T> {
 	}
 }
 
-pub fn angle<T: Num>(p0: &Point<T>, p1: &Point<T>) -> f64 where T: Sub<Output=T> {
+pub fn angle<N: Num>(p0: &Point<N>, p1: &Point<N>) -> f64 where N: Sub<Output=N> {
 	let dx = p1.x.clone() - p0.x.clone();
 	let dy = p1.y.clone() - p0.y.clone();
 	return dx.to_f64().atan2(dy.to_f64());
 }
 
-fn is_clockwise<T: Num>(points: &Vec<Point<T>>) -> bool where T: Sub<Output=T>+Add<Output=T> {
+fn is_clockwise<N: Num>(points: &Vec<Point<N>>) -> bool where N: Sub<Output=N>+Add<Output=N> {
 	let n = points.len();
 	let mut sum = (points[0].x.clone() - points[n-1].x.clone()).to_f64() * (points[0].y.clone() + points[n-1].y.clone()).to_f64();
 	for edge in points.windows(2) {

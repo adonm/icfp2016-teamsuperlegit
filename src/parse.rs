@@ -27,34 +27,34 @@ impl From<::std::io::Error> for ParseError {
 	}
 }
 
-impl<T: Num> FromStr for Point<T> {
+impl<N: Num> FromStr for Point<N> {
 	type Err = ParseError;
 
-	fn from_str(s: &str) -> Result<Point<T>, Self::Err> {
+	fn from_str(s: &str) -> Result<Point<N>, Self::Err> {
 		let fields: Vec<_> = s.split(",").collect();
 		if fields.len() != 2 {
 			return Err(ParseError::BadPoint);
 		}
-		return Ok(Point{x: try!(ParseError::wrap(fields[0].parse::<T>())), y: try!(ParseError::wrap(fields[1].parse::<T>()))});
+		return Ok(Point{x: try!(ParseError::wrap(fields[0].parse::<N>())), y: try!(ParseError::wrap(fields[1].parse::<N>()))});
 	}
 }
 
-impl<T: Num> FromStr for Line<T> {
+impl<N: Num> FromStr for Line<N> {
 	type Err = ParseError;
 
-	fn from_str(s: &str) -> Result<Line<T>, Self::Err> {
+	fn from_str(s: &str) -> Result<Line<N>, Self::Err> {
 		let fields: Vec<_> = s.split(" ").collect();
 		if fields.len() != 2 {
 			return Err(ParseError::BadLine);
 		}
-		return Ok(Line(try!(ParseError::wrap(fields[0].parse::<Point<T>>())), try!(ParseError::wrap(fields[1].parse::<Point<T>>()))));
+		return Ok(Line(try!(ParseError::wrap(fields[0].parse::<Point<N>>())), try!(ParseError::wrap(fields[1].parse::<Point<N>>()))));
 	}
 }
 
 
 /* pretty much the worst error reporting possible, sorry. no line numbers and
 ** the underlying error is masked by the ParseError type. */
-pub fn parse<T: Num, R: Read>(stream: R) -> Result<(Shape<T>, Skeleton<T>), ParseError> {
+pub fn parse<N: Num, R: Read>(stream: R) -> Result<(Shape<N>, Skeleton<N>), ParseError> {
 	let mut reader = BufReader::new(stream);
 	let num_polys: i64 = try!(parse_line(&mut reader));
 	let mut shape = Vec::new();
@@ -62,19 +62,19 @@ pub fn parse<T: Num, R: Read>(stream: R) -> Result<(Shape<T>, Skeleton<T>), Pars
 		let num_points: i64 = try!(parse_line(&mut reader));
 		let mut poly = Vec::new();
 		for _ in 0..num_points {
-			poly.push(try!(parse_line::<Point<T>,R>(&mut reader)));
+			poly.push(try!(parse_line::<Point<N>,R>(&mut reader)));
 		}
 		shape.push(Polygon::new(poly));
 	}
 	let num_edges: i64 = try!(parse_line(&mut reader));
 	let mut skel = Vec::new();
 	for _ in 0..num_edges {
-		skel.push(try!(parse_line::<Line<T>,R>(&mut reader)));
+		skel.push(try!(parse_line::<Line<N>,R>(&mut reader)));
 	};
 	Ok((shape, skel))
 }
 
-fn parse_line<T: FromStr+Debug, R: Read>(reader: &mut BufReader<R>) -> Result<T, ParseError> where <T as FromStr>::Err: Debug {
+fn parse_line <T: FromStr+Debug, R: Read>(reader: &mut BufReader<R>) -> Result<T, ParseError> where <T as FromStr>::Err: Debug {
 	let mut s = String::new();
 	try!(reader.read_line(&mut s));
 	//println!("{} => {:?}", s.trim(), s.trim().parse::<T>());
