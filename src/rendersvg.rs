@@ -20,7 +20,7 @@ pub fn draw_svg<T: Num>(shape: Shape<T>, skel: Skeleton<T>, filename: &str) {
 		let path = element::Path::new()
 				.set("fill", "none")
 				.set("stroke", "black")
-				.set("stroke-width", 3)
+				.set("stroke-width", 0.01)
 				.set("d", data);
 		document = document.add(path);
 	}
