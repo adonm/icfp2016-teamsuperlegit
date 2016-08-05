@@ -31,7 +31,7 @@ fn main() {
 	use std::process;
 	// setup directories for outputs
 	std::fs::create_dir_all(BASEPATH);
-	if env::args().len() != 2 {
+	if env::args().len() < 2 {
 		println!("Cmds: updatecontest, drawproblems, ...");
 		process::exit(1);
 	}
@@ -52,6 +52,14 @@ fn main() {
 			let problems = restapi::get_contest_meta();
 			let problems = restapi::save_problems(problems);
 			let problems = draw_problems(problems);
+		},
+		"drawproblem" => {
+			let id = env::args().nth(2).unwrap().parse::<i64>().unwrap();
+			let filename = format!("{:03}.problem.svg", id);
+			let problem_txt = String::new();
+			let file = std::fs::File::open(format!("{}/{:03}.problem.txt", BASEPATH, id)).unwrap();
+			let (shape, skeleton) = parse::parse::<BigRational, std::fs::File>(file).unwrap();
+			rendersvg::draw_svg(shape, skeleton, &filename)
 		},
 		_ => {
 			println!("Cmds: updatecontest, drawproblem, ...");

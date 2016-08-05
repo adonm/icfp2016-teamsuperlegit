@@ -11,11 +11,11 @@ use num::pow::pow;
 use num::{ToPrimitive,Zero};
 
 pub trait ToF64 {
-	fn to_f64(self) -> f64;
+	fn to_f64(&self) -> f64;
 }
 
 impl ToF64 for i32 {
-	fn to_f64(self) -> f64 { self as f64 }
+	fn to_f64(&self) -> f64 { *self as f64 }
 }
 
 fn abs<'a>(r: &'a BigInt) -> BigInt {
@@ -31,7 +31,7 @@ fn signum(r: &BigRational) -> f64 {
 }
 
 impl ToF64 for BigRational {
-	fn to_f64(self) -> f64 {
+	fn to_f64(&self) -> f64 {
 		// BUG converts very large negatives to positive infinity
 		self.numer().to_f64().unwrap_or(INFINITY) / self.denom().to_f64().unwrap_or(1.0)
 	}
@@ -49,6 +49,7 @@ pub struct Point<T: Num> {
 #[derive(Debug)]
 pub struct Line<T: Num>(pub Point<T>, pub Point<T>);
 
+#[derive(Debug)]
 pub struct Polygon<T: Num> {
 	pub points: Vec<Point<T>>,
 }
