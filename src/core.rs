@@ -21,7 +21,6 @@ pub struct Line<N: Num> {
     pub p2: Point<N>
 }
 
-#[derive(Debug,Clone)]
 pub struct Polygon<N: Num> {
 	is_hole: bool,
 	area: f64,
@@ -113,6 +112,22 @@ impl<N: Num> Polygon<N> {
 	pub fn area(&self) -> f64 {
 		self.area
 	}
+
+  pub fn longest_edge(self) -> Option<(Point<N>, Point<N>)> {
+    let mut max: f64 = 0.0;
+    let mut longest: Option<(Point<N>, Point<N>)> = None;
+    for edge in self.points.windows(2) {
+      let dx = edge[1].x.clone() - edge[0].x.clone();
+      let dy = edge[1].y.clone() - edge[0].y.clone();
+      let distance = (dx.to_f64().powi(2) + dy.to_f64().powi(2)).sqrt();
+      if distance > max {
+        max = distance;
+        longest = Some((Point{x: edge[0].x.clone(), y: edge[0].y.clone()}, Point{x: edge[1].x.clone(), y: edge[1].y.clone()}));
+      }
+    }
+
+    return longest;
+  }
 }
 
 impl<N: Num> Shape<N> {
@@ -211,9 +226,15 @@ mod tests {
 	}
 
 	#[test]
+	fn test_longest() {
+		assert_eq!(Some((p(0,0), p(1,0))), Polygon::new(vec!(p(0, 0), p(1, 0), p(1, 1), p(0, 1))).longest_edge());
+	}
+
+	#[test]
 	fn test_float() {
 		assert_eq!(0.5f64, "4328029871649615121465353437184/8656059743299229793415925725865".parse::<BigRational>().unwrap().to_f64());
 		assert_eq!(0.25f64, "1/4".parse::<BigRational>().unwrap().to_f64());
 		assert_eq!(1.1f64, "11/10".parse::<BigRational>().unwrap().to_f64());
 	}
+
 }
