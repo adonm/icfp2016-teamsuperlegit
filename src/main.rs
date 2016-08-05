@@ -1,7 +1,6 @@
 extern crate num;
 extern crate rustc_serialize;
 extern crate svg;
-use std::io::Read;
 use std::vec::Vec;
 use rustc_serialize::json::Json;
 
@@ -18,7 +17,6 @@ fn draw_problems(problems: Vec<Json>) -> Vec<Json> {
 	for problem in &problems {
 		let id = problem.find_path(&["problem_id"]).unwrap().as_i64().unwrap();
 		let filename = format!("{:03}.problem.svg", id);
-		let problem_txt = String::new();
 		let file = std::fs::File::open(format!("{}/{:03}.problem.txt", BASEPATH, id)).unwrap();
 		let (shape, skeleton) = parse::parse::<BigRational, std::fs::File>(file).unwrap();
 		rendersvg::draw_svg(shape, skeleton, &filename)
@@ -30,7 +28,7 @@ fn main() {
 	use std::env;
 	use std::process;
 	// setup directories for outputs
-	std::fs::create_dir_all(BASEPATH);
+	std::fs::create_dir_all(BASEPATH).unwrap();
 	if env::args().len() < 2 {
 		println!("Cmds: updatecontest, drawproblems, ...");
 		process::exit(1);
@@ -40,8 +38,8 @@ fn main() {
 	match cmd.trim() {
 		"updatecontest" => {
 			// remove cached files
-			std::fs::remove_file(format!("{}/contest_list.json", BASEPATH));
-			std::fs::remove_file(format!("{}/contest.json", BASEPATH));
+			std::fs::remove_file(format!("{}/contest_list.json", BASEPATH)).unwrap();
+			std::fs::remove_file(format!("{}/contest.json", BASEPATH)).unwrap();
 			// grab contest snapshots
 			let problems = restapi::get_contest_meta();
 			// save the problem blobs
@@ -56,7 +54,6 @@ fn main() {
 		"drawproblem" => {
 			let id = env::args().nth(2).unwrap().parse::<i64>().unwrap();
 			let filename = format!("{:03}.problem.svg", id);
-			let problem_txt = String::new();
 			let file = std::fs::File::open(format!("{}/{:03}.problem.txt", BASEPATH, id)).unwrap();
 			let (shape, skeleton) = parse::parse::<BigRational, std::fs::File>(file).unwrap();
 			rendersvg::draw_svg(shape, skeleton, &filename)

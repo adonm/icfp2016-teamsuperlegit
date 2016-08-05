@@ -5,7 +5,7 @@ use svg::node::element;
 use ::BASEPATH;
 use core::*;
 
-pub fn draw_svg<T: Num>(shape: Shape<T>, skel: Skeleton<T>, filename: &str) {
+pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	/* Draw shapes as areas and skeletons as lines */
 	let mut document = Document::new().set("viewBox", (0, 0, 1, 1));
 	for polygon in shape {
