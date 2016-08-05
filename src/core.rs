@@ -12,7 +12,6 @@ use num::rational::BigRational;
 use num::ToPrimitive;
 
 #[derive(Debug,Clone,PartialEq)]
-
 pub struct Point<N: Num> {
 	pub x: N,
 	pub y: N,
@@ -40,7 +39,7 @@ pub struct Shape<N: Num> {
 
 #[derive(Debug,Clone)]
 pub struct Skeleton<N: Num> {
-  pub lines: Vec<Line<N>>,
+	pub lines: Vec<Line<N>>,
 }
 
 pub trait ToF64 {
@@ -52,7 +51,7 @@ impl ToF64 for i32 {
 }
 
 impl ToF64 for f64 {
-    fn to_f64(&self) -> f64 { *self }
+		fn to_f64(&self) -> f64 { *self }
 }
 
 impl ToF64 for BigRational {
@@ -91,6 +90,11 @@ pub fn is_convex<N: Num>(l0: &Line<N>, l1: &Line<N>) -> bool {
 	dot(l0,l1) > 0.0
 }
 
+pub fn p_distance<N: Num>(p1: &Point<N>, p2: &Point<N>) -> f64 {
+	let d = (p1.clone()) - (p2.clone());
+	return (d.x.to_f64().powi(2) + d.y.to_f64().powi(2)).sqrt();
+}
+
 impl<'a, N: Num> Add for &'a Point<N> {
 	type Output=Point<N>;
 	fn add(self, other: &Point<N>) -> Point<N> {
@@ -110,11 +114,6 @@ impl<'a, N: Num> Sub for &'a Point<N> {
 	fn sub(self, other: &Point<N>) -> Point<N> {
 		Point{x: self.x.clone() - other.x.clone(), y: self.y.clone() - other.y.clone()}
 	}
-}
-
-pub fn p_distance<N: Num>(p1: Point<N>, p2: Point<N>) -> f64 {
-  let d = p1 - p2;
-	return (d.x.to_f64().powi(2) + d.y.to_f64().powi(2)).sqrt();
 }
 
 impl<N: Num> Polygon<N> {
@@ -140,10 +139,10 @@ impl<N: Num> Polygon<N> {
 	}
 
 	pub fn longest_edge(self) -> (Point<N>, Point<N>) {
-		let mut max: f64 = p_distance(self.points.last().unwrap().clone(), self.points[0].clone());
+		let mut max: f64 = p_distance(&self.points.last().unwrap(), &self.points[0]);
 		let mut longest: (Point<N>, Point<N>) = (self.points.last().unwrap().clone(), self.points[0].clone());
 		for edge in self.points.windows(2) {
-			let distance = p_distance(edge[0].clone(), edge[1].clone());
+			let distance = p_distance(&edge[0], &edge[1]);
 			if distance > max {
 				max = distance;
 				longest = (Point{x: edge[0].x.clone(), y: edge[0].y.clone()}, Point{x: edge[1].x.clone(), y: edge[1].y.clone()});
@@ -169,27 +168,48 @@ impl<N: Num> Shape<N> {
 	}
 }
 
-impl<N: Num> Skeleton<N> {
-	pub fn new(lines: Vec<Line<N>>) -> Skeleton<N> {
-    return Skeleton{lines: lines};
+impl<N: Num> Line<N> {
+	pub fn new(p1: Point<N>, p2: Point<N>) -> Line<N> {
+		return Line{p1: p1, p2: p2};
 	}
 
-  pub fn clone(self) -> Skeleton<N> {
-    return Skeleton{lines: self.lines.clone()};
-  }
+	pub fn len(&self) -> f64 {
+		return p_distance(&self.p1, &self.p2);
+	}
+}
 
-  pub fn push(self, line: Line<N>) -> Skeleton<N> {
-		let mut lines: Vec<Line<N>> = self.lines.clone();
-    lines.push(line);
+impl<N: Num> Skeleton<N> {
+	pub fn new(lines: Vec<Line<N>>) -> Skeleton<N> {
 		return Skeleton{lines: lines};
-  }
+	}
 
-  pub fn lines(self) -> Vec<Line<N>> {
-    return self.lines.clone();
-  }
+	pub fn clone(self) -> Skeleton<N> {
+		return Skeleton{lines: self.lines.clone()};
+	}
+
+	pub fn push(self, line: Line<N>) -> Skeleton<N> {
+		let mut lines: Vec<Line<N>> = self.lines.clone();
+		lines.push(line);
+		return Skeleton{lines: lines};
+	}
+
+	pub fn lines(self) -> Vec<Line<N>> {
+		return self.lines.clone();
+	}
 
 	pub fn len(self) -> usize {
-	  return self.lines.len();
+		return self.lines.len();
+	}
+
+	pub fn longest_edge(self) -> Line<N> {
+		let mut longest: Line<N> = self.lines[0].clone();
+		for line in self.lines {
+			if line.len() > longest.len() {
+				longest = line;
+			}
+		}
+
+		return longest.clone();
 	}
 }
 
@@ -230,12 +250,12 @@ fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool, Vec<(Line<N>
 }
 
 /*pub fn mirror<N: Num>(shapes: &Vec<Polygon<N>>, axis: Line<N>) -> Vec<Polygon<N>> {
-    let mut results: Vec<Polygon<N>> = Vec::new();
-    for shape in shapes {
-        let new_shape = (*shape).clone();
-        results.push(new_shape);
-    }
-    results
+		let mut results: Vec<Polygon<N>> = Vec::new();
+		for shape in shapes {
+				let new_shape = (*shape).clone();
+				results.push(new_shape);
+		}
+		results
 }*/
 
 #[cfg(test)]
@@ -299,6 +319,7 @@ mod tests {
 	#[test]
 	fn test_longest() {
 		assert_eq!((p(1,0), p(2,2)), Polygon::new(vec!(p(0, 0), p(1, 0), p(2, 2), p(0, 1))).longest_edge());
+		assert_eq!(2.0, Line::new(p(0, 0), p(2, 0)).len());
 	}
 
 	#[test]
