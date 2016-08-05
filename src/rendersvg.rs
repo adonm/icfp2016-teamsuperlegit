@@ -12,11 +12,13 @@ pub fn draw_svg<T: Num>(shape: Shape<T>, skel: Skeleton<T>, filename: &str) {
 		let mut iter = polygon.points.iter();		
 		let startpoint = iter.next().unwrap();
 		let mut data = element::path::Data::new().move_to((startpoint.x.to_f64(), startpoint.y.to_f64()));
+		println!("{:?}, {:?}", startpoint.x.to_f64(), startpoint.y.to_f64());
 		// path.move_to(shape.points[0] (as float))
 		for point in iter {
 			println!("{:?}, {:?}", point.x.to_f64(), point.y.to_f64());
-			data = data.line_by((point.x.to_f64(), point.y.to_f64()));
+			data = data.line_to((point.x.to_f64(), point.y.to_f64()));
 		}
+        data = data.close();
 		let path = element::Path::new()
 				.set("fill", "none")
 				.set("stroke", "black")
