@@ -24,8 +24,8 @@ impl ToF64 for BigRational {
 	}
 }
 
-pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
-impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
+pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
+impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
 
 #[derive(Debug,PartialEq)]
 pub struct Point<N: Num> {
@@ -50,21 +50,35 @@ pub type Shape<N> = Vec<Polygon<N>>;
 
 pub type Skeleton<N> = Vec<Line<N>>;
 
-impl<N: Num> Add for Point<N> where N: Add<Output=N> {
+impl<N: Num> Add for Point<N> {
 	type Output=Self;
 	fn add(self, other: Point<N>) -> Self {
 		Point{x: self.x + other.x, y: self.y + other.y}
 	}
 }
 
-impl<N: Num> Sub for Point<N> where N: Sub<Output=N> {
-	type Output=Self;
-	fn sub(self, other: Point<N>) -> Self {
-		Point::<N>{x: self.x - other.x, y: self.y - other.y}
+impl<'a, N: Num> Add for &'a Point<N> {
+	type Output=Point<N>;
+	fn add(self, other: &Point<N>) -> Point<N> {
+		Point{x: self.x.clone() + other.x.clone(), y: self.y.clone() + other.y.clone()}
 	}
 }
 
-impl<N: Num> Polygon<N> where N: Sub<Output=N>+Add<Output=N> {
+impl<N: Num> Sub for Point<N> {
+	type Output=Self;
+	fn sub(self, other: Point<N>) -> Self {
+		Point{x: self.x - other.x, y: self.y - other.y}
+	}
+}
+
+impl<'a, N: Num> Sub for &'a Point<N> {
+	type Output=Point<N>;
+	fn sub(self, other: &Point<N>) -> Point<N> {
+		Point{x: self.x.clone() - other.x.clone(), y: self.y.clone() - other.y.clone()}
+	}
+}
+
+impl<N: Num> Polygon<N> {
 	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
 		let (clockwise, area) = orient_area(&points);
 		Polygon{points: points, area: area, is_hole: clockwise}
@@ -79,21 +93,26 @@ impl<N: Num> Polygon<N> where N: Sub<Output=N>+Add<Output=N> {
 	}
 }
 
-pub fn angle<N: Num>(p0: &Point<N>, p1: &Point<N>) -> f64 where N: Sub<Output=N> {
-	let dx = p1.x.clone() - p0.x.clone();
-	let dy = p1.y.clone() - p0.y.clone();
-	return dx.to_f64().atan2(dy.to_f64());
+pub fn angle<'a, N: Num>(p0: &'a Point<N>, p1: &'a Point<N>) -> f64 {
+	let d = p1 - p0;
+	return d.x.to_f64().atan2(d.y.to_f64());
+}
+
+fn half_tri_area<'a, N: Num>(p0: &'a Point<N>, p1: &'a Point<N>) -> N {
+	(p1.x.clone() - p0.x.clone()) * (p1.y.clone() + p0.y.clone())
 }
 
 /* returns a tuple where the first element is true if the poly points are in clockwise order,
-** and the second element is the area contained within */
-fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64) where N: Sub<Output=N>+Add<Output=N> {
+** and the second element is the area contained within. thx to:
+** http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-points-are-in-clockwise-order */
+fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64) {
 	let n = points.len();
-	let mut sum = (points[0].x.clone() - points[n-1].x.clone()).to_f64() * (points[0].y.clone() + points[n-1].y.clone()).to_f64();
+	let mut sum = half_tri_area(&points[n-1], &points[0]);
 	for edge in points.windows(2) {
-		sum += (edge[1].x.clone() - edge[0].x.clone()).to_f64() * (edge[1].y.clone() + edge[0].y.clone()).to_f64();
+		sum = sum + half_tri_area(&edge[0], &edge[1]);
 	}
-	return (sum >= 0.0, sum.abs() / 2.0)
+	let f = sum.to_f64();
+	return (f >= 0.0, f.abs() / 2.0)
 }
 
 #[cfg(test)]
