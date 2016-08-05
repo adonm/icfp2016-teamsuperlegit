@@ -57,6 +57,7 @@ fn download(filename: &str, apipathname: &str) {
             .output()
             .expect("uh-oh")
         );
+        thread::sleep(Duration::from_millis(1000));
     }
 }
 
@@ -83,9 +84,8 @@ fn save_problems(problems: Vec<Json>) -> Vec<Json> {
         let hash = problem.find_path(&["problem_spec_hash"]).unwrap().as_string().unwrap();
         let id = problem.find_path(&["problem_id"]).unwrap().as_i64().unwrap();
         let blob = format!("blob/{}", hash);
-        let filename = format!("{}.problem.txt", id);
+        let filename = format!("{:03}.problem.txt", id);
         download(&filename, &blob);
-        thread::sleep(Duration::from_millis(1000));
         println!("{:?}", problem);
     }
     return problems
