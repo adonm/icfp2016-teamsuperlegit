@@ -9,19 +9,19 @@ extern crate num;
 use num::rational::BigRational;
 use num::ToPrimitive;
 
-#[derive(Debug,PartialEq,Clone)]
+#[derive(Debug,Clone,PartialEq)]
+
 pub struct Point<N: Num> {
 	pub x: N,
 	pub y: N,
 }
 
-#[derive(Debug)]
+#[derive(Debug,Clone)]
 pub struct Line<N: Num> {
-    pub p1: Point<N>, 
-    pub p2: Point<N>
+	pub p1: Point<N>, 
+	pub p2: Point<N>
 }
 
-#[derive(Debug)]
 pub struct Polygon<N: Num> {
 	is_hole: bool,
 	square: bool,
@@ -29,7 +29,7 @@ pub struct Polygon<N: Num> {
 	pub points: Vec<Point<N>>,
 }
 
-#[derive(Debug)]
+#[derive(Debug,Clone)]
 pub struct Shape<N: Num> {
 	pub polys: Vec<Polygon<N>>,
 }
@@ -63,21 +63,21 @@ impl<N: Num> Add for Point<N> {
 
 //This assumes l0 -> l1 is clockwise, and l0.p2==l1.p1
 pub fn dot<N: Num>(l0: &Line<N>, l1: &Line<N>) -> f64 {
-    let p0 = &l0.p1;
-    let p1 = &l0.p2;
-    let p2 = &l1.p2;
-    
-    let dx1 = p1.x.to_f64() - p0.x.to_f64();
-    let dx2 = p2.x.to_f64() - p1.x.to_f64();
-    let dy1 = p1.y.to_f64() - p0.y.to_f64();
-    let dy2 = p2.y.to_f64() - p1.y.to_f64();
-    
-    dx1*dy2 - dy1*dx2
-    
+	let p0 = &l0.p1;
+	let p1 = &l0.p2;
+	let p2 = &l1.p2;
+	
+	let dx1 = p1.x.to_f64() - p0.x.to_f64();
+	let dx2 = p2.x.to_f64() - p1.x.to_f64();
+	let dy1 = p1.y.to_f64() - p0.y.to_f64();
+	let dy2 = p2.y.to_f64() - p1.y.to_f64();
+	
+	dx1*dy2 - dy1*dx2
+	
 }
 
 pub fn is_convex<N: Num>(l0: &Line<N>, l1: &Line<N>) -> bool {
-    dot(l0,l1) > 0.0
+	dot(l0,l1) > 0.0
 }
 
 impl<'a, N: Num> Add for &'a Point<N> {
@@ -118,6 +118,22 @@ impl<N: Num> Polygon<N> {
 	pub fn area(&self) -> f64 {
 		self.area
 	}
+
+  pub fn longest_edge(self) -> Option<(Point<N>, Point<N>)> {
+	let mut max: f64 = 0.0;
+	let mut longest: Option<(Point<N>, Point<N>)> = None;
+	for edge in self.points.windows(2) {
+	  let dx = edge[1].x.clone() - edge[0].x.clone();
+	  let dy = edge[1].y.clone() - edge[0].y.clone();
+	  let distance = (dx.to_f64().powi(2) + dy.to_f64().powi(2)).sqrt();
+	  if distance > max {
+		max = distance;
+		longest = Some((Point{x: edge[0].x.clone(), y: edge[0].y.clone()}, Point{x: edge[1].x.clone(), y: edge[1].y.clone()}));
+	  }
+	}
+
+	return longest;
+  }
 }
 
 impl<N: Num> Shape<N> {
@@ -176,22 +192,22 @@ mod tests {
 	fn p(x: i32, y: i32) -> Point<i32> {
 		Point{x: x, y: y}
 	}
-    
-    
+	
+	
 	#[test]
-    fn test_is_convex_1(){
-        let l1 = Line{ p1: p(1,1), p2: p(2,2) };
-        let l2 = Line{ p1: p(2,2), p2: p(3,1) };
-        
-        assert!(is_convex(&l1,&l2)==false);
-    }
+	fn test_is_convex_1(){
+		let l1 = Line{ p1: p(1,1), p2: p(2,2) };
+		let l2 = Line{ p1: p(2,2), p2: p(3,1) };
+		
+		assert!(is_convex(&l1,&l2)==false);
+	}
 	#[test]
-    fn test_is_convex_2(){
-        let l1 = Line{ p1: p(1,1), p2: p(2,2) };
-        let l2 = Line{ p1: p(2,2), p2: p(3,4) };
-        
-        assert!(is_convex(&l1,&l2)==true);
-    }
+	fn test_is_convex_2(){
+		let l1 = Line{ p1: p(1,1), p2: p(2,2) };
+		let l2 = Line{ p1: p(2,2), p2: p(3,4) };
+		
+		assert!(is_convex(&l1,&l2)==true);
+	}
 
 	#[test]
 	fn test_ops() {
@@ -225,9 +241,15 @@ mod tests {
 	}
 
 	#[test]
+	fn test_longest() {
+		assert_eq!(Some((p(0,0), p(1,0))), Polygon::new(vec!(p(0, 0), p(1, 0), p(1, 1), p(0, 1))).longest_edge());
+	}
+
+	#[test]
 	fn test_float() {
 		assert_eq!(0.5f64, "4328029871649615121465353437184/8656059743299229793415925725865".parse::<BigRational>().unwrap().to_f64());
 		assert_eq!(0.25f64, "1/4".parse::<BigRational>().unwrap().to_f64());
 		assert_eq!(1.1f64, "11/10".parse::<BigRational>().unwrap().to_f64());
 	}
+
 }
