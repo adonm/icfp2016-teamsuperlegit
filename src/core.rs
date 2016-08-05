@@ -1,3 +1,5 @@
+/* vim: set noexpandtab : */
+
 use std::f64::INFINITY;
 use std::ops::{Add,Sub,Mul,Div,Neg};
 use std::clone::Clone;
@@ -35,7 +37,10 @@ pub struct Shape<N: Num> {
 	pub polys: Vec<Polygon<N>>,
 }
 
-pub type Skeleton<N> = Vec<Line<N>>;
+#[derive(Debug,Clone)]
+pub struct Skeleton<N: Num> {
+  pub lines: Vec<Line<N>>,
+}
 
 pub trait ToF64 {
 	fn to_f64(&self) -> f64;
@@ -106,6 +111,11 @@ impl<'a, N: Num> Sub for &'a Point<N> {
 	}
 }
 
+pub fn p_distance<N: Num>(p1: Point<N>, p2: Point<N>) -> f64 {
+  let d = p1 - p2;
+	return (d.x.to_f64().powi(2) + d.y.to_f64().powi(2)).sqrt();
+}
+
 impl<N: Num> Polygon<N> {
 	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
 		let (clockwise, area, square) = orient_area(&points);
@@ -124,20 +134,18 @@ impl<N: Num> Polygon<N> {
 		self.area
 	}
 
-  pub fn longest_edge(self) -> Option<(Point<N>, Point<N>)> {
-	let mut max: f64 = 0.0;
-	let mut longest: Option<(Point<N>, Point<N>)> = None;
-	for edge in self.points.windows(2) {
-	  let dx = edge[1].x.clone() - edge[0].x.clone();
-	  let dy = edge[1].y.clone() - edge[0].y.clone();
-	  let distance = (dx.to_f64().powi(2) + dy.to_f64().powi(2)).sqrt();
-	  if distance > max {
-		max = distance;
-		longest = Some((Point{x: edge[0].x.clone(), y: edge[0].y.clone()}, Point{x: edge[1].x.clone(), y: edge[1].y.clone()}));
-	  }
-	}
+  pub fn longest_edge(self) -> (Point<N>, Point<N>) {
+		let mut max: f64 = p_distance(self.points.last().unwrap().clone(), self.points[0].clone());
+		let mut longest: (Point<N>, Point<N>) = (self.points.last().unwrap().clone(), self.points[0].clone());
+		for edge in self.points.windows(2) {
+		  let distance = p_distance(edge[0].clone(), edge[1].clone());
+			if distance > max {
+				max = distance;
+				longest = (Point{x: edge[0].x.clone(), y: edge[0].y.clone()}, Point{x: edge[1].x.clone(), y: edge[1].y.clone()});
+			}
+		}
 
-	return longest;
+		return longest;
   }
 }
 
@@ -153,6 +161,30 @@ impl<N: Num> Shape<N> {
 			a += sgn * p.area();
 		}
 		a
+	}
+}
+
+impl<N: Num> Skeleton<N> {
+	pub fn new(lines: Vec<Line<N>>) -> Skeleton<N> {
+    return Skeleton{lines: lines};
+	}
+
+  pub fn clone(self) -> Skeleton<N> {
+    return Skeleton{lines: self.lines.clone()};
+  }
+
+  pub fn push(self, line: Line<N>) -> Skeleton<N> {
+		let mut lines: Vec<Line<N>> = self.lines.clone();
+    lines.push(line);
+		return Skeleton{lines: lines};
+  }
+
+  pub fn lines(self) -> Vec<Line<N>> {
+    return self.lines.clone();
+  }
+
+	pub fn len(self) -> usize {
+	  return self.lines.len();
 	}
 }
 
@@ -256,7 +288,7 @@ mod tests {
 
 	#[test]
 	fn test_longest() {
-		assert_eq!(Some((p(1,0), p(2,2))), Polygon::new(vec!(p(0, 0), p(1, 0), p(2, 2), p(0, 1))).longest_edge());
+		assert_eq!((p(1,0), p(2,2)), Polygon::new(vec!(p(0, 0), p(1, 0), p(2, 2), p(0, 1))).longest_edge());
 	}
 
 	#[test]
