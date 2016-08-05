@@ -21,5 +21,6 @@ pub fn draw_svg<T, U>(shape: T, skel: U, filename: &str) {
 	let document = Document::new()
 							.set("viewBox", (0, 0, 70, 70))
 							.add(path);
-	svg::save(format!("{}/{}", BASEPATH, filename), &document).unwrap();
+	// only save when float coords done ok
+	// svg::save(format!("{}/{}", BASEPATH, filename), &document).unwrap();
 }
