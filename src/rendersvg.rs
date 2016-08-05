@@ -31,22 +31,24 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	defs = defs.add(marker_end);
 	document = document.add(defs);
 
-	for polygon in shape.polys {
-		let mut iter = polygon.points.iter();		
-		let startpoint = iter.next().unwrap();
-		let mut data = element::path::Data::new().move_to((startpoint.x.to_f64(), startpoint.y.to_f64()));
-		println!("{:?}, {:?}", startpoint.x.to_f64(), startpoint.y.to_f64());
-		// path.move_to(shape.points[0] (as float))
-		for point in iter {
-			println!("{:?}, {:?}", point.x.to_f64(), point.y.to_f64());
-			data = data.line_to((point.x.to_f64(), point.y.to_f64()));
+	for polygon in shape {
+		let mut points = String::from("");
+		for point in polygon.points.iter() {
+			let coord = format!("{},{} ", point.x.to_f64(), point.y.to_f64());
+			points.push_str(&coord);
 		}
-	data = data.close();
-		let path = element::Path::new()
-				.set("fill", "none")
-				.set("stroke", "black")
+		// silhouettes are pink
+		let mut fill = "#ff2df7";
+		if polygon.is_hole() {
+			// holes are green
+			println!("hole in {}", filename);
+			fill = "#2dff47";
+		}
+		let path = element::Polygon::new()
+				.set("fill", fill).set("fill-opacity", "0.5")
+				.set("stroke", "black").set("stroke-opacity", "0.5")
 				.set("stroke-width", 0.02)
-				.set("d", data);
+				.set("points", points.trim());
 		document = document.add(path);
 	}
 	for bone in skel {
