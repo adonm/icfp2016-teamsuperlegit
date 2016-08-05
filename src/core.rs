@@ -27,6 +27,7 @@ pub struct Polygon<N: Num> {
 	is_hole: bool,
 	square: bool,
 	area: f64,
+	corners: Vec<(Line<N>, Line<N>)>,
 	pub points: Vec<Point<N>>,
 }
 
@@ -112,8 +113,8 @@ pub fn p_distance<N: Num>(p1: Point<N>, p2: Point<N>) -> f64 {
 
 impl<N: Num> Polygon<N> {
 	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
-		let (clockwise, area, square) = orient_area(&points);
-		Polygon{points: points, area: area, square: square, is_hole: clockwise}
+		let (clockwise, area, square, corners) = orient_area(&points);
+		Polygon{points: points, area: area, square: square, is_hole: clockwise, corners: corners}
 	}
 
 	pub fn is_hole(&self) -> bool {
@@ -128,11 +129,15 @@ impl<N: Num> Polygon<N> {
 		self.area
 	}
 
-  pub fn longest_edge(self) -> (Point<N>, Point<N>) {
+	pub fn corners(&self) -> Vec<(Line<N>, Line<N>)> {
+		self.corners.clone()
+	}
+
+	pub fn longest_edge(self) -> (Point<N>, Point<N>) {
 		let mut max: f64 = p_distance(self.points.last().unwrap().clone(), self.points[0].clone());
 		let mut longest: (Point<N>, Point<N>) = (self.points.last().unwrap().clone(), self.points[0].clone());
 		for edge in self.points.windows(2) {
-		  let distance = p_distance(edge[0].clone(), edge[1].clone());
+			let distance = p_distance(edge[0].clone(), edge[1].clone());
 			if distance > max {
 				max = distance;
 				longest = (Point{x: edge[0].x.clone(), y: edge[0].y.clone()}, Point{x: edge[1].x.clone(), y: edge[1].y.clone()});
@@ -140,7 +145,7 @@ impl<N: Num> Polygon<N> {
 		}
 
 		return longest;
-  }
+	}
 }
 
 impl<N: Num> Shape<N> {
@@ -194,23 +199,28 @@ fn half_tri_area<'a, N: Num>(p0: &'a Point<N>, p1: &'a Point<N>) -> N {
 /* returns a tuple where the first element is true if the poly points are in clockwise order,
 ** and the second element is the area contained within. thx to:
 ** http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-points-are-in-clockwise-order */
-fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool) {
+fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool, Vec<(Line<N>, Line<N>)>) {
+	let mut corners: Vec<(Line<N>, Line<N>)> = Vec::new();
 	let n = points.len();
 	let mut square = n == 4;
 	let mut sum = half_tri_area(&points[n-1], &points[0]);
-	let edge1angle = angle(&points[n-1], &points[0]);
-	for edge in points.windows(2) {
-		if square {
-			let edgeangle = angle(&edge[0], &edge[1]);
-			let cornerangle = (edge1angle - edgeangle).abs();
-			if cornerangle % 90.0_f64.to_radians() > 0.0 {
-				square = false;
-			}
+	let mut edge1 = (&points[n-1], &points[0]);
+	for segment in points.windows(2) {
+		let edge = (&segment[0], &segment[1]);
+		let cornerangle = (angle(edge1.0, edge1.1) - angle(edge.0, edge.1)).abs();
+		if cornerangle % 90.0_f64.to_radians() > 0.0 {
+			square = false;
+		} else {
+			corners.push((
+				Line{p1: (*edge1.0).clone(), p2: (*edge1.1).clone()},
+				Line{p1: (*edge.0).clone(), p2: (*edge.1).clone()}
+			));
 		}
-		sum = sum + half_tri_area(&edge[0], &edge[1]);
+		edge1 = edge;
+		sum = sum + half_tri_area(&segment[0], &segment[1]);
 	}
 	let f = sum.to_f64();
-	return (f >= 0.0, f.abs() / 2.0, square)
+	return (f >= 0.0, f.abs() / 2.0, square, corners)
 }
 
 #[cfg(test)]
