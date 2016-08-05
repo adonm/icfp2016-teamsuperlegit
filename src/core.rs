@@ -138,6 +138,7 @@ impl<N: Num> Polygon<N> {
 		self.corners.clone()
 	}
 
+  // Returns the longest edge of this polygon
 	pub fn longest_edge(self) -> (Point<N>, Point<N>) {
 		let mut max: f64 = p_distance(&self.points.last().unwrap(), &self.points[0]);
 		let mut longest: (Point<N>, Point<N>) = (self.points.last().unwrap().clone(), self.points[0].clone());
@@ -173,10 +174,12 @@ impl<N: Num> Line<N> {
 		return Line{p1: p1, p2: p2};
 	}
 
+  // Returns the length of this line
 	pub fn len(&self) -> f64 {
 		return p_distance(&self.p1, &self.p2);
 	}
 
+  // True if point lies on this line
 	pub fn coincident(&self, point: Point<N>) -> bool {
 		return p_distance(&self.p1, &point) + p_distance(&point, &self.p2) == self.len();
 	}
@@ -201,10 +204,12 @@ impl<N: Num> Skeleton<N> {
 		return self.lines.clone();
 	}
 
+  // Returns the number of lines composing this skeleton
 	pub fn len(self) -> usize {
 		return self.lines.len();
 	}
 
+  // Returns the longest edge in this skeleton
 	pub fn longest_edge(self) -> Line<N> {
 		let mut longest: Line<N> = self.lines[0].clone();
 		for line in self.lines {
