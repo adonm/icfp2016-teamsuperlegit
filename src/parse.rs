@@ -87,8 +87,13 @@ mod tests {
 	use super::*;
 	extern crate num;
 	use self::num::rational::BigRational;
+	use self::num::bigint::BigInt;
 	use std::fs::File;
 	use super::super::BASEPATH;
+
+	fn rati(n: i64, d: i64) -> BigRational {
+		return BigRational::new(BigInt::from(n), BigInt::from(d));
+	}
 
 	#[test]
 	fn test_point_parse() {
@@ -103,6 +108,18 @@ mod tests {
 		assert_eq!(1, shape.len());
 		assert_eq!(4, shape[0].points.len());
 		assert_eq!(4, skel.len());
+	}
+
+	#[test]
+	fn test_parse_problem4() {
+		let f = File::open(format!("{}/004.problem.txt", BASEPATH)).unwrap();
+		let (shape, skel) = parse::<BigRational, File>(f).unwrap();
+		assert_eq!(1, shape.polys.len());
+		assert_eq!(4, shape.polys[0].points.len());
+		assert_eq!(1.0, shape.polys[0].area());
+		assert_eq!(4, skel.len());
+		assert_eq!(Point{x: rati(1, 1), y: rati(0, 1)}, &shape.polys[0].points[1] - &shape.polys[0].points[0]);
+		assert!(!shape.polys[0].is_hole());
 	}
 
 	#[test]
