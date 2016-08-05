@@ -43,13 +43,13 @@ fn main() {
 			// grab contest snapshots
 			let problems = restapi::get_contest_meta();
 			// save the problem blobs
-			let problems = restapi::save_problems(problems);
+			restapi::save_problems(problems);
 		},
 		"drawproblems" => {
 			// draw svgs of each one
 			let problems = restapi::get_contest_meta();
 			let problems = restapi::save_problems(problems);
-			let problems = draw_problems(problems);
+			draw_problems(problems);
 		},
 		"drawproblem" => {
 			let id = env::args().nth(2).unwrap().parse::<i64>().unwrap();
