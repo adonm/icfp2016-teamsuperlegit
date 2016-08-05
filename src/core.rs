@@ -9,6 +9,24 @@ extern crate num;
 use num::rational::BigRational;
 use num::ToPrimitive;
 
+pub trait ToF64 {
+	fn to_f64(&self) -> f64;
+}
+
+impl ToF64 for i32 {
+	fn to_f64(&self) -> f64 { *self as f64 }
+}
+
+impl ToF64 for BigRational {
+	fn to_f64(&self) -> f64 {
+		// BUG converts very large negatives to positive infinity
+		self.numer().to_f64().unwrap_or(INFINITY) / self.denom().to_f64().unwrap_or(1.0)
+	}
+}
+
+pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
+impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
+
 #[derive(Debug,PartialEq)]
 pub struct Point<N: Num> {
 	pub x: N,
@@ -28,109 +46,54 @@ pub struct Polygon<N: Num> {
 	pub points: Vec<Point<N>>,
 }
 
-#[derive(Debug)]
-pub struct Shape<N: Num> {
-	pub polys: Vec<Polygon<N>>,
-}
+pub type Shape<N> = Vec<Polygon<N>>;
 
 pub type Skeleton<N> = Vec<Line<N>>;
 
-pub trait ToF64 {
-	fn to_f64(&self) -> f64;
-}
-
-impl ToF64 for i32 {
-	fn to_f64(&self) -> f64 { *self as f64 }
-}
-
-impl ToF64 for BigRational {
-	fn to_f64(&self) -> f64 {
-		// BUG converts very large negatives to positive infinity
-		self.numer().to_f64().unwrap_or(INFINITY) / self.denom().to_f64().unwrap_or(1.0)
-	}
-}
-
-pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
-impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
-
-impl<N: Num> Add for Point<N> {
+impl<N: Num> Add for Point<N> where N: Add<Output=N> {
 	type Output=Self;
 	fn add(self, other: Point<N>) -> Self {
 		Point{x: self.x + other.x, y: self.y + other.y}
 	}
 }
 
-impl<'a, N: Num> Add for &'a Point<N> {
-	type Output=Point<N>;
-	fn add(self, other: &Point<N>) -> Point<N> {
-		Point{x: self.x.clone() + other.x.clone(), y: self.y.clone() + other.y.clone()}
-	}
-}
-
-impl<N: Num> Sub for Point<N> {
+impl<N: Num> Sub for Point<N> where N: Sub<Output=N> {
 	type Output=Self;
 	fn sub(self, other: Point<N>) -> Self {
-		Point{x: self.x - other.x, y: self.y - other.y}
+		Point::<N>{x: self.x - other.x, y: self.y - other.y}
 	}
 }
 
-impl<'a, N: Num> Sub for &'a Point<N> {
-	type Output=Point<N>;
-	fn sub(self, other: &Point<N>) -> Point<N> {
-		Point{x: self.x.clone() - other.x.clone(), y: self.y.clone() - other.y.clone()}
-	}
-}
-
-impl<N: Num> Polygon<N> {
+impl<N: Num> Polygon<N> where N: Sub<Output=N>+Add<Output=N> {
 	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
 		let (clockwise, area) = orient_area(&points);
 		Polygon{points: points, area: area, is_hole: clockwise}
 	}
 
-	pub fn is_hole(&self) -> bool {
+	pub fn is_hole(self) -> bool {
 		self.is_hole
 	}
 
-	pub fn area(&self) -> f64 {
+	pub fn area(self) -> f64 {
 		self.area
 	}
 }
 
-impl<N: Num> Shape<N> {
-	pub fn new(polys: Vec<Polygon<N>>) -> Shape<N> {
-		Shape{polys: polys}
-	}
-
-	pub fn area(self) -> f64 {
-		let mut a = 0.0;
-		for p in self.polys {
-			let sgn = if p.is_hole() { -1.0 } else { 1.0 };
-			a += sgn * p.area();
-		}
-		a
-	}
-}
-
-pub fn angle<'a, N: Num>(p0: &'a Point<N>, p1: &'a Point<N>) -> f64 {
-	let d = p1 - p0;
-	return d.x.to_f64().atan2(d.y.to_f64());
-}
-
-fn half_tri_area<'a, N: Num>(p0: &'a Point<N>, p1: &'a Point<N>) -> N {
-	(p1.x.clone() - p0.x.clone()) * (p1.y.clone() + p0.y.clone())
+pub fn angle<N: Num>(p0: &Point<N>, p1: &Point<N>) -> f64 where N: Sub<Output=N> {
+	let dx = p1.x.clone() - p0.x.clone();
+	let dy = p1.y.clone() - p0.y.clone();
+	return dx.to_f64().atan2(dy.to_f64());
 }
 
 /* returns a tuple where the first element is true if the poly points are in clockwise order,
-** and the second element is the area contained within. thx to:
-** http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-points-are-in-clockwise-order */
-fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64) {
+** and the second element is the area contained within */
+fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64) where N: Sub<Output=N>+Add<Output=N> {
 	let n = points.len();
-	let mut sum = half_tri_area(&points[n-1], &points[0]);
+	let mut sum = (points[0].x.clone() - points[n-1].x.clone()).to_f64() * (points[0].y.clone() + points[n-1].y.clone()).to_f64();
 	for edge in points.windows(2) {
-		sum = sum + half_tri_area(&edge[0], &edge[1]);
+		sum += (edge[1].x.clone() - edge[0].x.clone()).to_f64() * (edge[1].y.clone() + edge[0].y.clone()).to_f64();
 	}
-	let f = sum.to_f64();
-	return (f >= 0.0, f.abs() / 2.0)
+	return (sum >= 0.0, sum.abs() / 2.0)
 }
 
 #[cfg(test)]
@@ -160,19 +123,13 @@ mod tests {
 	fn test_clockwise() {
 		assert!(!Polygon::new(vec!(p(0, 0), p(1, 0), p(1, 1), p(0, 1))).is_hole());
 		assert!(Polygon::new(vec!(p(0, 0), p(0, 1), p(1, 1), p(1, 0))).is_hole());
-		assert!(Polygon::new(vec!(p(1, 1), p(1, 2), p(2, 2), p(2, 1))).is_hole());
 	}
 
 	#[test]
 	fn test_area() {
 		assert_eq!(1.0, Polygon::new(vec!(p(0, 0), p(1, 0), p(1, 1), p(0, 1))).area());
 		assert_eq!(1.0, Polygon::new(vec!(p(0, 0), p(0, 1), p(1, 1), p(1, 0))).area());
-		let p22 = Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2)));
-		assert_eq!(4.0, p22.area());
-		let p44 = Polygon::new(vec!(p(0, 0), p(4, 0), p(4, 4), p(0, 4)));
-		let hole12 = Polygon::new(vec!(p(1, 1), p(1, 2), p(2, 2), p(2, 1)));
-		assert!(hole12.is_hole());
-		assert_eq!(15.0, Shape::new(vec!(p44, hole12)).area());
+		assert_eq!(4.0, Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).area());
 	}
 
 	#[test]

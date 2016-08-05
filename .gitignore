@@ -1,3 +1,4 @@
 target
+*.svg
 Cargo.lock
 icfp2016problems/*.svg
