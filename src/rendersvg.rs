@@ -37,13 +37,14 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 			let coord = format!("{},{} ", point.x.to_f64(), point.y.to_f64());
 			points.push_str(&coord);
 		}
-		// silhouettes are pink
-		let mut fill = "#ff2df7";
-		if polygon.is_hole() {
+		let fill = if polygon.is_hole() {
 			// holes are green
 			println!("hole in {}", filename);
-			fill = "#2dff47";
-		}
+			"#2dff47"
+		} else {
+			// silhouettes are pink
+			"#ff2df7"
+		};
 		if polygon.square() {
 			println!("square in {}", filename);
 		}

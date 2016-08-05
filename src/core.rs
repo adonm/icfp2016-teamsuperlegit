@@ -12,7 +12,6 @@ use num::rational::BigRational;
 use num::ToPrimitive;
 
 #[derive(Debug,Clone,PartialEq)]
-
 pub struct Point<N: Num> {
 	pub x: N,
 	pub y: N,
@@ -29,6 +28,7 @@ pub struct Polygon<N: Num> {
 	is_hole: bool,
 	square: bool,
 	area: f64,
+	corners: Vec<(Line<N>, Line<N>)>,
 	pub points: Vec<Point<N>>,
 }
 
@@ -39,7 +39,7 @@ pub struct Shape<N: Num> {
 
 #[derive(Debug,Clone)]
 pub struct Skeleton<N: Num> {
-  pub lines: Vec<Line<N>>,
+	pub lines: Vec<Line<N>>,
 }
 
 pub trait ToF64 {
@@ -54,6 +54,7 @@ impl ToF64 for i32 {
 }
 
 impl ToF64 for f64 {
+
     fn to_f64(&self) -> f64 { *self }
     fn from_f64(f: f64) -> Self { f }
 }
@@ -96,6 +97,11 @@ pub fn is_convex<N: Num>(l0: &Line<N>, l1: &Line<N>) -> bool {
 	dot(l0,l1) > 0.0
 }
 
+pub fn p_distance<N: Num>(p1: &Point<N>, p2: &Point<N>) -> f64 {
+	let d = (p1.clone()) - (p2.clone());
+	return (d.x.to_f64().powi(2) + d.y.to_f64().powi(2)).sqrt();
+}
+
 impl<'a, N: Num> Add for &'a Point<N> {
 	type Output=Point<N>;
 	fn add(self, other: &Point<N>) -> Point<N> {
@@ -117,10 +123,6 @@ impl<'a, N: Num> Sub for &'a Point<N> {
 	}
 }
 
-pub fn p_distance<N: Num>(p1: Point<N>, p2: Point<N>) -> f64 {
-    let d = p1 - p2;
-	return (d.x.to_f64().powi(2) + d.y.to_f64().powi(2)).sqrt();
-}
 
 pub fn v_distance<N: Num>(p: &Point<N>) -> f64 {
 	return (p.x.to_f64().powi(2) + p.y.to_f64().powi(2)).sqrt();
@@ -144,18 +146,20 @@ pub fn square_from_corner<N:Num>(l0: &Line<N>, l1: &Line<N>) -> Polygon<N> {
     
     let p1 = normalize_line(&l0.p2, &(&l0.p1-&l0.p2));
     let p2 = normalize_line(&p1, &(&l1.p2-&l1.p1));
-    Polygon::new(vec!(
+    let poly = Polygon::new(vec!(
         l0.p2.clone(),
         p1,
         p2,
-        normalize_line(&l0.p2, &(&l1.p2-&l0.p2))))
+        normalize_line(&l0.p2, &(&l1.p2-&l0.p2))));
+    
+    poly
     
 }
 
 impl<N: Num> Polygon<N> {
 	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
-		let (clockwise, area, square) = orient_area(&points);
-		Polygon{points: points, area: area, square: square, is_hole: clockwise}
+		let (clockwise, area, square, corners) = orient_area(&points);
+		Polygon{points: points, area: area, square: square, is_hole: clockwise, corners: corners}
 	}
 
 	pub fn is_hole(&self) -> bool {
@@ -170,11 +174,16 @@ impl<N: Num> Polygon<N> {
 		self.area
 	}
 
-  pub fn longest_edge(self) -> (Point<N>, Point<N>) {
-		let mut max: f64 = p_distance(self.points.last().unwrap().clone(), self.points[0].clone());
+	pub fn corners(&self) -> Vec<(Line<N>, Line<N>)> {
+		self.corners.clone()
+	}
+
+  // Returns the longest edge of this polygon
+	pub fn longest_edge(self) -> (Point<N>, Point<N>) {
+		let mut max: f64 = p_distance(&self.points.last().unwrap(), &self.points[0]);
 		let mut longest: (Point<N>, Point<N>) = (self.points.last().unwrap().clone(), self.points[0].clone());
 		for edge in self.points.windows(2) {
-		  let distance = p_distance(edge[0].clone(), edge[1].clone());
+			let distance = p_distance(&edge[0], &edge[1]);
 			if distance > max {
 				max = distance;
 				longest = (Point{x: edge[0].x.clone(), y: edge[0].y.clone()}, Point{x: edge[1].x.clone(), y: edge[1].y.clone()});
@@ -182,7 +191,7 @@ impl<N: Num> Polygon<N> {
 		}
 
 		return longest;
-  }
+	}
 }
 
 impl<N: Num> Shape<N> {
@@ -200,27 +209,56 @@ impl<N: Num> Shape<N> {
 	}
 }
 
-impl<N: Num> Skeleton<N> {
-	pub fn new(lines: Vec<Line<N>>) -> Skeleton<N> {
-    return Skeleton{lines: lines};
+impl<N: Num> Line<N> {
+	pub fn new(p1: Point<N>, p2: Point<N>) -> Line<N> {
+		return Line{p1: p1, p2: p2};
 	}
 
-  pub fn clone(self) -> Skeleton<N> {
-    return Skeleton{lines: self.lines.clone()};
-  }
+  // Returns the length of this line
+	pub fn len(&self) -> f64 {
+		return p_distance(&self.p1, &self.p2);
+	}
 
-  pub fn push(self, line: Line<N>) -> Skeleton<N> {
-		let mut lines: Vec<Line<N>> = self.lines.clone();
-    lines.push(line);
+  // True if point lies on this line
+	pub fn coincident(&self, point: Point<N>) -> bool {
+		return p_distance(&self.p1, &point) + p_distance(&point, &self.p2) == self.len();
+	}
+}
+
+impl<N: Num> Skeleton<N> {
+	pub fn new(lines: Vec<Line<N>>) -> Skeleton<N> {
 		return Skeleton{lines: lines};
-  }
+	}
 
-  pub fn lines(self) -> Vec<Line<N>> {
-    return self.lines.clone();
-  }
+	pub fn clone(self) -> Skeleton<N> {
+		return Skeleton{lines: self.lines.clone()};
+	}
 
+	pub fn push(self, line: Line<N>) -> Skeleton<N> {
+		let mut lines: Vec<Line<N>> = self.lines.clone();
+		lines.push(line);
+		return Skeleton{lines: lines};
+	}
+
+	pub fn lines(self) -> Vec<Line<N>> {
+		return self.lines.clone();
+	}
+
+  // Returns the number of lines composing this skeleton
 	pub fn len(self) -> usize {
-	  return self.lines.len();
+		return self.lines.len();
+	}
+
+  // Returns the longest edge in this skeleton
+	pub fn longest_edge(self) -> Line<N> {
+		let mut longest: Line<N> = self.lines[0].clone();
+		for line in self.lines {
+			if line.len() > longest.len() {
+				longest = line;
+			}
+		}
+
+		return longest.clone();
 	}
 }
 
@@ -236,32 +274,37 @@ fn half_tri_area<'a, N: Num>(p0: &'a Point<N>, p1: &'a Point<N>) -> N {
 /* returns a tuple where the first element is true if the poly points are in clockwise order,
 ** and the second element is the area contained within. thx to:
 ** http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-points-are-in-clockwise-order */
-fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool) {
+fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool, Vec<(Line<N>, Line<N>)>) {
+	let mut corners: Vec<(Line<N>, Line<N>)> = Vec::new();
 	let n = points.len();
 	let mut square = n == 4;
 	let mut sum = half_tri_area(&points[n-1], &points[0]);
-	let edge1angle = angle(&points[n-1], &points[0]);
-	for edge in points.windows(2) {
-		if square {
-			let edgeangle = angle(&edge[0], &edge[1]);
-			let cornerangle = (edge1angle - edgeangle).abs();
-			if cornerangle % 90.0_f64.to_radians() > 0.0 {
-				square = false;
-			}
+	let mut edge1 = (&points[n-1], &points[0]);
+	for segment in points.windows(2) {
+		let edge = (&segment[0], &segment[1]);
+		let cornerangle = (angle(edge1.0, edge1.1) - angle(edge.0, edge.1)).abs();
+		if cornerangle % 90.0_f64.to_radians() > 0.0 {
+			square = false;
+		} else {
+			corners.push((
+				Line{p1: (*edge1.0).clone(), p2: (*edge1.1).clone()},
+				Line{p1: (*edge.0).clone(), p2: (*edge.1).clone()}
+			));
 		}
-		sum = sum + half_tri_area(&edge[0], &edge[1]);
+		edge1 = edge;
+		sum = sum + half_tri_area(&segment[0], &segment[1]);
 	}
 	let f = sum.to_f64();
-	return (f >= 0.0, f.abs() / 2.0, square)
+	return (f >= 0.0, f.abs() / 2.0, square, corners)
 }
 
 /*pub fn mirror<N: Num>(shapes: &Vec<Polygon<N>>, axis: Line<N>) -> Vec<Polygon<N>> {
-    let mut results: Vec<Polygon<N>> = Vec::new();
-    for shape in shapes {
-        let new_shape = (*shape).clone();
-        results.push(new_shape);
-    }
-    results
+		let mut results: Vec<Polygon<N>> = Vec::new();
+		for shape in shapes {
+				let new_shape = (*shape).clone();
+				results.push(new_shape);
+		}
+		results
 }*/
 
 #[cfg(test)]
@@ -340,6 +383,14 @@ mod tests {
 	#[test]
 	fn test_longest() {
 		assert_eq!((p(1,0), p(2,2)), Polygon::new(vec!(p(0, 0), p(1, 0), p(2, 2), p(0, 1))).longest_edge());
+		assert_eq!(2.0, Line::new(p(0, 0), p(2, 0)).len());
+	}
+
+	#[test]
+	fn test_coincident() {
+		assert!(Line::new(p(0,0), p(0,10)).coincident(p(0,5)));
+		assert!(!Line::new(p(0,0), p(0,10)).coincident(p(1,5)));
+		assert!(!Line::new(p(0,0), p(0,10)).coincident(p(0,11)));
 	}
 
 	#[test]
