@@ -44,14 +44,30 @@ pub fn union<N: Num>(a: &Polygon<N>, b: &Polygon<N>) -> Option<Polygon<N>> {
     
     let len_a = input_a.points.len();
     let len_b = input_b.points.len();
-    for i in 0..input_a.points.len() {
-        points.push(input_a.points[((i+1)%len_a)].clone());
+    let mut min_x = input_a.points[0].x.clone();
+    let mut min_y = input_a.points[0].y.clone();
+    for i in 0..len_a {
+        let ref p = input_a.points[((i+1)%len_a)];
+        points.push(p.clone());
         graph.push(vec!(i, ((i+2)%len_a)));
+        if p.x < min_x {
+            min_x = p.x.clone();
+        }
+        if p.y < min_y {
+            min_y = p.y.clone();
+        }
     }
 
-    for i in 0..input_b.points.len() {
-        points.push(input_b.points[((i+1)%len_b)].clone());
+    for i in 0..len_b {
+        let ref p = input_b.points[((i+1)%len_b)];
+        points.push(p.clone());
         graph.push(vec!(i+len_a, ((i+2)%len_b)+len_a));
+        if p.x < min_x {
+            min_x = p.x.clone();
+        }
+        if p.y < min_y {
+            min_y = p.y.clone();
+        }
     }
     
     for i in 0..input_a.points.len() { 
@@ -77,8 +93,13 @@ pub fn union<N: Num>(a: &Polygon<N>, b: &Polygon<N>) -> Option<Polygon<N>> {
             }
         }
     }
+    println!("MINIMA {:?} {:?}", min_x, min_y);
     println!("POINTS KACHING {:?}", points);
     println!("GRAFF {:?}", graph);
+    
+
+
+
     None
 }
 
