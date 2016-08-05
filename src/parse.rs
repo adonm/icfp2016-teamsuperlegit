@@ -67,9 +67,9 @@ pub fn parse<N: Num, R: Read>(stream: R) -> Result<(Shape<N>, Skeleton<N>), Pars
 		shape.push(Polygon::new(poly));
 	}
 	let num_edges: i64 = try!(parse_line(&mut reader));
-	let mut skel = Vec::new();
+	let mut skel = Skeleton::new(Vec::new());
 	for _ in 0..num_edges {
-		skel.push(try!(parse_line::<Line<N>,R>(&mut reader)));
+		skel = skel.push(try!(parse_line::<Line<N>,R>(&mut reader)));
 	};
 	Ok((Shape::new(shape), skel))
 }

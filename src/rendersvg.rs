@@ -54,7 +54,7 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 				.set("points", points.trim());
 		document = document.add(path);
 	}
-	for bone in skel {
+	for bone in skel.lines() {
 	let skel_data = element::path::Data::new()
 		.move_to((bone.p1.x.to_f64(), bone.p1.y.to_f64()))
 		.line_to((bone.p2.x.to_f64(), bone.p2.y.to_f64()));
