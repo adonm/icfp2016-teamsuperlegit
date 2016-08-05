@@ -176,6 +176,10 @@ impl<N: Num> Line<N> {
 	pub fn len(&self) -> f64 {
 		return p_distance(&self.p1, &self.p2);
 	}
+
+	pub fn coincident(&self, point: Point<N>) -> bool {
+		return p_distance(&self.p1, &point) + p_distance(&point, &self.p2) == self.len();
+	}
 }
 
 impl<N: Num> Skeleton<N> {
@@ -320,6 +324,13 @@ mod tests {
 	fn test_longest() {
 		assert_eq!((p(1,0), p(2,2)), Polygon::new(vec!(p(0, 0), p(1, 0), p(2, 2), p(0, 1))).longest_edge());
 		assert_eq!(2.0, Line::new(p(0, 0), p(2, 0)).len());
+	}
+
+	#[test]
+	fn test_coincident() {
+		assert!(Line::new(p(0,0), p(0,10)).coincident(p(0,5)));
+		assert!(!Line::new(p(0,0), p(0,10)).coincident(p(1,5)));
+		assert!(!Line::new(p(0,0), p(0,10)).coincident(p(0,11)));
 	}
 
 	#[test]
