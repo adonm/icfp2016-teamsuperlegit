@@ -1,3 +1,4 @@
+extern crate num;
 extern crate svg;
 extern crate rustc_serialize;
 use rustc_serialize::json::Json;
@@ -8,7 +9,12 @@ use std::vec::Vec;
 use std::time::Duration;
 use std::thread;
 
-const BASEPATH: &'static str = "icfp2016problems";
+mod core;
+mod parse;
+
+use num::rational::BigRational;
+
+pub const BASEPATH: &'static str = "icfp2016problems";
 
 fn download(filename: &str, apipathname: &str) {
     use std::process::Command;
@@ -66,12 +72,8 @@ fn draw_problems(problems: Vec<Json>) -> Vec<Json> {
         let id = problem.find_path(&["problem_id"]).unwrap().as_i64().unwrap();
         let filename = format!("{:03}.problem.svg", id);
         let mut problem_txt = String::new();
-        let mut file = fs::File::open(format!("{}/{:03}.problem.txt", BASEPATH, id)).unwrap();
-        file.read_to_string(&mut problem_txt).unwrap();
-        let spec = problem_txt.split("\n");
-        for line in spec {
-            println!("{}", line);
-        }
+        let file = fs::File::open(format!("{}/{:03}.problem.txt", BASEPATH, id)).unwrap();
+	let (shape, skeleton) = parse::parse::<BigRational, std::fs::File>(file).unwrap();
         let data = Data::new()
                         .move_to((10, 10))
                         .line_by((0, 50))

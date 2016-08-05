@@ -6,3 +6,4 @@ authors = ["Adon Metcalfe <adonm@fastmail.fm>"]
 [dependencies]
 svg = "*"
 rustc-serialize = "*"
+num = "0.1.34"
