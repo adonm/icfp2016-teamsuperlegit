@@ -22,6 +22,7 @@ pub struct Line<N: Num> {
 	pub p2: Point<N>
 }
 
+#[derive(Debug,Clone)]
 pub struct Polygon<N: Num> {
 	is_hole: bool,
 	square: bool,
@@ -242,7 +243,7 @@ mod tests {
 
 	#[test]
 	fn test_longest() {
-		assert_eq!(Some((p(0,0), p(1,0))), Polygon::new(vec!(p(0, 0), p(1, 0), p(1, 1), p(0, 1))).longest_edge());
+		assert_eq!(Some((p(1,0), p(2,2))), Polygon::new(vec!(p(0, 0), p(1, 0), p(2, 2), p(0, 1))).longest_edge());
 	}
 
 	#[test]
