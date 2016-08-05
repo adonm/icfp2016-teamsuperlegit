@@ -1,7 +1,9 @@
+/* vim: set noexpandtab : */
+
 use std::f64::INFINITY;
-use std::ops::{Add,Sub,Mul,Div};
+use std::ops::{Add,Sub,Mul,Div,Neg};
 use std::clone::Clone;
-use std::cmp::Ord;
+use std::cmp::PartialOrd;
 use std::fmt::Debug;
 use std::str::FromStr;
 
@@ -49,6 +51,10 @@ impl ToF64 for i32 {
 	fn to_f64(&self) -> f64 { *self as f64 }
 }
 
+impl ToF64 for f64 {
+    fn to_f64(&self) -> f64 { *self }
+}
+
 impl ToF64 for BigRational {
 	fn to_f64(&self) -> f64 {
 		// BUG converts very large negatives to positive infinity
@@ -56,8 +62,8 @@ impl ToF64 for BigRational {
 	}
 }
 
-pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
-impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
+pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + PartialOrd + ToF64 + Clone {}
+impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + PartialOrd + ToF64 + Clone {}
 
 impl<N: Num> Add for Point<N> {
 	type Output=Self;
@@ -222,6 +228,15 @@ fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool, Vec<(Line<N>
 	let f = sum.to_f64();
 	return (f >= 0.0, f.abs() / 2.0, square, corners)
 }
+
+/*pub fn mirror<N: Num>(shapes: &Vec<Polygon<N>>, axis: Line<N>) -> Vec<Polygon<N>> {
+    let mut results: Vec<Polygon<N>> = Vec::new();
+    for shape in shapes {
+        let new_shape = (*shape).clone();
+        results.push(new_shape);
+    }
+    results
+}*/
 
 #[cfg(test)]
 mod tests {
