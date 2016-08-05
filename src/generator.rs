@@ -25,6 +25,8 @@ pub fn intersect<N: Num>(line_a: &Line<N>, line_b: &Line<N>) -> Option<Point<N>>
     let s = (- s1.y.clone() * (line_a.p1.x.clone() - line_b.p1.x.clone()) + s1.x.clone() * (line_a.p1.y.clone() - line_b.p1.y.clone())) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
     let t = ( s2.x.clone() * (line_a.p1.y.clone() - line_b.p1.y.clone()) - s2.y.clone() * (line_a.p1.x.clone() - line_b.p1.x.clone())) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
     
+    println!("{:?} {:?} {:?} {:?}", s1, s2, s, t);
+
     if (s.to_f64() >= 0.0) && (s.to_f64() <= 1.0) && (t.to_f64() >= 0.0) && (t.to_f64() <= 1.0) {
         return Some(Point{x: line_a.p1.x.clone() + t.clone()*s1.x.clone(), y: line_a.p1.y.clone() + t.clone()*s1.y.clone()})
     }
