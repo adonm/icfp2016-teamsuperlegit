@@ -9,7 +9,7 @@ extern crate num;
 use num::rational::BigRational;
 use num::ToPrimitive;
 
-#[derive(Debug,PartialEq)]
+#[derive(Debug,PartialEq,Clone)]
 pub struct Point<N: Num> {
 	pub x: N,
 	pub y: N,
@@ -24,6 +24,7 @@ pub struct Line<N: Num> {
 #[derive(Debug)]
 pub struct Polygon<N: Num> {
 	is_hole: bool,
+	square: bool,
 	area: f64,
 	pub points: Vec<Point<N>>,
 }
@@ -102,12 +103,16 @@ impl<'a, N: Num> Sub for &'a Point<N> {
 
 impl<N: Num> Polygon<N> {
 	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
-		let (clockwise, area) = orient_area(&points);
-		Polygon{points: points, area: area, is_hole: clockwise}
+		let (clockwise, area, square) = orient_area(&points);
+		Polygon{points: points, area: area, square: square, is_hole: clockwise}
 	}
 
 	pub fn is_hole(&self) -> bool {
 		self.is_hole
+	}
+
+	pub fn square(&self) -> bool {
+		self.square
 	}
 
 	pub fn area(&self) -> f64 {
@@ -142,14 +147,23 @@ fn half_tri_area<'a, N: Num>(p0: &'a Point<N>, p1: &'a Point<N>) -> N {
 /* returns a tuple where the first element is true if the poly points are in clockwise order,
 ** and the second element is the area contained within. thx to:
 ** http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-points-are-in-clockwise-order */
-fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64) {
+fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool) {
 	let n = points.len();
+	let mut square = n == 4;
 	let mut sum = half_tri_area(&points[n-1], &points[0]);
+	let edge1angle = angle(&points[n-1], &points[0]);
 	for edge in points.windows(2) {
+		if square {
+			let edgeangle = angle(&edge[0], &edge[1]);
+			let cornerangle = (edge1angle - edgeangle).abs();
+			if cornerangle % 90.0_f64.to_radians() > 0.0 {
+				square = false;
+			}
+		}
 		sum = sum + half_tri_area(&edge[0], &edge[1]);
 	}
 	let f = sum.to_f64();
-	return (f >= 0.0, f.abs() / 2.0)
+	return (f >= 0.0, f.abs() / 2.0, square)
 }
 
 #[cfg(test)]

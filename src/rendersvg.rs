@@ -44,6 +44,9 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 			println!("hole in {}", filename);
 			fill = "#2dff47";
 		}
+		if polygon.square() {
+			println!("square in {}", filename);
+		}
 		let path = element::Polygon::new()
 				.set("fill", fill).set("fill-opacity", "0.5")
 				.set("stroke", "black").set("stroke-opacity", "0.5")
