@@ -71,7 +71,7 @@ pub fn parse<N: Num, R: Read>(stream: R) -> Result<(Shape<N>, Skeleton<N>), Pars
 	for _ in 0..num_edges {
 		skel.push(try!(parse_line::<Line<N>,R>(&mut reader)));
 	};
-	Ok((shape, skel))
+	Ok((Shape::new(shape), skel))
 }
 
 fn parse_line <T: FromStr+Debug, R: Read>(reader: &mut BufReader<R>) -> Result<T, ParseError> where <T as FromStr>::Err: Debug {
@@ -105,8 +105,8 @@ mod tests {
 	fn test_parse_problem1() {
 		let f = File::open(format!("{}/001.problem.txt", BASEPATH)).unwrap();
 		let (shape, skel) = parse::<i32, File>(f).unwrap();
-		assert_eq!(1, shape.len());
-		assert_eq!(4, shape[0].points.len());
+		assert_eq!(1, shape.polys.len());
+		assert_eq!(4, shape.polys[0].points.len());
 		assert_eq!(4, skel.len());
 	}
 
@@ -126,10 +126,10 @@ mod tests {
 	fn test_parse_problem7() {
 		let f = File::open(format!("{}/007.problem.txt", BASEPATH)).unwrap();
 		let (shape, skel) = parse::<BigRational, File>(f).unwrap();
-		assert_eq!(1, shape.len());
-		assert_eq!(4, shape[0].points.len());
+		assert_eq!(1, shape.polys.len());
+		assert_eq!(4, shape.polys[0].points.len());
 		assert_eq!(4, skel.len());
-		println!("{}", shape[0].points[0].x);
+		println!("{}", shape.polys[0].points[0].x);
 		//assert_eq!(0,1);
 	}
 }

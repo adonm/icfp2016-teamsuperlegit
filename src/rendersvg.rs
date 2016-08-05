@@ -31,7 +31,7 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	defs = defs.add(marker_end);
 	document = document.add(defs);
 
-	for polygon in shape {
+	for polygon in shape.polys {
 		let mut points = String::from("");
 		for point in polygon.points.iter() {
 			let coord = format!("{},{} ", point.x.to_f64(), point.y.to_f64());
