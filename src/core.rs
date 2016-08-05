@@ -57,12 +57,33 @@ impl<N: Num> Add for Point<N> where N: Add<Output=N> {
 	}
 }
 
+
+//This assumes l0 -> l1 is clockwise, and l0.p2==l1.p1
+pub fn dot<N: Num>(l0: &Line<N>, l1: &Line<N>) -> f64 {
+    let p0 = &l0.p1;
+    let p1 = &l0.p2;
+    let p2 = &l1.p2;
+    
+    let dx1 = p1.x.to_f64() - p0.x.to_f64();
+    let dx2 = p2.x.to_f64() - p1.x.to_f64();
+    let dy1 = p1.y.to_f64() - p0.y.to_f64();
+    let dy2 = p2.y.to_f64() - p1.y.to_f64();
+    
+    dx1*dy2 - dy1*dx2
+    
+}
+
+pub fn is_convex<N: Num>(l0: &Line<N>, l1: &Line<N>) -> bool {
+    dot(l0,l1) > 0.0
+}
+
 impl<N: Num> Sub for Point<N> where N: Sub<Output=N> {
 	type Output=Self;
 	fn sub(self, other: Point<N>) -> Self {
 		Point::<N>{x: self.x - other.x, y: self.y - other.y}
 	}
 }
+
 
 impl<N: Num> Polygon<N> where N: Sub<Output=N>+Add<Output=N> {
 	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
@@ -106,6 +127,22 @@ mod tests {
 	fn p(x: i32, y: i32) -> Point<i32> {
 		Point{x: x, y: y}
 	}
+    
+    
+	#[test]
+    fn test_is_convex_1(){
+        let l1 = Line{ p1: p(1,1), p2: p(2,2) };
+        let l2 = Line{ p1: p(2,2), p2: p(3,1) };
+        
+        assert!(is_convex(&l1,&l2)==false);
+    }
+	#[test]
+    fn test_is_convex_2(){
+        let l1 = Line{ p1: p(1,1), p2: p(2,2) };
+        let l2 = Line{ p1: p(2,2), p2: p(3,4) };
+        
+        assert!(is_convex(&l1,&l2)==true);
+    }
 
 	#[test]
 	fn test_ops() {
