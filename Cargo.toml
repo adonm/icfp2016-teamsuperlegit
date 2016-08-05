@@ -1,0 +1,6 @@
+[package]
+name = "viewer"
+version = "0.1.0"
+authors = ["Adon Metcalfe <adonm@fastmail.fm>"]
+
+[dependencies]
