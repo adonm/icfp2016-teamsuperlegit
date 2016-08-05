@@ -50,6 +50,7 @@ pub fn save_problems(problems: Vec<Json>) -> Vec<Json> {
 		let id = problem.find_path(&["problem_id"]).unwrap().as_i64().unwrap();
 		let blob = format!("blob/{}", hash);
 		let filename = format!("{:03}.problem.txt", id);
+
 		download(&filename, &blob);
 	}
 	return problems
