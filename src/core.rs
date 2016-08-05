@@ -9,26 +9,26 @@ extern crate num;
 use num::rational::BigRational;
 use num::ToPrimitive;
 
-#[derive(Debug,PartialEq)]
+#[derive(Debug,Clone,PartialEq)]
 pub struct Point<N: Num> {
 	pub x: N,
 	pub y: N,
 }
 
-#[derive(Debug)]
+#[derive(Debug,Clone)]
 pub struct Line<N: Num> {
     pub p1: Point<N>, 
     pub p2: Point<N>
 }
 
-#[derive(Debug)]
+#[derive(Debug,Clone)]
 pub struct Polygon<N: Num> {
 	is_hole: bool,
 	area: f64,
 	pub points: Vec<Point<N>>,
 }
 
-#[derive(Debug)]
+#[derive(Debug,Clone)]
 pub struct Shape<N: Num> {
 	pub polys: Vec<Polygon<N>>,
 }
