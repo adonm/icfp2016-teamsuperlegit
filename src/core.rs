@@ -6,11 +6,8 @@ use std::fmt::Debug;
 use std::str::FromStr;
 
 extern crate num;
-use num::bigint::{BigInt,Sign};
 use num::rational::BigRational;
-use num::pow::pow;
-use num::{ToPrimitive,Zero};
-use num::Float;
+use num::ToPrimitive;
 
 pub trait ToF64 {
 	fn to_f64(&self) -> f64;
@@ -18,18 +15,6 @@ pub trait ToF64 {
 
 impl ToF64 for i32 {
 	fn to_f64(&self) -> f64 { *self as f64 }
-}
-
-fn abs<'a>(r: &'a BigInt) -> BigInt {
-	if r.sign() == Sign::Minus { -r } else { r.clone() }
-}
-
-fn signum(r: &BigRational) -> f64 {
-	match (r.numer().sign(), r.denom().sign()) {
-	(n, _) if n == Sign::NoSign => 0.0,
-	(n, d) if (n == Sign::Minus) ^ (d == Sign::Minus) => -1.0,
-	_ => 1.0,
-	}
 }
 
 impl ToF64 for BigRational {
