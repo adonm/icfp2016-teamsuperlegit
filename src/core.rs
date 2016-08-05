@@ -44,19 +44,17 @@ pub struct Skeleton<N: Num> {
 
 pub trait ToF64 {
 	fn to_f64(&self) -> f64;
-		fn from_f64(f64) -> Self;
+	fn from_f64(f64) -> Self;
 }
 
 impl ToF64 for i32 {
 	fn to_f64(&self) -> f64 { *self as f64 }
-
-		fn from_f64(f: f64) -> Self { f as i32 }
+	fn from_f64(f: f64) -> Self { f as i32 }
 }
 
 impl ToF64 for f64 {
-
-		fn to_f64(&self) -> f64 { *self }
-		fn from_f64(f: f64) -> Self { f }
+	fn to_f64(&self) -> f64 { *self }
+	fn from_f64(f: f64) -> Self { f }
 }
 
 impl ToF64 for BigRational {
@@ -65,7 +63,7 @@ impl ToF64 for BigRational {
 		self.numer().to_f64().unwrap_or(INFINITY) / self.denom().to_f64().unwrap_or(1.0)
 	}
 
-		fn from_f64(f: f64) -> Self { BigRational::from_float(f).unwrap() }
+	fn from_f64(f: f64) -> Self { BigRational::from_float(f).unwrap() }
 }
 
 pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + PartialOrd + ToF64 + Clone {}
@@ -129,30 +127,27 @@ pub fn v_distance<N: Num>(p: &Point<N>) -> f64 {
 
 
 pub fn normalize_line<N:Num>(start: &Point<N>, dir: &Point<N>) -> Point<N> {
-
-		let f : f64 = 1.0 / v_distance(dir);
-		Point{x: N::from_f64(f * dir.x.to_f64() + start.x.to_f64()), y: N::from_f64(f * dir.y.to_f64() + start.y.to_f64())}
+	let f : f64 = 1.0 / v_distance(dir);
+	Point{x: N::from_f64(f * dir.x.to_f64() + start.x.to_f64()), y: N::from_f64(f * dir.y.to_f64() + start.y.to_f64())}
 
 }
 
 // l0.p2 and l1.p1 are the same since this is where the lines join
 // l0 and l1 must be perpendicular
 pub fn square_from_corner<N:Num>(l0: &Line<N>, l1: &Line<N>) -> Polygon<N> {
+	if l0.p2 != l1.p1 {
+		panic!("Lines must join");
+	}
 
-		if l0.p2 != l1.p1 {
-				panic!("Lines must join");
-		}
+	let p1 = normalize_line(&l0.p2, &(&l0.p1-&l0.p2));
+	let p2 = normalize_line(&p1, &(&l1.p2-&l1.p1));
+	let poly = Polygon::new(vec!(
+		l0.p2.clone(),
+		p1,
+		p2,
+		normalize_line(&l0.p2, &(&l1.p2-&l0.p2))));
 
-		let p1 = normalize_line(&l0.p2, &(&l0.p1-&l0.p2));
-		let p2 = normalize_line(&p1, &(&l1.p2-&l1.p1));
-		let poly = Polygon::new(vec!(
-				l0.p2.clone(),
-				p1,
-				p2,
-				normalize_line(&l0.p2, &(&l1.p2-&l0.p2))));
-
-		poly
-
+	poly
 }
 
 impl<N: Num> Point<N> {
@@ -206,7 +201,7 @@ impl<N: Num> Polygon<N> {
 	// If some element of the polygon lies outside the unit square, we'll still
 	// find the vertex closest to 0,0.
 	//
-	// If no vertex of the polygon lies on the unit square, throw an exception
+	// If no vertex of the polygon lies on the unit square, return None.
 	pub fn lowest_unit_vertex(self) -> Option<Point<f64>> {
 		let xx = Line::new(Point{x: 0.0, y: 0.0}, Point{x: 1.0, y: 0.0});
 		let yx = Line::new(Point{x: 1.0, y: 0.0}, Point{x: 1.0, y: 1.0});
@@ -401,6 +396,7 @@ mod tests {
 
 		assert!(is_convex(&l1,&l2)==false);
 	}
+
 	#[test]
 	fn test_is_convex_2(){
 		let l1 = Line{ p1: p(1,1), p2: p(2,2) };
@@ -471,5 +467,4 @@ mod tests {
 		let c = Polygon::new(vec!(p64(0.0, 2.0), p64(1.0, 2.0), p64(1.0, 3.0), p64(0.0, 3.0)));
 		assert_eq!(None, c.lowest_unit_vertex());
 	}
-
 }
