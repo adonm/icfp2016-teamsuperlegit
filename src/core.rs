@@ -1,3 +1,5 @@
+/* vim: set noexpandtab : */
+
 use std::f64::INFINITY;
 use std::ops::{Add,Sub,Mul,Div};
 use std::clone::Clone;
