@@ -27,7 +27,7 @@ impl From<::std::io::Error> for ParseError {
 	}
 }
 
-impl<T: FromStr> FromStr for Point<T> {
+impl<T: Num> FromStr for Point<T> {
 	type Err = ParseError;
 
 	fn from_str(s: &str) -> Result<Point<T>, Self::Err> {
@@ -39,7 +39,7 @@ impl<T: FromStr> FromStr for Point<T> {
 	}
 }
 
-impl<T: FromStr> FromStr for Line<T> {
+impl<T: Num> FromStr for Line<T> {
 	type Err = ParseError;
 
 	fn from_str(s: &str) -> Result<Line<T>, Self::Err> {
@@ -54,7 +54,7 @@ impl<T: FromStr> FromStr for Line<T> {
 
 /* pretty much the worst error reporting possible, sorry. no line numbers and
 ** the underlying error is masked by the ParseError type. */
-pub fn parse<T: FromStr+Debug, R: Read>(stream: R) -> Result<(Shape<T>, Skeleton<T>), ParseError> {
+pub fn parse<T: Num, R: Read>(stream: R) -> Result<(Shape<T>, Skeleton<T>), ParseError> {
 	let mut reader = BufReader::new(stream);
 	let num_polys: i64 = try!(parse_line(&mut reader));
 	let mut shape = Vec::new();
@@ -64,7 +64,7 @@ pub fn parse<T: FromStr+Debug, R: Read>(stream: R) -> Result<(Shape<T>, Skeleton
 		for _ in 0..num_points {
 			poly.push(try!(parse_line::<Point<T>,R>(&mut reader)));
 		}
-		shape.push(poly);
+		shape.push(Polygon::new(poly));
 	}
 	let num_edges: i64 = try!(parse_line(&mut reader));
 	let mut skel = Vec::new();
@@ -101,7 +101,7 @@ mod tests {
 		let f = File::open(format!("{}/001.problem.txt", BASEPATH)).unwrap();
 		let (shape, skel) = parse::<i32, File>(f).unwrap();
 		assert_eq!(1, shape.len());
-		assert_eq!(4, shape[0].len());
+		assert_eq!(4, shape[0].points.len());
 		assert_eq!(4, skel.len());
 	}
 
@@ -110,9 +110,9 @@ mod tests {
 		let f = File::open(format!("{}/007.problem.txt", BASEPATH)).unwrap();
 		let (shape, skel) = parse::<BigRational, File>(f).unwrap();
 		assert_eq!(1, shape.len());
-		assert_eq!(4, shape[0].len());
+		assert_eq!(4, shape[0].points.len());
 		assert_eq!(4, skel.len());
-		println!("{}", shape[0][0].x);
+		println!("{}", shape[0].points[0].x);
 		//assert_eq!(0,1);
 	}
 }
