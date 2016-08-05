@@ -43,8 +43,6 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 			// holes are green
 			println!("hole in {}", filename);
 			fill = "#2dff47";
-		} else {
-
 		}
 		let path = element::Polygon::new()
 				.set("fill", fill).set("fill-opacity", "0.5")
