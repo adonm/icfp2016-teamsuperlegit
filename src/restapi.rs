@@ -14,6 +14,7 @@ fn download(filename: &str, apipathname: &str) {
 	let path_arg = path.clone();
 	let output = Path::new(&path);
 	if !output.exists() {
+        println!("Saving to {}", path);
 		println!("{:?}", 
 			Command::new("curl").arg("--compressed").arg("-L").arg("-H").arg("Expect:").arg("-H")
 			.arg(format!("X-API-Key: 60-d7840e0fce3dc9e9a4e2693153ccd9bc"))
