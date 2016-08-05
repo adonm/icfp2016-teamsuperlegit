@@ -34,19 +34,51 @@ pub fn intersect<N: Num>(line_a: &Line<N>, line_b: &Line<N>) -> Option<Point<N>>
     None
 }
 
-pub fn union<N: Num>(input_a: &Polygon<N>, input_b: &Polygon<N>) -> Option<Polygon<N>> {
+// http://stackoverflow.com/questions/2667748/how-do-i-combine-complex-polygons
+pub fn union<N: Num>(a: &Polygon<N>, b: &Polygon<N>) -> Option<Polygon<N>> {
+    let mut input_a = a.clone();
+    let mut input_b = b.clone();
+
+    let mut points: Vec<Point<N>> = Vec::new();
+    let mut graph: Vec<Vec<usize>> = Vec::new();
+    
+    let len_a = input_a.points.len();
+    let len_b = input_b.points.len();
+    for i in 0..input_a.points.len() {
+        points.push(input_a.points[((i+1)%len_a)].clone());
+        graph.push(vec!(i, ((i+2)%len_a)));
+    }
+
+    for i in 0..input_b.points.len() {
+        points.push(input_b.points[((i+1)%len_b)].clone());
+        graph.push(vec!(i+len_a, ((i+2)%len_b)+len_a));
+    }
+    
     for i in 0..input_a.points.len() { 
-        let line1 = Line{p1: input_a.points[i].clone(), p2: input_a.points[(i+1)%input_a.points.len()].clone()};
+        let line1 = Line{p1: input_a.points[i].clone(), p2: input_a.points[(i+1)%len_a].clone()};
         for j in 0..input_b.points.len() {
-            let line2 = Line{p1: input_b.points[j].clone(), p2: input_b.points[(j+1)%input_b.points.len()].clone()};
+            let line2 = Line{p1: input_b.points[j].clone(), p2: input_b.points[(j+1)%len_b].clone()};
             println!("{:?} comp {:?}", line1, line2);
             let join = intersect(&line1, &line2);
             match join {
-                Some(x) => {println!("HIT {:?}", x);},
-                None => {println!("MISS");},
+                Some(x) => {
+                    let point_id = points.len();
+                    points.push(x.clone());
+                    let conn_points = vec!(i, ((i+1)%len_a), len_a+j, len_a+((j+1)%len_b));
+                    graph.push(conn_points.clone());
+                    for conn in conn_points {
+                        graph[conn].push(point_id);
+                    }
+                    println!("HIT {:?}", x);
+                },
+                None => {
+                    println!("MISS");
+                },
             }
         }
     }
+    println!("POINTS KACHING {:?}", points);
+    println!("GRAFF {:?}", graph);
     None
 }
 
