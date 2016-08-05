@@ -1,4 +1,5 @@
 Goals
+
 * scrape problem api, save to files - DONE
 * Save each file to problems dir - DONE
 * render each problem as an svg - DOING (adon)
