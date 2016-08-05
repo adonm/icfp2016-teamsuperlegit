@@ -42,6 +42,7 @@ pub struct Line<N: Num> {
 #[derive(Debug)]
 pub struct Polygon<N: Num> {
 	is_hole: bool,
+	area: f64,
 	pub points: Vec<Point<N>>,
 }
 
@@ -65,12 +66,16 @@ impl<N: Num> Sub for Point<N> where N: Sub<Output=N> {
 
 impl<N: Num> Polygon<N> where N: Sub<Output=N>+Add<Output=N> {
 	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
-		let clockwise = is_clockwise(&points);
-		Polygon{points: points, is_hole: clockwise}
+		let (clockwise, area) = orient_area(&points);
+		Polygon{points: points, area: area, is_hole: clockwise}
 	}
 
 	pub fn is_hole(self) -> bool {
 		self.is_hole
+	}
+
+	pub fn area(self) -> f64 {
+		self.area
 	}
 }
 
@@ -80,13 +85,15 @@ pub fn angle<N: Num>(p0: &Point<N>, p1: &Point<N>) -> f64 where N: Sub<Output=N>
 	return dx.to_f64().atan2(dy.to_f64());
 }
 
-fn is_clockwise<N: Num>(points: &Vec<Point<N>>) -> bool where N: Sub<Output=N>+Add<Output=N> {
+/* returns a tuple where the first element is true if the poly points are in clockwise order,
+** and the second element is the area contained within */
+fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64) where N: Sub<Output=N>+Add<Output=N> {
 	let n = points.len();
 	let mut sum = (points[0].x.clone() - points[n-1].x.clone()).to_f64() * (points[0].y.clone() + points[n-1].y.clone()).to_f64();
 	for edge in points.windows(2) {
 		sum += (edge[1].x.clone() - edge[0].x.clone()).to_f64() * (edge[1].y.clone() + edge[0].y.clone()).to_f64();
 	}
-	sum >= 0.0
+	return (sum >= 0.0, sum.abs() / 2.0)
 }
 
 #[cfg(test)]
@@ -116,6 +123,13 @@ mod tests {
 	fn test_clockwise() {
 		assert!(!Polygon::new(vec!(p(0, 0), p(1, 0), p(1, 1), p(0, 1))).is_hole());
 		assert!(Polygon::new(vec!(p(0, 0), p(0, 1), p(1, 1), p(1, 0))).is_hole());
+	}
+
+	#[test]
+	fn test_area() {
+		assert_eq!(1.0, Polygon::new(vec!(p(0, 0), p(1, 0), p(1, 1), p(0, 1))).area());
+		assert_eq!(1.0, Polygon::new(vec!(p(0, 0), p(0, 1), p(1, 1), p(1, 0))).area());
+		assert_eq!(4.0, Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).area());
 	}
 
 	#[test]
