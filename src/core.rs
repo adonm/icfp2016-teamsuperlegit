@@ -27,7 +27,7 @@ impl ToF64 for BigRational {
 pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
 impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul + Div + Sized + FromStr + Debug + Ord + ToF64 + Clone {}
 
-#[derive(Debug,PartialEq)]
+#[derive(Debug,PartialEq, Clone)]
 pub struct Point<N: Num> {
 	pub x: N,
 	pub y: N,
@@ -39,7 +39,7 @@ pub struct Line<N: Num> {
     pub p2: Point<N>
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Polygon<N: Num> {
 	is_hole: bool,
 	area: f64,
