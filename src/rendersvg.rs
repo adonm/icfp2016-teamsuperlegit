@@ -22,10 +22,22 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 		let path = element::Path::new()
 				.set("fill", "none")
 				.set("stroke", "black")
-				.set("stroke-width", 0.01)
+				.set("stroke-width", 0.02)
 				.set("d", data);
 		document = document.add(path);
 	}
+    for bone in skel {
+        let line = element::Line::new()
+                .set("fill", "none")
+                .set("stroke", "crimson")
+                .set("stroke-width", 0.01)
+                .set("stroke-dasharray", "0.01,0.01")
+                .set("x1", bone.p1.x.to_f64())
+                .set("y1", bone.p1.y.to_f64())
+                .set("x2", bone.p2.x.to_f64())
+                .set("y2", bone.p2.y.to_f64());
+        document = document.add(line);
+    }
 	// only save when float coords done ok
 	svg::save(format!("{}/{}", BASEPATH, filename), &document).unwrap();
 }

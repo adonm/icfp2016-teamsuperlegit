@@ -34,7 +34,10 @@ pub struct Point<N: Num> {
 }
 
 #[derive(Debug)]
-pub struct Line<N: Num>(pub Point<N>, pub Point<N>);
+pub struct Line<N: Num> {
+    pub p1: Point<N>, 
+    pub p2: Point<N>
+}
 
 #[derive(Debug)]
 pub struct Polygon<N: Num> {

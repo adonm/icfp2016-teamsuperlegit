@@ -47,7 +47,7 @@ impl<N: Num> FromStr for Line<N> {
 		if fields.len() != 2 {
 			return Err(ParseError::BadLine);
 		}
-		return Ok(Line(try!(ParseError::wrap(fields[0].parse::<Point<N>>())), try!(ParseError::wrap(fields[1].parse::<Point<N>>()))));
+		return Ok(Line{p1: try!(ParseError::wrap(fields[0].parse::<Point<N>>())), p2: try!(ParseError::wrap(fields[1].parse::<Point<N>>()))});
 	}
 }
 
