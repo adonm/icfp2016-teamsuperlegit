@@ -50,18 +50,18 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 		document = document.add(path);
 	}
     for bone in skel {
-        let line = element::Line::new()
+        let skel_data = element::path::Data::new()
+                .move_to((bone.p1.x.to_f64(), bone.p1.y.to_f64()))
+                .line_to((bone.p2.x.to_f64(), bone.p2.y.to_f64()));
+        let skel_path = element::Path::new()
                 .set("fill", "none")
                 .set("stroke", "crimson")
                 .set("stroke-width", 0.015)
                 .set("stroke-dasharray", "0.01,0.01")
                 .set("marker-start", "url(#ArrowStart)")
                 .set("marker-end", "url(#ArrowEnd)")
-                .set("x1", bone.p1.x.to_f64())
-                .set("y1", bone.p1.y.to_f64())
-                .set("x2", bone.p2.x.to_f64())
-                .set("y2", bone.p2.y.to_f64());
-        document = document.add(line);
+                .set("d", skel_data);
+        document = document.add(skel_path);
     }
 	// only save when float coords done ok
 	svg::save(format!("{}/{}", BASEPATH, filename), &document).unwrap();
