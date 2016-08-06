@@ -236,6 +236,17 @@ impl<N: Num> Polygon<N> {
         }
         contains
     }
+    
+    pub fn coincident(&self, test: &Point<N>) -> bool {
+        let end = self.points.len();
+        for offset in 0..end {
+            let l_test = Line::new(self.points[offset].clone(), self.points[(offset+1)%end].clone());
+            if l_test.coincident(&test) {
+                return true
+            }
+        }
+        false
+    }
 
 	// Returns the longest edge of this polygon
 	pub fn longest_edge(self) -> (Point<N>, Point<N>) {
@@ -626,25 +637,26 @@ mod tests {
 	}
 
 	#[test]
-	fn test_coincident() {
+	fn test_line_coincident() {
 		assert!(Line::new(p(0,0), p(0,10)).coincident(&p(0,5)));
 		assert!(!Line::new(p(0,0), p(0,10)).coincident(&p(1,5)));
 		assert!(!Line::new(p(0,0), p(0,10)).coincident(&p(0,11)));
 	}
 
     #[test]
-    fn test_contains_1() {
+    fn test_poly_contains() {
         assert!(Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(0,0)));
-    }
-
-    #[test]
-    fn test_contains_2() {
+        assert!(Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(1,0)));
         assert!(Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(1,1)));
+        assert!(!Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(3,3)));
     }
 
     #[test]
-    fn test_contains_3() {
-        assert!(!Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(3,3)));
+    fn test_poly_coincident() {
+        assert!(Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).coincident(&p(0,0)));
+        assert!(Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).coincident(&p(1,0)));
+        assert!(!Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).coincident(&p(1,1)));
+        assert!(!Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).coincident(&p(3,3)));
     }
 
 
