@@ -75,21 +75,21 @@ pub fn intersect_lines<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 }
 
 pub fn gradient<N:Num>(l: &Line<N>) -> N {
-    ( l.p2.y.clone() - l.p1.y.clone() ) / ( l.p2.x.clone() - l.p1.x.clone() )
+    ( l.p2.y - l.p1.y ) / ( l.p2.x - l.p1.x )
 }
 
 //reflect point p on axis l
 pub fn flip_point<N:Num>(p: &Point<N>, l: &Line<N>) -> Point<N> {
     
     let a = gradient(&l);
-    let c = l.p1.y.clone() - l.p1.x.clone() * a.clone();
-    let x = p.x.clone();
-    let y = p.y.clone();
-    let d = (x.clone() + (y - c)*a.clone())/(N::from_f64(1.0) + a.clone()*a.clone());
+    let c = l.p1.y - l.p1.x * a;
+    let x = p.x;
+    let y = p.y;
+    let d = (x + (y - c)*a)/(N::from_f64(1.0) + a*a);
     
     let two = N::from_f64(2.0);
     
-    Point{ x: two*d.clone() - x.clone(), y: two.clone()*d.clone()*a.clone() - y.clone() + two.clone()*c }
+    Point{ x: two*d - x, y: two*d*a - y + two*c }
 }
 
 //flips both points of a line on an axis
