@@ -3,7 +3,7 @@
 use std::f64::INFINITY;
 use std::ops::{Add,Sub,Mul,Div,Neg};
 use std::clone::Clone;
-use std::cmp::PartialOrd;
+use std::cmp::{Ord,Ordering,PartialOrd};
 use std::fmt::{Debug,Display};
 use std::fmt;
 use std::str::FromStr;
@@ -12,7 +12,7 @@ extern crate num;
 use num::rational::BigRational;
 use num::ToPrimitive;
 
-#[derive(Debug,Clone,PartialEq)]
+#[derive(Debug,Clone,PartialEq,PartialOrd)]
 pub struct Point<N: Num> {
 	pub x: N,
 	pub y: N,
@@ -366,8 +366,8 @@ impl SuperLegit for BigRational {
 	fn one() -> Self { num::one::<BigRational>() }
 }
 
-pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + Display + PartialOrd + Clone + SuperLegit {}
-impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + Display + PartialOrd + Clone + SuperLegit {}
+pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + Display + PartialOrd + PartialEq + Clone + SuperLegit {}
+impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + Display + PartialOrd + PartialEq + Clone + SuperLegit {}
 
 impl<N: Num> Add for Point<N> {
 	type Output=Self;
@@ -400,6 +400,20 @@ impl<'a, 'b, N: Num> Sub<&'b Point<N>> for &'a Point<N> {
 impl<N: Num> Display for Point<N> {
 	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
 		write!(f, "{},{}", self.x, self.y)
+	}
+}
+
+/* can't derive(Eq) because we support Point<f64> and f64 doesn't provide a total ordering
+ * (╯°□°)╯ sᴎɐᴎ */
+impl<N: Num> Eq for Point<N> {
+	// apparently this is allowed to be empty. cool?
+}
+
+impl<N: Num> Ord for Point<N> {
+	fn cmp(&self, other: &Point<N>) -> Ordering {
+		if self < other { Ordering::Less }
+		else if self > other { Ordering::Greater }
+		else { Ordering::Equal }
 	}
 }
 
