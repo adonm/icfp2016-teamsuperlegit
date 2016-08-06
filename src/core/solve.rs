@@ -29,7 +29,7 @@ pub fn get_next_edge_to_fold<N: Num>(base: Polygon<N>, silhouette: Polygon<N>) -
 	if candidates.len() == 0 { return Err(false) }
 	let mut longest: Line<f64> = candidates[0].clone();
 	for line in candidates {
-	  println!("get_next_edge_to_fold: considering {}, length {}", line, line.len());
+		//println!("get_next_edge_to_fold: considering {}, length {}", line, line.len());
 		if line.len() > longest.len() {
 			longest = line;
 		}

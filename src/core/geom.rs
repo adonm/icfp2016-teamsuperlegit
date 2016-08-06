@@ -85,12 +85,12 @@ pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) 
 	for boundary in other.edges().iter() {
 		// If the beginning or end of the line are coincident to the boundary, they need to be added
 		if boundary.coincident(&line.p1) {
-      println!("intersect_poly - adding coincident candidate {}", line.p1);
+    	// println!("intersect_poly - adding coincident candidate {}", line.p1);
 			candidates.push(line.p1.clone());
 		}
 
 		if boundary.coincident(&line.p2) {
-      println!("intersect_poly - adding coincident candidate {}", line.p2);
+    	// println!("intersect_poly - adding coincident candidate {}", line.p2);
 			candidates.push(line.p2.clone());
 		}
 
@@ -105,31 +105,31 @@ pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) 
 		if point != None {
 			let point_c = point.unwrap().clone();
 
-      // The proposed intersection must be coincident on the boundary (ie. the
-      // discrete segment only). intersect_inf will give us inf intersect for
-      // both lines - we only want the input line to be infinite.
-      if boundary.coincident(&point_c) {
-        println!("intersect_poly - adding candidate {} from intersection of {} and {}", point_c, line, boundary);
-        candidates.push(point_c);
-      } else {
-        println!("intersect_poly - candidate {} is not conincident on boundary {}, skipping", point_c, boundary);
-      }
+			// The proposed intersection must be coincident on the boundary (ie. the
+			// discrete segment only). intersect_inf will give us inf intersect for
+			// both lines - we only want the input line to be infinite.
+			if boundary.coincident(&point_c) {
+				// println!("intersect_poly - adding candidate {} from intersection of {} and {}", point_c, line, boundary);
+				candidates.push(point_c);
+			} else {
+				// println!("intersect_poly - candidate {} is not conincident on boundary {}, skipping", point_c, boundary);
+			}
 		}
 	}
 
-  // !!
+  	// !!
 	candidates.sort();
 	candidates.dedup();
 
-	println!("intersect_poly (discrete={}) for {}, {} candidates - ", discrete, line, candidates.len());
+	// println!("intersect_poly (discrete={}) for {}, {} candidates - ", discrete, line, candidates.len());
 	for p in candidates.clone() {
-		println!("{}", p);
+		// println!("{}", p);
 	}
 
 	if candidates.len() == 2 {
 		return Some((candidates[0].clone(), candidates[1].clone()));
 	} else {
-		println!("intersect_poly has too many candidates: {}", candidates.len());
+		// println!("intersect_poly has too many candidates: {}", candidates.len());
 		return None
 	}
 }
@@ -428,8 +428,8 @@ impl<N: Num> Polygon<N> {
 		let mut candidates = Vec::new();
 
 		for edge in self.edges() {
-			println!("slicey_edges - considering line {}", edge);
-			println!("  contained {} {}", other.contains(&edge.p1.to_f64()), other.contains(&edge.p2.to_f64()));
+			// println!("slicey_edges - considering line {}", edge);
+			// println!("  contained {} {}", other.contains(&edge.p1.to_f64()), other.contains(&edge.p2.to_f64()));
 			let mut intersection: Option<(Point<f64>, Point<f64>)> = intersect_poly_discrete(edge.clone().to_f64(), other.clone());
 			if intersection == None {
 				// Line lies wholly within or wholly without the unit square, or straddles the boundary

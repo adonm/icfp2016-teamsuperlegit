@@ -49,7 +49,6 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 		}
 		let fill = if polygon.is_hole() {
 			// holes are green
-			println!("hole in {}", filename);
 			"#2dff47"
 		} else {
 			// silhouettes are pink
@@ -57,7 +56,6 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 		};
 		if polygon.square() {
 			psquare = Ok(polygon.clone());
-			println!("square in {}", filename);
 		}
 		let poly = element::Polygon::new()
 				.set("fill", fill).set("fill-opacity", "0.5")

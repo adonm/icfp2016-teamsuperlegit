@@ -26,8 +26,13 @@ fn draw_problems(problems: Vec<Json>) -> Vec<Json> {
 		let id = problem.find_path(&["problem_id"]).unwrap().as_i64().unwrap();
 		let filename = format!("{:05}.problem.svg", id);
 		let file = std::fs::File::open(format!("{}/{:05}.problem.txt", BASEPATH, id)).unwrap();
-		let (shape, skeleton) = parse::parse::<BigRational, std::fs::File>(file).unwrap();
-		rendersvg::draw_svg(shape, skeleton, &filename)
+		let data = parse::parse::<BigRational, std::fs::File>(file);
+		if data.is_ok() {
+			let (shape, skeleton) = data.unwrap();
+			rendersvg::draw_svg(shape, skeleton, &filename);
+		} else {
+			println!("Problem {} can't be parsed", id);
+		}
 	}
 	return problems
 }
