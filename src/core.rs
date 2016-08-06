@@ -86,6 +86,10 @@ pub fn intersect<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 	return None
 }
 
+fn cross_scalar<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
+	a.x.clone() * b.y.clone() - a.y.clone() * b.x.clone()
+}
+
 // http://stackoverflow.com/a/1968345
 // discrete line intersection
 pub fn intersect_lines<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
@@ -93,11 +97,11 @@ pub fn intersect_lines<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 	let s2 = &b.p2 - &b.p1;
 	let c1 = &a.p1 - &b.p1;
 
-	let s = (- s1.y.clone() * c1.x.clone() + s1.x.clone() * c1.y.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
-	let t = ( s2.x.clone() * c1.y.clone() - s2.y.clone() * c1.x.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
+	let s = cross_scalar(&s1, &c1) / cross_scalar(&s1, &s2);
+	let t = cross_scalar(&s2, &c1) / cross_scalar(&s1, &s2);
 
-	if (s.to_f64() >= 0.0) && (s.to_f64() <= 1.0) && (t.to_f64() >= 0.0) && (t.to_f64() <= 1.0) {
-		return Some(Point{x: a.p1.x.clone() + t.clone()*s1.x.clone(), y: a.p1.y.clone() + t.clone()*s1.y.clone()})
+	if (s >= N::zero()) && (s < N::one()) && (t >= N::zero()) && (t <= N::one()) {
+		return Some(&a.p1 + s1.scale(t));
 	}
 
 	None
@@ -218,7 +222,22 @@ pub fn fold_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Vec<Line<N>> {
 		None => vec!(flip_line(&line,&fold))
 	}
 }
-//
+
+// This function figures out the next line to fold along
+pub fn get_next_edge_to_fold(base: Polygon<f64>, silhouette: Polygon<f64>) -> (Point<f64>, Point<f64>) {
+	let mut candidates: Vec<Line<f64>> = silhouette.slicey_edges(base);
+
+	let mut longest: Line<f64> = candidates[0].clone();
+	for line in candidates {
+	  println!("get_next_edge_to_fold: considering {}, length {}", line, line.len());
+		if line.len() > longest.len() {
+			longest = line;
+		}
+	}
+
+	return (longest.p1.clone(), longest.p2.clone());
+}
+
 // current state: outline, lines
 // new fold: vertex and dir (dir is a directional vector represented as a point)
 // note: the vertex must be on the outline somewhere
@@ -423,7 +442,7 @@ impl<N: Num> Polygon<N> {
 			// Poss. do something with intersection here
 			
 			if intersection != None {
-				candidates.push(edge.to_f64());
+				candidates.push(Line::new(intersection.clone().unwrap().0, intersection.clone().unwrap().1));
 			}
 		}
 
@@ -677,6 +696,20 @@ impl<'a, 'b, N: Num> Add<&'b Point<N>> for &'a Point<N> {
 	}
 }
 
+impl<'a, N: Num> Add<&'a Point<N>> for Point<N> {
+	type Output=Point<N>;
+	fn add(self, other: &'a Point<N>) -> Point<N> {
+		Point{x: self.x + other.x.clone(), y: self.y + other.y.clone()}
+	}
+}
+
+impl<'a, N: Num> Add<Point<N>> for &'a Point<N> {
+	type Output=Point<N>;
+	fn add(self, other: Point<N>) -> Point<N> {
+		Point{x: other.x + self.x.clone(), y: other.y + self.y.clone()}
+	}
+}
+
 impl<N: Num> Sub for Point<N> {
 	type Output=Self;
 	fn sub(self, other: Point<N>) -> Self {
@@ -688,6 +721,20 @@ impl<'a, 'b, N: Num> Sub<&'b Point<N>> for &'a Point<N> {
 	type Output=Point<N>;
 	fn sub(self, other: &'b Point<N>) -> Point<N> {
 		Point{x: self.x.clone() - other.x.clone(), y: self.y.clone() - other.y.clone()}
+	}
+}
+
+impl<'a, N: Num> Sub<&'a Point<N>> for Point<N> {
+	type Output=Point<N>;
+	fn sub(self, other: &'a Point<N>) -> Point<N> {
+		Point{x: self.x - other.x.clone(), y: self.y - other.y.clone()}
+	}
+}
+
+impl<'a, N: Num> Sub<Point<N>> for &'a Point<N> {
+	type Output=Point<N>;
+	fn sub(self, other: Point<N>) -> Point<N> {
+		Point{x: self.x.clone() - other.x, y: self.y.clone() - other.y }
 	}
 }
 
@@ -894,6 +941,8 @@ mod tests {
 		assert_eq!(p64(2.25, 4.0), &p2 + &p1);
 		assert_eq!(p64(3.5, 6.5), &p1 + &(p2.scale(2.0)));
 		assert_eq!(p64(3.25, 5.5), &(p1.scale(2.0)) + &p2);
+
+		assert_eq!(p64(0.25, 1.0), p2 - &p1);
 	}
 
 	#[test]
@@ -958,5 +1007,27 @@ mod tests {
 			println!("{}", edge);
 		}
 		assert_eq!(4, a.len());
+	}
+
+	#[test]
+	fn test_get_next_edge_to_fold() {
+		println!("## Unit square base, silhouette as above");
+		let mut base = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
+		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5)));
+
+		let result: (Point<f64>, Point<f64>) = get_next_edge_to_fold(base, a);
+		println!("Folding along edge {} -> {}", result.0, result.1);
+		assert_eq!(Point{x: 0.0, y: 0.0}, result.0);
+		assert_eq!(Point{x: 1.0, y: 1.0}, result.1);
+
+		println!("## Rotated square base, silhouette as above");
+		base = Polygon::new(vec!(p64(-4.0, 0.0), p64(0.0, -4.0), p64(4.0, 0.0), p64(0.0, 4.0)));
+		a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5)));
+
+		let result: (Point<f64>, Point<f64>) = get_next_edge_to_fold(base, a);
+		println!("Folding along edge {} -> {}", result.0, result.1);
+		assert_eq!(Point{x: 0.5, y: -3.54}, result.0);
+		assert_eq!(Point{x: 0.5, y: 3.5}, result.1);
+
 	}
 }
