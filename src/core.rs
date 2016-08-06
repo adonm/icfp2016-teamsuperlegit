@@ -296,9 +296,10 @@ fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool, Vec<(Line<N>
 	for segment in points.windows(2) {
 		let edge = (&segment[0], &segment[1]);
 		let cornerangle = (angle(edge1.0, edge1.1) - angle(edge.0, edge.1)).abs();
-		if cornerangle % 90.0_f64.to_radians() > 0.0 {
+		if cornerangle % 90.0_f64.to_radians() > 0.00001 {
 			square = false;
 		} else {
+			println!("{}", cornerangle.to_degrees());
 			corners.push((
 				Line{p1: (*edge1.0).clone(), p2: (*edge1.1).clone()},
 				Line{p1: (*edge.0).clone(), p2: (*edge.1).clone()}
