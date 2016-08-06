@@ -513,7 +513,7 @@ impl<N: Num> Line<N> {
 
 	// True if point lies on this line
 	pub fn coincident(&self, point: &Point<N>) -> bool {
-		return p_distance(&self.p1, point) + p_distance(point, &self.p2) == self.len();
+		return eq_eps(&(p_distance(&self.p1, point) + p_distance(point, &self.p2)), &self.len());
 	}
 
 	// Returns a point along this line. 0 <= alpha <= 1, else you're extrapolating bro
@@ -745,6 +745,7 @@ mod tests {
 		assert!(Line::new(p(0,0), p(0,10)).coincident(&p(0,10)));
 		assert!(Line::new(p64(0.0,0.0), p64(0.0,10.0)).coincident(&p64(0.0,0.0)));
 		assert!(Line::new(p64(0.0,0.0), p64(0.0,10.0)).coincident(&p64(0.0,10.0)));
+		assert!(Line::new(p64(-4.0,0.0), p64(0.0,-4.0)).coincident(&p64(-2.875,-1.125)));
 		assert!(!Line::new(p(0,0), p(0,10)).coincident(&p(1,5)));
 		assert!(!Line::new(p(0,0), p(0,10)).coincident(&p(0,11)));
 	}
