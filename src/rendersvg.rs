@@ -118,23 +118,16 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 			let coord = format!("{},{} ", point.x.to_f64(), point.y.to_f64());
 			points.push_str(&coord);
 		}
-		/*
-		for edge in unitsquare.edges() {
-			for poly in shape.clone().polys {
-				let vertex = intersect_poly_discrete(edge.clone(), poly).ok_or(false);
-				if vertex.is_ok() {
-					let (p1, p2) = vertex.unwrap();
-					for p in [p1, p2].iter() {
-						let intersect = element::Circle::new()
-							.set("cx", p.x.to_f64()).set("cy", p.y.to_f64())
-							.set("fill", "#f00").set("fill-opacity", "0.5")
-							.set("r", "0.01");
-						document = document.add(intersect);
-					}
-				}
-			}
+		// draw intersect vertices
+		let ref poly = shape.polys[0];
+		let (p1, p2) = get_next_edge_to_fold(unitsquare.clone(), poly.clone());
+		for p in [p1, p2].iter() {
+			let intersect = element::Circle::new()
+				.set("cx", p.x.to_f64()).set("cy", p.y.to_f64())
+				.set("fill", "#f00").set("fill-opacity", "0.5")
+				.set("r", "0.01");
+			document = document.add(intersect);
 		}
-		*/
 		let poly = element::Polygon::new()
 					.set("fill", "#000").set("fill-opacity", "0.3")
 					.set("stroke", "black").set("stroke-opacity", "0.5")

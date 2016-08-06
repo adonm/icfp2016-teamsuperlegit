@@ -324,6 +324,14 @@ impl<N: Num> Polygon<N> {
 		Polygon{points: points, transform: Matrix33::identity()}
 	}
 
+	pub fn to_f64(self) -> Polygon<f64> {
+		let mut points: Vec<Point<f64>> = Vec::new();
+		for p in self.points {
+			points.push(p.to_f64());
+		}
+		return Polygon::new(points);
+	}
+
 	fn double_signed_area(&self) -> f64 {
 		let mut sum = N::zero();
 		for edge in self.edges() {
@@ -420,8 +428,8 @@ impl<N: Num> Polygon<N> {
 		let mut candidates = Vec::new();
 
 		for edge in self.edges() {
-		  println!("slicey_edges - considering line {}", edge);
-		  println!("  contained {} {}", other.contains(&edge.p1.to_f64()), other.contains(&edge.p2.to_f64()));
+			println!("slicey_edges - considering line {}", edge);
+			println!("  contained {} {}", other.contains(&edge.p1.to_f64()), other.contains(&edge.p2.to_f64()));
 			let mut intersection: Option<(Point<f64>, Point<f64>)> = intersect_poly_discrete(edge.clone().to_f64(), other.clone());
 			if intersection == None {
 				// Line lies wholly within or wholly without the unit square, or straddles the boundary
@@ -778,7 +786,7 @@ mod tests {
 		}
 		assert_eq!(2, a.len());
 
-    // Unit base
+    	// Unit base
 		println!("## Polygon with vertices on unit sq corners/parallel lines");
 		a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges(unit_sq_p.clone());
 		println!("Number of intersecting edges: {}", a.len());
