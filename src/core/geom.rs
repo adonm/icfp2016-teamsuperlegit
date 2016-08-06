@@ -163,8 +163,6 @@ pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Poin
         let c = vertex1.y.clone() - g.clone() * vertex1.x.clone();
         let d = vertex2 - vertex1;
         
-        println!("p,v1,v2,grad,c,angle {:?} {:?} {:?} {:?} {:?} {:?}",p,vertex1,vertex2,gradient(&l),c,c.clone().to_f64().atan());
-        
         Matrix33::translate(N::from_f64(0.0),-c.clone())
             .then_rotate( - d.clone().y / v_distance(&d), d.clone().x / v_distance(&d) )
             .then_scale(N::from_f64(1.0),N::from_f64(-1.0))
