@@ -52,6 +52,18 @@ impl<N: Num> Matrix33<N> {
 		]}
 	}
 
+	pub fn then_scale(self, sx: N, sy: N) -> Matrix33<N> {
+		self * Matrix33::scale(sx, sy)
+	}
+
+	pub fn then_rotate(self, angle: f64) -> Matrix33<N> {
+		self * Matrix33::rotate(angle)
+	}
+
+	pub fn then_translate(self, tx: N, ty: N) -> Matrix33<N> {
+		self * Matrix33::translate(tx, ty)
+	}
+
 	pub fn transform(&self, p: Point<N>) -> Point<N> {
 		let x = p.x.clone() * self[(0, 0)].clone() + p.y.clone() * self[(1, 0)].clone() + self[(2, 0)].clone();
 		let y = p.x.clone() * self[(0, 1)].clone() + p.y.clone() * self[(1, 1)].clone() + self[(2, 1)].clone();
@@ -147,5 +159,9 @@ mod tests {
 		let m = Matrix33::translate(0.0, -3.0) * Matrix33::scale(1.0, -1.0) * Matrix33::translate(0.0, 3.0);
 		assert_eq!(p(4.0, 2.0), m.transform(p(4.0, 4.0)));
 		assert_eq!(p(2.5, 5.0), m.transform(p(2.5, 1.0)));
+
+		let m2 = Matrix33::translate(0.0, -3.0).then_scale(1.0, -1.0).then_translate(0.0, 3.0);
+		assert_eq!(p(4.0, 2.0), m2.transform(p(4.0, 4.0)));
+		assert_eq!(p(2.5, 5.0), m2.transform(p(2.5, 1.0)));
 	}
 }
