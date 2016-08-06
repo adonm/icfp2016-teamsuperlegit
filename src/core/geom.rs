@@ -162,14 +162,14 @@ pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Poin
     } else {
         let g = gradient(&l);
         let c = vertex1.y.clone() - g.clone() * vertex1.x.clone();
-        
+        let d = vertex2 - vertex1;
         
         println!("p,v1,v2,grad,c,angle {:?} {:?} {:?} {:?} {:?} {:?}",p,vertex1,vertex2,gradient(&l),c,c.clone().to_f64().atan());
         
         Matrix33::translate(N::from_f64(0.0),-c.clone())
-            .then_rotate_angle(-g.clone().to_f64().atan())
+            .then_rotate( - d.clone().y / v_distance(&d), d.clone().x / v_distance(&d) )
             .then_scale(N::from_f64(1.0),N::from_f64(-1.0))
-            .then_rotate_angle(g.clone().to_f64().atan())
+            .then_rotate( d.clone().y / v_distance(&d), d.clone().x / v_distance(&d) )
             .then_translate(N::from_f64(0.0),c.clone())
             .transform(p.clone())
     }
@@ -288,13 +288,13 @@ pub fn p_distance<N: Num>(p1: &Point<N>, p2: &Point<N>) -> f64 {
 	return (d.x.to_f64().powi(2) + d.y.to_f64().powi(2)).sqrt();
 }
 
-pub fn v_distance<N: Num>(p: &Point<N>) -> f64 {
-	return (p.x.to_f64().powi(2) + p.y.to_f64().powi(2)).sqrt();
+pub fn v_distance<N: Num>(p: &Point<N>) -> N {
+	return N::from_f64((p.x.to_f64().powi(2) + p.y.to_f64().powi(2)).sqrt());
 }
 
 
 pub fn normalize_line<N:Num>(start: &Point<N>, dir: &Point<N>) -> Point<N> {
-	let ratio = N::from_f64(1.0 / v_distance(dir));
+	let ratio = N::from_f64(1.0) / v_distance(dir);
 	let scaled = dir.scale(ratio);
 	start + &scaled
 }
