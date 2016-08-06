@@ -70,6 +70,8 @@ fn cross_scalar<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
 
 // http://stackoverflow.com/a/1968345
 // discrete line intersection
+// 
+// Returns the intersection point, or None if the lines do not intercept.
 pub fn intersect_discrete<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 	let s1 = &a.p2 - &a.p1;
 	let s2 = &b.p2 - &b.p1;
@@ -123,6 +125,7 @@ pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) 
 		}
 	}
 
+  // !!
 	candidates.sort();
 	candidates.dedup();
 
@@ -700,6 +703,17 @@ mod tests {
 	}
 
 	#[test]
+	fn test_intersect_infinite() {
+    let l1 = Line::new(pNum(0.1, 0.3), pNum(0.25, 0.75));
+    let l2 = Line::new(pNum(1.0, 0.0), pNum(1.0, 1.0));
+		assert_eq!(intersect_inf(&l1,&l2).unwrap(), pNum(1.0, 3.0));
+
+    let l1 = Line::new(pNum(2.0, 0.3), pNum(2.0, 0.75));
+    let l2 = Line::new(pNum(1.0, 0.0), pNum(1.0, 1.0));
+		assert_eq!(intersect_inf(&l1,&l2), None);
+	}
+
+	#[test]
 	fn test_angle() {
 		assert_eq!(45.0.to_radians(), angle(&p(0, 0), &p(1, 1)));
 		assert_eq!(-135.0.to_radians(), angle(&p(1, 1), &p(0, 0)));
@@ -798,8 +812,15 @@ mod tests {
 		let line2 = Line::new(p64(0.0, 0.0), p64(1.0, 3.0));
 		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.3333333333333333, y: 1.0 })), intersect_poly_discrete(line2, unit_sq_p.clone()));
 
-		let line2 = Line::new(p64(0.1, 0.3), p64(0.25, 0.75));
-		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.33333333333333337, y: 1.0 })), intersect_poly_inf(line2, unit_sq_p.clone()));
+		let line3 = Line::new(p64(0.1, 0.3), p64(0.25, 0.75));
+		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.33333333333333337, y: 1.0 })), intersect_poly_inf(line3, unit_sq_p.clone()));
+
+		let line4 = Line::new(p64(0.0, 0.0), p64(1.0, 3.0));
+		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.3333333333333333, y: 1.0 })), intersect_poly_inf(line4, unit_sq_p.clone()));
+
+		let line5 = Line::new(p64(2.0, 0.0), p64(1.0, 3.0));
+		assert_eq!(None, intersect_poly_inf(line5, unit_sq_p.clone()));
+
 	}
 
 	#[test]
