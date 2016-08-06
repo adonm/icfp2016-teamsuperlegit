@@ -32,7 +32,6 @@ pub struct Polygon<N: Num> {
 	is_hole: bool,
 	square: bool,
 	area: f64,
-//    tranform: // 3x3 matrix
 	corners: Vec<(Line<N>, Line<N>)>,
 	pub points: Vec<Point<N>>,
 	pub transform: RcArray<BigRational, (Ix, Ix)>
@@ -195,6 +194,51 @@ pub fn fold_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Vec<Line<N>> {
 		None => vec!(flip_line(&line,&fold))
 	}
 }
+
+
+pub fn fold_polygon<N: Num>(poly: &Polygon<N>, vertex1: Point<N>, vertex2: Point<N>) -> Polygon<N> {
+    
+    let polyF = Polygon<N>::new();
+    
+    for edge in poly.edges() {
+        polyF.push( fold_line(edge) );
+    }
+    
+    polyF
+}
+
+
+pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: Point<N>, v2: Point<N>) -> (Polygon<N>,Polygon<N>) {
+    
+    let poly1 = Polygon<N>::new();
+    let poly2 = Polygon<N>::new();
+    
+    let mut vertex1 = v1;
+    let mut vertex2 = v2;
+    
+    
+    for edge in poly.edges() {
+        
+        if edge.coincedence(&edge,&vertex1) {
+            
+            poly1.push(Line{p1: edge.p1, p2: vertex.clone()});
+            poly1.push(Line{p1: vertex1, p2: vertex2 });
+            poly2.push(Line{p1: vertex.clone(), p2:edge.p2});
+
+            (vertex1, vertex2) = (vertex2,vertex1);
+            (poly1,poly2) = (poly2,poly1);
+            
+        } else {
+            poly1.push(edge.clone());
+        }
+        
+    }
+    
+    (poly1,poly2)
+}
+
+
+
 //
 // current state: outline, lines
 // new fold: vertex and dir (dir is a directional vector represented as a point)
@@ -207,11 +251,48 @@ pub fn fold_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Vec<Line<N>> {
 // When folding we apply the fold to the current outline and produce a new outline as a set of polygons
 // Then, we also apply the fold to the source, the source always remains as a unit square (just withmore polygons)
 // i.e. the source represents the cuts on the source, which
-//pub fn fold_origami<N: Num>(state: &Vec<(Polygon<N>)>, vertex1: Point<N>, vertex2: Point<N>) -> Vec<Polygon<N>>{
-//
-//
-//
-//}
+pub fn fold_origami<N: Num>(state: &Vec<(Polygon<N>)>, vertex1: &Point<N>, vertex2: &Point<N>) -> Vec<Polygon<N>>{
+
+    let mut newState = vec!();
+    
+    for poly in &state {
+        if can_fold(&poly, &vertex1, &vertex2){
+            
+            let (poly1, poly2Old) = split_polygon(&poly,&vertex1,&vertex2);
+            
+            let poly2 = fold_polygon(&poly2Old, &vertex1, &vertex2);
+            
+            newState.push(poly1);
+            newState.push(poly2);
+            
+        } else {
+            newState.push(poly);
+        }
+    }
+    
+    newState
+}
+
+pub fn can_fold<N: Num>(poly: &Polygon<N>, vertex1: Point<N>, vertex2: Point<N>) -> bool {
+    
+    let mut coincedent1 = false;
+    let mut coincedent2 = false;
+
+    for line in poly.edges() {
+
+        if line.coincedent(vertex1){
+            coincedent1 = true
+        }
+
+        if line.coincedent(vertex2){
+            coincedent2 = true
+        }
+
+    }
+    
+    return coincedent1 && coincedent2
+}
+
 
 pub fn is_convex<N: Num>(l0: &Line<N>, l1: &Line<N>) -> bool {
 	dot(l0,l1) > N::zero()
