@@ -27,11 +27,15 @@ impl<N: Num> Matrix33<N> {
 		)
 	}
 
-	pub fn rotate(angle: f64 /* in radians */) -> Matrix33<N> {
+	pub fn rotate_angle(angle: f64 /* in radians */) -> Matrix33<N> {
 		let (s, c) = (angle.sin(), angle.cos());
+		Matrix33::rotate(N::from_f64(s), N::from_f64(c))
+	}
+
+	pub fn rotate(sine: N, cosine: N) -> Matrix33<N> {
 		Matrix33::new(
-			(N::from_f64(c), N::from_f64(s), N::zero()),
-			(N::from_f64(-s), N::from_f64(c), N::zero()),
+			(cosine.clone(), sine.clone(), N::zero()),
+			(-sine, cosine, N::zero()),
 			(N::zero(), N::zero(), N::one()),
 		)
 	}
@@ -56,8 +60,12 @@ impl<N: Num> Matrix33<N> {
 		self * Matrix33::scale(sx, sy)
 	}
 
-	pub fn then_rotate(self, angle: f64) -> Matrix33<N> {
-		self * Matrix33::rotate(angle)
+	pub fn then_rotate(self, sine: N, cosine: N) -> Matrix33<N> {
+		self * Matrix33::rotate(sine, cosine)
+	}
+
+	pub fn then_rotate_angle(self, angle: f64) -> Matrix33<N> {
+		self * Matrix33::rotate_angle(angle)
 	}
 
 	pub fn then_translate(self, tx: N, ty: N) -> Matrix33<N> {
@@ -76,7 +84,7 @@ impl<N: Num> Matrix33<N> {
 
 	pub fn det(&self) -> N {
 		let (a, b, c, d, e, f, g, h, i) = self.refs();
-		N::zero() // TODO
+		N::zero() //a*e*i + b*f*g + c*d*h - c*e*g - b*d*i - a*f*h
 	}
 }
 
@@ -139,7 +147,7 @@ mod tests {
 	#[test]
 	fn test_rotate() {
 		// close enough :S
-		assert_eq!(p(1.0, -0.00000000000000006123233995736766), Matrix33::rotate(90.0.to_radians()).transform(p(0.0, -1.0)));
+		assert_eq!(p(1.0, -0.00000000000000006123233995736766), Matrix33::rotate_angle(90.0.to_radians()).transform(p(0.0, -1.0)));
 	}
 
 	#[test]
