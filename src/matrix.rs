@@ -139,7 +139,7 @@ impl<N: Num> Div<N> for Matrix33<N> {
 impl<N: Num> Index<(usize, usize)> for Matrix33<N> {
 	type Output = N;
 	fn index(&self, index: (usize, usize)) -> &N {
-		assert!(index.0 >= 0 && index.0 < 3 && index.1 >= 0 && index.1 < 3);
+		assert!(index.0 < 3 && index.1 < 3);
 		&self.points[idx(index)]
 	}
 }

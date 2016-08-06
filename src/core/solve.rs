@@ -24,7 +24,7 @@ pub fn square_from_corner<N:Num>(line0: &Line<N>, line1: &Line<N>) -> Polygon<N>
 
 // This function figures out the next line to fold along
 pub fn get_next_edge_to_fold(base: Polygon<f64>, silhouette: Polygon<f64>) -> (Point<f64>, Point<f64>) {
-	let mut candidates: Vec<Line<f64>> = silhouette.slicey_edges(base);
+	let candidates: Vec<Line<f64>> = silhouette.slicey_edges(base);
 
 	let mut longest: Line<f64> = candidates[0].clone();
 	for line in candidates {
