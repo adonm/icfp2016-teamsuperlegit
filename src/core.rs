@@ -17,7 +17,7 @@ pub struct Point<N: Num> {
 	pub y: N,
 }
 
-#[derive(Debug,Clone)]
+#[derive(Debug,Clone,PartialEq)]
 pub struct Line<N: Num> {
 	pub p1: Point<N>,
 	pub p2: Point<N>
@@ -156,6 +156,12 @@ impl<N: Num> Point<N> {
 	}
 }
 
+impl<N: Num> Point<N> {
+	pub fn scale(&self, alpha: N) -> Point<N> {
+		Point{x: self.x.clone() * alpha.clone(), y: self.y.clone() * alpha}
+	}
+}
+
 impl<N: Num> Polygon<N> {
 	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
 		let (clockwise, area, square, corners) = orient_area(&points);
@@ -279,6 +285,19 @@ impl<N: Num> Line<N> {
 	// True if point lies on this line
 	pub fn coincident(&self, point: Point<N>) -> bool {
 		return p_distance(&self.p1, &point) + p_distance(&point, &self.p2) == self.len();
+	}
+
+	// Returns a point along this line. 0 <= alpha <= 1, else you're extrapolating bro
+	pub fn interpolate(&self, alpha: N) -> Point<N> {
+		&self.p1 + &(&self.p2 - &self.p1).scale(alpha)
+	}
+
+	// Splits this line into two at the specified position along it.
+	pub fn split(&self, alpha: N) -> (Line<N>, Line<N>) {
+		let mid = self.interpolate(alpha);
+		let l1 = Line::new(self.p1.clone(), mid.clone());
+		let l2 = Line::new(mid, self.p2.clone());
+		(l1, l2)
 	}
 }
 
@@ -466,5 +485,19 @@ mod tests {
 
 		let c = Polygon::new(vec!(p64(0.0, 2.0), p64(1.0, 2.0), p64(1.0, 3.0), p64(0.0, 3.0)));
 		assert_eq!(None, c.lowest_unit_vertex());
+	}
+
+	#[test]
+	fn test_interpolate() {
+		let line1 = Line::new(p64(0.0, 0.0), p64(1.0, 3.0));
+		assert_eq!(p64(0.5, 1.5), line1.interpolate(0.5));
+		assert_eq!(p64(0.125, 0.375), line1.interpolate(0.125));
+	}
+
+	#[test]
+	fn test_split() {
+		let (start, mid, end) = (p64(1.0, 1.5), p64(1.125, 2.0), p64(1.25, 2.5));
+		let line1 = Line::new(start.clone(), end.clone());
+		assert_eq!((Line::new(start.clone(), mid.clone()), Line::new(mid.clone(), end.clone())), line1.split(0.5))
 	}
 }
