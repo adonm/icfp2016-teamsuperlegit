@@ -219,7 +219,7 @@ pub fn flip_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Poi
     for pt in poly.clone().points {
         poly_f.push( flip_point( &pt, &vertex1, &vertex2 ) );
     }
-    
+    poly_f.reverse();
     let mut ret = Polygon::new(poly_f);
     ret.transform = poly.clone().transform * reflect_matrix(&vertex1,&vertex2);
     ret
@@ -245,7 +245,7 @@ pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) ->
         
         let co = if edge.clone().coincident(&vertex1) {
             Some(vertex1)
-        } else if edge.clone().coincident(&vertex1) {
+        } else if edge.clone().coincident(&vertex2) {
             Some(vertex2)
         } else {
             None
