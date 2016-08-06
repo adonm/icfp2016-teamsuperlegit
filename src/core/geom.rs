@@ -128,21 +128,24 @@ pub fn gradient<N:Num>(l: &Line<N>) -> N {
 	( l.p2.y.clone() - l.p1.y.clone() ) / ( l.p2.x.clone() - l.p1.x.clone() )
 }
 
-pub fn flip_point_matrix<N:Num>(p: Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
+pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
     
     let l = Line::new(vertex1.clone(),vertex2.clone());
     
     if vertex1.y.clone() == N::from_f64(0.0) && vertex2.y.clone() == N::from_f64(0.0) {
-//        (Matrix33::rotate(90.0.to_radians()) * Matrix33::scale(0,-1) * Matrix33::rotate(-90.0.to_radians())).transform(&p)
-        (Matrix33::rotate(90.0.to_radians()) * Matrix33::scale(0.0,-1.0)).transform(p)
-        
+        Matrix33::rotate(90.0.to_radians())
+            .then_scale(N::from_f64(0.0),N::from_f64(-1.0))
+            .then_rotate(-90.0.to_radians())
+            .transform(p.clone())
         
     } else {
-        let c = N::from_f64( vertex1.y.clone() - gradient(&l) * vertex1.x.clone() );
-//        (Matrix33::translate(0,-c) * Matrix33::rotate(c.atan()) * Matrix33::scale(0,-1) * Matrix33::rotate(-c.atan()) * Matrix33::translate(0,c)).transform(&p)
-        
-        
-        (Matrix33::translate(0,-c) * Matrix33::rotate(c.atan())).transform(&p)
+        let c = vertex1.y.clone() - gradient(&l) * vertex1.x.clone();
+        Matrix33::translate(N::from_f64(0.0),-c.clone())
+            .then_rotate(c.clone().to_f64().atan())
+            .then_scale(N::from_f64(0.0),N::from_f64(-1.0))
+            .then_rotate(-c.clone().to_f64().atan())
+            .then_translate(N::from_f64(0.0),c.clone())
+            .transform(p.clone())
     }
 }
 // Inputs of (1,1) / (0,0) (1,0) should give (1,-1)
@@ -180,9 +183,9 @@ pub fn fold_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Poi
     
     let mut polyF = Polygon::new(Vec::new());
     
-    for pt in poly.points {
-        
-    }
+//    for pt in poly.points {
+//        
+//    }
     
 //    for edge in poly.edges() {
 //        
