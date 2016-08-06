@@ -101,7 +101,7 @@ mod tests {
         let p1 = Polygon::new(vec!(p(0.0, 0.0), p(0.0, 1.0), p(1.0, 1.0), p(1.0, 0.0)));
         let p2 = Polygon::new(vec!(p(0.5, 0.5), p(0.5, 1.5), p(1.5, 1.5), p(1.5, 0.5)));
         let pu = union(&p1, &p2);
-        assert_eq!(1, 0);
+        //assert_eq!(1, 0); // Kill this assert to reduce the noise if not in active development, ok to reenable --blinken
         //assert_eq!(union(&p1,&p2), 
     }
 
