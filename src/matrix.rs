@@ -134,4 +134,18 @@ mod tests {
 	fn test_translate() {
 		assert_eq!(p(6.0, -0.5), Matrix33::translate(4.0, -2.5).transform(p(2.0, 2.0)));
 	}
+
+	#[test]
+	fn test_combined() {
+		let m = Matrix33::scale(2.5, 1.5) * Matrix33::translate(-4.0, -4.0);
+		assert_eq!(p(-1.5, -2.5), m.transform(p(1.0, 1.0)));
+		assert_eq!(p(1.0, -7.0), m.transform(p(2.0, -2.0)));
+	}
+
+	#[test]
+	fn test_flip_about_y3() {
+		let m = Matrix33::translate(0.0, -3.0) * Matrix33::scale(1.0, -1.0) * Matrix33::translate(0.0, 3.0);
+		assert_eq!(p(4.0, 2.0), m.transform(p(4.0, 4.0)));
+		assert_eq!(p(2.5, 5.0), m.transform(p(2.5, 1.0)));
+	}
 }
