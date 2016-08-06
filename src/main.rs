@@ -69,6 +69,9 @@ fn main() {
 			let (shape, skeleton) = parse::parse::<BigRational, std::fs::File>(file).unwrap();
             solver::solve(shape, skeleton)
         },
+		"submit" => {
+			restapi::submit(env::args().nth(2).unwrap().parse::<i64>().unwrap())
+		},
 		_ => {
 			println!("{:?}", help_string);
 			process::exit(1);

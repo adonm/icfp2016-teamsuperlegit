@@ -5,10 +5,30 @@ use std::path::Path;
 use std::time::Duration;
 use std::thread;
 use rustc_serialize::json::Json;
+use std::process::Command;
 
+pub fn submit(problem_id: i64) {
+	// submit a problem
+	// easily submit lots using e.g: 
+	// # ls icfp2016problems | grep solution.txt | cut -f1 -d'.' | xargs -n1 cargo run submit
+	let path = format!("{}/{:05}.solution.txt", BASEPATH, problem_id);
+	let path_arg = path.clone();
+	let output = Path::new(&path);
+	if output.exists() {
+        println!("Uploading solution {}", path);
+		println!("{:?}", 
+			Command::new("curl").arg("--compressed").arg("-Ss").arg("-L").arg("-H").arg("Expect:").arg("-H")
+			.arg(format!("X-API-Key: 60-d7840e0fce3dc9e9a4e2693153ccd9bc")).arg("-F").arg(format!("problem_id={}", problem_id))
+			.arg("-F").arg(format!("solution_spec=@{}", path_arg))
+			.arg("http://2016sv.icfpcontest.org/api/solution/submit")
+			.output()
+			.expect("uh-oh")
+		);
+		thread::sleep(Duration::from_millis(1000));
+	}
+}
 
 fn download(filename: &str, apipathname: &str) {
-	use std::process::Command;
 	// Get latest snapshot
 	let path = format!("{}/{}", BASEPATH, filename);
 	let path_arg = path.clone();
