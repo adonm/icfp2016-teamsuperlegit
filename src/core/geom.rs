@@ -637,7 +637,7 @@ mod tests {
         
         println!("fold_polygon_test: {:?}",ret);
         
-        let ans = Polygon::new(vec!( pNum(0.0,1.0),pNum(0.0,2.0),pNum(2.0,2.0),pNum(2.0,1.0) ));
+        //let ans = Polygon::new(vec!( pNum(0.0,1.0),pNum(0.0,2.0),pNum(2.0,2.0),pNum(2.0,1.0) ));
         
 //        assert_eq!( ret.0.points, ans.points );
 //        assert_eq!( ret.1.points, ans.points );
