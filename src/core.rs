@@ -54,84 +54,109 @@ fn dot<N: Num>(l0: &Line<N>, l1: &Line<N>) -> N {
 
 //This assumes l0 -> l1 is clockwise, and l0.p2==l1.p1
 fn dot_points<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
-    N::from_f64(a.x.to_f64() * b.x.to_f64() + a.y.to_f64() * b.y.to_f64())
+	N::from_f64(a.x.to_f64() * b.x.to_f64() + a.y.to_f64() * b.y.to_f64())
 }
 
+// Unit square template
+const xx: Line<f64> = Line{p1: Point{x: 0.0, y: 0.0}, p2: Point{x: 1.0, y: 0.0}};
+const yx: Line<f64> = Line{p1: Point{x: 1.0, y: 0.0}, p2: Point{x: 1.0, y: 1.0}};
+const xy: Line<f64> = Line{p1: Point{x: 1.0, y: 1.0}, p2: Point{x: 0.0, y: 1.0}};
+const yy: Line<f64> = Line{p1: Point{x: 0.0, y: 1.0}, p2: Point{x: 0.0, y: 0.0}};
+const unit_sq: [Line<f64>; 4] = [xx, yy, xy, yx];
 
 // infinite line intersection
 pub fn intersect<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
-    
-    let e = &a.p1 - &a.p2;
-    let f = &b.p1 - &b.p2;
-    
-    let p = Point{ x: -e.x, y: e.y };
-    
-    let h = ( dot_points(&(&a.p2-&b.p2),&p) ) / ( dot_points(&f,&p) );
-    
-    if h >= N::from_f64(0.0) && h<=N::from_f64(1.0) {
-        Some( &b.p2 + &Point{x:f.x*h.clone(), y:f.y*h.clone()} )
-    } else {
-        None
-    }
+	let e = &a.p1 - &a.p2;
+	let f = &b.p1 - &b.p2;
+
+	let p = Point{ x: -e.x, y: e.y };
+	let h = ( dot_points(&(&a.p2-&b.p2),&p) ) / ( dot_points(&f,&p) );
+
+	if h >= N::from_f64(0.0) && h<=N::from_f64(1.0) {
+		Some( &b.p2 + &Point{x:f.x*h.clone(), y:f.y*h.clone()} )
+	} else {
+		None
+	}
 }
 
 // http://stackoverflow.com/a/1968345
 // discrete line intersection
 pub fn intersect_lines<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
-    let s1 = &a.p2 - &a.p1;
-    let s2 = &b.p2 - &b.p1;
-    let c1 = &a.p1 - &b.p1;
+	let s1 = &a.p2 - &a.p1;
+	let s2 = &b.p2 - &b.p1;
+	let c1 = &a.p1 - &b.p1;
 
-    let s = (- s1.y.clone() * c1.x.clone() + s1.x.clone() * c1.y.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
-    let t = ( s2.x.clone() * c1.y.clone() - s2.y.clone() * c1.x.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
-    
-    if (s.to_f64() >= 0.0) && (s.to_f64() <= 1.0) && (t.to_f64() >= 0.0) && (t.to_f64() <= 1.0) {
-        return Some(Point{x: a.p1.x.clone() + t.clone()*s1.x.clone(), y: a.p1.y.clone() + t.clone()*s1.y.clone()})
-    }
+	let s = (- s1.y.clone() * c1.x.clone() + s1.x.clone() * c1.y.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
+	let t = ( s2.x.clone() * c1.y.clone() - s2.y.clone() * c1.x.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
 
-    None
+	if (s.to_f64() >= 0.0) && (s.to_f64() <= 1.0) && (t.to_f64() >= 0.0) && (t.to_f64() <= 1.0) {
+		return Some(Point{x: a.p1.x.clone() + t.clone()*s1.x.clone(), y: a.p1.y.clone() + t.clone()*s1.y.clone()})
+	}
+
+	None
 }
 
+// Return the points where a line intersects the unit square, if it is
+// extended to infinity in both directions.
+//
+// If the line does not intersect return an empty Vec
+pub fn intersect_unit(line: Line<f64>) -> Option<(Point<f64>, Point<f64>)> {
+	let mut candidates = Vec::new();
+	for boundary in unit_sq.iter() {
+		let point: Option<Point<f64>> = intersect_lines(&line, &boundary);
+		if point != None {
+			let point_c = point.unwrap().clone();
+			candidates.push(point_c);
+		}
+	}
+
+	candidates.sort();
+	candidates.dedup();
+
+	if candidates.len() == 2 {
+		return Some((candidates[0].clone(), candidates[1].clone()));
+	} else {
+		assert!(candidates.len() == 0);
+		return None
+	}
+}
 
 pub fn gradient<N:Num>(l: &Line<N>) -> N {
-    ( l.p2.y.clone() - l.p1.y.clone() ) / ( l.p2.x.clone() - l.p1.x.clone() )
+	( l.p2.y.clone() - l.p1.y.clone() ) / ( l.p2.x.clone() - l.p1.x.clone() )
 }
 
 //reflect point p on axis l
 pub fn flip_point<N:Num>(p: &Point<N>, l: &Line<N>) -> Point<N> {
-    
-    let a = gradient(&l);
-    let c = l.p1.y.clone() - l.p1.x.clone() * a.clone();
-    let x = p.x.clone();
-    let y = p.y.clone();
-    let d = (x.clone() + (y.clone() - c.clone())*a.clone())/(N::from_f64(1.0) + a.clone()*a.clone());
-    
-    let two = N::from_f64(2.0);
-    
-    Point{ x: two.clone()*d.clone() - x, y: two.clone()*d.clone()*a - y.clone() + two.clone()*c }
+	let a = gradient(&l);
+	let c = l.p1.y.clone() - l.p1.x.clone() * a.clone();
+	let x = p.x.clone();
+	let y = p.y.clone();
+	let d = (x.clone() + (y.clone() - c.clone())*a.clone())/(N::from_f64(1.0) + a.clone()*a.clone());
+
+	let two = N::from_f64(2.0);
+
+	Point{ x: two.clone()*d.clone() - x, y: two.clone()*d.clone()*a - y.clone() + two.clone()*c }
 }
 
 //flips both points of a line on an axis
 pub fn flip_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Line<N> {
-    Line{ p1: flip_point(&line.p1,&fold), p2: flip_point(&line.p2,&fold) }
+	Line{ p1: flip_point(&line.p1,&fold), p2: flip_point(&line.p2,&fold) }
 }
 
 
 
 // If there is an intersection, assume line.p1 is the point that does not get flipped
 pub fn fold_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Vec<Line<N>> {
-    
-    let intersect = intersect_lines(&line,&fold);
-    
-    match intersect {
-        Some(p) => {
-            let l1 = Line{p1: p.clone(), p2: line.p1.clone() };
-            let l2 = Line{p1: p.clone(), p2: flip_point(&line.p2,&fold) };
-            vec!(l1,l2)
-        }
-        None => vec!(flip_line(&line,&fold))
-        
-    }
+	let intersect = intersect_lines(&line,&fold);
+
+	match intersect {
+		Some(p) => {
+			let l1 = Line{p1: p.clone(), p2: line.p1.clone() };
+			let l2 = Line{p1: p.clone(), p2: flip_point(&line.p2,&fold) };
+			vec!(l1,l2)
+		}
+		None => vec!(flip_line(&line,&fold))
+	}
 }
 //
 //// current state: outline, lines
@@ -142,9 +167,9 @@ pub fn fold_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Vec<Line<N>> {
 //// if a line intersects the fold, it is also folded
 //// returns the new state as a tuple
 //pub fn fold_origami<N: Num>(outline: &Polygon<N>, lines: Vec<Line<N>>, vertex: Point<N>, dir: Point<N>) -> (outline: Polygon<N>, lines: Vec<Line<N>>){
-//    
-//    
-//    
+//
+//
+//
 //}
 
 pub fn is_convex<N: Num>(l0: &Line<N>, l1: &Line<N>) -> bool {
@@ -263,6 +288,14 @@ impl<N: Num> Polygon<N> {
 		return longest;
 	}
 
+	// Return the set of edges of this polygon that slice the unit square.
+	//
+	// An edge qualifies if it
+	//  - crosses at least one boundary of the unit square.
+	//  - lies wholly within the unit square
+//	pub fn slicey_edges(self) -> Vec<Line<N>> {}
+
+
 	// Return the first vertex where this polygon departs the unit square - the
 	// vertex closest to 0,0 that lies on the unit square.
 	//
@@ -273,15 +306,11 @@ impl<N: Num> Polygon<N> {
 	//
 	// If no vertex of the polygon lies on the unit square, return None.
 	pub fn lowest_unit_vertex(self) -> Option<Point<f64>> {
-		let xx = Line::new(Point{x: 0.0, y: 0.0}, Point{x: 1.0, y: 0.0});
-		let yx = Line::new(Point{x: 1.0, y: 0.0}, Point{x: 1.0, y: 1.0});
-		let xy = Line::new(Point{x: 1.0, y: 1.0}, Point{x: 0.0, y: 1.0});
-		let yy = Line::new(Point{x: 0.0, y: 1.0}, Point{x: 0.0, y: 0.0});
 
 		let mut candidates = Vec::new();
 
 		// Search the axes in order of close-ness to 0,0
-		for boundary in [xx, yy, yx, xy].iter() {
+		for boundary in unit_sq.iter() {
 			// Build a list of points coincident to this axis
 			for point in self.points.clone() {
 				if boundary.coincident(&point.to_f64()) {
@@ -585,19 +614,19 @@ mod tests {
 		assert!(is_convex(&l1,&l2)==true);
 	}
 
-    #[test]
-    fn test_intersect_lines_1() {
-        let l1 = Line::<f64>{p1: p64(0.0, 0.0), p2: p64(1.0, 1.0)};
-        let l2 = Line::<f64>{p1: p64(0.0, 1.0), p2: p64(1.0, 0.0)};
-        assert_eq!(intersect_lines(&l1,&l2).unwrap(), p64(0.5, 0.5));
-    }
+	#[test]
+	fn test_intersect_lines_1() {
+		let l1 = Line::<f64>{p1: p64(0.0, 0.0), p2: p64(1.0, 1.0)};
+		let l2 = Line::<f64>{p1: p64(0.0, 1.0), p2: p64(1.0, 0.0)};
+		assert_eq!(intersect_lines(&l1,&l2).unwrap(), p64(0.5, 0.5));
+	}
 
-    #[test]
-    fn test_intersect_lines_2() {
-        let l1 = Line::<f64>{p1: p64(0.0, 0.0), p2: p64(0.25, 0.25)};
-        let l2 = Line::<f64>{p1: p64(0.0, 1.0), p2: p64(1.0, 0.0)};
-        assert_eq!(intersect_lines(&l1,&l2), None);
-    }
+	#[test]
+	fn test_intersect_lines_2() {
+		let l1 = Line::<f64>{p1: p64(0.0, 0.0), p2: p64(0.25, 0.25)};
+		let l2 = Line::<f64>{p1: p64(0.0, 1.0), p2: p64(1.0, 0.0)};
+		assert_eq!(intersect_lines(&l1,&l2), None);
+	}
 
 	#[test]
 	fn test_ops() {
@@ -659,6 +688,10 @@ mod tests {
         assert!(!Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).coincident(&p(3,3)));
     }
 
+	#[test]
+	fn test_contains_3() {
+		assert!(!Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(3,3)));
+	}
 
 	#[test]
 	fn test_float() {
@@ -700,5 +733,14 @@ mod tests {
 		assert_eq!(p64(2.25, 4.0), &p2 + &p1);
 		assert_eq!(p64(3.5, 6.5), &p1 + &(p2.scale(2.0)));
 		assert_eq!(p64(3.25, 5.5), &(p1.scale(2.0)) + &p2);
+	}
+
+	#[test]
+	fn test_intersect_unit() {
+		let line1 = Line::new(p64(2.0, 0.0), p64(1.0, 3.0));
+		assert_eq!(None, intersect_unit(line1));
+
+		let line2 = Line::new(p64(0.0, 0.0), p64(1.0, 3.0));
+		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.3333333333333333, y: 1.0 })), intersect_unit(line2));
 	}
 }
