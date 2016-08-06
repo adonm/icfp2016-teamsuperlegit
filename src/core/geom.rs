@@ -706,6 +706,10 @@ mod tests {
         
         println!("input fold_polygon_test: {:?}",poly.edges());
         println!("fold_polygon_test: {:?} \n\n {:?}",ret, ret);
+        
+        let ans = Polygon::new(vec!( pNum(0.0,0.0),pNum(2.0,0.0),pNum(2.0,2.0),pNum(0.0,2.0) ));
+        
+        assert_eq!( ret, (ans,ans) );
     }
     
 	#[test]

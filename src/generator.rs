@@ -89,8 +89,6 @@ pub fn union<N: Num>(a: &Polygon<N>, b: &Polygon<N>) -> Option<Polygon<N>> {
 mod tests {
     use super::*;
 	extern crate num;
-	use self::num::rational::BigRational;
-	use num::Float;
 
 	fn p(x: f64, y: f64) -> Point<f64> {
 		Point{x: x, y: y}
