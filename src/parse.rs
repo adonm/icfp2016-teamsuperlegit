@@ -103,7 +103,7 @@ mod tests {
 
 	#[test]
 	fn test_parse_problem1() {
-		let f = File::open(format!("{}/001.problem.txt", BASEPATH)).unwrap();
+		let f = File::open(format!("{}/00001.problem.txt", BASEPATH)).unwrap();
 		let (shape, skel) = parse::<i32, File>(f).unwrap();
 		assert_eq!(1, shape.polys.len());
 		assert_eq!(4, shape.polys[0].points.len());
@@ -112,7 +112,7 @@ mod tests {
 
 	#[test]
 	fn test_parse_problem4() {
-		let f = File::open(format!("{}/004.problem.txt", BASEPATH)).unwrap();
+		let f = File::open(format!("{}/00004.problem.txt", BASEPATH)).unwrap();
 		let (shape, skel) = parse::<BigRational, File>(f).unwrap();
 		assert_eq!(1, shape.polys.len());
 		assert_eq!(4, shape.polys[0].points.len());
@@ -124,7 +124,7 @@ mod tests {
 
 	#[test]
 	fn test_parse_problem7() {
-		let f = File::open(format!("{}/007.problem.txt", BASEPATH)).unwrap();
+		let f = File::open(format!("{}/00007.problem.txt", BASEPATH)).unwrap();
 		let (shape, skel) = parse::<BigRational, File>(f).unwrap();
 		assert_eq!(1, shape.polys.len());
 		assert_eq!(4, shape.polys[0].points.len());
