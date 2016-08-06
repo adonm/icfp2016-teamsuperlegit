@@ -184,7 +184,7 @@ pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Poin
 pub fn flip_point<N: Num>(p: &Point<N>, l1: &Point<N>, l2: &Point<N>) -> Point<N> {
     // y = ax + c
     let a = (l2.y.clone() - l1.y.clone()) / (l2.x.clone() - l1.x.clone());
-    println!("{}", a);
+
     let c = l1.y.clone() - a.clone() * l1.x.clone();
 
     let d = (p.x.clone() + (p.y.clone() - c.clone()) * a.clone())/(N::from_f64(1.0) + a.clone() * a.clone());
@@ -626,10 +626,11 @@ mod tests {
         
         println!("fold_polygon_test: {:?}",ret);
         
-        let ans = Polygon::new(vec!( pNum(0.0,1.0),pNum(0.0,2.0),pNum(2.0,2.0),pNum(2.0,1.0) ));
-        
-//        assert_eq!( ret.0.points, ans.points );
-//        assert_eq!( ret.1.points, ans.points );
+        let ans = vec!( pNum(0.0,1.0),pNum(0.0,2.0),pNum(2.0,2.0),pNum(2.0,1.0));
+        for pt in ans {
+            assert!(ret.0.points.contains(&pt));
+            assert!(ret.0.points.contains(&pt));
+        }
     }
     
 	#[test]
