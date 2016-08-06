@@ -1,7 +1,8 @@
-use std::ops::{Index,Mul};
+use std::ops::{Index,Mul,Div};
 
 pub use core::*;
 
+#[derive(Debug)]
 pub struct Matrix33<N: Num> {
 	points: [N; 9],
 }
@@ -82,9 +83,51 @@ impl<N: Num> Matrix33<N> {
 		(&self.points[0], &self.points[1], &self.points[2], &self.points[3], &self.points[4], &self.points[5], &self.points[6], &self.points[7], &self.points[8])
 	}
 
+	fn clones(&self) -> (N, N, N, N, N, N, N, N, N) {
+		(self.points[0].clone(), self.points[1].clone(), self.points[2].clone(), self.points[3].clone(), self.points[4].clone(), self.points[5].clone(), self.points[6].clone(), self.points[7].clone(), self.points[8].clone())
+	}
+
+	// https://en.wikipedia.org/wiki/Determinant
 	pub fn det(&self) -> N {
-		let (a, b, c, d, e, f, g, h, i) = self.refs();
-		N::zero() //a*e*i + b*f*g + c*d*h - c*e*g - b*d*i - a*f*h
+		let (a, b, c, d, e, f, g, h, i) = self.clones();
+		let (a2, b2, c2, d2, e2, f2, g2, h2, i2) = self.clones();
+		a*e*i + b*f*g + c*d*h - c2*e2*g2 - b2*d2*i2 - a2*f2*h2
+	}
+
+	// https://en.wikipedia.org/wiki/Invertible_matrix#Methods_of_matrix_inversion
+	#[allow(non_snake_case)]
+	pub fn inverse(&self) -> Matrix33<N> {
+		let (a, b, c, d, e, f, g, h, i) = self.clones();
+		let (a2, b2, c2, d2, e2, f2, g2, h2, i2) = self.clones();
+		let (a3, b3, c3, d3, e3, f3, g3, h3, i3) = self.clones();
+		let (a4, b4, c4, d4, e4, f4, g4, h4, i4) = self.clones();
+		let A = e*i - f*h;
+		let B = -(d*i2 - f2*g);
+		let C = d2*h2 - e2*g2;
+		let D = -(b*i3 - c*h3);
+		let E = a*i4 - c2*g3;
+		let F = -(a2*h4 - b2*g4);
+		let G = b3*f3 - c3*e3;
+		let H = -(a3*f4 - c4*d3);
+		let I = a4*e4 - b4*d4;
+		Matrix33::new((A, D, G), (B, E, H), (C, F, I)) / self.det()
+	}
+}
+
+impl<N: Num> Div<N> for Matrix33<N> {
+	type Output = Self;
+	fn div(self, d: N) -> Matrix33<N> {
+		Matrix33{ points: [
+			self.points[0].clone() / d.clone(),
+			self.points[1].clone() / d.clone(),
+			self.points[2].clone() / d.clone(),
+			self.points[3].clone() / d.clone(),
+			self.points[4].clone() / d.clone(),
+			self.points[5].clone() / d.clone(),
+			self.points[6].clone() / d.clone(),
+			self.points[7].clone() / d.clone(),
+			self.points[8].clone() / d
+		]}
 	}
 }
 
@@ -110,6 +153,16 @@ impl<N: Num> Mul for Matrix33<N> {
 			}
 		}
 		Matrix33{points: p}
+	}
+}
+
+impl<N: Num> Clone for Matrix33<N> {
+	fn clone(&self) -> Matrix33<N> {
+		Matrix33{points: [
+			self.points[0].clone(), self.points[1].clone(), self.points[2].clone(),
+			self.points[3].clone(), self.points[4].clone(), self.points[5].clone(),
+			self.points[6].clone(), self.points[7].clone(), self.points[8].clone()
+		]}
 	}
 }
 
@@ -171,5 +224,33 @@ mod tests {
 		let m2 = Matrix33::translate(0.0, -3.0).then_scale(1.0, -1.0).then_translate(0.0, 3.0);
 		assert_eq!(p(4.0, 2.0), m2.transform(p(4.0, 4.0)));
 		assert_eq!(p(2.5, 5.0), m2.transform(p(2.5, 1.0)));
+
+		let m2i = m2.clone().inverse();
+		assert_eq!(p(4.0, 4.0), m2i.transform(p(4.0, 2.0)));
+		assert_eq!(p(2.5, 1.0), m2i.transform(p(2.5, 5.0)));
+	}
+
+	#[test]
+	fn test_determinant() {
+		assert_eq!(18.0, Matrix33::new((-2.0, 2.0, -3.0), (-1.0, 1.0, 3.0), (2.0, 0.0, -1.0)).det());
+		assert_eq!(-18.0, Matrix33::new((-2.0, 2.0, -3.0), (0.0, 2.0, -4.0), (0.0, 0.0, 4.5)).det());
+	}
+
+	fn eq(a: f64, b: f64) -> bool {
+		(a - b).abs() < 1e-9
+	}
+
+	#[test]
+	fn test_inverse() {
+		let inv = Matrix33::new((1.0, 0.0, 2.0), (1.0, 2.0, 5.0), (1.0, 5.0, -1.0)).inverse() / (1.0 / -21.0);
+		assert!(eq(-27.0, inv[(0, 0)]));
+		assert!(eq(10.0, inv[(0, 1)]));
+		assert!(eq(-4.0, inv[(0, 2)]));
+		assert!(eq(6.0, inv[(1, 0)]));
+		assert!(eq(-3.0, inv[(1, 1)]));
+		assert!(eq(-3.0, inv[(1, 2)]));
+		assert!(eq(3.0, inv[(2, 0)]));
+		assert!(eq(-5.0, inv[(2, 1)]));
+		assert!(eq(2.0, inv[(2, 2)]));
 	}
 }

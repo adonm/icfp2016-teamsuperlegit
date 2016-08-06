@@ -17,7 +17,7 @@ fn facets<N: Num>(skel: Skeleton<N>) -> (Vec<Point<N>>, Vec<Vec<usize>>) {
 	** 3. construct poly using shortest line segments along adjacent angles */
 	for i in 0..skel.lines.len() {
 		for j in i+1..skel.lines.len() {
-			if let Some(p) = intersect_lines(&skel.lines[i], &skel.lines[j]) {
+			if let Some(p) = intersect_discrete(&skel.lines[i], &skel.lines[j]) {
 				points.push(p);
 			}
 		}

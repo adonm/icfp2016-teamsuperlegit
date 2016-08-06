@@ -54,7 +54,7 @@ pub fn intersect_inf<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 
   // If the lines are very close to parallel return None
   let d = (x1.clone() - x2.clone())*(y3.clone() - y4.clone()) - (y1.clone() - y2.clone())*(x3.clone() - x4.clone());
-  if d.to_f64().abs() < 0.000001 {
+  if eq_eps(&d, &N::from_f64(0.0)) {
     return None;
   }
 
@@ -70,7 +70,9 @@ fn cross_scalar<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
 
 // http://stackoverflow.com/a/1968345
 // discrete line intersection
-pub fn intersect_lines<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
+// 
+// Returns the intersection point, or None if the lines do not intercept.
+pub fn intersect_discrete<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 	let s1 = &a.p2 - &a.p1;
 	let s2 = &b.p2 - &b.p1;
 	let c1 = &a.p1 - &b.p1;
@@ -91,27 +93,39 @@ pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) 
 	for boundary in other.to_lines().iter() {
 		// If the beginning or end of the line are coincident to the boundary, they need to be added
 		if boundary.coincident(&line.p1) {
+      println!("intersect_poly - adding coincident candidate {}", line.p1);
 			candidates.push(line.p1.clone());
 		}
 
 		if boundary.coincident(&line.p2) {
+      println!("intersect_poly - adding coincident candidate {}", line.p2);
 			candidates.push(line.p2.clone());
 		}
 
 		// Check normal intersections
 		let point: Option<Point<N>>;
 		if discrete {
-			point = intersect_lines(&line, &boundary);
+			point = intersect_discrete(&line, &boundary);
 		} else {
 			point = intersect_inf(&line, &boundary);
 		}
 
 		if point != None {
 			let point_c = point.unwrap().clone();
-			candidates.push(point_c);
+
+      // The proposed intersection must be coincident on the boundary (ie. the
+      // discrete segment only). intersect_inf will give us inf intersect for
+      // both lines - we only want the input line to be infinite.
+      if boundary.coincident(&point_c) {
+        println!("intersect_poly - adding candidate {} from intersection of {} and {}", point_c, line, boundary);
+        candidates.push(point_c);
+      } else {
+        println!("intersect_poly - candidate {} is not conincident on boundary {}, skipping", point_c, boundary);
+      }
 		}
 	}
 
+  // !!
 	candidates.sort();
 	candidates.dedup();
 
@@ -190,7 +204,7 @@ pub fn flip_line<N:Num>(line: &Line<N>, vertex1: &Point<N>, vertex2: &Point<N>) 
 
 // If there is an intersection, assume line.p1 is the point that does not get flipped
 pub fn fold_line<N:Num>(line: &Line<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Vec<Line<N>> {
-	let intersect = intersect_lines(&line,&Line{p1:vertex1.clone(),p2:vertex2.clone()});
+	let intersect = intersect_discrete(&line,&Line{p1:vertex1.clone(),p2:vertex2.clone()});
 
 	match intersect {
 		Some(p) => {
@@ -235,7 +249,7 @@ pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) ->
     for edge in poly.edges() {
         poly1.push(edge.clone().p1);
         
-        println!("pushing edge: {:?}",edge.clone().p1);
+        println!("pushing edge: {:?}",edge.clone());
         
         
         let co = if edge.clone().coincident(&vertex1) {
@@ -267,35 +281,6 @@ pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) ->
         }
     }
     
-    
-//    
-//    
-//    for edge in poly.edges() {
-//        
-//        if edge.coincident(&vertex1) {
-//            
-//            poly1.push(edge.p1);
-//            poly1.push(vertex1.clone()); // don't do. would be added twice
-//            
-//            poly1.push(vertex1.clone());
-//            poly1.push(vertex2.clone()); // don't do. would be added twice
-//            
-//            poly2.push(vertex1.clone());
-//            poly2.push(edge.p2); // don't do. would be added twice
-//
-//            let (a, b) = (vertex2,vertex1);
-//            vertex1 = a;
-//            vertex2 = b;
-//            
-//            let (c,d) = (poly2,poly1);
-//            poly1 = c;
-//            poly2 = d;
-//            
-//        } else {
-//            poly1.push(edge.p1.clone());
-//        }
-//        
-//    }
     
     (Polygon::new(poly1),Polygon::new(poly2))
 }
@@ -539,7 +524,7 @@ impl<N: Num> Line<N> {
 
 	// True if point lies on this line
 	pub fn coincident(&self, point: &Point<N>) -> bool {
-		return p_distance(&self.p1, point) + p_distance(point, &self.p2) == self.len();
+		return eq_eps(&(p_distance(&self.p1, point) + p_distance(point, &self.p2)), &self.len());
 	}
 
 	// Returns a point along this line. 0 <= alpha <= 1, else you're extrapolating bro
@@ -734,21 +719,33 @@ mod tests {
         let v2 = pNum(2.0,1.0);
         let ret = fold_polygon(&poly,&v1,&v2);
         
-        println!("fold_polygon_test: {:?} {:?}",ret.0.points, ret.1.points);
+        println!("input fold_polygon_test: {:?}",poly);
+        println!("fold_polygon_test: {:?} \n\n {:?}",ret, ret);
     }
     
 	#[test]
-	fn test_intersect_lines_1() {
+	fn test_intersect_discrete_1() {
 		let l1 = Line::<f64>{p1: p64(0.0, 0.0), p2: p64(1.0, 1.0)};
 		let l2 = Line::<f64>{p1: p64(0.0, 1.0), p2: p64(1.0, 0.0)};
-		assert_eq!(intersect_lines(&l1,&l2).unwrap(), p64(0.5, 0.5));
+		assert_eq!(intersect_discrete(&l1,&l2).unwrap(), p64(0.5, 0.5));
 	}
 
 	#[test]
-	fn test_intersect_lines_2() {
+	fn test_intersect_discrete_2() {
 		let l1 = Line::<f64>{p1: p64(0.0, 0.0), p2: p64(0.25, 0.25)};
 		let l2 = Line::<f64>{p1: p64(0.0, 1.0), p2: p64(1.0, 0.0)};
-		assert_eq!(intersect_lines(&l1,&l2), None);
+		assert_eq!(intersect_discrete(&l1,&l2), None);
+	}
+
+	#[test]
+	fn test_intersect_infinite() {
+    let l1 = Line::new(pNum(0.1, 0.3), pNum(0.25, 0.75));
+    let l2 = Line::new(pNum(1.0, 0.0), pNum(1.0, 1.0));
+		assert_eq!(intersect_inf(&l1,&l2).unwrap(), pNum(1.0, 3.0));
+
+    let l1 = Line::new(pNum(2.0, 0.3), pNum(2.0, 0.75));
+    let l2 = Line::new(pNum(1.0, 0.0), pNum(1.0, 1.0));
+		assert_eq!(intersect_inf(&l1,&l2), None);
 	}
 
 	#[test]
@@ -783,6 +780,7 @@ mod tests {
 		assert!(Line::new(p(0,0), p(0,10)).coincident(&p(0,10)));
 		assert!(Line::new(p64(0.0,0.0), p64(0.0,10.0)).coincident(&p64(0.0,0.0)));
 		assert!(Line::new(p64(0.0,0.0), p64(0.0,10.0)).coincident(&p64(0.0,10.0)));
+		assert!(Line::new(p64(-4.0,0.0), p64(0.0,-4.0)).coincident(&p64(-2.875,-1.125)));
 		assert!(!Line::new(p(0,0), p(0,10)).coincident(&p(1,5)));
 		assert!(!Line::new(p(0,0), p(0,10)).coincident(&p(0,11)));
 	}
@@ -840,6 +838,7 @@ mod tests {
 	}
 
 	#[test]
+  // also exercises intersect_inf and intersect_discrete
 	fn test_intersect_poly() {
 		let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
 
@@ -849,8 +848,15 @@ mod tests {
 		let line2 = Line::new(p64(0.0, 0.0), p64(1.0, 3.0));
 		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.3333333333333333, y: 1.0 })), intersect_poly_discrete(line2, unit_sq_p.clone()));
 
-		let line2 = Line::new(p64(0.1, 0.3), p64(0.25, 0.75));
-		assert_eq!(Some((Point { x: 0.0, y: 0.6666666666666667 }, Point { x: 1.0, y: 1.0 })), intersect_poly_inf(line2, unit_sq_p.clone()));
+		let line3 = Line::new(p64(0.1, 0.3), p64(0.25, 0.75));
+		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.33333333333333337, y: 1.0 })), intersect_poly_inf(line3, unit_sq_p.clone()));
+
+		let line4 = Line::new(p64(0.0, 0.0), p64(1.0, 3.0));
+		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.3333333333333333, y: 1.0 })), intersect_poly_inf(line4, unit_sq_p.clone()));
+
+		let line5 = Line::new(p64(2.0, 0.0), p64(1.0, 3.0));
+		assert_eq!(None, intersect_poly_inf(line5, unit_sq_p.clone()));
+
 	}
 
 	#[test]
