@@ -217,6 +217,22 @@ impl<N: Num> Polygon<N> {
 		self.corners.clone()
 	}
 
+    pub fn contains(&self, test: &Point<N>) -> bool {
+        // https://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+        let end = self.points.len();
+        let mut contains = false;
+        for offset in 0..end {
+            let ref p1 = self.points[offset];
+            let ref p2 = self.points[(offset+1)%end];
+            let intersect = ((p1.y.clone() > test.y.clone()) != (p2.y.clone() > test.y.clone())) &&
+                (test.x.clone() < (p2.x.clone() - p1.x.clone())*(test.y.clone() - p1.y.clone()) / (p2.y.clone() - p1.y.clone()) + p1.x.clone());
+            if intersect {
+                contains = !contains;
+            }
+        }
+        contains
+    }
+
 	// Returns the longest edge of this polygon
 	pub fn longest_edge(self) -> (Point<N>, Point<N>) {
 		let mut max: f64 = p_distance(&self.points.last().unwrap(), &self.points[0]);
@@ -253,7 +269,7 @@ impl<N: Num> Polygon<N> {
 		for boundary in [xx, yy, yx, xy].iter() {
 			// Build a list of points coincident to this axis
 			for point in self.points.clone() {
-				if boundary.coincident(point.to_f64()) {
+				if boundary.coincident(&point.to_f64()) {
 					candidates.push(point.to_f64());
 				}
 			}
@@ -316,8 +332,8 @@ impl<N: Num> Line<N> {
 	}
 
 	// True if point lies on this line
-	pub fn coincident(&self, point: Point<N>) -> bool {
-		return p_distance(&self.p1, &point) + p_distance(&point, &self.p2) == self.len();
+	pub fn coincident(&self, point: &Point<N>) -> bool {
+		return p_distance(&self.p1, point) + p_distance(point, &self.p2) == self.len();
 	}
 
 	// Returns a point along this line. 0 <= alpha <= 1, else you're extrapolating bro
@@ -607,10 +623,26 @@ mod tests {
 
 	#[test]
 	fn test_coincident() {
-		assert!(Line::new(p(0,0), p(0,10)).coincident(p(0,5)));
-		assert!(!Line::new(p(0,0), p(0,10)).coincident(p(1,5)));
-		assert!(!Line::new(p(0,0), p(0,10)).coincident(p(0,11)));
+		assert!(Line::new(p(0,0), p(0,10)).coincident(&p(0,5)));
+		assert!(!Line::new(p(0,0), p(0,10)).coincident(&p(1,5)));
+		assert!(!Line::new(p(0,0), p(0,10)).coincident(&p(0,11)));
 	}
+
+    #[test]
+    fn test_contains_1() {
+        assert!(Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(0,0)));
+    }
+
+    #[test]
+    fn test_contains_2() {
+        assert!(Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(1,1)));
+    }
+
+    #[test]
+    fn test_contains_3() {
+        assert!(!Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(3,3)));
+    }
+
 
 	#[test]
 	fn test_float() {
