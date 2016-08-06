@@ -345,7 +345,7 @@ impl<N: Num> Polygon<N> {
 	//  - lies wholly within the unit square
 	pub fn slicey_edges(self) -> Vec<Line<f64>> {
 		let mut candidates = Vec::new();
-		let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 0.0}, Point{x: 1.0, y: 1.0}]);
+		let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
 
 		for edge in self.to_lines() {
 		  println!("slicey_edges - considering line {}", edge);
