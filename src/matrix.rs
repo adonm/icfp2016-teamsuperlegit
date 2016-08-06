@@ -2,7 +2,7 @@ use std::ops::{Index,Mul,Div};
 
 pub use core::*;
 
-#[derive(Debug)]
+#[derive(Debug,PartialEq)]
 pub struct Matrix33<N: Num> {
 	points: [N; 9],
 }
@@ -47,6 +47,10 @@ impl<N: Num> Matrix33<N> {
 			(N::zero(), N::one(), N::zero()),
 			(tx, ty, N::one()),
 		)
+	}
+
+	pub fn identity() -> Matrix33<N> {
+		Matrix33::new((N::one(), N::zero(), N::zero()), (N::zero(), N::one(), N::zero()), (N::zero(), N::zero(), N::one()))
 	}
 
 	pub fn new(row0: (N, N, N), row1: (N, N, N), row2: (N, N, N)) -> Matrix33<N> {

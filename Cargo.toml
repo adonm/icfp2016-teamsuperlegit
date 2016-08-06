@@ -6,5 +6,4 @@ authors = ["Team Super Legit <superlegitteam@mm.st>"]
 [dependencies]
 svg = "*"
 rustc-serialize = "*"
-ndarray = "*"
 num = "0.1.34"

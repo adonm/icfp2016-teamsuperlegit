@@ -1,8 +1,5 @@
 use super::*;
 
-use ndarray::rcarr2;
-use ndarray::RcArray;
-use ndarray::Ix;
 use super::super::matrix::Matrix33;
 
 #[derive(Debug,Clone,PartialOrd)]
@@ -24,7 +21,7 @@ pub struct Polygon<N: Num> {
 	area: f64,
 	corners: Vec<(Line<N>, Line<N>)>,
 	pub points: Vec<Point<N>>,
-	pub transform: RcArray<N, (Ix, Ix)>
+	pub transform: Matrix33<N>
 }
 
 #[derive(Debug,Clone)]
@@ -335,11 +332,7 @@ impl<N: Num> Polygon<N> {
 		// transform is setup to do nothing by default
 		// should represent the transformation to go back to unit square
 		Polygon{points: points, area: area, square: square, is_hole: clockwise, corners: corners,
-			transform: rcarr2(&[
-				[N::one(), N::zero(), N::zero()],
-				[N::zero(), N::one(), N::zero()],
-				[N::zero(), N::zero(), N::one()]
-			])
+			transform: Matrix33::identity()
 		}
 	}
 
