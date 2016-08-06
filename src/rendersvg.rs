@@ -41,7 +41,7 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	let mut anchorcnr: Result<(Line<N>, Line<N>), bool> = Err(false);
 	let mut anchorlength = 0.0_f64;
 	let mut psquare: Result<Polygon<N>, bool> = Err(false);
-	for polygon in shape.polys {
+	for polygon in shape.clone().polys {
 		let mut points = String::from("");
 		for point in polygon.points.iter() {
 			let coord = format!("{},{} ", point.x.to_f64(), point.y.to_f64());
@@ -117,6 +117,21 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 		for point in unitsquare.points.iter() {
 			let coord = format!("{},{} ", point.x.to_f64(), point.y.to_f64());
 			points.push_str(&coord);
+		}
+		for edge in unitsquare.edges() {
+			for poly in shape.clone().polys {
+				let vertex = intersect_poly_inf(edge.clone(), poly).ok_or(false);
+				if vertex.is_ok() {
+					let (p1, p2) = vertex.unwrap();
+					for p in [p1, p2].iter() {
+						let intersect = element::Circle::new()
+							.set("cx", p.x.to_f64()).set("cy", p.y.to_f64())
+							.set("fill", "#f00").set("fill-opacity", "0.5")
+							.set("r", "0.01");
+						document = document.add(intersect);
+					}
+				}
+			}
 		}
 		let poly = element::Polygon::new()
 					.set("fill", "#000").set("fill-opacity", "0.3")

@@ -32,6 +32,7 @@ pub struct Polygon<N: Num> {
 	is_hole: bool,
 	square: bool,
 	area: f64,
+//    tranform: // 3x3 matrix
 	corners: Vec<(Line<N>, Line<N>)>,
 	pub points: Vec<Point<N>>,
 	pub transform: RcArray<BigRational, (Ix, Ix)>
@@ -74,13 +75,19 @@ pub fn intersect<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 	let f = &b.p1 - &b.p2;
 
 	let p = Point{ x: -e.x, y: e.y };
-	let h = ( dot_points(&(&a.p2-&b.p2),&p) ) / ( dot_points(&f,&p) );
 
-	if h >= N::from_f64(0.0) && h<=N::from_f64(1.0) {
-		Some( &b.p2 + &Point{x:f.x*h.clone(), y:f.y*h.clone()} )
-	} else {
-		None
+	// if dot_points is 0 bignum dies
+	if dot_points(&f,&p).to_f64() != 0.0 {
+		let h = ( dot_points(&(&a.p2-&b.p2),&p) ) / ( dot_points(&f,&p) );
+		if h >= N::from_f64(0.0) && h<=N::from_f64(1.0) {
+			return Some( &b.p2 + &Point{x:f.x*h.clone(), y:f.y*h.clone()} )
+		}
 	}
+	return None
+}
+
+fn cross_scalar<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
+	a.x.clone() * b.y.clone() - a.y.clone() * b.x.clone()
 }
 
 // http://stackoverflow.com/a/1968345
@@ -90,18 +97,18 @@ pub fn intersect_lines<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 	let s2 = &b.p2 - &b.p1;
 	let c1 = &a.p1 - &b.p1;
 
-	let s = (- s1.y.clone() * c1.x.clone() + s1.x.clone() * c1.y.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
-	let t = ( s2.x.clone() * c1.y.clone() - s2.y.clone() * c1.x.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
+	let s = cross_scalar(&s1, &c1) / cross_scalar(&s1, &s2);
+	let t = cross_scalar(&s2, &c1) / cross_scalar(&s1, &s2);
 
-	if (s.to_f64() >= 0.0) && (s.to_f64() <= 1.0) && (t.to_f64() >= 0.0) && (t.to_f64() <= 1.0) {
-		return Some(Point{x: a.p1.x.clone() + t.clone()*s1.x.clone(), y: a.p1.y.clone() + t.clone()*s1.y.clone()})
+	if (s >= N::zero()) && (s < N::one()) && (t >= N::zero()) && (t <= N::one()) {
+		return Some(&a.p1 + s1.scale(t));
 	}
 
 	None
 }
 
 // Use intersect_unit_inf or _discrete below instead of this function
-pub fn intersect_poly(line: Line<f64>, other: Polygon<f64>, discrete: bool) -> Option<(Point<f64>, Point<f64>)> {
+pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) -> Option<(Point<N>, Point<N>)> {
 	let mut candidates = Vec::new();
 	for boundary in other.to_lines().iter() {
 		// If the beginning or end of the line are coincident to the boundary, they need to be added
@@ -114,7 +121,7 @@ pub fn intersect_poly(line: Line<f64>, other: Polygon<f64>, discrete: bool) -> O
 		}
 
 		// Check normal intersections
-		let point: Option<Point<f64>>;
+		let point: Option<Point<N>>;
 	  if discrete {
 			point = intersect_lines(&line, &boundary);
 		} else {
@@ -176,7 +183,7 @@ pub fn intersect_poly_discrete(line: Line<f64>, other: Polygon<f64>) -> Option<(
 //
 // If the line starts in the square and finishes outside, return None.
 // If the line does not intersect return None
-pub fn intersect_poly_inf(line: Line<f64>, other: Polygon<f64>) -> Option<(Point<f64>, Point<f64>)> {
+pub fn intersect_poly_inf<N:Num>(line: Line<N>, other: Polygon<N>) -> Option<(Point<N>, Point<N>)> {
 	intersect_poly(line, other, false)
 }
 
@@ -185,9 +192,9 @@ pub fn gradient<N:Num>(l: &Line<N>) -> N {
 }
 
 //reflect point p on axis l
-pub fn flip_point<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
-	let a = gradient(&Line{p1:vertex1.clone(),p2:vertex2.clone()});
-	let c = vertex1.y.clone() - vertex1.x.clone() * a.clone();
+pub fn flip_point<N:Num>(p: &Point<N>, l: &Line<N>) -> Point<N> {
+	let a = gradient(&l);
+	let c = l.p1.y.clone() - l.p1.x.clone() * a.clone();
 	let x = p.x.clone();
 	let y = p.y.clone();
 	let d = (x.clone() + (y.clone() - c.clone())*a.clone())/(N::from_f64(1.0) + a.clone()*a.clone());
@@ -198,83 +205,39 @@ pub fn flip_point<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -
 }
 
 //flips both points of a line on an axis
-pub fn flip_line<N:Num>(line: &Line<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Line<N> {
-	Line{ p1: flip_point(&line.p1,&vertex1,&vertex2), p2: flip_point(&line.p2,&vertex1,&vertex2) }
+pub fn flip_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Line<N> {
+	Line{ p1: flip_point(&line.p1,&fold), p2: flip_point(&line.p2,&fold) }
 }
 
 // If there is an intersection, assume line.p1 is the point that does not get flipped
-pub fn fold_line<N:Num>(line: &Line<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Vec<Line<N>> {
-	let intersect = intersect_lines(&line,&Line{p1:vertex1.clone(),p2:vertex2.clone()});
+pub fn fold_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Vec<Line<N>> {
+	let intersect = intersect_lines(&line,&fold);
 
 	match intersect {
 		Some(p) => {
 			let l1 = Line{p1: p.clone(), p2: line.p1.clone() };
-			let l2 = Line{p1: p.clone(), p2: flip_point(&line.p2,&vertex1,&vertex2) };
+			let l2 = Line{p1: p.clone(), p2: flip_point(&line.p2,&fold) };
 			vec!(l1,l2)
 		}
-		None => vec!(flip_line(&line,&vertex1,&vertex2))
+		None => vec!(flip_line(&line,&fold))
 	}
 }
 
+// This function figures out the next line to fold along
+pub fn get_next_edge_to_fold(base: Polygon<f64>, silhouette: Polygon<f64>) -> (Point<f64>, Point<f64>) {
+	let mut candidates: Vec<Line<f64>> = silhouette.slicey_edges(base);
 
-pub fn fold_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Polygon<N> {
-    
-    let mut polyF = Polygon::new(Vec::new());
-    
-    for edge in poly.edges() {
-        
-        for line in fold_line( &edge, &vertex1, &vertex2 ) {
-            polyF.points.push(line.p1);
-            polyF.points.push(line.p2);
-        }
-    }
-    
-    polyF
+	let mut longest: Line<f64> = candidates[0].clone();
+	for line in candidates {
+	  println!("get_next_edge_to_fold: considering {}, length {}", line, line.len());
+		if line.len() > longest.len() {
+			longest = line;
+		}
+	}
+
+	return (longest.p1.clone(), longest.p2.clone());
 }
 
-
-pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) -> (Polygon<N>,Polygon<N>) {
-    
-    let mut poly1 = Polygon::new(Vec::new());
-    let mut poly2 = Polygon::new(Vec::new());
-    
-    let mut vertex1 = v1;
-    let mut vertex2 = v2;
-    
-    
-    for edge in poly.edges() {
-        
-        if edge.coincident(&vertex1) {
-            
-            poly1.points.push(edge.p1);
-//            poly1.push(vertex1.clone()); // don't do. would be added twice
-            
-            poly1.points.push(vertex1.clone());
-//            poly1.push(vertex2.clone()); // don't do. would be added twice
-            
-            poly2.points.push(vertex1.clone());
-//            poly2.push(edge.p2); // don't do. would be added twice
-
-            let (a, b) = (vertex2,vertex1);
-            vertex1 = a;
-            vertex2 = b;
-            
-            let (c,d) = (poly2,poly1);
-            poly1 = c;
-            poly2 = d;
-            
-        } else {
-            poly1.points.push(edge.p1.clone());
-        }
-        
-    }
-    
-    (poly1,poly2)
-}
-
-
-
-//
 // current state: outline, lines
 // new fold: vertex and dir (dir is a directional vector represented as a point)
 // note: the vertex must be on the outline somewhere
@@ -286,48 +249,11 @@ pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) ->
 // When folding we apply the fold to the current outline and produce a new outline as a set of polygons
 // Then, we also apply the fold to the source, the source always remains as a unit square (just withmore polygons)
 // i.e. the source represents the cuts on the source, which
-pub fn fold_origami<N: Num>(state: &Vec<(Polygon<N>)>, vertex1: &Point<N>, vertex2: &Point<N>) -> Vec<Polygon<N>>{
-
-    let mut newState = vec!();
-    
-    for poly in state {
-        if can_fold(&poly, &vertex1, &vertex2){
-            
-            let (poly1, poly2Old) = split_polygon(&poly,&vertex1,&vertex2);
-            
-            let poly2 = fold_polygon(&poly2Old, &vertex1, &vertex2);
-            
-            newState.push(poly1);
-            newState.push(poly2);
-            
-        } else {
-            newState.push(poly.clone());
-        }
-    }
-    
-    newState
-}
-
-pub fn can_fold<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> bool {
-    
-    let mut coincident1 = false;
-    let mut coincident2 = false;
-
-    for line in poly.edges() {
-
-        if line.coincident(vertex1){
-            coincident1 = true
-        }
-
-        if line.coincident(vertex2){
-            coincident2 = true
-        }
-
-    }
-    
-    return coincident1 && coincident2
-}
-
+//pub fn fold_origami<N: Num>(state: &Vec<(Polygon<N>)>, vertex1: Point<N>, vertex2: Point<N>) -> Vec<Polygon<N>>{
+//
+//
+//
+//}
 
 pub fn is_convex<N: Num>(l0: &Line<N>, l1: &Line<N>) -> bool {
 	dot(l0,l1) > N::zero()
@@ -516,7 +442,7 @@ impl<N: Num> Polygon<N> {
 			// Poss. do something with intersection here
 			
 			if intersection != None {
-				candidates.push(edge.to_f64());
+				candidates.push(Line::new(intersection.clone().unwrap().0, intersection.clone().unwrap().1));
 			}
 		}
 
@@ -770,6 +696,20 @@ impl<'a, 'b, N: Num> Add<&'b Point<N>> for &'a Point<N> {
 	}
 }
 
+impl<'a, N: Num> Add<&'a Point<N>> for Point<N> {
+	type Output=Point<N>;
+	fn add(self, other: &'a Point<N>) -> Point<N> {
+		Point{x: self.x + other.x.clone(), y: self.y + other.y.clone()}
+	}
+}
+
+impl<'a, N: Num> Add<Point<N>> for &'a Point<N> {
+	type Output=Point<N>;
+	fn add(self, other: Point<N>) -> Point<N> {
+		Point{x: other.x + self.x.clone(), y: other.y + self.y.clone()}
+	}
+}
+
 impl<N: Num> Sub for Point<N> {
 	type Output=Self;
 	fn sub(self, other: Point<N>) -> Self {
@@ -781,6 +721,20 @@ impl<'a, 'b, N: Num> Sub<&'b Point<N>> for &'a Point<N> {
 	type Output=Point<N>;
 	fn sub(self, other: &'b Point<N>) -> Point<N> {
 		Point{x: self.x.clone() - other.x.clone(), y: self.y.clone() - other.y.clone()}
+	}
+}
+
+impl<'a, N: Num> Sub<&'a Point<N>> for Point<N> {
+	type Output=Point<N>;
+	fn sub(self, other: &'a Point<N>) -> Point<N> {
+		Point{x: self.x - other.x.clone(), y: self.y - other.y.clone()}
+	}
+}
+
+impl<'a, N: Num> Sub<Point<N>> for &'a Point<N> {
+	type Output=Point<N>;
+	fn sub(self, other: Point<N>) -> Point<N> {
+		Point{x: self.x.clone() - other.x, y: self.y.clone() - other.y }
 	}
 }
 
@@ -987,6 +941,8 @@ mod tests {
 		assert_eq!(p64(2.25, 4.0), &p2 + &p1);
 		assert_eq!(p64(3.5, 6.5), &p1 + &(p2.scale(2.0)));
 		assert_eq!(p64(3.25, 5.5), &(p1.scale(2.0)) + &p2);
+
+		assert_eq!(p64(0.25, 1.0), p2 - &p1);
 	}
 
 	#[test]
@@ -1051,5 +1007,27 @@ mod tests {
 			println!("{}", edge);
 		}
 		assert_eq!(4, a.len());
+	}
+
+	#[test]
+	fn test_get_next_edge_to_fold() {
+		println!("## Unit square base, silhouette as above");
+		let mut base = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
+		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5)));
+
+		let result: (Point<f64>, Point<f64>) = get_next_edge_to_fold(base, a);
+		println!("Folding along edge {} -> {}", result.0, result.1);
+		assert_eq!(Point{x: 0.0, y: 0.0}, result.0);
+		assert_eq!(Point{x: 1.0, y: 1.0}, result.1);
+
+		println!("## Rotated square base, silhouette as above");
+		base = Polygon::new(vec!(p64(-4.0, 0.0), p64(0.0, -4.0), p64(4.0, 0.0), p64(0.0, 4.0)));
+		a = Polygon::new(vec!(p64(-1.0, 0.5), p64(1.0, 0.5), p64(1.0, 1.0), p64(-1.0, 1.0)));
+
+		let result: (Point<f64>, Point<f64>) = get_next_edge_to_fold(base, a);
+		println!("Folding along edge {} -> {}", result.0, result.1);
+		assert_eq!(Point{x: -3.5, y: 0.5}, result.0);
+		assert_eq!(Point{x: 3.5, y: 0.5}, result.1);
+
 	}
 }
