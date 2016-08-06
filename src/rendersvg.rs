@@ -35,6 +35,8 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	// draw silhouette
 	let mut silhouette = element::Group::new();
 	let mut corners = element::Group::new();
+	let mut anchorcnr: Result<(Line<N>, Line<N>), bool> = Err(false);
+	let mut anchorlength = 0.0_f64;
 	for polygon in shape.polys {
 		let mut points = String::from("");
 		for point in polygon.points.iter() {
@@ -52,30 +54,36 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 		if polygon.square() {
 			println!("square in {}", filename);
 		}
-		let path = element::Polygon::new()
+		let poly = element::Polygon::new()
 				.set("fill", fill).set("fill-opacity", "0.5")
 				.set("stroke", "black").set("stroke-opacity", "0.5")
 				.set("stroke-width", 0.005)
 				.set("points", points.trim());
-		silhouette = silhouette.add(path);
+		silhouette = silhouette.add(poly);
 		// highlight corners
 		for corner in polygon.corners() {
-			let (p1, p2) = (corner.0.p1, corner.0.p2);
+			let mut length = 0.0_f64;
+			let (p1, p2) = (corner.0.p1.clone(), corner.0.p2.clone());
 			let line1 = element::Line::new()
 				.set("x1", p1.x.to_f64()).set("y1", p1.y.to_f64())
 				.set("x2", p2.x.to_f64()).set("y2", p2.y.to_f64())
 				.set("stroke", "#00ff00").set("stroke-opacity", 0.5).set("stroke-width", 0.007);
+			length += p_distance(&p1, &p2);
 			corners = corners.add(line1);
-			let (p1, p2) = (corner.1.p1, corner.1.p2);
+			let (p1, p2) = (corner.1.p1.clone(), corner.1.p2.clone());
 			let line2 = element::Line::new()
 				.set("x1", p1.x.to_f64()).set("y1", p1.y.to_f64())
 				.set("x2", p2.x.to_f64()).set("y2", p2.y.to_f64())
 				.set("stroke", "#00ff00").set("stroke-opacity", 0.5).set("stroke-width", 0.007);
+			length += p_distance(&p1, &p2);
 			corners = corners.add(line2);
+			if length > anchorlength {
+				anchorcnr = Ok(corner.clone());
+				anchorlength = length;
+			}
 		}
 	}
 	document = document.add(silhouette);
-	document = document.add(corners);
 
 	// draw skeleton
 	let mut skeleton = element::Group::new();
@@ -94,6 +102,24 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 		skeleton = skeleton.add(skel_path);
 	}
 	document = document.add(skeleton);
+
+	// corners ontop looks nicer
+	document = document.add(corners);
+	if anchorcnr != Err(false) {
+		let (l1, l2) = anchorcnr.unwrap();
+		let unitsquare = square_from_corner(&l1, &l2);
+		let mut points = String::from("");
+		for point in unitsquare.points.iter() {
+			let coord = format!("{},{} ", point.x.to_f64(), point.y.to_f64());
+			points.push_str(&coord);
+		}
+		let poly = element::Polygon::new()
+					.set("fill", "#000").set("fill-opacity", "0.3")
+					.set("stroke", "black").set("stroke-opacity", "0.5")
+					.set("stroke-width", 0.005)
+					.set("points", points.trim());
+		document = document.add(poly);
+	}
 
 	// save to file
 	svg::save(format!("{}/{}", BASEPATH, filename), &document).unwrap();
