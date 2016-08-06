@@ -147,7 +147,7 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 				let points = format!("{}\n{}\n{}\n{}", p.points[0], p.points[1], p.points[2], p.points[3]);
 				println!("Simple solution found for {}, saving", filename);
 				let mut f = std::fs::File::create(filename.clone().replace("problem.svg", "solution.txt")).unwrap();
-				f.write_all(format!("4\n0,0\n1,0\n1,1\n0,1\n1\n4 0 1 2 3\n{}", points).as_bytes());
+				f.write_all(format!("4\n0,0\n1,0\n1,1\n0,1\n1\n4 0 1 2 3\n{}", points).as_bytes()).unwrap();
 			}
 		}
 	}

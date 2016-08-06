@@ -7,13 +7,13 @@ pub struct FoldState<N: Num> {
     pub dest_facets: Vec<Polygon<N>>
 }
 
-pub fn slice<N: Num>(input: &Polygon<N>, axis: Line<N>) -> Option<(Polygon<N>, Polygon<N>)> {
+/*pub fn slice<N: Num>(input: &Polygon<N>, axis: Line<N>) -> Option<(Polygon<N>, Polygon<N>)> {
     None
-}
+}*/
 
-pub fn fold<N: Num>(input: &FoldState<N>, axis: Line<N>) -> Option<FoldState<N>> {
+/*pub fn fold<N: Num>(input: &FoldState<N>, axis: Line<N>) -> Option<FoldState<N>> {
     None
-}
+}*/
 
 
 // http://stackoverflow.com/questions/2667748/how-do-i-combine-complex-polygons
@@ -98,7 +98,7 @@ mod tests {
     fn test_union_1() {
         let p1 = Polygon::new(vec!(p(0.0, 0.0), p(0.0, 1.0), p(1.0, 1.0), p(1.0, 0.0)));
         let p2 = Polygon::new(vec!(p(0.5, 0.5), p(0.5, 1.5), p(1.5, 1.5), p(1.5, 0.5)));
-        let pu = union(&p1, &p2);
+        let _ = union(&p1, &p2);
         //assert_eq!(1, 0); // Kill this assert to reduce the noise if not in active development, ok to reenable --blinken
         //assert_eq!(union(&p1,&p2), 
     }

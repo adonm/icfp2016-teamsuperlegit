@@ -10,7 +10,7 @@ pub trait Folds<N: Num> {
 // XXX unfinished
 fn facets<N: Num>(skel: Skeleton<N>) -> (Vec<Point<N>>, Vec<Vec<usize>>) {
 	let mut points = Vec::new();
-	let mut facets = Vec::new();
+	let facets = Vec::new();
 	/* 1. find edges which share a vertex
 	** 2. sort edges according to angle
 	** 3. construct poly using shortest line segments along adjacent angles */
