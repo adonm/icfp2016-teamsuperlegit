@@ -111,10 +111,19 @@ impl<N: Num> Display for Point<N> {
 	}
 }
 
+pub fn eq_eps<N: Num>(a: &N, b: &N) -> bool {
+  return (b.clone() - a.clone()).to_f64().abs() < 0.000001;
+}
+
 /* can't derive(Eq) because we support Point<f64> and f64 doesn't provide a total ordering
  * (╯°□°)╯ sᴎɐᴎ */
 impl<N: Num> Eq for Point<N> {
-	// apparently this is allowed to be empty. cool?
+}
+
+impl<N: Num> PartialEq for Point<N> {
+  fn eq(&self, other: &Point<N>) -> bool {
+    eq_eps(&self.x, &other.x) && eq_eps(&self.y, &other.y)
+  }
 }
 
 impl<N: Num> Ord for Point<N> {

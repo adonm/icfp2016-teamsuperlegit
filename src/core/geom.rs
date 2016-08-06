@@ -6,7 +6,7 @@ use ndarray::Ix;
 use super::super::matrix::Matrix33;
 use num::Float;
 
-#[derive(Debug,Clone,PartialEq,PartialOrd)]
+#[derive(Debug,Clone,PartialOrd)]
 pub struct Point<N: Num> {
 	pub x: N,
 	pub y: N,
@@ -583,6 +583,17 @@ fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool, Vec<(Line<N>
 mod tests {
 	use super::*;
 	use super::super::tests::*;
+
+	#[test]
+	fn test_point_eq(){
+    assert_eq!(pNum(0,0), pNum(0,0));
+    assert_eq!(pNum(0.0,0.0), pNum(0.0,0.0));
+    assert_eq!(pNum(0.0,0.0), pNum(0.0000000001,0.0000000001));
+    assert_eq!(pNum(1.0,1.0), pNum(1.0000000001,1.0000000001));
+
+    assert!(!(pNum(1,1) == pNum(0,0)));
+    assert!(!(pNum(1.0,1.0) == pNum(0.0000000001,0.0000000001)));
+  }
 
 	#[test]
 	fn gradient_test(){
