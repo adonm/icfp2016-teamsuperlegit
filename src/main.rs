@@ -1,6 +1,7 @@
 extern crate num;
 extern crate rustc_serialize;
 extern crate svg;
+extern crate ndarray;
 use std::vec::Vec;
 use rustc_serialize::json::Json;
 

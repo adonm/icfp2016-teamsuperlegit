@@ -7,6 +7,9 @@ use std::cmp::{Ord,Ordering,PartialOrd};
 use std::fmt::{Debug,Display};
 use std::fmt;
 use std::str::FromStr;
+use ndarray::rcarr2;
+use ndarray::RcArray;
+use ndarray::Ix;
 
 extern crate num;
 use num::rational::BigRational;
@@ -31,6 +34,7 @@ pub struct Polygon<N: Num> {
 	area: f64,
 	corners: Vec<(Line<N>, Line<N>)>,
 	pub points: Vec<Point<N>>,
+	pub transform: RcArray<BigRational, (Ix, Ix)>
 }
 
 #[derive(Debug,Clone)]
@@ -227,7 +231,14 @@ impl<N: Num> Point<N> {
 impl<N: Num> Polygon<N> {
 	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
 		let (clockwise, area, square, corners) = orient_area(&points);
-		Polygon{points: points, area: area, square: square, is_hole: clockwise, corners: corners}
+		let one = "1".parse::<BigRational>().unwrap();
+		let zero = "0".parse::<BigRational>().unwrap();
+		Polygon{points: points, area: area, square: square, is_hole: clockwise, corners: corners,
+			transform: rcarr2(&[
+				[one.clone(), zero.clone(), zero.clone()],
+				[zero.clone(), one.clone(), zero.clone()],
+				[zero.clone(), zero.clone(), one.clone()]
+			])}
 	}
 
 	pub fn is_hole(&self) -> bool {

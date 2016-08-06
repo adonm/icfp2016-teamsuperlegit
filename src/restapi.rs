@@ -9,8 +9,8 @@ use std::process::Command;
 
 pub fn submit(problem_id: i64) {
 	// submit a problem
-	// easily submit lots using e.g: 
-	// # ls icfp2016problems | grep solution.txt | cut -f1 -d'.' | xargs -n1 cargo run submit
+	// easily submit all uncommitted solutions using e.g: 
+	// # git -C icfp2016problems status | grep solution.txt | grep -E -o "[0-9]+" | xargs -n1 cargo run submit
 	let path = format!("{}/{:05}.solution.txt", BASEPATH, problem_id);
 	let path_arg = path.clone();
 	let output = Path::new(&path);
