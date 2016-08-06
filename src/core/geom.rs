@@ -6,7 +6,7 @@ use ndarray::Ix;
 use super::super::matrix::Matrix33;
 use num::Float;
 
-#[derive(Debug,Clone,PartialEq,PartialOrd)]
+#[derive(Debug,Clone,PartialOrd)]
 pub struct Point<N: Num> {
 	pub x: N,
 	pub y: N,
@@ -38,11 +38,32 @@ pub struct Skeleton<N: Num> {
 	pub lines: Vec<Line<N>>,
 }
 
-// infinite line intersection
-pub fn intersect<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
-	//TODO
-	return None
+// infinite line intersection. Returns the intersection point or None if the
+// lines do not intercept.
+//
+// An epsilon is used to mark lines that are very close to parallel as parallel.
+pub fn intersect_inf<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
+	let x1 = a.p1.x.clone();
+	let y1 = a.p1.y.clone();
+	let x2 = a.p2.x.clone();
+	let y2 = a.p2.y.clone();
+	let x3 = b.p1.x.clone();
+	let y3 = b.p1.y.clone();
+	let x4 = b.p2.x.clone();
+	let y4 = b.p2.y.clone();
+
+  // If the lines are very close to parallel return None
+  let d = (x1.clone() - x2.clone())*(y3.clone() - y4.clone()) - (y1.clone() - y2.clone())*(x3.clone() - x4.clone());
+  if d.to_f64().abs() < 0.000001 {
+    return None;
+  }
+
+  let x_out = ((x1.clone()*y2.clone() - y1.clone()*x2.clone())*(x3.clone() - x4.clone()) - (x1.clone() - x2.clone())*(x3.clone()*y4.clone() - y3.clone()*x4.clone())) / d.clone();
+  let y_out = ((x1.clone()*y2.clone() - y1.clone()*x2.clone())*(y3.clone() - y4.clone()) - (y1.clone() - y2.clone())*(x3.clone()*y4.clone() - y3.clone()*x4.clone())) / d.clone();
+
+  Some(Point{x: x_out, y: y_out})
 }
+
 fn cross_scalar<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
 	a.x.clone() * b.y.clone() - a.y.clone() * b.x.clone()
 }
@@ -82,7 +103,7 @@ pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) 
 		if discrete {
 			point = intersect_lines(&line, &boundary);
 		} else {
-			point = intersect(&line, &boundary);
+			point = intersect_inf(&line, &boundary);
 		}
 
 		if point != None {
@@ -133,9 +154,9 @@ pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Poin
     let l = Line::new(vertex1.clone(),vertex2.clone());
     
     if vertex1.x.clone() == N::from_f64(0.0) && vertex2.x.clone() == N::from_f64(0.0) {
-        Matrix33::rotate(-90.0.to_radians())
+        Matrix33::rotate_angle(-90.0.to_radians())
             .then_scale(N::from_f64(1.0),N::from_f64(-1.0))
-            .then_rotate(90.0.to_radians())
+            .then_rotate_angle(90.0.to_radians())
             .transform(p.clone())
         
     } else {
@@ -146,9 +167,9 @@ pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Poin
         println!("p,v1,v2,grad,c,angle {:?} {:?} {:?} {:?} {:?} {:?}",p,vertex1,vertex2,gradient(&l),c,c.clone().to_f64().atan());
         
         Matrix33::translate(N::from_f64(0.0),-c.clone())
-            .then_rotate(-g.clone().to_f64().atan())
+            .then_rotate_angle(-g.clone().to_f64().atan())
             .then_scale(N::from_f64(1.0),N::from_f64(-1.0))
-            .then_rotate(g.clone().to_f64().atan())
+            .then_rotate_angle(g.clone().to_f64().atan())
             .then_translate(N::from_f64(0.0),c.clone())
             .transform(p.clone())
     }
@@ -588,6 +609,17 @@ fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool, Vec<(Line<N>
 mod tests {
 	use super::*;
 	use super::super::tests::*;
+
+	#[test]
+	fn test_point_eq(){
+    assert_eq!(pNum(0,0), pNum(0,0));
+    assert_eq!(pNum(0.0,0.0), pNum(0.0,0.0));
+    assert_eq!(pNum(0.0,0.0), pNum(0.0000000001,0.0000000001));
+    assert_eq!(pNum(1.0,1.0), pNum(1.0000000001,1.0000000001));
+
+    assert!(!(pNum(1,1) == pNum(0,0)));
+    assert!(!(pNum(1.0,1.0) == pNum(0.0000000001,0.0000000001)));
+  }
 
 	#[test]
 	fn gradient_test(){
