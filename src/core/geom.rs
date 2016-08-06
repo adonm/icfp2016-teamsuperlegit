@@ -334,21 +334,6 @@ impl<N: Num> Polygon<N> {
 		false
 	}
 
-	// Returns the longest edge of this polygon
-	pub fn longest_edge(self) -> (Point<N>, Point<N>) {
-		let mut max: f64 = p_distance(&self.points.last().unwrap(), &self.points[0]);
-		let mut longest: (Point<N>, Point<N>) = (self.points.last().unwrap().clone(), self.points[0].clone());
-		for edge in self.points.windows(2) {
-			let distance = p_distance(&edge[0], &edge[1]);
-			if distance > max {
-				max = distance;
-				longest = (Point{x: edge[0].x.clone(), y: edge[0].y.clone()}, Point{x: edge[1].x.clone(), y: edge[1].y.clone()});
-			}
-		}
-
-		return longest;
-	}
-
 	// Return this polygon as a vector of lines
 	pub fn to_lines(self) -> Vec<Line<N>> {
 		let mut output = Vec::new();
@@ -514,18 +499,6 @@ impl<N: Num> Skeleton<N> {
 	pub fn len(self) -> usize {
 		return self.lines.len();
 	}
-
-	// Returns the longest edge in this skeleton
-	pub fn longest_edge(self) -> Line<N> {
-		let mut longest: Line<N> = self.lines[0].clone();
-		for line in self.lines {
-			if line.len() > longest.len() {
-				longest = line;
-			}
-		}
-
-		return longest.clone();
-	}
 }
 
 pub fn angle<'a, N: Num>(p0: &'a Point<N>, p1: &'a Point<N>) -> f64 {
@@ -654,12 +627,6 @@ mod tests {
 		let hole12 = Polygon::new(vec!(p(1, 1), p(1, 2), p(2, 2), p(2, 1)));
 		assert!(hole12.is_hole());
 		assert_eq!(15.0, Shape::new(vec!(p44, hole12)).area());
-	}
-
-	#[test]
-	fn test_longest() {
-		assert_eq!((p(1,0), p(2,2)), Polygon::new(vec!(p(0, 0), p(1, 0), p(2, 2), p(0, 1))).longest_edge());
-		assert_eq!(2.0, Line::new(p(0, 0), p(2, 0)).len());
 	}
 
 	#[test]
