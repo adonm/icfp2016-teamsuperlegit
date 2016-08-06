@@ -764,9 +764,9 @@ mod tests {
 		assert!(Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(1,1)));
 		assert!(!Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(3,3)));
 
-		assert!(!Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(0.2,0.2)));
-		assert!(!Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(0.2,0.7)));
-		assert!(!Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(0.7,0.7)));
+		assert!(Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(0.2,0.2)));
+		assert!(Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(0.2,0.7)));
+		assert!(Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(0.7,0.7)));
 		assert!(!Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(1.3,0.7)));
 	}
 
