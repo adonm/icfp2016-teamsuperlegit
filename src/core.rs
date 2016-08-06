@@ -102,9 +102,9 @@ pub fn intersect_lines<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 }
 
 // Use intersect_unit_inf or _discrete below instead of this function
-pub fn intersect_unit(line: Line<f64>, discrete: bool) -> Option<(Point<f64>, Point<f64>)> {
+pub fn intersect_poly(line: Line<f64>, other: Polygon<f64>, discrete: bool) -> Option<(Point<f64>, Point<f64>)> {
 	let mut candidates = Vec::new();
-	for boundary in unit_sq.iter() {
+	for boundary in other.to_lines().iter() {
 		// If the beginning or end of the line are coincident to the boundary, they need to be added
 		if boundary.coincident(&line.p1) {
 			candidates.push(line.p1.clone());
@@ -131,7 +131,7 @@ pub fn intersect_unit(line: Line<f64>, discrete: bool) -> Option<(Point<f64>, Po
 	candidates.sort();
 	candidates.dedup();
 
-	println!("intersect_unit (discrete={}) for {}, {} candidates - ", discrete, line, candidates.len());
+	println!("intersect_poly (discrete={}) for {}, {} candidates - ", discrete, line, candidates.len());
 	for p in candidates.clone() {
 		println!("{}", p);
 	}
@@ -149,7 +149,9 @@ pub fn intersect_unit(line: Line<f64>, discrete: bool) -> Option<(Point<f64>, Po
 //
 // If the line does not intersect return None
 pub fn intersect_unit_inf(line: Line<f64>) -> Option<(Point<f64>, Point<f64>)> {
-	intersect_unit(line, false)
+	let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
+
+	intersect_poly(line, unit_sq_p, false)
 }
 
 // Return the pair of points where a line intersects the unit square (discrete lines). 
@@ -157,7 +159,26 @@ pub fn intersect_unit_inf(line: Line<f64>) -> Option<(Point<f64>, Point<f64>)> {
 // If the line starts in the square and finishes outside, return None.
 // If the line does not intersect return None
 pub fn intersect_unit_discrete(line: Line<f64>) -> Option<(Point<f64>, Point<f64>)> {
-	intersect_unit(line, true)
+	let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
+
+	intersect_poly(line, unit_sq_p, true)
+}
+
+// Return the pair of points where a line intersects the given poly (discrete lines). 
+//
+// If the line starts in the square and finishes outside, return None.
+// If the line does not intersect return None
+pub fn intersect_poly_discrete(line: Line<f64>, other: Polygon<f64>) -> Option<(Point<f64>, Point<f64>)> {
+	intersect_poly(line, other, true)
+}
+
+// Return the pair of points where a line intersects the given poly, if it is
+// extended to infinity in both directions
+//
+// If the line starts in the square and finishes outside, return None.
+// If the line does not intersect return None
+pub fn intersect_poly_inf(line: Line<f64>, other: Polygon<f64>) -> Option<(Point<f64>, Point<f64>)> {
+	intersect_poly(line, other, false)
 }
 
 pub fn gradient<N:Num>(l: &Line<N>) -> N {
@@ -368,22 +389,33 @@ impl<N: Num> Polygon<N> {
 	}
 
 	// Return the set of edges of this polygon that slice the unit square.
+	// Largely useful for testing.
 	//
 	// An edge qualifies if it
 	//  - crosses at least one boundary of the unit square.
 	//  - lies wholly within the unit square
-	pub fn slicey_edges(self) -> Vec<Line<f64>> {
-		let mut candidates = Vec::new();
+	pub fn slicey_edges_unit(self) -> Vec<Line<f64>> {
 		let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
+
+		self.slicey_edges(unit_sq_p)
+	}
+
+	// Return the set of edges of this polygon that slice the provided polygon.
+	//
+	// An edge qualifies if it
+	//  - crosses at least one boundary of the unit square.
+	//  - lies wholly within the unit square
+	pub fn slicey_edges(self, other: Polygon<f64>) -> Vec<Line<f64>> {
+		let mut candidates = Vec::new();
 
 		for edge in self.to_lines() {
 		  println!("slicey_edges - considering line {}", edge);
-		  println!("  contained {} {}", unit_sq_p.contains(&edge.p1.to_f64()), unit_sq_p.contains(&edge.p2.to_f64()));
-			let mut intersection: Option<(Point<f64>, Point<f64>)> = intersect_unit_discrete(edge.clone().to_f64());
+		  println!("  contained {} {}", other.contains(&edge.p1.to_f64()), other.contains(&edge.p2.to_f64()));
+			let mut intersection: Option<(Point<f64>, Point<f64>)> = intersect_poly_discrete(edge.clone().to_f64(), other.clone());
 			if intersection == None {
 				// Line lies wholly within or wholly without the unit square, or straddles the boundary
-				if unit_sq_p.contains(&edge.p1.to_f64()) || unit_sq_p.contains(&edge.p2.to_f64()) {
-					intersection = intersect_unit_inf(edge.clone().to_f64());
+				if other.contains(&edge.p1.to_f64()) || other.contains(&edge.p2.to_f64()) {
+					intersection = intersect_poly_inf(edge.clone().to_f64(), other.clone());
 				}
 			}
 			// Poss. do something with intersection here
@@ -873,8 +905,28 @@ mod tests {
 
 	#[test]
 	fn test_slicey_edges() {
+		println!("## Rotated square base, silhouette as above");
+		let mut base = Polygon::new(vec!(p64(-4.0, 0.0), p64(0.0, -4.0), p64(4.0, 0.0), p64(0.0, 4.0)));
+		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges(base.clone());
+		println!("Number of intersecting edges: {}", a.len());
+		for edge in a.clone() {
+			println!("{}", edge);
+		}
+		assert_eq!(4, a.len());
+
+		println!("## Rotated square base, some inside some out");
+		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(10.0, -10.0), p64(11.0, 0.5), p64(5.0, 5.0))).slicey_edges(base.clone());
+		println!("Number of intersecting edges: {}", a.len());
+		for edge in a.clone() {
+			println!("{}", edge);
+		}
+		assert_eq!(2, a.len());
+	}
+
+	#[test]
+	fn test_slicey_edges_unit() {
 		println!("## Polygon with vertices on unit sq corners/parallel lines");
-		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges();
+		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges_unit();
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
@@ -882,7 +934,7 @@ mod tests {
 		assert_eq!(4, a.len());
 
 		println!("## 'normal' polygon, some inside some out");
-		a = Polygon::new(vec!(p64(-1.3, -1.2), p64(0.5, -0.5), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges();
+		a = Polygon::new(vec!(p64(-1.3, -1.2), p64(0.5, -0.5), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges_unit();
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
@@ -890,7 +942,7 @@ mod tests {
 		assert_eq!(2, a.len());
 
 		println!("## Polygon surrounds the unit sq");
-		a = Polygon::new(vec!(p64(-1.0, -1.0), p64(1.5, -0.5), p64(1.5, 1.5), p64(-1.0, 1.5))).slicey_edges();
+		a = Polygon::new(vec!(p64(-1.0, -1.0), p64(1.5, -0.5), p64(1.5, 1.5), p64(-1.0, 1.5))).slicey_edges_unit();
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
@@ -898,7 +950,7 @@ mod tests {
 		assert_eq!(0, a.len());
 
 		println!("## Polygon contained within the unit");
-		a = Polygon::new(vec!(p64(0.2, 0.2), p64(0.7, 0.2), p64(0.7, 0.7), p64(0.2, 0.7))).slicey_edges();
+		a = Polygon::new(vec!(p64(0.2, 0.2), p64(0.7, 0.2), p64(0.7, 0.7), p64(0.2, 0.7))).slicey_edges_unit();
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
