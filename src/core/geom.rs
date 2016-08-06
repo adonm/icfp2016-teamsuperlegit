@@ -442,54 +442,6 @@ impl<N: Num> Polygon<N> {
 
 		candidates
 	}
-
-	// Return the first vertex where this polygon departs the unit square - the
-	// vertex closest to 0,0 that lies on the unit square.
-	//
-	// The polygon must be convex (no holes)
-	//
-	// If some element of the polygon lies outside the unit square, we'll still
-	// find the vertex closest to 0,0.
-	//
-	// If no vertex of the polygon lies on the unit square, return None.
-	pub fn lowest_vertex(self, unit_sq: Polygon<N>) -> Option<Point<N>> {
-
-		let mut candidates = Vec::new();
-
-		// Search the axes in order of close-ness to 0,0
-		for boundary in unit_sq.edges() {
-			// Build a list of points coincident to this axis
-			for point in self.points.clone() {
-				if boundary.coincident(&point) {
-					candidates.push(point);
-				}
-			}
-
-			// If we found any points, don't try any other axes
-			if candidates.len() > 0 {
-				break;
-			}
-		}
-
-		// No verticies coincident with the unit square
-		if candidates.len() == 0 {
-			return None;
-		}
-
-		// Pick the closest point from the candidates
-		let origin = Point{x: N::zero(), y: N::zero()};
-		let mut min = candidates[0].clone();
-		for point in candidates {
-			if p_distance(&origin, &point) < p_distance(&origin, &min) {
-				min = point;
-			}
-		}
-
-		// I can't get this to work --blinken
-		//return candidates.min_by_key(|point| p_distance(&origin, *point));
-
-		Some(min)
-	}
 }
 
 impl<N: Num> Shape<N> {
@@ -791,20 +743,6 @@ mod tests {
 	#[test]
 	fn test_contains_3() {
 		assert!(!Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(3,3)));
-	}
-
-	#[test]
-	fn test_lowest_unit_vertex() {
-		let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
-
-		let a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(1.0, 0.5), p64(0.5, 0.5)));
-		assert_eq!(p64(0.0,0.0), a.lowest_vertex(unit_sq_p.clone()).unwrap());
-
-		let b = Polygon::new(vec!(p64(0.0, 0.7), p64(0.5, 0.0), p64(1.0, 0.5), p64(0.5, 0.9)));
-		assert_eq!(p64(0.5,0.0), b.lowest_vertex(unit_sq_p.clone()).unwrap());
-
-		let c = Polygon::new(vec!(p64(0.0, 2.0), p64(1.0, 2.0), p64(1.0, 3.0), p64(0.0, 3.0)));
-		assert_eq!(None, c.lowest_vertex(unit_sq_p));
 	}
 
 	#[test]
