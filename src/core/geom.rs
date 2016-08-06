@@ -37,34 +37,10 @@ pub struct Skeleton<N: Num> {
 	pub lines: Vec<Line<N>>,
 }
 
-//This assumes l0 -> l1 is clockwise, and l0.p2==l1.p1
-fn dot<N: Num>(l0: &Line<N>, l1: &Line<N>) -> N {
-	let d1 = &l0.p2 - &l0.p1;
-	let d2 = &l1.p2 - &l0.p2;
-
-	d1.x*d2.y - d1.y*d2.x
-}
-
-
-//This assumes l0 -> l1 is clockwise, and l0.p2==l1.p1
-fn dot_points<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
-	N::from_f64(a.x.to_f64() * b.x.to_f64() + a.y.to_f64() * b.y.to_f64())
-}
 
 // infinite line intersection
 pub fn intersect<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
-	let e = &a.p1 - &a.p2;
-	let f = &b.p1 - &b.p2;
-
-	let p = Point{ x: -e.x, y: e.y };
-
-	// if dot_points is 0 bignum dies
-	if dot_points(&f,&p).to_f64() != 0.0 {
-		let h = ( dot_points(&(&a.p2-&b.p2),&p) ) / ( dot_points(&f,&p) );
-		if h >= N::from_f64(0.0) && h<=N::from_f64(1.0) {
-			return Some( &b.p2 + &Point{x:f.x*h.clone(), y:f.y*h.clone()} )
-		}
-	}
+	//TODO
 	return None
 }
 
@@ -157,7 +133,7 @@ pub fn gradient<N:Num>(l: &Line<N>) -> N {
 pub fn flip_point<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
     let n = vertex2 - vertex1;
     let d = p - vertex1;
-    let f = N::from_f64(2.0) * dot_points(&d,&n);
+    let f = N::from_f64(2.0) * cross_scalar(&d,&n);
     
     let prod = Point{x: f.clone()*n.x.clone(), y: f.clone()*n.y.clone()};
     
@@ -258,11 +234,6 @@ pub fn can_fold<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N
     }
     
     return coincident1 && coincident2
-}
-
-
-pub fn is_convex<N: Num>(l0: &Line<N>, l1: &Line<N>) -> bool {
-	dot(l0,l1) > N::zero()
 }
 
 pub fn p_distance<N: Num>(p1: &Point<N>, p2: &Point<N>) -> f64 {
@@ -514,6 +485,10 @@ impl<N: Num> Line<N> {
 		let l2 = Line::new(mid, self.p2.clone());
 		(l1, l2)
 	}
+    
+    pub fn length(&self) -> f64{
+        p_distance(&self.p1,&self.p2);
+    }
 }
 
 impl<N: Num> Skeleton<N> {
@@ -626,27 +601,20 @@ mod tests {
 
 	#[test]
 	fn flip_point_test(){
-        let p1 = pNum(1,1);
+        let p1 = pNum(0,1);
         let v1 = pNum(0,0);
-        let v2 = pNum(0,1);
+        let v2 = pNum(1,1);
         let p2 = flip_point(&p1,&v1,&v2);
         println!("flip_point_test: {:?}",p2);
 	}
 
 	#[test]
-	fn test_is_convex_1(){
-		let l1 = Line{ p1: p(1,1), p2: p(2,2) };
-		let l2 = Line{ p1: p(2,2), p2: p(3,1) };
-
-		assert!(is_convex(&l1,&l2)==false);
-	}
-
-	#[test]
-	fn test_is_convex_2(){
-		let l1 = Line{ p1: p(1,1), p2: p(2,2) };
-		let l2 = Line{ p1: p(2,2), p2: p(3,4) };
-
-		assert!(is_convex(&l1,&l2)==true);
+	fn flip_line_test(){
+        let l1 = Line::new(pNum(0,2),pNum(0,3));
+        let v1 = pNum(1,1);
+        let v2 = pNum(2,2);
+        let l2 = flip_line(&l1,&v1,&v2);
+        println!("flip_line_test: {:?}",l2);
 	}
 
 	#[test]
