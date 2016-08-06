@@ -37,6 +37,7 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	let mut corners = element::Group::new();
 	let mut anchorcnr: Result<(Line<N>, Line<N>), bool> = Err(false);
 	let mut anchorlength = 0.0_f64;
+	let mut psquare: Result<Polygon<N>, bool> = Err(false);
 	for polygon in shape.polys {
 		let mut points = String::from("");
 		for point in polygon.points.iter() {
@@ -52,6 +53,7 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 			"#ff2df7"
 		};
 		if polygon.square() {
+			psquare = Ok(polygon.clone());
 			println!("square in {}", filename);
 		}
 		let poly = element::Polygon::new()
@@ -119,6 +121,11 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 					.set("stroke-width", 0.005)
 					.set("points", points.trim());
 		document = document.add(poly);
+		if psquare != Err(false) {
+			if psquare.unwrap().area() == unitsquare.area() {
+				println!{"Simple solution for {}", filename}
+			}
+		}
 	}
 
 	// save to file
