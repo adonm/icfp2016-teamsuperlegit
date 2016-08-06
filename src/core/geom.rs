@@ -650,6 +650,7 @@ mod tests {
 
 	#[test]
 	fn test_flip_point_matrix(){
+        
         let mut p2 = flip_point_matrix(&pNum(1.0,1.0), &pNum(0.0,0.0), &pNum(1.0,0.0));
         println!("flip_point_test: {:?}",p2);
         assert_eq!(pNum(1.0, -1.0), p2);
@@ -657,6 +658,13 @@ mod tests {
         p2 = flip_point_matrix(&pNum(1.0,0.0), &pNum(0.0,0.0), &pNum(3.0,3.0));
         println!("flip_point_test: {:?}",p2);
         assert_eq!(pNum(0.0, 1.0), p2);
+
+        p2 = flip_point_matrix(&pNum(1.0,0.0), &pNum(0.0,0.0), &pNum(0.866025403784439,0.5)); // unit vector along x, 30 deg line. Result should be unit vector 60 degrees to the x axis
+        println!("flip_point_test: {:?}",p2); 
+
+        // Compare with an epsilon
+        assert!(p2.x - 0.5 < 0.000001);
+        assert!(p2.y - 0.866025403784439 < 0.000001);
 	}
 
 	#[test]
