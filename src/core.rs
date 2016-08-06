@@ -51,7 +51,7 @@ fn dot<N: Num>(l0: &Line<N>, l1: &Line<N>) -> N {
 }
 
 pub fn is_convex<N: Num>(l0: &Line<N>, l1: &Line<N>) -> bool {
-	dot(l0,l1).to_f64() > 0.0
+	dot(l0,l1) > N::zero()
 }
 
 pub fn p_distance<N: Num>(p1: &Point<N>, p2: &Point<N>) -> f64 {
@@ -321,32 +321,41 @@ fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool, Vec<(Line<N>
 
 
 
-pub trait ToF64 {
+pub trait SuperLegit {
 	fn to_f64(&self) -> f64;
 	fn from_f64(f64) -> Self;
+	fn zero() -> Self;
+	fn one() -> Self;
 }
 
-impl ToF64 for i32 {
+impl SuperLegit for i32 {
 	fn to_f64(&self) -> f64 { *self as f64 }
 	fn from_f64(f: f64) -> Self { f as i32 }
+	fn zero() -> Self { 0 }
+	fn one() -> Self { 1 }
 }
 
-impl ToF64 for f64 {
+impl SuperLegit for f64 {
 	fn to_f64(&self) -> f64 { *self }
 	fn from_f64(f: f64) -> Self { f }
+	fn zero() -> Self { 0.0 }
+	fn one() -> Self { 1.0 }
 }
 
-impl ToF64 for BigRational {
+impl SuperLegit for BigRational {
 	fn to_f64(&self) -> f64 {
 		// BUG converts very large negatives to positive infinity
 		self.numer().to_f64().unwrap_or(INFINITY) / self.denom().to_f64().unwrap_or(1.0)
 	}
 
 	fn from_f64(f: f64) -> Self { BigRational::from_float(f).unwrap() }
+
+	fn zero() -> Self { num::zero::<BigRational>() }
+	fn one() -> Self { num::one::<BigRational>() }
 }
 
-pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + PartialOrd + ToF64 + Clone {}
-impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + PartialOrd + ToF64 + Clone {}
+pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + PartialOrd + Clone + SuperLegit {}
+impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + PartialOrd + Clone + SuperLegit {}
 
 impl<N: Num> Add for Point<N> {
 	type Output=Self;
