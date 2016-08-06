@@ -84,7 +84,7 @@ pub fn intersect_discrete<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> 
 // Use intersect_poly_inf or _discrete below instead of this function
 pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) -> Option<(Point<N>, Point<N>)> {
 	let mut candidates = Vec::new();
-	for boundary in other.to_lines().iter() {
+	for boundary in other.edges().iter() {
 		// If the beginning or end of the line are coincident to the boundary, they need to be added
 		if boundary.coincident(&line.p1) {
       println!("intersect_poly - adding coincident candidate {}", line.p1);
@@ -359,6 +359,7 @@ impl<N: Num> Polygon<N> {
 		return corners;
 	}
 
+	// Return this polygon as a vector of lines
 	pub fn edges(&self) -> Vec<Line<N>> {
 		let mut edges: Vec<Line<N>> = Vec::new();
 		let mut previous = self.points.len() - 1;
@@ -402,19 +403,6 @@ impl<N: Num> Polygon<N> {
 		false
 	}
 
-	// Return this polygon as a vector of lines
-	pub fn to_lines(self) -> Vec<Line<N>> {
-		let mut output = Vec::new();
-		for edge_p in self.points.windows(2) {
-			output.push(Line::new(edge_p[0].clone(), edge_p[1].clone()));
-		}
-
-		// n-1 -> 0
-		output.push(Line::new(self.points.last().unwrap().clone(), self.points[0].clone()));
-
-		output
-	}
-
 	// Return the set of edges of this polygon that slice the provided polygon.
 	//
 	// An edge qualifies if it
@@ -423,7 +411,7 @@ impl<N: Num> Polygon<N> {
 	pub fn slicey_edges(self, other: Polygon<f64>) -> Vec<Line<f64>> {
 		let mut candidates = Vec::new();
 
-		for edge in self.to_lines() {
+		for edge in self.edges() {
 		  println!("slicey_edges - considering line {}", edge);
 		  println!("  contained {} {}", other.contains(&edge.p1.to_f64()), other.contains(&edge.p2.to_f64()));
 			let mut intersection: Option<(Point<f64>, Point<f64>)> = intersect_poly_discrete(edge.clone().to_f64(), other.clone());
@@ -534,9 +522,7 @@ fn half_tri_area<'a, N: Num>(p0: &'a Point<N>, p1: &'a Point<N>) -> N {
 ** and the second element is the area contained within. thx to:
 ** http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-points-are-in-clockwise-order */
 fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64) {
-	let mut corners: Vec<(Line<N>, Line<N>)> = Vec::new();
 	let n = points.len();
-	let mut square = n == 4;
 	// first case
 	let mut sum = half_tri_area(&points[n-1], &points[0]);
 	// rest of polygon
