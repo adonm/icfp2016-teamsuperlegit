@@ -1022,12 +1022,12 @@ mod tests {
 
 		println!("## Rotated square base, silhouette as above");
 		base = Polygon::new(vec!(p64(-4.0, 0.0), p64(0.0, -4.0), p64(4.0, 0.0), p64(0.0, 4.0)));
-		a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5)));
+		a = Polygon::new(vec!(p64(-1.0, 0.5), p64(1.0, 0.5), p64(1.0, 1.0), p64(-1.0, 1.0)));
 
 		let result: (Point<f64>, Point<f64>) = get_next_edge_to_fold(base, a);
 		println!("Folding along edge {} -> {}", result.0, result.1);
-		assert_eq!(Point{x: 0.5, y: -3.54}, result.0);
-		assert_eq!(Point{x: 0.5, y: 3.5}, result.1);
+		assert_eq!(Point{x: -3.5, y: 0.5}, result.0);
+		assert_eq!(Point{x: 3.5, y: 0.5}, result.1);
 
 	}
 }
