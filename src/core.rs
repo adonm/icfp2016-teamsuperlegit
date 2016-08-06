@@ -51,6 +51,83 @@ fn dot<N: Num>(l0: &Line<N>, l1: &Line<N>) -> N {
 	d1.x*d2.y - d1.y*d2.x
 }
 
+
+//This assumes l0 -> l1 is clockwise, and l0.p2==l1.p1
+fn dot_points<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
+    N::from_f64(a.x.to_f64() * b.x.to_f64() + a.y.to_f64() * b.y.to_f64())
+}
+
+pub fn intersect_lines<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
+    
+    let e = &a.p1 - &a.p2;
+    let f = &b.p1 - &b.p2;
+    
+    let p = Point{ x: -e.x, y: e.y };
+    
+    let h = ( dot_points(&(&a.p2-&b.p2),&p) ) / ( dot_points(&f,&p) );
+    
+    if h >= N::from_f64(0.0) && h<=N::from_f64(1.0) {
+        Some( &b.p2 + &Point{x:f.x*h.clone(), y:f.y*h.clone()} )
+    } else {
+        None
+    }
+    
+}
+
+pub fn gradient<N:Num>(l: &Line<N>) -> N {
+    ( l.p2.y.clone() - l.p1.y.clone() ) / ( l.p2.x.clone() - l.p1.x.clone() )
+}
+
+//reflect point p on axis l
+pub fn flip_point<N:Num>(p: &Point<N>, l: &Line<N>) -> Point<N> {
+    
+    let a = gradient(&l);
+    let c = l.p1.y.clone() - l.p1.x.clone() * a.clone();
+    let x = p.x.clone();
+    let y = p.y.clone();
+    let d = (x.clone() + (y - c)*a.clone())/(N::from_f64(1.0) + a.clone()*a.clone());
+    
+    let two = N::from_f64(2.0);
+    
+    Point{ x: two*d.clone() - x.clone(), y: two.clone()*d.clone()*a.clone() - y.clone() + two.clone()*c }
+}
+
+//flips both points of a line on an axis
+pub fn flip_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Line<N> {
+    Line{ p1: flip_point(&line.p1,&fold), p2: flip_point(&line.p2,&fold) }
+}
+
+
+
+// If there is an intersection, assume line.p1 is the point that does not get flipped
+pub fn fold_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Vec<Line<N>> {
+    
+    let intersect = intersect_lines(&line,&fold);
+    
+    match intersect {
+        Some(p) => {
+            let l1 = Line{ p1: p, p2: line.p1 };
+            let l2 = Line{p1: p, p2: flip_point(&line.p2,&fold) };
+            vec!(l1,l2)
+        }
+        None => vec!(flip_line(&line,&fold))
+        
+    }
+}
+//
+//// current state: outline, lines
+//// new fold: vertex and dir (dir is a directional vector represented as a point)
+//// note: the vertex must be on the outline somewhere
+//// the fold reaches from the vertex all the way to the next intersection with the outline (but no further)
+//// all the lines found within the polygon created by that outline is flipped with the fold
+//// if a line intersects the fold, it is also folded
+//// returns the new state as a tuple
+//pub fn fold_origami<N: Num>(outline: &Polygon<N>, lines: Vec<Line<N>>, vertex: Point<N>, dir: Point<N>) -> (outline: Polygon<N>, lines: Vec<Line<N>>){
+//    
+//    
+//    
+//}
+
 pub fn is_convex<N: Num>(l0: &Line<N>, l1: &Line<N>) -> bool {
 	dot(l0,l1) > N::zero()
 }
