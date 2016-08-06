@@ -54,7 +54,7 @@ pub fn intersect_inf<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 
   // If the lines are very close to parallel return None
   let d = (x1.clone() - x2.clone())*(y3.clone() - y4.clone()) - (y1.clone() - y2.clone())*(x3.clone() - x4.clone());
-  if d.to_f64().abs() < 0.000001 {
+  if eq_eps(&d, &N::from_f64(0.0)) {
     return None;
   }
 
@@ -91,10 +91,12 @@ pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) 
 	for boundary in other.to_lines().iter() {
 		// If the beginning or end of the line are coincident to the boundary, they need to be added
 		if boundary.coincident(&line.p1) {
+      println!("intersect_poly - adding coincident candidate {}", line.p1);
 			candidates.push(line.p1.clone());
 		}
 
 		if boundary.coincident(&line.p2) {
+      println!("intersect_poly - adding coincident candidate {}", line.p2);
 			candidates.push(line.p2.clone());
 		}
 
@@ -108,7 +110,16 @@ pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) 
 
 		if point != None {
 			let point_c = point.unwrap().clone();
-			candidates.push(point_c);
+
+      // The proposed intersection must be coincident on the boundary (ie. the
+      // discrete segment only). intersect_inf will give us inf intersect for
+      // both lines - we only want the input line to be infinite.
+      if boundary.coincident(&point_c) {
+        println!("intersect_poly - adding candidate {} from intersection of {} and {}", point_c, line, boundary);
+        candidates.push(point_c);
+      } else {
+        println!("intersect_poly - candidate {} is not conincident on boundary {}, skipping", point_c, boundary);
+      }
 		}
 	}
 
@@ -777,6 +788,7 @@ mod tests {
 	}
 
 	#[test]
+  // also exercises intersect_inf and intersect_discrete
 	fn test_intersect_poly() {
 		let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
 
@@ -787,7 +799,7 @@ mod tests {
 		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.3333333333333333, y: 1.0 })), intersect_poly_discrete(line2, unit_sq_p.clone()));
 
 		let line2 = Line::new(p64(0.1, 0.3), p64(0.25, 0.75));
-		assert_eq!(Some((Point { x: 0.0, y: 0.6666666666666667 }, Point { x: 1.0, y: 1.0 })), intersect_poly_inf(line2, unit_sq_p.clone()));
+		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.33333333333333337, y: 1.0 })), intersect_poly_inf(line2, unit_sq_p.clone()));
 	}
 
 	#[test]
