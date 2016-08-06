@@ -193,15 +193,14 @@ pub fn gradient<N:Num>(l: &Line<N>) -> N {
 
 //reflect point p on axis l
 pub fn flip_point<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
-	let a = gradient(&Line{p1:vertex1.clone(),p2:vertex2.clone()});
+	let two = N::from_f64(2.0);
+    let a = gradient(&Line{p1:vertex1.clone(),p2:vertex2.clone()});
 	let c = vertex1.y.clone() - vertex1.x.clone() * a.clone();
 	let x = p.x.clone();
 	let y = p.y.clone();
-	let d = (x.clone() + (y.clone() - c.clone())*a.clone())/(N::from_f64(1.0) + a.clone()*a.clone());
+    let d = (x.clone() + (y.clone() - c.clone())*a.clone())/(N::from_f64(1.0) + a.clone()*a.clone());
 
-	let two = N::from_f64(2.0);
-
-	Point{ x: two.clone()*d.clone() - x, y: two.clone()*d.clone()*a - y.clone() + two.clone()*c }
+	Point{ x: two.clone()*d.clone() - x.clone(), y: two.clone()*d.clone()*a.clone() - y.clone() + two.clone()*c.clone() }
 }
 
 //flips both points of a line on an axis
@@ -859,10 +858,27 @@ mod tests {
 		Point{x: x, y: y}
 	}
     
+    fn pNum<N:Num>(x: N, y:N) -> Point<N> {
+        Point{x: x, y: y}
+    }
+    
+	#[test]
+	fn gradient_test(){
+        let p1 = pNum(1,1);
+        let p2 = pNum(0,0);
+        let g = gradient(&Line{p1:p1,p2:p2});
+        println!("gradient_test: {:?}",g);
+        assert_eq!(g,1);
+	}
 
-//	#[test]
-//	fn (){
-//	}
+	#[test]
+	fn flip_point_test(){
+        let p1 = pNum(1,1);
+        let v1 = pNum(0,0);
+        let v2 = pNum(0,1);
+        let p2 = flip_point(&p1,&v1,&v2);
+        println!("flip_point_test: {:?}",p2);
+	}
 
 	#[test]
 	fn square_from_corner_test(){
