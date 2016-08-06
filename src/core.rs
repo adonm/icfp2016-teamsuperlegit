@@ -77,32 +77,25 @@ impl<N: Num> Add for Point<N> {
 }
 
 //This assumes l0 -> l1 is clockwise, and l0.p2==l1.p1
-pub fn dot<N: Num>(l0: &Line<N>, l1: &Line<N>) -> f64 {
-	let p0 = &l0.p1;
-	let p1 = &l0.p2;
-	let p2 = &l1.p2;
+fn dot<N: Num>(l0: &Line<N>, l1: &Line<N>) -> N {
+	let d1 = &l0.p2 - &l0.p1;
+	let d2 = &l1.p2 - &l0.p2;
 
-	let dx1 = p1.x.to_f64() - p0.x.to_f64();
-	let dx2 = p2.x.to_f64() - p1.x.to_f64();
-	let dy1 = p1.y.to_f64() - p0.y.to_f64();
-	let dy2 = p2.y.to_f64() - p1.y.to_f64();
-
-	dx1*dy2 - dy1*dx2
-
+	d1.x*d2.y - d1.y*d2.x
 }
 
 pub fn is_convex<N: Num>(l0: &Line<N>, l1: &Line<N>) -> bool {
-	dot(l0,l1) > 0.0
+	dot(l0,l1).to_f64() > 0.0
 }
 
 pub fn p_distance<N: Num>(p1: &Point<N>, p2: &Point<N>) -> f64 {
-	let d = (p1.clone()) - (p2.clone());
+	let d = p1 - p2;
 	return (d.x.to_f64().powi(2) + d.y.to_f64().powi(2)).sqrt();
 }
 
-impl<'a, N: Num> Add for &'a Point<N> {
+impl<'a, 'b, N: Num> Add<&'b Point<N>> for &'a Point<N> {
 	type Output=Point<N>;
-	fn add(self, other: &Point<N>) -> Point<N> {
+	fn add(self, other: &'b Point<N>) -> Point<N> {
 		Point{x: self.x.clone() + other.x.clone(), y: self.y.clone() + other.y.clone()}
 	}
 }
@@ -114,9 +107,9 @@ impl<N: Num> Sub for Point<N> {
 	}
 }
 
-impl<'a, N: Num> Sub for &'a Point<N> {
+impl<'a, 'b, N: Num> Sub<&'b Point<N>> for &'a Point<N> {
 	type Output=Point<N>;
-	fn sub(self, other: &Point<N>) -> Point<N> {
+	fn sub(self, other: &'b Point<N>) -> Point<N> {
 		Point{x: self.x.clone() - other.x.clone(), y: self.y.clone() - other.y.clone()}
 	}
 }
@@ -127,9 +120,9 @@ pub fn v_distance<N: Num>(p: &Point<N>) -> f64 {
 
 
 pub fn normalize_line<N:Num>(start: &Point<N>, dir: &Point<N>) -> Point<N> {
-	let f : f64 = 1.0 / v_distance(dir);
-	Point{x: N::from_f64(f * dir.x.to_f64() + start.x.to_f64()), y: N::from_f64(f * dir.y.to_f64() + start.y.to_f64())}
-
+	let ratio = N::from_f64(1.0 / v_distance(dir));
+	let scaled = dir.scale(ratio);
+	start + &scaled
 }
 
 // l0.p2 and l1.p1 are the same since this is where the lines join
@@ -499,5 +492,14 @@ mod tests {
 		let (start, mid, end) = (p64(1.0, 1.5), p64(1.125, 2.0), p64(1.25, 2.5));
 		let line1 = Line::new(start.clone(), end.clone());
 		assert_eq!((Line::new(start.clone(), mid.clone()), Line::new(mid.clone(), end.clone())), line1.split(0.5))
+	}
+
+	#[test]
+	fn test_commutivity() {
+		let (p1, p2) = (p64(1.0, 1.5), p64(1.25, 2.5));
+		assert_eq!(p64(2.25, 4.0), &p1 + &p2);
+		assert_eq!(p64(2.25, 4.0), &p2 + &p1);
+		assert_eq!(p64(3.5, 6.5), &p1 + &(p2.scale(2.0)));
+		assert_eq!(p64(3.25, 5.5), &(p1.scale(2.0)) + &p2);
 	}
 }

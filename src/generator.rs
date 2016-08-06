@@ -19,11 +19,12 @@ pub fn fold<N: Num>(input: &FoldState<N>, axis: Line<N>) -> Option<FoldState<N>>
 
 // http://stackoverflow.com/a/1968345
 pub fn intersect<N: Num>(line_a: &Line<N>, line_b: &Line<N>) -> Option<Point<N>> {
-    let s1 = Point{x: line_a.p2.x.clone() - line_a.p1.x.clone(), y: line_a.p2.y.clone() - line_a.p1.y.clone()};
-    let s2 = Point{x: line_b.p2.x.clone() - line_b.p1.x.clone(), y: line_b.p2.y.clone() - line_b.p1.y.clone()};
+    let s1 = &line_a.p2 - &line_a.p1;
+    let s2 = &line_b.p2 - &line_b.p1;
+    let c1 = &line_a.p1 - &line_b.p1;
 
-    let s = (- s1.y.clone() * (line_a.p1.x.clone() - line_b.p1.x.clone()) + s1.x.clone() * (line_a.p1.y.clone() - line_b.p1.y.clone())) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
-    let t = ( s2.x.clone() * (line_a.p1.y.clone() - line_b.p1.y.clone()) - s2.y.clone() * (line_a.p1.x.clone() - line_b.p1.x.clone())) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
+    let s = (- s1.y.clone() * c1.x.clone() + s1.x.clone() * c1.y.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
+    let t = ( s2.x.clone() * c1.y.clone() - s2.y.clone() * c1.x.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
     
     println!("{:?} {:?} {:?} {:?}", s1, s2, s, t);
 
