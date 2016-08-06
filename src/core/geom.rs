@@ -38,11 +38,32 @@ pub struct Skeleton<N: Num> {
 	pub lines: Vec<Line<N>>,
 }
 
-// infinite line intersection
-pub fn intersect<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
-	//TODO
-	return None
+// infinite line intersection. Returns the intersection point or None if the
+// lines do not intercept.
+//
+// An epsilon is used to mark lines that are very close to parallel as parallel.
+pub fn intersect_inf<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
+	let x1 = a.p1.x.clone();
+	let y1 = a.p1.y.clone();
+	let x2 = a.p2.x.clone();
+	let y2 = a.p2.y.clone();
+	let x3 = b.p1.x.clone();
+	let y3 = b.p1.y.clone();
+	let x4 = b.p2.x.clone();
+	let y4 = b.p2.y.clone();
+
+  // If the lines are very close to parallel return None
+  let d = (x1.clone() - x2.clone())*(y3.clone() - y4.clone()) - (y1.clone() - y2.clone())*(x3.clone() - x4.clone());
+  if d.to_f64().abs() < 0.000001 {
+    return None;
+  }
+
+  let x_out = ((x1.clone()*y2.clone() - y1.clone()*x2.clone())*(x3.clone() - x4.clone()) - (x1.clone() - x2.clone())*(x3.clone()*y4.clone() - y3.clone()*x4.clone())) / d.clone();
+  let y_out = ((x1.clone()*y2.clone() - y1.clone()*x2.clone())*(y3.clone() - y4.clone()) - (y1.clone() - y2.clone())*(x3.clone()*y4.clone() - y3.clone()*x4.clone())) / d.clone();
+
+  Some(Point{x: x_out, y: y_out})
 }
+
 fn cross_scalar<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
 	a.x.clone() * b.y.clone() - a.y.clone() * b.x.clone()
 }
@@ -82,7 +103,7 @@ pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) 
 		if discrete {
 			point = intersect_lines(&line, &boundary);
 		} else {
-			point = intersect(&line, &boundary);
+			point = intersect_inf(&line, &boundary);
 		}
 
 		if point != None {
