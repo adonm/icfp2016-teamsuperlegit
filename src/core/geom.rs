@@ -4,6 +4,7 @@ use ndarray::rcarr2;
 use ndarray::RcArray;
 use ndarray::Ix;
 
+
 #[derive(Debug,Clone,PartialEq,PartialOrd)]
 pub struct Point<N: Num> {
 	pub x: N,
@@ -21,7 +22,6 @@ pub struct Polygon<N: Num> {
 	is_hole: bool,
 	square: bool,
 	area: f64,
-//    tranform: // 3x3 matrix
 	corners: Vec<(Line<N>, Line<N>)>,
 	pub points: Vec<Point<N>>,
 	pub transform: RcArray<N, (Ix, Ix)>
@@ -35,13 +35,6 @@ pub struct Shape<N: Num> {
 #[derive(Debug,Clone)]
 pub struct Skeleton<N: Num> {
 	pub lines: Vec<Line<N>>,
-}
-
-
-// infinite line intersection
-pub fn intersect<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
-	//TODO
-	return None
 }
 
 fn cross_scalar<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
@@ -131,16 +124,23 @@ pub fn gradient<N:Num>(l: &Line<N>) -> N {
 
 //reflect point p on axis l
 pub fn flip_point<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
-    let n = vertex2 - vertex1;
-    let d = p - vertex1;
-    let f = N::from_f64(2.0) * cross_scalar(&d,&n);
     
-    let prod = Point{x: f.clone()*n.x.clone(), y: f.clone()*n.y.clone()};
+    let l = Line::new(vertex1.clone(),vertex2.clone());
     
-    let r = d - prod;
-    
-    r+vertex1
-    
+    if vertex1.y.clone() == 0 && vertex2.y.clone() == 0 {
+        let mut m = Matric33::rotate(c.atan());
+        m = m * Matric33::scale(0,-1);
+        m = m * Matric33::rotate(-c.atan());
+        matrix_mul_point(&m, &p)
+    } else {
+        let c = vertex1.y.clone() - gradient(&l) * vertex1.x.clone();
+        let mut m = Matrix33::translate(0,-c);
+        m = m * Matric33::rotate(c.atan());
+        m = m * Matric33::scale(0,-1);
+        m = m * Matric33::rotate(-c.atan());
+        m = m * Matrix33::translate(0,c);
+        matrix_mul_point(&m, &p)
+    }
 }
 
 //flips both points of a line on an axis
@@ -166,13 +166,17 @@ pub fn fold_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Poi
     
     let mut polyF = Polygon::new(Vec::new());
     
-    for edge in poly.edges() {
+    for pt in poly.points {
         
-        for line in fold_line( &edge, &vertex1, &vertex2 ) {
-            polyF.points.push(line.p1);
-            polyF.points.push(line.p2);
-        }
     }
+    
+//    for edge in poly.edges() {
+//        
+//        for line in fold_line( &edge, &vertex1, &vertex2 ) {
+//            polyF.points.push(line.p1);
+//            polyF.points.push(line.p2);
+//        }
+//    }
     
     polyF
 }
