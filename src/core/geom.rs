@@ -17,9 +17,7 @@ pub struct Line<N: Num> {
 #[derive(Debug,Clone,PartialEq)]
 pub struct Polygon<N: Num> {
 	is_hole: bool,
-	square: bool,
 	area: f64,
-	corners: Vec<(Line<N>, Line<N>)>,
 	pub points: Vec<Point<N>>,
 	pub transform: Matrix33<N>
 }
@@ -323,12 +321,10 @@ impl<N: Num> Point<N> {
 
 impl<N: Num> Polygon<N> {
 	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
-		let (clockwise, area, square, corners) = orient_area(&points);
+		let (clockwise, area) = orient_area(&points);
 		// transform is setup to do nothing by default
 		// should represent the transformation to go back to unit square
-		Polygon{points: points, area: area, square: square, is_hole: clockwise, corners: corners,
-			transform: Matrix33::identity()
-		}
+		Polygon{points: points, area: area, is_hole: clockwise, transform: Matrix33::identity()}
 	}
 
 	pub fn is_hole(&self) -> bool {
@@ -336,7 +332,12 @@ impl<N: Num> Polygon<N> {
 	}
 
 	pub fn square(&self) -> bool {
-		self.square
+		if self.corners().len() == 4 {
+			if self.edges().len() == 4{
+				return true
+			}
+		}
+		return false
 	}
 
 	pub fn area(&self) -> f64 {
@@ -344,7 +345,18 @@ impl<N: Num> Polygon<N> {
 	}
 
 	pub fn corners(&self) -> Vec<(Line<N>, Line<N>)> {
-		self.corners.clone()
+		let edges = self.edges();
+		let mut corners: Vec<(Line<N>, Line<N>)> = Vec::new();
+		let mut previous = edges.len() - 1;
+		for (i, edge) in edges.iter().enumerate() {
+			let edge1 = edges[previous].clone();
+			let cornerangle = (angle(&edge1.p1, &edge1.p2) - angle(&edge.p1, &edge.p2)).abs();
+			if cornerangle % 90.0_f64.to_radians() < 0.00001 {
+				corners.push((edge1.clone(), edge.clone()));
+			}
+			previous = i;
+		}
+		return corners;
 	}
 
 	pub fn edges(&self) -> Vec<Line<N>> {
@@ -569,39 +581,18 @@ fn half_tri_area<'a, N: Num>(p0: &'a Point<N>, p1: &'a Point<N>) -> N {
 /* returns a tuple where the first element is true if the poly points are in clockwise order,
 ** and the second element is the area contained within. thx to:
 ** http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-points-are-in-clockwise-order */
-fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool, Vec<(Line<N>, Line<N>)>) {
+fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64) {
 	let mut corners: Vec<(Line<N>, Line<N>)> = Vec::new();
 	let n = points.len();
 	let mut square = n == 4;
 	// first case
 	let mut sum = half_tri_area(&points[n-1], &points[0]);
-	let mut edge1 = (&points[n-1], &points[0]);
-	let cornerangle = (angle(edge1.0, edge1.1) - angle(&points[n-2], &points[n-1])).abs();
-	if cornerangle % 90.0_f64.to_radians() > 0.00001 {
-		square = false;
-	} else {
-		corners.push((
-			Line{p1: (*edge1.0).clone(), p2: (*edge1.1).clone()},
-			Line{p1: points[n-2].clone(), p2: points[n-1].clone()}
-		));
-	}
 	// rest of polygon
 	for segment in points.windows(2) {
-		let edge = (&segment[0], &segment[1]);
-		let cornerangle = (angle(edge1.0, edge1.1) - angle(edge.0, edge.1)).abs();
-		if cornerangle % 90.0_f64.to_radians() > 0.000001 {
-			square = false;
-		} else {
-			corners.push((
-				Line{p1: (*edge1.0).clone(), p2: (*edge1.1).clone()},
-				Line{p1: (*edge.0).clone(), p2: (*edge.1).clone()}
-			));
-		}
-		edge1 = edge;
 		sum = sum + half_tri_area(&segment[0], &segment[1]);
 	}
 	let f = sum.to_f64();
-	return (f >= 0.0, f.abs() / 2.0, square, corners)
+	return (f >= 0.0, f.abs() / 2.0)
 }
 
 /*pub fn mirror<N: Num>(shapes: &Vec<Polygon<N>>, axis: Line<N>) -> Vec<Polygon<N>> {
