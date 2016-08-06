@@ -75,13 +75,15 @@ pub fn intersect<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 	let f = &b.p1 - &b.p2;
 
 	let p = Point{ x: -e.x, y: e.y };
-	let h = ( dot_points(&(&a.p2-&b.p2),&p) ) / ( dot_points(&f,&p) );
 
-	if h >= N::from_f64(0.0) && h<=N::from_f64(1.0) {
-		Some( &b.p2 + &Point{x:f.x*h.clone(), y:f.y*h.clone()} )
-	} else {
-		None
+	// if dot_points is 0 bignum dies
+	if dot_points(&f,&p).to_f64() != 0.0 {
+		let h = ( dot_points(&(&a.p2-&b.p2),&p) ) / ( dot_points(&f,&p) );
+		if h >= N::from_f64(0.0) && h<=N::from_f64(1.0) {
+			return Some( &b.p2 + &Point{x:f.x*h.clone(), y:f.y*h.clone()} )
+		}
 	}
+	return None
 }
 
 // http://stackoverflow.com/a/1968345
@@ -102,7 +104,7 @@ pub fn intersect_lines<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 }
 
 // Use intersect_unit_inf or _discrete below instead of this function
-pub fn intersect_poly(line: Line<f64>, other: Polygon<f64>, discrete: bool) -> Option<(Point<f64>, Point<f64>)> {
+pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) -> Option<(Point<N>, Point<N>)> {
 	let mut candidates = Vec::new();
 	for boundary in other.to_lines().iter() {
 		// If the beginning or end of the line are coincident to the boundary, they need to be added
@@ -115,7 +117,7 @@ pub fn intersect_poly(line: Line<f64>, other: Polygon<f64>, discrete: bool) -> O
 		}
 
 		// Check normal intersections
-		let point: Option<Point<f64>>;
+		let point: Option<Point<N>>;
 	  if discrete {
 			point = intersect_lines(&line, &boundary);
 		} else {
@@ -177,7 +179,7 @@ pub fn intersect_poly_discrete(line: Line<f64>, other: Polygon<f64>) -> Option<(
 //
 // If the line starts in the square and finishes outside, return None.
 // If the line does not intersect return None
-pub fn intersect_poly_inf(line: Line<f64>, other: Polygon<f64>) -> Option<(Point<f64>, Point<f64>)> {
+pub fn intersect_poly_inf<N:Num>(line: Line<N>, other: Polygon<N>) -> Option<(Point<N>, Point<N>)> {
 	intersect_poly(line, other, false)
 }
 
