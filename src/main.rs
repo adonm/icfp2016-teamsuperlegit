@@ -7,6 +7,7 @@ use rustc_serialize::json::Json;
 
 mod core;
 mod generator;
+mod matrix;
 mod solver;
 mod parse;
 mod rendersvg;
