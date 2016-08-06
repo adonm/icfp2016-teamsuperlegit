@@ -7,6 +7,9 @@ use std::cmp::{Ord,Ordering,PartialOrd};
 use std::fmt::{Debug,Display};
 use std::fmt;
 use std::str::FromStr;
+use ndarray::rcarr2;
+use ndarray::RcArray;
+use ndarray::Ix;
 
 extern crate num;
 use num::rational::BigRational;
@@ -29,8 +32,10 @@ pub struct Polygon<N: Num> {
 	is_hole: bool,
 	square: bool,
 	area: f64,
+//    tranform: // 3x3 matrix
 	corners: Vec<(Line<N>, Line<N>)>,
 	pub points: Vec<Point<N>>,
+	pub transform: RcArray<BigRational, (Ix, Ix)>
 }
 
 #[derive(Debug,Clone)]
@@ -191,14 +196,18 @@ pub fn fold_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Vec<Line<N>> {
 	}
 }
 //
-//// current state: outline, lines
-//// new fold: vertex and dir (dir is a directional vector represented as a point)
-//// note: the vertex must be on the outline somewhere
-//// the fold reaches from the vertex all the way to the next intersection with the outline (but no further)
-//// all the lines found within the polygon created by that outline is flipped with the fold
-//// if a line intersects the fold, it is also folded
-//// returns the new state as a tuple
-//pub fn fold_origami<N: Num>(outline: &Polygon<N>, lines: Vec<Line<N>>, vertex: Point<N>, dir: Point<N>) -> (outline: Polygon<N>, lines: Vec<Line<N>>){
+// current state: outline, lines
+// new fold: vertex and dir (dir is a directional vector represented as a point)
+// note: the vertex must be on the outline somewhere
+// the fold reaches from the vertex all the way to the next intersection with the outline (but no further)
+// all the lines found within the polygon created by that outline is flipped with the fold
+// if a line intersects the fold, it is also folded
+// returns the new state as a tuple
+// 
+// When folding we apply the fold to the current outline and produce a new outline as a set of polygons
+// Then, we also apply the fold to the source, the source always remains as a unit square (just withmore polygons)
+// i.e. the source represents the cuts on the source, which
+//pub fn fold_origami<N: Num>(state: &Vec<(Polygon<N>)>, vertex1: Point<N>, vertex2: Point<N>) -> Vec<Polygon<N>>{
 //
 //
 //
@@ -259,7 +268,17 @@ impl<N: Num> Point<N> {
 impl<N: Num> Polygon<N> {
 	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
 		let (clockwise, area, square, corners) = orient_area(&points);
-		Polygon{points: points, area: area, square: square, is_hole: clockwise, corners: corners}
+		let one = "1".parse::<BigRational>().unwrap();
+		let zero = "0".parse::<BigRational>().unwrap();
+		// transform is setup to do nothing by default
+		// should represent the transformation to go back to unit square
+		Polygon{points: points, area: area, square: square, is_hole: clockwise, corners: corners,
+			transform: rcarr2(&[
+				[one.clone(), zero.clone(), zero.clone()],
+				[zero.clone(), one.clone(), zero.clone()],
+				[zero.clone(), zero.clone(), one.clone()]
+			])
+		}
 	}
 
 	pub fn is_hole(&self) -> bool {
