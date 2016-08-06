@@ -291,15 +291,25 @@ fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool, Vec<(Line<N>
 	let mut corners: Vec<(Line<N>, Line<N>)> = Vec::new();
 	let n = points.len();
 	let mut square = n == 4;
+	// first case
 	let mut sum = half_tri_area(&points[n-1], &points[0]);
 	let mut edge1 = (&points[n-1], &points[0]);
+	let cornerangle = (angle(edge1.0, edge1.1) - angle(&points[n-2], &points[n-1])).abs();
+	if cornerangle % 90.0_f64.to_radians() > 0.00001 {
+		square = false;
+	} else {
+		corners.push((
+			Line{p1: (*edge1.0).clone(), p2: (*edge1.1).clone()},
+			Line{p1: points[n-2].clone(), p2: points[n-1].clone()}
+		));
+	}
+	// rest of polygon
 	for segment in points.windows(2) {
 		let edge = (&segment[0], &segment[1]);
 		let cornerangle = (angle(edge1.0, edge1.1) - angle(edge.0, edge.1)).abs();
-		if cornerangle % 90.0_f64.to_radians() > 0.00001 {
+		if cornerangle % 90.0_f64.to_radians() > 0.000001 {
 			square = false;
 		} else {
-			println!("{}", cornerangle.to_degrees());
 			corners.push((
 				Line{p1: (*edge1.0).clone(), p2: (*edge1.1).clone()},
 				Line{p1: (*edge.0).clone(), p2: (*edge.1).clone()}
