@@ -59,7 +59,7 @@ pub fn union<N: Num>(a: &Polygon<N>, b: &Polygon<N>) -> Option<Polygon<N>> {
         for j in 0..input_b.points.len() {
             let line2 = Line{p1: input_b.points[j].clone(), p2: input_b.points[(j+1)%len_b].clone()};
             println!("{:?} comp {:?}", line1, line2);
-            let join = intersect_lines(&line1, &line2);
+            let join = intersect_discrete(&line1, &line2);
             match join {
                 Some(x) => {
                     let point_id = points.len();

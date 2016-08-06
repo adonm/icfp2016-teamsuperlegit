@@ -70,7 +70,7 @@ fn cross_scalar<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
 
 // http://stackoverflow.com/a/1968345
 // discrete line intersection
-pub fn intersect_lines<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
+pub fn intersect_discrete<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 	let s1 = &a.p2 - &a.p1;
 	let s2 = &b.p2 - &b.p1;
 	let c1 = &a.p1 - &b.p1;
@@ -103,7 +103,7 @@ pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) 
 		// Check normal intersections
 		let point: Option<Point<N>>;
 		if discrete {
-			point = intersect_lines(&line, &boundary);
+			point = intersect_discrete(&line, &boundary);
 		} else {
 			point = intersect_inf(&line, &boundary);
 		}
@@ -201,7 +201,7 @@ pub fn flip_line<N:Num>(line: &Line<N>, vertex1: &Point<N>, vertex2: &Point<N>) 
 
 // If there is an intersection, assume line.p1 is the point that does not get flipped
 pub fn fold_line<N:Num>(line: &Line<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Vec<Line<N>> {
-	let intersect = intersect_lines(&line,&Line{p1:vertex1.clone(),p2:vertex2.clone()});
+	let intersect = intersect_discrete(&line,&Line{p1:vertex1.clone(),p2:vertex2.clone()});
 
 	match intersect {
 		Some(p) => {
@@ -686,17 +686,17 @@ mod tests {
 	}
 
 	#[test]
-	fn test_intersect_lines_1() {
+	fn test_intersect_discrete_1() {
 		let l1 = Line::<f64>{p1: p64(0.0, 0.0), p2: p64(1.0, 1.0)};
 		let l2 = Line::<f64>{p1: p64(0.0, 1.0), p2: p64(1.0, 0.0)};
-		assert_eq!(intersect_lines(&l1,&l2).unwrap(), p64(0.5, 0.5));
+		assert_eq!(intersect_discrete(&l1,&l2).unwrap(), p64(0.5, 0.5));
 	}
 
 	#[test]
-	fn test_intersect_lines_2() {
+	fn test_intersect_discrete_2() {
 		let l1 = Line::<f64>{p1: p64(0.0, 0.0), p2: p64(0.25, 0.25)};
 		let l2 = Line::<f64>{p1: p64(0.0, 1.0), p2: p64(1.0, 0.0)};
-		assert_eq!(intersect_lines(&l1,&l2), None);
+		assert_eq!(intersect_discrete(&l1,&l2), None);
 	}
 
 	#[test]
