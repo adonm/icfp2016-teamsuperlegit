@@ -42,40 +42,6 @@ pub struct Skeleton<N: Num> {
 	pub lines: Vec<Line<N>>,
 }
 
-pub trait ToF64 {
-	fn to_f64(&self) -> f64;
-	fn from_f64(f64) -> Self;
-}
-
-impl ToF64 for i32 {
-	fn to_f64(&self) -> f64 { *self as f64 }
-	fn from_f64(f: f64) -> Self { f as i32 }
-}
-
-impl ToF64 for f64 {
-	fn to_f64(&self) -> f64 { *self }
-	fn from_f64(f: f64) -> Self { f }
-}
-
-impl ToF64 for BigRational {
-	fn to_f64(&self) -> f64 {
-		// BUG converts very large negatives to positive infinity
-		self.numer().to_f64().unwrap_or(INFINITY) / self.denom().to_f64().unwrap_or(1.0)
-	}
-
-	fn from_f64(f: f64) -> Self { BigRational::from_float(f).unwrap() }
-}
-
-pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + PartialOrd + ToF64 + Clone {}
-impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + PartialOrd + ToF64 + Clone {}
-
-impl<N: Num> Add for Point<N> {
-	type Output=Self;
-	fn add(self, other: Point<N>) -> Self {
-		Point{x: self.x + other.x, y: self.y + other.y}
-	}
-}
-
 //This assumes l0 -> l1 is clockwise, and l0.p2==l1.p1
 fn dot<N: Num>(l0: &Line<N>, l1: &Line<N>) -> N {
 	let d1 = &l0.p2 - &l0.p1;
@@ -91,27 +57,6 @@ pub fn is_convex<N: Num>(l0: &Line<N>, l1: &Line<N>) -> bool {
 pub fn p_distance<N: Num>(p1: &Point<N>, p2: &Point<N>) -> f64 {
 	let d = p1 - p2;
 	return (d.x.to_f64().powi(2) + d.y.to_f64().powi(2)).sqrt();
-}
-
-impl<'a, 'b, N: Num> Add<&'b Point<N>> for &'a Point<N> {
-	type Output=Point<N>;
-	fn add(self, other: &'b Point<N>) -> Point<N> {
-		Point{x: self.x.clone() + other.x.clone(), y: self.y.clone() + other.y.clone()}
-	}
-}
-
-impl<N: Num> Sub for Point<N> {
-	type Output=Self;
-	fn sub(self, other: Point<N>) -> Self {
-		Point{x: self.x - other.x, y: self.y - other.y}
-	}
-}
-
-impl<'a, 'b, N: Num> Sub<&'b Point<N>> for &'a Point<N> {
-	type Output=Point<N>;
-	fn sub(self, other: &'b Point<N>) -> Point<N> {
-		Point{x: self.x.clone() - other.x.clone(), y: self.y.clone() - other.y.clone()}
-	}
 }
 
 pub fn v_distance<N: Num>(p: &Point<N>) -> f64 {
@@ -147,9 +92,7 @@ impl<N: Num> Point<N> {
 	pub fn to_f64(&self) -> Point<f64> {
 		Point{x: self.x.to_f64(), y: self.y.to_f64()}
 	}
-}
 
-impl<N: Num> Point<N> {
 	pub fn scale(&self, alpha: N) -> Point<N> {
 		Point{x: self.x.clone() * alpha.clone(), y: self.y.clone() * alpha}
 	}
@@ -375,6 +318,65 @@ fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool, Vec<(Line<N>
 		}
 		results
 }*/
+
+
+
+pub trait ToF64 {
+	fn to_f64(&self) -> f64;
+	fn from_f64(f64) -> Self;
+}
+
+impl ToF64 for i32 {
+	fn to_f64(&self) -> f64 { *self as f64 }
+	fn from_f64(f: f64) -> Self { f as i32 }
+}
+
+impl ToF64 for f64 {
+	fn to_f64(&self) -> f64 { *self }
+	fn from_f64(f: f64) -> Self { f }
+}
+
+impl ToF64 for BigRational {
+	fn to_f64(&self) -> f64 {
+		// BUG converts very large negatives to positive infinity
+		self.numer().to_f64().unwrap_or(INFINITY) / self.denom().to_f64().unwrap_or(1.0)
+	}
+
+	fn from_f64(f: f64) -> Self { BigRational::from_float(f).unwrap() }
+}
+
+pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + PartialOrd + ToF64 + Clone {}
+impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + PartialOrd + ToF64 + Clone {}
+
+impl<N: Num> Add for Point<N> {
+	type Output=Self;
+	fn add(self, other: Point<N>) -> Self {
+		Point{x: self.x + other.x, y: self.y + other.y}
+	}
+}
+
+impl<'a, 'b, N: Num> Add<&'b Point<N>> for &'a Point<N> {
+	type Output=Point<N>;
+	fn add(self, other: &'b Point<N>) -> Point<N> {
+		Point{x: self.x.clone() + other.x.clone(), y: self.y.clone() + other.y.clone()}
+	}
+}
+
+impl<N: Num> Sub for Point<N> {
+	type Output=Self;
+	fn sub(self, other: Point<N>) -> Self {
+		Point{x: self.x - other.x, y: self.y - other.y}
+	}
+}
+
+impl<'a, 'b, N: Num> Sub<&'b Point<N>> for &'a Point<N> {
+	type Output=Point<N>;
+	fn sub(self, other: &'b Point<N>) -> Point<N> {
+		Point{x: self.x.clone() - other.x.clone(), y: self.y.clone() - other.y.clone()}
+	}
+}
+
+
 
 #[cfg(test)]
 mod tests {
