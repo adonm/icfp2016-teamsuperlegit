@@ -155,14 +155,16 @@ pub fn gradient<N:Num>(l: &Line<N>) -> N {
 
 //reflect point p on axis l
 pub fn flip_point<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
-	let two = N::from_f64(2.0);
-    let a = gradient(&Line{p1:vertex1.clone(),p2:vertex2.clone()});
-	let c = vertex1.y.clone() - vertex1.x.clone() * a.clone();
-	let x = p.x.clone();
-	let y = p.y.clone();
-    let d = (x.clone() + (y.clone() - c.clone())*a.clone())/(N::from_f64(1.0) + a.clone()*a.clone());
-
-	Point{ x: two.clone()*d.clone() - x.clone(), y: two.clone()*d.clone()*a.clone() - y.clone() + two.clone()*c.clone() }
+    let n = vertex2 - vertex1;
+    let d = p - vertex1;
+    let f = N::from_f64(2.0) * dot_points(&d,&n);
+    
+    let prod = Point{x: f.clone()*n.x.clone(), y: f.clone()*n.y.clone()};
+    
+    let r = d - prod;
+    
+    r+vertex1
+    
 }
 
 //flips both points of a line on an axis
