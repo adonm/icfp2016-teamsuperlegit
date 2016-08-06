@@ -220,7 +220,22 @@ pub fn fold_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Vec<Line<N>> {
 		None => vec!(flip_line(&line,&fold))
 	}
 }
-//
+
+// This function figures out the next line to fold along
+pub fn get_next_edge_to_fold(base: Polygon<f64>, silhouette: Polygon<f64>) -> (Point<f64>, Point<f64>) {
+	let mut candidates: Vec<Line<f64>> = silhouette.slicey_edges(base);
+
+	let mut longest: Line<f64> = candidates[0].clone();
+	for line in candidates {
+	  println!("get_next_edge_to_fold: considering {}, length {}", line, line.len());
+		if line.len() > longest.len() {
+			longest = line;
+		}
+	}
+
+	return (longest.p1.clone(), longest.p2.clone());
+}
+
 // current state: outline, lines
 // new fold: vertex and dir (dir is a directional vector represented as a point)
 // note: the vertex must be on the outline somewhere
@@ -425,7 +440,7 @@ impl<N: Num> Polygon<N> {
 			// Poss. do something with intersection here
 			
 			if intersection != None {
-				candidates.push(edge.to_f64());
+				candidates.push(Line::new(intersection.clone().unwrap().0, intersection.clone().unwrap().1));
 			}
 		}
 
@@ -990,5 +1005,27 @@ mod tests {
 			println!("{}", edge);
 		}
 		assert_eq!(4, a.len());
+	}
+
+	#[test]
+	fn test_get_next_edge_to_fold() {
+		println!("## Unit square base, silhouette as above");
+		let mut base = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
+		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5)));
+
+		let result: (Point<f64>, Point<f64>) = get_next_edge_to_fold(base, a);
+		println!("Folding along edge {} -> {}", result.0, result.1);
+		assert_eq!(Point{x: 0.0, y: 0.0}, result.0);
+		assert_eq!(Point{x: 1.0, y: 1.0}, result.1);
+
+		println!("## Rotated square base, silhouette as above");
+		base = Polygon::new(vec!(p64(-4.0, 0.0), p64(0.0, -4.0), p64(4.0, 0.0), p64(0.0, 4.0)));
+		a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5)));
+
+		let result: (Point<f64>, Point<f64>) = get_next_edge_to_fold(base, a);
+		println!("Folding along edge {} -> {}", result.0, result.1);
+		assert_eq!(Point{x: 0.5, y: -3.54}, result.0);
+		assert_eq!(Point{x: 0.5, y: 3.5}, result.1);
+
 	}
 }
