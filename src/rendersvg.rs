@@ -8,6 +8,7 @@ use std;
 use std::io::Write;
 
 pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
+	let filename = format!("{}/{}", BASEPATH, filename);
 	/* Draw shapes as areas and skeletons as lines */
 	let mut document = Document::new().set("viewBox", (-1, -1, 3, 3))
 		.set("width", "600px").set("height", "600px"); // scale stuff nice
@@ -135,5 +136,5 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	}
 
 	// save to file
-	svg::save(format!("{}/{}", BASEPATH, filename), &document).unwrap();
+	svg::save(filename, &document).unwrap();
 }
