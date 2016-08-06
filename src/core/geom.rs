@@ -3,7 +3,8 @@ use super::*;
 use ndarray::rcarr2;
 use ndarray::RcArray;
 use ndarray::Ix;
-
+use super::super::matrix::Matrix33;
+use num::Float;
 
 #[derive(Debug,Clone,PartialEq,PartialOrd)]
 pub struct Point<N: Num> {
@@ -37,6 +38,11 @@ pub struct Skeleton<N: Num> {
 	pub lines: Vec<Line<N>>,
 }
 
+// infinite line intersection
+pub fn intersect<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
+	//TODO
+	return None
+}
 fn cross_scalar<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
 	a.x.clone() * b.y.clone() - a.y.clone() * b.x.clone()
 }
@@ -122,25 +128,36 @@ pub fn gradient<N:Num>(l: &Line<N>) -> N {
 	( l.p2.y.clone() - l.p1.y.clone() ) / ( l.p2.x.clone() - l.p1.x.clone() )
 }
 
-//reflect point p on axis l
-pub fn flip_point<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
+pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
     
     let l = Line::new(vertex1.clone(),vertex2.clone());
     
-    if vertex1.y.clone() == 0 && vertex2.y.clone() == 0 {
-        let mut m = Matric33::rotate(c.atan());
-        m = m * Matric33::scale(0,-1);
-        m = m * Matric33::rotate(-c.atan());
-        matrix_mul_point(&m, &p)
+    if vertex1.y.clone() == N::from_f64(0.0) && vertex2.y.clone() == N::from_f64(0.0) {
+        Matrix33::rotate(90.0.to_radians())
+            .scale(0,-1)
+            .rotate(-90.0.to_radians())
+            .transform(&p)
+        
     } else {
         let c = vertex1.y.clone() - gradient(&l) * vertex1.x.clone();
-        let mut m = Matrix33::translate(0,-c);
-        m = m * Matric33::rotate(c.atan());
-        m = m * Matric33::scale(0,-1);
-        m = m * Matric33::rotate(-c.atan());
-        m = m * Matrix33::translate(0,c);
-        matrix_mul_point(&m, &p)
+        Matrix33::translate(0,-c)
+            .rotate(c.atan())
+            .scale(0,-1)
+            .rotate(-c.atan())
+            .translate(0,c)
+            .transform(&p)
     }
+}
+// Inputs of (1,1) / (0,0) (1,0) should give (1,-1)
+pub fn flip_point<N: Num>(p: &Point<N>, l1: &Point<N>, l2: &Point<N>) -> Point<N> {
+    // y = ax + c
+    let a = (l2.y.clone() - l1.y.clone()) / (l2.x.clone() - l1.x.clone());
+    println!("{}", a);
+    let c = l1.y.clone() - a.clone() * l1.x.clone();
+
+    let d = (p.x.clone() + (p.y.clone() - c.clone()) * a.clone())/(N::from_f64(1.0) + a.clone() * a.clone());
+
+    Point{x: d.clone() + d.clone() - p.x.clone(), y: N::from_f64(2.0) * d.clone() * a.clone() - p.y.clone() + c.clone() + c.clone()}
 }
 
 //flips both points of a line on an axis
@@ -577,12 +594,25 @@ mod tests {
 	}
 
 	#[test]
-	fn flip_point_test(){
-        let p1 = pNum(0,1);
-        let v1 = pNum(0,0);
-        let v2 = pNum(1,1);
-        let p2 = flip_point(&p1,&v1,&v2);
+	fn test_flip_point(){
+        let mut p2 = flip_point(&pNum(1.0,1.0), &pNum(0.0,0.0), &pNum(1.0,0.0));
         println!("flip_point_test: {:?}",p2);
+        assert_eq!(pNum(1.0, -1.0), p2);
+
+        p2 = flip_point(&pNum(1.0,0.0), &pNum(0.0,0.0), &pNum(3.0,3.0));
+        println!("flip_point_test: {:?}",p2);
+        assert_eq!(pNum(1.0, -1.0), p2);
+	}
+
+	#[test]
+	fn test_flip_point_matrix(){
+        let mut p2 = flip_point_matrix(&pNum(1.0,1.0), &pNum(0.0,0.0), &pNum(1.0,0.0));
+        println!("flip_point_test: {:?}",p2);
+        assert_eq!(pNum(1.0, -1.0), p2);
+
+        p2 = flip_point_matrix(&pNum(1.0,0.0), &pNum(0.0,0.0), &pNum(3.0,3.0));
+        println!("flip_point_test: {:?}",p2);
+        assert_eq!(pNum(1.0, -1.0), p2);
 	}
 
 	#[test]

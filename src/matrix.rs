@@ -1,6 +1,6 @@
 use std::ops::{Index,Mul};
 
-use core::*;
+pub use core::*;
 
 pub struct Matrix33<N: Num> {
 	points: [N; 9],
@@ -38,8 +38,8 @@ impl<N: Num> Matrix33<N> {
 
 	pub fn translate(tx: N, ty: N) -> Matrix33<N> {
 		Matrix33::new(
-			(N::zero(), N::zero(), N::zero()),
-			(N::zero(), N::zero(), N::zero()),
+			(N::one(), N::zero(), N::zero()),
+			(N::zero(), N::one(), N::zero()),
 			(tx, ty, N::one()),
 		)
 	}
@@ -50,6 +50,12 @@ impl<N: Num> Matrix33<N> {
 			row1.0, row1.1, row1.2,
 			row2.0, row2.1, row2.2
 		]}
+	}
+
+	pub fn transform(&self, p: Point<N>) -> Point<N> {
+		let x = p.x.clone() * self[(0, 0)].clone() + p.y.clone() * self[(1, 0)].clone() + self[(2, 0)].clone();
+		let y = p.x.clone() * self[(0, 1)].clone() + p.y.clone() * self[(1, 1)].clone() + self[(2, 1)].clone();
+		Point{x: x, y: y}
 	}
 
 	fn refs(&self) -> (&N, &N, &N, &N, &N, &N, &N, &N, &N) {
@@ -91,6 +97,11 @@ impl<N: Num> Mul for Matrix33<N> {
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use num::Float;
+
+	pub fn p<N:Num>(x: N, y: N) -> Point<N> {
+		Point{x: x, y: y}
+	}
 
 	#[test]
 	fn test_mul() {
@@ -106,5 +117,21 @@ mod tests {
 		assert_eq!(318.0, c[(2,0)]);
 		assert_eq!(342.0, c[(2,1)]);
 		assert_eq!(366.0, c[(2,2)]);
+	}
+
+	#[test]
+	fn test_scale() {
+		assert_eq!(p(-2.5, 28.0), Matrix33::scale(-1.0, 4.0).transform(p(2.5, 7.0)));
+	}
+
+	#[test]
+	fn test_rotate() {
+		// close enough :S
+		assert_eq!(p(1.0, -0.00000000000000006123233995736766), Matrix33::rotate(90.0.to_radians()).transform(p(0.0, -1.0)));
+	}
+
+	#[test]
+	fn test_translate() {
+		assert_eq!(p(6.0, -0.5), Matrix33::translate(4.0, -2.5).transform(p(2.0, 2.0)));
 	}
 }

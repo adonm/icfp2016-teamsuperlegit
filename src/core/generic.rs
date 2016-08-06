@@ -134,7 +134,6 @@ impl<N: Num> Display for Line<N> {
 
 #[cfg(test)]
 mod tests {
-	use super::*;
 	use super::super::tests::*;
 
 	#[test]
