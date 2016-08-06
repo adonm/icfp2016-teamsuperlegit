@@ -802,14 +802,16 @@ mod tests {
 
 	#[test]
 	fn test_lowest_unit_vertex() {
+		let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
+
 		let a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(1.0, 0.5), p64(0.5, 0.5)));
-		//assert_eq!(p64(0.0,0.0), a.lowest_unit_vertex().unwrap());
+		assert_eq!(p64(0.0,0.0), a.lowest_vertex(unit_sq_p.clone()).unwrap());
 
 		let b = Polygon::new(vec!(p64(0.0, 0.7), p64(0.5, 0.0), p64(1.0, 0.5), p64(0.5, 0.9)));
-		//assert_eq!(p64(0.5,0.0), b.lowest_unit_vertex().unwrap());
+		assert_eq!(p64(0.5,0.0), b.lowest_vertex(unit_sq_p.clone()).unwrap());
 
 		let c = Polygon::new(vec!(p64(0.0, 2.0), p64(1.0, 2.0), p64(1.0, 3.0), p64(0.0, 3.0)));
-		//assert_eq!(None, c.lowest_unit_vertex());
+		assert_eq!(None, c.lowest_vertex(unit_sq_p));
 	}
 
 	#[test]
