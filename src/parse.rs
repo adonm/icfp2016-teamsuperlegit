@@ -132,4 +132,11 @@ mod tests {
 		println!("{}", shape.polys[0].points[0].x);
 		//assert_eq!(0,1);
 	}
+
+	#[test]
+	fn test_float() {
+		assert_eq!(0.5f64, "4328029871649615121465353437184/8656059743299229793415925725865".parse::<BigRational>().unwrap().to_f64());
+		assert_eq!(0.25f64, "1/4".parse::<BigRational>().unwrap().to_f64());
+		assert_eq!(1.1f64, "11/10".parse::<BigRational>().unwrap().to_f64());
+	}
 }
