@@ -132,18 +132,23 @@ pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Poin
     
     let l = Line::new(vertex1.clone(),vertex2.clone());
     
-    if vertex1.y.clone() == N::from_f64(0.0) && vertex2.y.clone() == N::from_f64(0.0) {
-        Matrix33::rotate(90.0.to_radians())
-            .then_scale(N::from_f64(0.0),N::from_f64(-1.0))
-            .then_rotate(-90.0.to_radians())
+    if vertex1.x.clone() == N::from_f64(0.0) && vertex2.x.clone() == N::from_f64(0.0) {
+        Matrix33::rotate(-90.0.to_radians())
+            .then_scale(N::from_f64(1.0),N::from_f64(-1.0))
+            .then_rotate(90.0.to_radians())
             .transform(p.clone())
         
     } else {
-        let c = vertex1.y.clone() - gradient(&l) * vertex1.x.clone();
+        let g = gradient(&l);
+        let c = vertex1.y.clone() - g.clone() * vertex1.x.clone();
+        
+        
+        println!("p,v1,v2,grad,c,angle {:?} {:?} {:?} {:?} {:?} {:?}",p,vertex1,vertex2,gradient(&l),c,c.clone().to_f64().atan());
+        
         Matrix33::translate(N::from_f64(0.0),-c.clone())
-            .then_rotate(c.clone().to_f64().atan())
-            .then_scale(N::from_f64(0.0),N::from_f64(-1.0))
-            .then_rotate(-c.clone().to_f64().atan())
+            .then_rotate(-g.clone().to_f64().atan())
+            .then_scale(N::from_f64(1.0),N::from_f64(-1.0))
+            .then_rotate(g.clone().to_f64().atan())
             .then_translate(N::from_f64(0.0),c.clone())
             .transform(p.clone())
     }
@@ -162,7 +167,7 @@ pub fn flip_point<N: Num>(p: &Point<N>, l1: &Point<N>, l2: &Point<N>) -> Point<N
 
 //flips both points of a line on an axis
 pub fn flip_line<N:Num>(line: &Line<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Line<N> {
-	Line{ p1: flip_point(&line.p1,&vertex1,&vertex2), p2: flip_point(&line.p2,&vertex1,&vertex2) }
+	Line{ p1: flip_point_matrix(&line.p1,&vertex1,&vertex2), p2: flip_point_matrix(&line.p2,&vertex1,&vertex2) }
 }
 
 // If there is an intersection, assume line.p1 is the point that does not get flipped
@@ -619,7 +624,7 @@ mod tests {
 
         p2 = flip_point_matrix(&pNum(1.0,0.0), &pNum(0.0,0.0), &pNum(3.0,3.0));
         println!("flip_point_test: {:?}",p2);
-        assert_eq!(pNum(1.0, -1.0), p2);
+        assert_eq!(pNum(0.0, 1.0), p2);
 	}
 
 	#[test]
