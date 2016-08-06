@@ -6,6 +6,7 @@ extern crate num;
 extern crate rustc_serialize;
 extern crate svg;
 use std::vec::Vec;
+use std::path::Path;
 use rustc_serialize::json::Json;
 
 mod core;
@@ -26,11 +27,13 @@ fn draw_problems(problems: Vec<Json>) -> Vec<Json> {
 		let id = problem.find_path(&["problem_id"]).unwrap().as_i64().unwrap();
 		let filename = format!("{:05}.problem.svg", id);
 		let file = std::fs::File::open(format!("{}/{:05}.problem.txt", BASEPATH, id)).unwrap();
+		let solpath = format!("{}/{:05}.solution.txt", BASEPATH, id);
+		let solution = Path::new(&solpath);
 		let data = parse::parse::<BigRational, std::fs::File>(file);
-		if data.is_ok() {
+		if data.is_ok() && !solution.exists() {
 			let (shape, skeleton) = data.unwrap();
 			rendersvg::draw_svg(shape, skeleton, &filename);
-		} else {
+		} else if !solution.exists() {
 			println!("Problem {} can't be parsed", id);
 		}
 	}
