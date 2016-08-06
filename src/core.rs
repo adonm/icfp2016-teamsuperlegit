@@ -84,6 +84,10 @@ pub fn intersect<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 	}
 }
 
+fn cross_scalar<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
+	a.x.clone() * b.y.clone() - a.y.clone() * b.x.clone()
+}
+
 // http://stackoverflow.com/a/1968345
 // discrete line intersection
 pub fn intersect_lines<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
@@ -91,11 +95,11 @@ pub fn intersect_lines<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 	let s2 = &b.p2 - &b.p1;
 	let c1 = &a.p1 - &b.p1;
 
-	let s = (- s1.y.clone() * c1.x.clone() + s1.x.clone() * c1.y.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
-	let t = ( s2.x.clone() * c1.y.clone() - s2.y.clone() * c1.x.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
+	let s = cross_scalar(&s1, &c1) / cross_scalar(&s1, &s2);
+	let t = cross_scalar(&s2, &c1) / cross_scalar(&s1, &s2);
 
-	if (s.to_f64() >= 0.0) && (s.to_f64() <= 1.0) && (t.to_f64() >= 0.0) && (t.to_f64() <= 1.0) {
-		return Some(Point{x: a.p1.x.clone() + t.clone()*s1.x.clone(), y: a.p1.y.clone() + t.clone()*s1.y.clone()})
+	if (s >= N::zero()) && (s < N::one()) && (t >= N::zero()) && (t <= N::one()) {
+		return Some(&a.p1 + s1.scale(t));
 	}
 
 	None
@@ -675,6 +679,20 @@ impl<'a, 'b, N: Num> Add<&'b Point<N>> for &'a Point<N> {
 	}
 }
 
+impl<'a, N: Num> Add<&'a Point<N>> for Point<N> {
+	type Output=Point<N>;
+	fn add(self, other: &'a Point<N>) -> Point<N> {
+		Point{x: self.x + other.x.clone(), y: self.y + other.y.clone()}
+	}
+}
+
+impl<'a, N: Num> Add<Point<N>> for &'a Point<N> {
+	type Output=Point<N>;
+	fn add(self, other: Point<N>) -> Point<N> {
+		Point{x: other.x + self.x.clone(), y: other.y + self.y.clone()}
+	}
+}
+
 impl<N: Num> Sub for Point<N> {
 	type Output=Self;
 	fn sub(self, other: Point<N>) -> Self {
@@ -686,6 +704,20 @@ impl<'a, 'b, N: Num> Sub<&'b Point<N>> for &'a Point<N> {
 	type Output=Point<N>;
 	fn sub(self, other: &'b Point<N>) -> Point<N> {
 		Point{x: self.x.clone() - other.x.clone(), y: self.y.clone() - other.y.clone()}
+	}
+}
+
+impl<'a, N: Num> Sub<&'a Point<N>> for Point<N> {
+	type Output=Point<N>;
+	fn sub(self, other: &'a Point<N>) -> Point<N> {
+		Point{x: self.x - other.x.clone(), y: self.y - other.y.clone()}
+	}
+}
+
+impl<'a, N: Num> Sub<Point<N>> for &'a Point<N> {
+	type Output=Point<N>;
+	fn sub(self, other: Point<N>) -> Point<N> {
+		Point{x: self.x.clone() - other.x, y: self.y.clone() - other.y }
 	}
 }
 
@@ -892,6 +924,8 @@ mod tests {
 		assert_eq!(p64(2.25, 4.0), &p2 + &p1);
 		assert_eq!(p64(3.5, 6.5), &p1 + &(p2.scale(2.0)));
 		assert_eq!(p64(3.25, 5.5), &(p1.scale(2.0)) + &p2);
+
+		assert_eq!(p64(0.25, 1.0), p2 - &p1);
 	}
 
 	#[test]
