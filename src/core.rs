@@ -4,7 +4,8 @@ use std::f64::INFINITY;
 use std::ops::{Add,Sub,Mul,Div,Neg};
 use std::clone::Clone;
 use std::cmp::PartialOrd;
-use std::fmt::Debug;
+use std::fmt::{Debug,Display};
+use std::fmt;
 use std::str::FromStr;
 
 extern crate num;
@@ -354,8 +355,8 @@ impl SuperLegit for BigRational {
 	fn one() -> Self { num::one::<BigRational>() }
 }
 
-pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + PartialOrd + Clone + SuperLegit {}
-impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + PartialOrd + Clone + SuperLegit {}
+pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + Display + PartialOrd + Clone + SuperLegit {}
+impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + Display + PartialOrd + Clone + SuperLegit {}
 
 impl<N: Num> Add for Point<N> {
 	type Output=Self;
@@ -385,7 +386,11 @@ impl<'a, 'b, N: Num> Sub<&'b Point<N>> for &'a Point<N> {
 	}
 }
 
-
+impl<N: Num> Display for Point<N> {
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		write!(f, "{},{}", self.x, self.y)
+	}
+}
 
 #[cfg(test)]
 mod tests {

@@ -10,6 +10,7 @@ mod solver;
 mod parse;
 mod rendersvg;
 mod restapi;
+mod write;
 
 use num::rational::BigRational;
 
