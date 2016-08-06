@@ -908,7 +908,7 @@ mod tests {
 	#[test]
 	fn test_iterateedges() {
 		let poly = Polygon::new(vec!(p(0, 0), p(1, 0), p(2, 2), p(0, 1)));
-		for (i, edge) in poly.edges().iter().enumerate() {
+		for (i, _) in poly.edges().iter().enumerate() {
 			assert!(i < poly.edges().len());
 		}
 	}
