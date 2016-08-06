@@ -4,7 +4,6 @@ use ndarray::rcarr2;
 use ndarray::RcArray;
 use ndarray::Ix;
 use super::super::matrix::Matrix33;
-use num::Float;
 
 #[derive(Debug,Clone,PartialOrd)]
 pub struct Point<N: Num> {
@@ -217,14 +216,13 @@ pub fn fold_line<N:Num>(line: &Line<N>, vertex1: &Point<N>, vertex2: &Point<N>) 
 }
 
 pub fn flip_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Polygon<N> {
-    let mut polyF = Vec::new();
+    let mut poly_f = Vec::new();
     
     for pt in poly.clone().points {
-        polyF.push( flip_point( &pt, &vertex1, &vertex2 ) );
+        poly_f.push( flip_point( &pt, &vertex1, &vertex2 ) );
     }
     
-    Polygon::new(polyF)
-    
+    Polygon::new(poly_f)
 }
 
 pub fn fold_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> (Polygon<N>,Polygon<N>) {
@@ -874,7 +872,7 @@ mod tests {
 		assert_eq!(4, a.len());
 
 		println!("## Rotated square base, some inside some out");
-		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(10.0, -10.0), p64(11.0, 0.5), p64(5.0, 5.0))).slicey_edges(base.clone());
+		a = Polygon::new(vec!(p64(0.0, 0.0), p64(10.0, -10.0), p64(11.0, 0.5), p64(5.0, 5.0))).slicey_edges(base.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
@@ -883,7 +881,7 @@ mod tests {
 
     // Unit base
 		println!("## Polygon with vertices on unit sq corners/parallel lines");
-		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges(unit_sq_p.clone());
+		a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges(unit_sq_p.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);

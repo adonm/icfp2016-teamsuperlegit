@@ -1,6 +1,4 @@
 extern crate num;
-use num::rational::BigRational;
-use num::ToPrimitive;
 
 pub use core::*;
 
@@ -20,8 +18,8 @@ pub fn fold<N: Num>(input: &FoldState<N>, axis: Line<N>) -> Option<FoldState<N>>
 
 // http://stackoverflow.com/questions/2667748/how-do-i-combine-complex-polygons
 pub fn union<N: Num>(a: &Polygon<N>, b: &Polygon<N>) -> Option<Polygon<N>> {
-    let mut input_a = a.clone();
-    let mut input_b = b.clone();
+    let input_a = a.clone();
+    let input_b = b.clone();
 
     let mut points: Vec<Point<N>> = Vec::new();
     let mut graph: Vec<Vec<usize>> = Vec::new();
