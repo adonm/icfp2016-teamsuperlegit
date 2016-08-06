@@ -100,7 +100,7 @@ pub fn intersect_lines<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 	None
 }
 
-// Use intersect_unit_inf or _discrete below instead of this function
+// Use intersect_poly_inf or _discrete below instead of this function
 pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) -> Option<(Point<N>, Point<N>)> {
 	let mut candidates = Vec::new();
 	for boundary in other.to_lines().iter() {
@@ -458,18 +458,6 @@ impl<N: Num> Polygon<N> {
 		output.push(Line::new(self.points.last().unwrap().clone(), self.points[0].clone()));
 
 		output
-	}
-
-	// Return the set of edges of this polygon that slice the unit square.
-	// Largely useful for testing.
-	//
-	// An edge qualifies if it
-	//  - crosses at least one boundary of the unit square.
-	//  - lies wholly within the unit square
-	pub fn slicey_edges_unit(self) -> Vec<Line<f64>> {
-		let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
-
-		self.slicey_edges(unit_sq_p)
 	}
 
 	// Return the set of edges of this polygon that slice the provided polygon.
@@ -997,18 +985,25 @@ mod tests {
 	}
 
 	#[test]
-	fn test_intersect_unit_discrete() {
+	fn test_intersect_poly() {
+		let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
+
 		let line1 = Line::new(p64(2.0, 0.0), p64(1.0, 3.0));
-		assert_eq!(None, intersect_unit_discrete(line1));
+		assert_eq!(None, intersect_poly_discrete(line1, unit_sq_p.clone()));
 
 		let line2 = Line::new(p64(0.0, 0.0), p64(1.0, 3.0));
-		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.3333333333333333, y: 1.0 })), intersect_unit_discrete(line2));
+		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.3333333333333333, y: 1.0 })), intersect_poly_discrete(line2, unit_sq_p.clone()));
+
+		let line2 = Line::new(p64(0.1, 0.3), p64(0.25, 0.75));
+		assert_eq!(Some((Point { x: 0.0, y: 0.6666666666666667 }, Point { x: 1.0, y: 1.0 })), intersect_poly_inf(line2, unit_sq_p.clone()));
 	}
 
 	#[test]
 	fn test_slicey_edges() {
+		let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
+		let base = Polygon::new(vec!(p64(-4.0, 0.0), p64(0.0, -4.0), p64(4.0, 0.0), p64(0.0, 4.0)));
+
 		println!("## Rotated square base, silhouette as above");
-		let mut base = Polygon::new(vec!(p64(-4.0, 0.0), p64(0.0, -4.0), p64(4.0, 0.0), p64(0.0, 4.0)));
 		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges(base.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
@@ -1023,12 +1018,10 @@ mod tests {
 			println!("{}", edge);
 		}
 		assert_eq!(2, a.len());
-	}
 
-	#[test]
-	fn test_slicey_edges_unit() {
+    // Unit base
 		println!("## Polygon with vertices on unit sq corners/parallel lines");
-		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges_unit();
+		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges(unit_sq_p.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
@@ -1036,7 +1029,7 @@ mod tests {
 		assert_eq!(4, a.len());
 
 		println!("## 'normal' polygon, some inside some out");
-		a = Polygon::new(vec!(p64(-1.3, -1.2), p64(0.5, -0.5), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges_unit();
+		a = Polygon::new(vec!(p64(-1.3, -1.2), p64(0.5, -0.5), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges(unit_sq_p.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
@@ -1044,7 +1037,7 @@ mod tests {
 		assert_eq!(2, a.len());
 
 		println!("## Polygon surrounds the unit sq");
-		a = Polygon::new(vec!(p64(-1.0, -1.0), p64(1.5, -0.5), p64(1.5, 1.5), p64(-1.0, 1.5))).slicey_edges_unit();
+		a = Polygon::new(vec!(p64(-1.0, -1.0), p64(1.5, -0.5), p64(1.5, 1.5), p64(-1.0, 1.5))).slicey_edges(unit_sq_p.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
@@ -1052,7 +1045,7 @@ mod tests {
 		assert_eq!(0, a.len());
 
 		println!("## Polygon contained within the unit");
-		a = Polygon::new(vec!(p64(0.2, 0.2), p64(0.7, 0.2), p64(0.7, 0.7), p64(0.2, 0.7))).slicey_edges_unit();
+		a = Polygon::new(vec!(p64(0.2, 0.2), p64(0.7, 0.2), p64(0.7, 0.7), p64(0.2, 0.7))).slicey_edges(unit_sq_p.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
