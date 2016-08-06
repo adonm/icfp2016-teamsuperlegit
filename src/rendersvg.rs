@@ -7,7 +7,8 @@ use core::*;
 
 pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	/* Draw shapes as areas and skeletons as lines */
-	let mut document = Document::new().set("viewBox", (0, 0, 1, 1));
+	let mut document = Document::new().set("viewBox", (-1, -1, 3, 3))
+		.set("width", "600px").set("height", "600px"); // scale stuff nice
 	let mut defs = element::Definitions::new();
 	let marker_path_start = element::Path::new()
 		.set("fill", "crimson")
@@ -31,6 +32,8 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	defs = defs.add(marker_end);
 	document = document.add(defs);
 
+	// draw silhouette
+	let mut silhouette = element::Group::new();
 	for polygon in shape.polys {
 		let mut points = String::from("");
 		for point in polygon.points.iter() {
@@ -51,24 +54,30 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 		let path = element::Polygon::new()
 				.set("fill", fill).set("fill-opacity", "0.5")
 				.set("stroke", "black").set("stroke-opacity", "0.5")
-				.set("stroke-width", 0.02)
+				.set("stroke-width", 0.005)
 				.set("points", points.trim());
-		document = document.add(path);
+		silhouette = silhouette.add(path);
 	}
+	document = document.add(silhouette);
+
+	// draw skeleton
+	let mut skeleton = element::Group::new();
 	for bone in skel.lines() {
-	let skel_data = element::path::Data::new()
-		.move_to((bone.p1.x.to_f64(), bone.p1.y.to_f64()))
-		.line_to((bone.p2.x.to_f64(), bone.p2.y.to_f64()));
-	let skel_path = element::Path::new()
-		.set("fill", "none")
-		.set("stroke", "crimson")
-		.set("stroke-width", 0.015)
-		.set("stroke-dasharray", "0.01,0.01")
-		.set("marker-start", "url(#ArrowStart)")
-		.set("marker-end", "url(#ArrowEnd)")
-		.set("d", skel_data);
-	document = document.add(skel_path);
+		let skel_data = element::path::Data::new()
+			.move_to((bone.p1.x.to_f64(), bone.p1.y.to_f64()))
+			.line_to((bone.p2.x.to_f64(), bone.p2.y.to_f64()));
+		let skel_path = element::Path::new()
+			.set("fill", "none")
+			.set("stroke", "crimson")
+			.set("stroke-width", 0.003)
+			.set("stroke-dasharray", "0.01,0.01")
+			.set("marker-start", "url(#ArrowStart)")
+			.set("marker-end", "url(#ArrowEnd)")
+			.set("d", skel_data);
+		skeleton = skeleton.add(skel_path);
 	}
-	// only save when float coords done ok
+	document = document.add(skeleton);
+
+	// save to file
 	svg::save(format!("{}/{}", BASEPATH, filename), &document).unwrap();
 }
