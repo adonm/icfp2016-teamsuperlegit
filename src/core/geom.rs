@@ -154,11 +154,10 @@ pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Poin
     let l = Line::new(vertex1.clone(),vertex2.clone());
     
     if vertex1.x.clone() == N::from_f64(0.0) && vertex2.x.clone() == N::from_f64(0.0) {
-        Matrix33::rotate_angle(-90.0.to_radians())
+        Matrix33::rotate(N::from_f64(1.0),N::from_f64(0.0))
             .then_scale(N::from_f64(1.0),N::from_f64(-1.0))
-            .then_rotate_angle(90.0.to_radians())
+            .then_rotate(N::from_f64(-1.0),N::from_f64(0.0))
             .transform(p.clone())
-        
     } else {
         let g = gradient(&l);
         let c = vertex1.y.clone() - g.clone() * vertex1.x.clone();
@@ -661,10 +660,11 @@ mod tests {
 
         p2 = flip_point_matrix(&pNum(1.0,0.0), &pNum(0.0,0.0), &pNum(0.866025403784439,0.5)); // unit vector along x, 30 deg line. Result should be unit vector 60 degrees to the x axis
         println!("flip_point_test: {:?}",p2); 
-
-        // Compare with an epsilon
-        assert!(p2.x - 0.5 < 0.000001);
-        assert!(p2.y - 0.866025403784439 < 0.000001);
+        
+        
+        p2 = flip_point_matrix(&pNum(-1.0,1.0), &pNum(0.0,0.0), &pNum(0.0,3.0));
+        println!("flip_point_test: {:?}",p2);
+        assert_eq!(pNum(1.0, 1.0), p2);
 	}
 
 	#[test]
