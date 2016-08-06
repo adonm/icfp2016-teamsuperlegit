@@ -1,5 +1,4 @@
 use std::io::{Error,Write};
-use std::convert::From;
 
 use core::*;
 

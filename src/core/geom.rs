@@ -1,10 +1,6 @@
 use super::*;
 
-use ndarray::rcarr2;
-use ndarray::RcArray;
-use ndarray::Ix;
 use super::super::matrix::Matrix33;
-use num::Float;
 
 #[derive(Debug,Clone,PartialOrd)]
 pub struct Point<N: Num> {
@@ -25,7 +21,7 @@ pub struct Polygon<N: Num> {
 	area: f64,
 	corners: Vec<(Line<N>, Line<N>)>,
 	pub points: Vec<Point<N>>,
-	pub transform: RcArray<N, (Ix, Ix)>
+	pub transform: Matrix33<N>
 }
 
 #[derive(Debug,Clone)]
@@ -220,14 +216,13 @@ pub fn fold_line<N:Num>(line: &Line<N>, vertex1: &Point<N>, vertex2: &Point<N>) 
 }
 
 pub fn flip_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Polygon<N> {
-    let mut polyF = Vec::new();
+    let mut poly_f = Vec::new();
     
     for pt in poly.clone().points {
-        polyF.push( flip_point( &pt, &vertex1, &vertex2 ) );
+        poly_f.push( flip_point( &pt, &vertex1, &vertex2 ) );
     }
     
-    Polygon::new(polyF)
-    
+    Polygon::new(poly_f)
 }
 
 pub fn fold_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> (Polygon<N>,Polygon<N>) {
@@ -245,15 +240,8 @@ pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) ->
     let mut vertex1 = v1;
     let mut vertex2 = v2;
     
-    println!("starting points: {:?}",poly.points);
-    
-    
-    
     for edge in poly.edges() {
         poly1.push(edge.clone().p1);
-        
-        println!("pushing edge: {:?}",edge.clone());
-        
         
         let co = if edge.clone().coincident(&vertex1) {
             Some(vertex1)
@@ -265,11 +253,8 @@ pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) ->
         
         match co {
             Some(v)=> {
-                println!(" edge intersects vertex: {:?}",v.clone());
                 poly1.push(v.clone());
                 
-                println!("pushing both: {:?}",v.clone());
-
                 poly2.push(v.clone());
                 
                 let (a, b) = (vertex2,vertex1);
@@ -340,11 +325,7 @@ impl<N: Num> Polygon<N> {
 		// transform is setup to do nothing by default
 		// should represent the transformation to go back to unit square
 		Polygon{points: points, area: area, square: square, is_hole: clockwise, corners: corners,
-			transform: rcarr2(&[
-				[N::one(), N::zero(), N::zero()],
-				[N::zero(), N::one(), N::zero()],
-				[N::zero(), N::zero(), N::one()]
-			])
+			transform: Matrix33::identity()
 		}
 	}
 
@@ -877,7 +858,7 @@ mod tests {
 		assert_eq!(4, a.len());
 
 		println!("## Rotated square base, some inside some out");
-		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(10.0, -10.0), p64(11.0, 0.5), p64(5.0, 5.0))).slicey_edges(base.clone());
+		a = Polygon::new(vec!(p64(0.0, 0.0), p64(10.0, -10.0), p64(11.0, 0.5), p64(5.0, 5.0))).slicey_edges(base.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
@@ -886,7 +867,7 @@ mod tests {
 
     // Unit base
 		println!("## Polygon with vertices on unit sq corners/parallel lines");
-		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges(unit_sq_p.clone());
+		a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges(unit_sq_p.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
