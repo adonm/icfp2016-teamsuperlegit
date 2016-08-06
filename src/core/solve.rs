@@ -44,9 +44,7 @@ pub fn fold_origami<N: Num>(state: &Vec<(Polygon<N>)>, vertex1: &Point<N>, verte
     for poly in state {
         if can_fold(&poly, &vertex1, &vertex2){
             
-            let (poly1, poly2Old) = split_polygon(&poly,&vertex1,&vertex2);
-            
-            let poly2 = fold_polygon(&poly2Old, &vertex1, &vertex2);
+            let (poly1, poly2) = fold_polygon(&poly,&vertex1,&vertex2);
             
             newState.push(poly1);
             newState.push(poly2);

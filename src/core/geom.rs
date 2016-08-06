@@ -202,62 +202,102 @@ pub fn fold_line<N:Num>(line: &Line<N>, vertex1: &Point<N>, vertex2: &Point<N>) 
 	}
 }
 
-pub fn fold_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Polygon<N> {
+pub fn flip_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Polygon<N> {
+    let mut polyF = Vec::new();
     
-    let mut polyF = Polygon::new(Vec::new());
+    for pt in poly.clone().points {
+        polyF.push( flip_point( &pt, &vertex1, &vertex2 ) );
+    }
     
-//    for pt in poly.points {
-//        
-//    }
+    Polygon::new(polyF)
     
-//    for edge in poly.edges() {
-//        
-//        for line in fold_line( &edge, &vertex1, &vertex2 ) {
-//            polyF.points.push(line.p1);
-//            polyF.points.push(line.p2);
-//        }
-//    }
+}
+
+pub fn fold_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> (Polygon<N>,Polygon<N>) {
+    let (poly1, poly2Old) = split_polygon(&poly,&vertex1,&vertex2);
+    let poly2 = flip_polygon(&poly2Old, &vertex1, &vertex2);
     
-    polyF
+    (poly1,poly2)
 }
 
 pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) -> (Polygon<N>,Polygon<N>) {
     
-    let mut poly1 = Polygon::new(Vec::new());
-    let mut poly2 = Polygon::new(Vec::new());
+    let mut poly1 = Vec::new();
+    let mut poly2 = Vec::new();
     
     let mut vertex1 = v1;
     let mut vertex2 = v2;
     
+    println!("starting points: {:?}",poly.points);
+    
+    
     
     for edge in poly.edges() {
+        poly1.push(edge.clone().p1);
         
-        if edge.coincident(&vertex1) {
-            
-            poly1.points.push(edge.p1);
-//            poly1.push(vertex1.clone()); // don't do. would be added twice
-            
-            poly1.points.push(vertex1.clone());
-//            poly1.push(vertex2.clone()); // don't do. would be added twice
-            
-            poly2.points.push(vertex1.clone());
-//            poly2.push(edge.p2); // don't do. would be added twice
-
-            let (a, b) = (vertex2,vertex1);
-            vertex1 = a;
-            vertex2 = b;
-            
-            let (c,d) = (poly2,poly1);
-            poly1 = c;
-            poly2 = d;
-            
+        println!("pushing edge: {:?}",edge.clone().p1);
+        
+        
+        let co = if edge.clone().coincident(&vertex1) {
+            Some(vertex1)
+        } else if edge.clone().coincident(&vertex1) {
+            Some(vertex2)
         } else {
-            poly1.points.push(edge.p1.clone());
-        }
+            None
+        };
         
+        match co {
+            Some(v)=> {
+                println!(" edge intersects vertex: {:?}",v.clone());
+                poly1.push(v.clone());
+                
+                println!("pushing both: {:?}",v.clone());
+
+                poly2.push(v.clone());
+                
+                let (a, b) = (vertex2,vertex1);
+                vertex1 = a;
+                vertex2 = b;
+
+                let (c,d) = (poly2,poly1);
+                poly1 = c;
+                poly2 = d;
+            }
+            None => ()
+        }
     }
     
-    (poly1,poly2)
+    
+//    
+//    
+//    for edge in poly.edges() {
+//        
+//        if edge.coincident(&vertex1) {
+//            
+//            poly1.push(edge.p1);
+//            poly1.push(vertex1.clone()); // don't do. would be added twice
+//            
+//            poly1.push(vertex1.clone());
+//            poly1.push(vertex2.clone()); // don't do. would be added twice
+//            
+//            poly2.push(vertex1.clone());
+//            poly2.push(edge.p2); // don't do. would be added twice
+//
+//            let (a, b) = (vertex2,vertex1);
+//            vertex1 = a;
+//            vertex2 = b;
+//            
+//            let (c,d) = (poly2,poly1);
+//            poly1 = c;
+//            poly2 = d;
+//            
+//        } else {
+//            poly1.push(edge.p1.clone());
+//        }
+//        
+//    }
+    
+    (Polygon::new(poly1),Polygon::new(poly2))
 }
 
 pub fn can_fold<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> bool {
@@ -667,13 +707,36 @@ mod tests {
 
 	#[test]
 	fn flip_line_test(){
-        let l1 = Line::new(pNum(0,2),pNum(0,3));
-        let v1 = pNum(1,1);
-        let v2 = pNum(2,2);
+        let l1 = Line::new(pNum(0.0,2.0),pNum(0.0,3.0));
+        let v1 = pNum(1.0,1.0);
+        let v2 = pNum(2.0,2.0);
         let l2 = flip_line(&l1,&v1,&v2);
         println!("flip_line_test: {:?}",l2);
+        
+        assert_eq!(Line::new(pNum(2.0,0.0),pNum(3.0,0.0)), l2);
 	}
+    #[test]
+    fn fold_line_test(){
+        
+        let l1 = Line::new(pNum(0.0,2.0),pNum(2.0,0.0));
+        let v1 = pNum(0.0,0.0);
+        let v2 = pNum(2.0,2.0);
+        let l2 = fold_line(&l1,&v1,&v2);
+        println!("fold_line_test: {:?}",l2);
+        
+        assert_eq!(vec!(Line::new(pNum(1.0,1.0),pNum(0.0,2.0)),Line::new(pNum(1.0,1.0),pNum(0.0,2.0))), l2);
+    }
 
+    #[test]
+    fn fold_polygon_test(){
+        let poly = Polygon::new(vec!( pNum(0.0,0.0),pNum(2.0,0.0),pNum(2.0,2.0),pNum(0.0,2.0) ));
+        let v1 = pNum(0.0,1.0);
+        let v2 = pNum(2.0,1.0);
+        let ret = fold_polygon(&poly,&v1,&v2);
+        
+        println!("fold_polygon_test: {:?} {:?}",ret.0.points, ret.1.points);
+    }
+    
 	#[test]
 	fn test_intersect_lines_1() {
 		let l1 = Line::<f64>{p1: p64(0.0, 0.0), p2: p64(1.0, 1.0)};
