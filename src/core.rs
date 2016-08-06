@@ -35,7 +35,7 @@ pub struct Polygon<N: Num> {
 //    tranform: // 3x3 matrix
 	corners: Vec<(Line<N>, Line<N>)>,
 	pub points: Vec<Point<N>>,
-	pub transform: RcArray<BigRational, (Ix, Ix)>
+	pub transform: RcArray<N, (Ix, Ix)>
 }
 
 #[derive(Debug,Clone)]
@@ -61,13 +61,6 @@ fn dot<N: Num>(l0: &Line<N>, l1: &Line<N>) -> N {
 fn dot_points<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
 	N::from_f64(a.x.to_f64() * b.x.to_f64() + a.y.to_f64() * b.y.to_f64())
 }
-
-// Unit square template
-const xx: Line<f64> = Line{p1: Point{x: 0.0, y: 0.0}, p2: Point{x: 1.0, y: 0.0}};
-const yx: Line<f64> = Line{p1: Point{x: 1.0, y: 0.0}, p2: Point{x: 1.0, y: 1.0}};
-const xy: Line<f64> = Line{p1: Point{x: 1.0, y: 1.0}, p2: Point{x: 0.0, y: 1.0}};
-const yy: Line<f64> = Line{p1: Point{x: 0.0, y: 1.0}, p2: Point{x: 0.0, y: 0.0}};
-const unit_sq: [Line<f64>; 4] = [xx, yy, xy, yx];
 
 // infinite line intersection
 pub fn intersect<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
@@ -122,7 +115,7 @@ pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) 
 
 		// Check normal intersections
 		let point: Option<Point<N>>;
-	  if discrete {
+		if discrete {
 			point = intersect_lines(&line, &boundary);
 		} else {
 			point = intersect(&line, &boundary);
@@ -150,31 +143,11 @@ pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) 
 	}
 }
 
-// Return the points where a line intersects the unit square, if it is
-// extended to infinity in both directions.
-//
-// If the line does not intersect return None
-pub fn intersect_unit_inf(line: Line<f64>) -> Option<(Point<f64>, Point<f64>)> {
-	let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
-
-	intersect_poly(line, unit_sq_p, false)
-}
-
-// Return the pair of points where a line intersects the unit square (discrete lines). 
-//
-// If the line starts in the square and finishes outside, return None.
-// If the line does not intersect return None
-pub fn intersect_unit_discrete(line: Line<f64>) -> Option<(Point<f64>, Point<f64>)> {
-	let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
-
-	intersect_poly(line, unit_sq_p, true)
-}
-
 // Return the pair of points where a line intersects the given poly (discrete lines). 
 //
 // If the line starts in the square and finishes outside, return None.
 // If the line does not intersect return None
-pub fn intersect_poly_discrete(line: Line<f64>, other: Polygon<f64>) -> Option<(Point<f64>, Point<f64>)> {
+pub fn intersect_poly_discrete<N:Num>(line: Line<N>, other: Polygon<N>) -> Option<(Point<N>, Point<N>)> {
 	intersect_poly(line, other, true)
 }
 
@@ -310,15 +283,13 @@ impl<N: Num> Point<N> {
 impl<N: Num> Polygon<N> {
 	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
 		let (clockwise, area, square, corners) = orient_area(&points);
-		let one = "1".parse::<BigRational>().unwrap();
-		let zero = "0".parse::<BigRational>().unwrap();
 		// transform is setup to do nothing by default
 		// should represent the transformation to go back to unit square
 		Polygon{points: points, area: area, square: square, is_hole: clockwise, corners: corners,
 			transform: rcarr2(&[
-				[one.clone(), zero.clone(), zero.clone()],
-				[zero.clone(), one.clone(), zero.clone()],
-				[zero.clone(), zero.clone(), one.clone()]
+				[N::one(), N::zero(), N::zero()],
+				[N::zero(), N::one(), N::zero()],
+				[N::zero(), N::zero(), N::one()]
 			])
 		}
 	}
@@ -458,16 +429,16 @@ impl<N: Num> Polygon<N> {
 	// find the vertex closest to 0,0.
 	//
 	// If no vertex of the polygon lies on the unit square, return None.
-	pub fn lowest_unit_vertex(self) -> Option<Point<f64>> {
+	pub fn lowest_vertex(self, unit_sq: Polygon<N>) -> Option<Point<N>> {
 
 		let mut candidates = Vec::new();
 
 		// Search the axes in order of close-ness to 0,0
-		for boundary in unit_sq.iter() {
+		for boundary in unit_sq.edges() {
 			// Build a list of points coincident to this axis
 			for point in self.points.clone() {
-				if boundary.coincident(&point.to_f64()) {
-					candidates.push(point.to_f64());
+				if boundary.coincident(&point) {
+					candidates.push(point);
 				}
 			}
 
@@ -483,10 +454,10 @@ impl<N: Num> Polygon<N> {
 		}
 
 		// Pick the closest point from the candidates
-		let origin = Point{x: 0.0, y: 0.0};
+		let origin = Point{x: N::zero(), y: N::zero()};
 		let mut min = candidates[0].clone();
 		for point in candidates {
-			if p_distance(&origin, &point.to_f64()) < p_distance(&origin, &min) {
+			if p_distance(&origin, &point) < p_distance(&origin, &min) {
 				min = point;
 			}
 		}
@@ -510,11 +481,6 @@ impl<N: Num> Shape<N> {
 			a += sgn * p.area();
 		}
 		a
-	}
-
-	// Runs lowest_unit_vertex on the first polygon in this shape - see above
-	pub fn lowest_unit_vertex(self) -> Option<Point<f64>> {
-		self.polys[0].clone().lowest_unit_vertex()
 	}
 }
 

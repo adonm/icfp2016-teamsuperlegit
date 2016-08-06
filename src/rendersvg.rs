@@ -120,7 +120,7 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 		}
 		for edge in unitsquare.edges() {
 			for poly in shape.clone().polys {
-				let vertex = intersect_poly_inf(edge.clone(), poly).ok_or(false);
+				let vertex = intersect_poly_discrete(edge.clone(), poly).ok_or(false);
 				if vertex.is_ok() {
 					let (p1, p2) = vertex.unwrap();
 					for p in [p1, p2].iter() {
