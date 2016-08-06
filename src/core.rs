@@ -57,7 +57,9 @@ fn dot_points<N: Num>(a: &Point<N>, b: &Point<N>) -> N {
     N::from_f64(a.x.to_f64() * b.x.to_f64() + a.y.to_f64() * b.y.to_f64())
 }
 
-pub fn intersect_lines<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
+
+// infinite line intersection
+pub fn intersect<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
     
     let e = &a.p1 - &a.p2;
     let f = &b.p1 - &b.p2;
@@ -71,25 +73,42 @@ pub fn intersect_lines<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
     } else {
         None
     }
-    
 }
 
+// http://stackoverflow.com/a/1968345
+// discrete line intersection
+pub fn intersect_lines<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
+    let s1 = &a.p2 - &a.p1;
+    let s2 = &b.p2 - &b.p1;
+    let c1 = &a.p1 - &b.p1;
+
+    let s = (- s1.y.clone() * c1.x.clone() + s1.x.clone() * c1.y.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
+    let t = ( s2.x.clone() * c1.y.clone() - s2.y.clone() * c1.x.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
+    
+    if (s.to_f64() >= 0.0) && (s.to_f64() <= 1.0) && (t.to_f64() >= 0.0) && (t.to_f64() <= 1.0) {
+        return Some(Point{x: a.p1.x.clone() + t.clone()*s1.x.clone(), y: a.p1.y.clone() + t.clone()*s1.y.clone()})
+    }
+
+    None
+}
+
+
 pub fn gradient<N:Num>(l: &Line<N>) -> N {
-    ( l.p2.y - l.p1.y ) / ( l.p2.x - l.p1.x )
+    ( l.p2.y.clone() - l.p1.y.clone() ) / ( l.p2.x.clone() - l.p1.x.clone() )
 }
 
 //reflect point p on axis l
 pub fn flip_point<N:Num>(p: &Point<N>, l: &Line<N>) -> Point<N> {
     
     let a = gradient(&l);
-    let c = l.p1.y - l.p1.x * a;
-    let x = p.x;
-    let y = p.y;
-    let d = (x + (y - c)*a)/(N::from_f64(1.0) + a*a);
+    let c = l.p1.y.clone() - l.p1.x.clone() * a.clone();
+    let x = p.x.clone();
+    let y = p.y.clone();
+    let d = (x.clone() + (y.clone() - c.clone())*a.clone())/(N::from_f64(1.0) + a.clone()*a.clone());
     
     let two = N::from_f64(2.0);
     
-    Point{ x: two*d - x, y: two*d*a - y + two*c }
+    Point{ x: two.clone()*d.clone() - x, y: two.clone()*d.clone()*a - y.clone() + two.clone()*c }
 }
 
 //flips both points of a line on an axis
@@ -106,8 +125,8 @@ pub fn fold_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Vec<Line<N>> {
     
     match intersect {
         Some(p) => {
-            let l1 = Line{ p1: p, p2: line.p1 };
-            let l2 = Line{p1: p, p2: flip_point(&line.p2,&fold) };
+            let l1 = Line{p1: p.clone(), p2: line.p1.clone() };
+            let l2 = Line{p1: p.clone(), p2: flip_point(&line.p2,&fold) };
             vec!(l1,l2)
         }
         None => vec!(flip_line(&line,&fold))
@@ -509,6 +528,20 @@ mod tests {
 
 		assert!(is_convex(&l1,&l2)==true);
 	}
+
+    #[test]
+    fn test_intersect_lines_1() {
+        let l1 = Line::<f64>{p1: p64(0.0, 0.0), p2: p64(1.0, 1.0)};
+        let l2 = Line::<f64>{p1: p64(0.0, 1.0), p2: p64(1.0, 0.0)};
+        assert_eq!(intersect_lines(&l1,&l2).unwrap(), p64(0.5, 0.5));
+    }
+
+    #[test]
+    fn test_intersect_lines_2() {
+        let l1 = Line::<f64>{p1: p64(0.0, 0.0), p2: p64(0.25, 0.25)};
+        let l2 = Line::<f64>{p1: p64(0.0, 1.0), p2: p64(1.0, 0.0)};
+        assert_eq!(intersect_lines(&l1,&l2), None);
+    }
 
 	#[test]
 	fn test_ops() {
