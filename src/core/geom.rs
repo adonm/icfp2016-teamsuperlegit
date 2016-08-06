@@ -487,7 +487,7 @@ impl<N: Num> Line<N> {
 	}
     
     pub fn length(&self) -> f64{
-        p_distance(&self.p1,&self.p2);
+        p_distance(&self.p1,&self.p2)
     }
 }
 
