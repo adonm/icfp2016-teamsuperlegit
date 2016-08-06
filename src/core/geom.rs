@@ -129,7 +129,7 @@ pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) 
 	if candidates.len() == 2 {
 		return Some((candidates[0].clone(), candidates[1].clone()));
 	} else {
-		assert!(candidates.len() == 0 || candidates.len() == 1);
+		println!("intersect_poly has too many candidates: {}", candidates.len());
 		return None
 	}
 }

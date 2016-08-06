@@ -23,9 +23,10 @@ pub fn square_from_corner<N:Num>(line0: &Line<N>, line1: &Line<N>) -> Polygon<N>
 }
 
 // This function figures out the next line to fold along
-pub fn get_next_edge_to_fold<N: Num>(base: Polygon<N>, silhouette: Polygon<N>) -> (Point<f64>, Point<f64>) {
+pub fn get_next_edge_to_fold<N: Num>(base: Polygon<N>, silhouette: Polygon<N>) -> Result<(Point<f64>, Point<f64>), bool> {
 	let candidates: Vec<Line<f64>> = silhouette.slicey_edges(base.to_f64());
 
+	if candidates.len() == 0 { return Err(false) }
 	let mut longest: Line<f64> = candidates[0].clone();
 	for line in candidates {
 	  println!("get_next_edge_to_fold: considering {}, length {}", line, line.len());
@@ -34,7 +35,7 @@ pub fn get_next_edge_to_fold<N: Num>(base: Polygon<N>, silhouette: Polygon<N>) -
 		}
 	}
 
-	return (longest.p1.clone(), longest.p2.clone());
+	return Ok((longest.p1.clone(), longest.p2.clone()));
 }
 
 pub fn fold_origami<N: Num>(state: &Vec<(Polygon<N>)>, vertex1: &Point<N>, vertex2: &Point<N>) -> Vec<Polygon<N>>{

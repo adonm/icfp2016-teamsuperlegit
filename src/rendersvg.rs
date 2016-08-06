@@ -120,14 +120,18 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 		}
 		// draw intersect vertices
 		let ref poly = shape.polys[0];
-		let (p1, p2) = get_next_edge_to_fold(unitsquare.clone(), poly.clone());
-		for p in [p1, p2].iter() {
-			let intersect = element::Circle::new()
-				.set("cx", p.x.to_f64()).set("cy", p.y.to_f64())
-				.set("fill", "#f00").set("fill-opacity", "0.5")
-				.set("r", "0.01");
-			document = document.add(intersect);
+		let foldedge = get_next_edge_to_fold(unitsquare.clone(), poly.clone());
+		if foldedge.is_ok() {
+			let (p1, p2) = foldedge.unwrap();
+			for p in [p1, p2].iter() {
+				let intersect = element::Circle::new()
+					.set("cx", p.x.to_f64()).set("cy", p.y.to_f64())
+					.set("fill", "#f00").set("fill-opacity", "0.5")
+					.set("r", "0.01");
+				document = document.add(intersect);
+			}
 		}
+
 		let poly = element::Polygon::new()
 					.set("fill", "#000").set("fill-opacity", "0.3")
 					.set("stroke", "black").set("stroke-opacity", "0.5")

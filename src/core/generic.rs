@@ -40,7 +40,10 @@ impl SuperLegit for BigRational {
 		self.numer().to_f64().unwrap_or(INFINITY) / self.denom().to_f64().unwrap_or(1.0)
 	}
 
-	fn from_f64(f: f64) -> Self { BigRational::from_float(f).unwrap() }
+	fn from_f64(f: f64) -> Self { 
+		// handle impossible floats
+		BigRational::from_float(f).unwrap_or(num::one::<BigRational>())
+	}
 
 	fn zero() -> Self { num::zero::<BigRational>() }
 	fn one() -> Self { num::one::<BigRational>() }
