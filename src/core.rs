@@ -3,7 +3,7 @@
 use std::f64::INFINITY;
 use std::ops::{Add,Sub,Mul,Div,Neg};
 use std::clone::Clone;
-use std::cmp::PartialOrd;
+use std::cmp::{Ord,Ordering,PartialOrd};
 use std::fmt::{Debug,Display};
 use std::fmt;
 use std::str::FromStr;
@@ -12,7 +12,7 @@ extern crate num;
 use num::rational::BigRational;
 use num::ToPrimitive;
 
-#[derive(Debug,Clone,PartialEq)]
+#[derive(Debug,Clone,PartialEq,PartialOrd)]
 pub struct Point<N: Num> {
 	pub x: N,
 	pub y: N,
@@ -387,12 +387,23 @@ fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64, bool, Vec<(Line<N>
 	let mut corners: Vec<(Line<N>, Line<N>)> = Vec::new();
 	let n = points.len();
 	let mut square = n == 4;
+	// first case
 	let mut sum = half_tri_area(&points[n-1], &points[0]);
 	let mut edge1 = (&points[n-1], &points[0]);
+	let cornerangle = (angle(edge1.0, edge1.1) - angle(&points[n-2], &points[n-1])).abs();
+	if cornerangle % 90.0_f64.to_radians() > 0.00001 {
+		square = false;
+	} else {
+		corners.push((
+			Line{p1: (*edge1.0).clone(), p2: (*edge1.1).clone()},
+			Line{p1: points[n-2].clone(), p2: points[n-1].clone()}
+		));
+	}
+	// rest of polygon
 	for segment in points.windows(2) {
 		let edge = (&segment[0], &segment[1]);
 		let cornerangle = (angle(edge1.0, edge1.1) - angle(edge.0, edge.1)).abs();
-		if cornerangle % 90.0_f64.to_radians() > 0.0 {
+		if cornerangle % 90.0_f64.to_radians() > 0.000001 {
 			square = false;
 		} else {
 			corners.push((
@@ -451,8 +462,8 @@ impl SuperLegit for BigRational {
 	fn one() -> Self { num::one::<BigRational>() }
 }
 
-pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + Display + PartialOrd + Clone + SuperLegit {}
-impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + Display + PartialOrd + Clone + SuperLegit {}
+pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + Display + PartialOrd + PartialEq + Clone + SuperLegit {}
+impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + Display + PartialOrd + PartialEq + Clone + SuperLegit {}
 
 impl<N: Num> Add for Point<N> {
 	type Output=Self;
@@ -485,6 +496,20 @@ impl<'a, 'b, N: Num> Sub<&'b Point<N>> for &'a Point<N> {
 impl<N: Num> Display for Point<N> {
 	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
 		write!(f, "{},{}", self.x, self.y)
+	}
+}
+
+/* can't derive(Eq) because we support Point<f64> and f64 doesn't provide a total ordering
+ * (╯°□°)╯ sᴎɐᴎ */
+impl<N: Num> Eq for Point<N> {
+	// apparently this is allowed to be empty. cool?
+}
+
+impl<N: Num> Ord for Point<N> {
+	fn cmp(&self, other: &Point<N>) -> Ordering {
+		if self < other { Ordering::Less }
+		else if self > other { Ordering::Greater }
+		else { Ordering::Equal }
 	}
 }
 

@@ -16,7 +16,7 @@ fn download(filename: &str, apipathname: &str) {
 	if !output.exists() {
         println!("Saving to {}", path);
 		println!("{:?}", 
-			Command::new("curl").arg("--compressed").arg("-L").arg("-H").arg("Expect:").arg("-H")
+			Command::new("curl").arg("--compressed").arg("-Ss").arg("-L").arg("-H").arg("Expect:").arg("-H")
 			.arg(format!("X-API-Key: 60-d7840e0fce3dc9e9a4e2693153ccd9bc"))
 			.arg(format!("http://2016sv.icfpcontest.org/api/{}", &apipathname))
 			.arg("-o").arg(path_arg)
@@ -50,7 +50,7 @@ pub fn save_problems(problems: Vec<Json>) -> Vec<Json> {
 		let hash = problem.find_path(&["problem_spec_hash"]).unwrap().as_string().unwrap();
 		let id = problem.find_path(&["problem_id"]).unwrap().as_i64().unwrap();
 		let blob = format!("blob/{}", hash);
-		let filename = format!("{:03}.problem.txt", id);
+		let filename = format!("{:05}.problem.txt", id);
 
 		download(&filename, &blob);
 	}

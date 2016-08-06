@@ -19,8 +19,8 @@ pub const BASEPATH: &'static str = "icfp2016problems";
 fn draw_problems(problems: Vec<Json>) -> Vec<Json> {
 	for problem in &problems {
 		let id = problem.find_path(&["problem_id"]).unwrap().as_i64().unwrap();
-		let filename = format!("{:03}.problem.svg", id);
-		let file = std::fs::File::open(format!("{}/{:03}.problem.txt", BASEPATH, id)).unwrap();
+		let filename = format!("{:05}.problem.svg", id);
+		let file = std::fs::File::open(format!("{}/{:05}.problem.txt", BASEPATH, id)).unwrap();
 		let (shape, skeleton) = parse::parse::<BigRational, std::fs::File>(file).unwrap();
 		rendersvg::draw_svg(shape, skeleton, &filename)
 	}
@@ -58,14 +58,14 @@ fn main() {
 		},
 		"drawproblem" => {
 			let id = env::args().nth(2).unwrap().parse::<i64>().unwrap();
-			let filename = format!("{:03}.problem.svg", id);
-			let file = std::fs::File::open(format!("{}/{:03}.problem.txt", BASEPATH, id)).unwrap();
+			let filename = format!("{:05}.problem.svg", id);
+			let file = std::fs::File::open(format!("{}/{:05}.problem.txt", BASEPATH, id)).unwrap();
 			let (shape, skeleton) = parse::parse::<BigRational, std::fs::File>(file).unwrap();
 			rendersvg::draw_svg(shape, skeleton, &filename)
 		},
         "solveproblem" => {
             let id = env::args().nth(2).unwrap().parse::<i64>().unwrap();
-			let file = std::fs::File::open(format!("{}/{:03}.problem.txt", BASEPATH, id)).unwrap();
+			let file = std::fs::File::open(format!("{}/{:05}.problem.txt", BASEPATH, id)).unwrap();
 			let (shape, skeleton) = parse::parse::<BigRational, std::fs::File>(file).unwrap();
             solver::solve(shape, skeleton)
         },

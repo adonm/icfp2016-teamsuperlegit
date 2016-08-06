@@ -26,6 +26,10 @@ fn facets<N: Num>(skel: Skeleton<N>) -> (Vec<Point<N>>, Vec<Vec<usize>>) {
 		points.push(line.p1.clone());
 		points.push(line.p2.clone());
 	}
+	//points.sort_by(|a, b| if (a < b) { Ordering::Less } else if (a > b) { Ordering::Greater } else { Ordering::Equal }});
+	points.sort();
+	points.dedup();
+
 	(points, facets)
 }
 

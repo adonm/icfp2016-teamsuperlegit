@@ -7,7 +7,8 @@ use core::*;
 
 pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	/* Draw shapes as areas and skeletons as lines */
-	let mut document = Document::new().set("viewBox", (0, 0, 1, 1));
+	let mut document = Document::new().set("viewBox", (-1, -1, 3, 3))
+		.set("width", "600px").set("height", "600px"); // scale stuff nice
 	let mut defs = element::Definitions::new();
 	let marker_path_start = element::Path::new()
 		.set("fill", "crimson")
@@ -31,6 +32,11 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	defs = defs.add(marker_end);
 	document = document.add(defs);
 
+	// draw silhouette
+	let mut silhouette = element::Group::new();
+	let mut corners = element::Group::new();
+	let mut anchorcnr: Result<(Line<N>, Line<N>), bool> = Err(false);
+	let mut anchorlength = 0.0_f64;
 	for polygon in shape.polys {
 		let mut points = String::from("");
 		for point in polygon.points.iter() {
@@ -48,27 +54,73 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 		if polygon.square() {
 			println!("square in {}", filename);
 		}
-		let path = element::Polygon::new()
+		let poly = element::Polygon::new()
 				.set("fill", fill).set("fill-opacity", "0.5")
 				.set("stroke", "black").set("stroke-opacity", "0.5")
-				.set("stroke-width", 0.02)
+				.set("stroke-width", 0.005)
 				.set("points", points.trim());
-		document = document.add(path);
+		silhouette = silhouette.add(poly);
+		// highlight corners
+		for corner in polygon.corners() {
+			let mut length = 0.0_f64;
+			let (p1, p2) = (corner.0.p1.clone(), corner.0.p2.clone());
+			let line1 = element::Line::new()
+				.set("x1", p1.x.to_f64()).set("y1", p1.y.to_f64())
+				.set("x2", p2.x.to_f64()).set("y2", p2.y.to_f64())
+				.set("stroke", "#00ff00").set("stroke-opacity", 0.5).set("stroke-width", 0.007);
+			length += p_distance(&p1, &p2);
+			corners = corners.add(line1);
+			let (p1, p2) = (corner.1.p1.clone(), corner.1.p2.clone());
+			let line2 = element::Line::new()
+				.set("x1", p1.x.to_f64()).set("y1", p1.y.to_f64())
+				.set("x2", p2.x.to_f64()).set("y2", p2.y.to_f64())
+				.set("stroke", "#00ff00").set("stroke-opacity", 0.5).set("stroke-width", 0.007);
+			length += p_distance(&p1, &p2);
+			corners = corners.add(line2);
+			if length > anchorlength {
+				anchorcnr = Ok(corner.clone());
+				anchorlength = length;
+			}
+		}
 	}
+	document = document.add(silhouette);
+
+	// draw skeleton
+	let mut skeleton = element::Group::new();
 	for bone in skel.lines() {
-	let skel_data = element::path::Data::new()
-		.move_to((bone.p1.x.to_f64(), bone.p1.y.to_f64()))
-		.line_to((bone.p2.x.to_f64(), bone.p2.y.to_f64()));
-	let skel_path = element::Path::new()
-		.set("fill", "none")
-		.set("stroke", "crimson")
-		.set("stroke-width", 0.015)
-		.set("stroke-dasharray", "0.01,0.01")
-		.set("marker-start", "url(#ArrowStart)")
-		.set("marker-end", "url(#ArrowEnd)")
-		.set("d", skel_data);
-	document = document.add(skel_path);
+		let skel_data = element::path::Data::new()
+			.move_to((bone.p1.x.to_f64(), bone.p1.y.to_f64()))
+			.line_to((bone.p2.x.to_f64(), bone.p2.y.to_f64()));
+		let skel_path = element::Path::new()
+			.set("fill", "none")
+			.set("stroke", "crimson")
+			.set("stroke-width", 0.003)
+			.set("stroke-dasharray", "0.01,0.01")
+			.set("marker-start", "url(#ArrowStart)")
+			.set("marker-end", "url(#ArrowEnd)")
+			.set("d", skel_data);
+		skeleton = skeleton.add(skel_path);
 	}
-	// only save when float coords done ok
+	document = document.add(skeleton);
+
+	// corners ontop looks nicer
+	document = document.add(corners);
+	if anchorcnr != Err(false) {
+		let (l1, l2) = anchorcnr.unwrap();
+		let unitsquare = square_from_corner(&l1, &l2);
+		let mut points = String::from("");
+		for point in unitsquare.points.iter() {
+			let coord = format!("{},{} ", point.x.to_f64(), point.y.to_f64());
+			points.push_str(&coord);
+		}
+		let poly = element::Polygon::new()
+					.set("fill", "#000").set("fill-opacity", "0.3")
+					.set("stroke", "black").set("stroke-opacity", "0.5")
+					.set("stroke-width", 0.005)
+					.set("points", points.trim());
+		document = document.add(poly);
+	}
+
+	// save to file
 	svg::save(format!("{}/{}", BASEPATH, filename), &document).unwrap();
 }
