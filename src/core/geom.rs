@@ -163,7 +163,7 @@ pub fn gradient<N:Num>(l: &Line<N>) -> N {
 	( l.p2.y.clone() - l.p1.y.clone() ) / ( l.p2.x.clone() - l.p1.x.clone() )
 }
 
-pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
+pub fn reflect_matrix<N:Num>(vertex1: &Point<N>, vertex2: &Point<N>) -> Matrix33<N> {
     
     let l = Line::new(vertex1.clone(),vertex2.clone());
     
@@ -171,7 +171,6 @@ pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Poin
         Matrix33::rotate(N::from_f64(1.0),N::from_f64(0.0))
             .then_scale(N::from_f64(1.0),N::from_f64(-1.0))
             .then_rotate(N::from_f64(-1.0),N::from_f64(0.0))
-            .transform(p.clone())
     } else {
         let g = gradient(&l);
         let c = vertex1.y.clone() - g.clone() * vertex1.x.clone();
@@ -182,8 +181,12 @@ pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Poin
             .then_scale(N::from_f64(1.0),N::from_f64(-1.0))
             .then_rotate( d.clone().y / v_distance(&d), d.clone().x / v_distance(&d) )
             .then_translate(N::from_f64(0.0),c.clone())
-            .transform(p.clone())
     }
+}
+
+pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
+    
+    reflect_matrix(&vertex1,&vertex2).transform(p.clone())
 }
 // Inputs of (1,1) / (0,0) (1,0) should give (1,-1)
 pub fn flip_point<N: Num>(p: &Point<N>, l1: &Point<N>, l2: &Point<N>) -> Point<N> {
