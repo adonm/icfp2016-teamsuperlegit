@@ -121,11 +121,6 @@ pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) 
 	candidates.sort();
 	candidates.dedup();
 
-	// println!("intersect_poly (discrete={}) for {}, {} candidates - ", discrete, line, candidates.len());
-	for p in candidates.clone() {
-		// println!("{}", p);
-	}
-
 	if candidates.len() == 2 {
 		return Some((candidates[0].clone(), candidates[1].clone()));
 	} else {
