@@ -297,6 +297,16 @@ impl<N: Num> Polygon<N> {
 		self.corners.clone()
 	}
 
+	pub fn edges(&self) -> Vec<Line<N>> {
+		let mut edges: Vec<Line<N>> = Vec::new();
+		let mut previous = self.points.len() - 1;
+		for (i, point) in self.points.iter().enumerate() {
+			let edge = Line{p1: self.points[previous].clone(), p2: point.clone()};
+			edges.push(edge);
+		}
+		return edges;
+	}
+
   // Test whether point contained within this polygon
 	pub fn contains(&self, test: &Point<N>) -> bool {
 		// https://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
@@ -766,11 +776,11 @@ mod tests {
 	}
 
 	#[test]
-	fn test_iteratepoints() {
+	fn test_iterateedges() {
 		let poly = Polygon::new(vec!(p(0, 0), p(1, 0), p(2, 2), p(0, 1)));
-		//for (i, point) in poly.points.enumerate() {
-		//	assert!(i < poly.points.len());
-		//}
+		for (i, edge) in poly.edges().iter().enumerate() {
+			assert!(i < poly.edges().len());
+		}
 	}
 
 	#[test]
