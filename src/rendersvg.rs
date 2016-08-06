@@ -4,8 +4,11 @@ use svg::node::element;
 
 use ::BASEPATH;
 use core::*;
+use std;
+use std::io::Write;
 
 pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
+	let filename = format!("{}/{}", BASEPATH, filename);
 	/* Draw shapes as areas and skeletons as lines */
 	let mut document = Document::new().set("viewBox", (-1, -1, 3, 3))
 		.set("width", "600px").set("height", "600px"); // scale stuff nice
@@ -122,12 +125,16 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 					.set("points", points.trim());
 		document = document.add(poly);
 		if psquare != Err(false) {
-			if psquare.unwrap().area() == unitsquare.area() {
-				println!{"Simple solution for {}", filename}
+			let p = psquare.unwrap().clone();
+			if p.area() == unitsquare.area() {
+				let points = format!("{}\n{}\n{}\n{}", p.points[0], p.points[1], p.points[2], p.points[3]);
+				println!("Simple solution found for {}, saving", filename);
+				let mut f = std::fs::File::create(filename.clone().replace("problem.svg", "solution.txt")).unwrap();
+				f.write_all(format!("4\n0,0\n1,0\n1,1\n0,1\n1\n4 0 1 2 3\n{}", points).as_bytes());
 			}
 		}
 	}
 
 	// save to file
-	svg::save(format!("{}/{}", BASEPATH, filename), &document).unwrap();
+	svg::save(filename, &document).unwrap();
 }
