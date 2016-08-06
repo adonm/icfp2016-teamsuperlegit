@@ -233,12 +233,15 @@ impl<N: Num> Polygon<N> {
 		let (clockwise, area, square, corners) = orient_area(&points);
 		let one = "1".parse::<BigRational>().unwrap();
 		let zero = "0".parse::<BigRational>().unwrap();
+		// transform is setup to do nothing by default
+		// should represent the transformation to go back to unit square
 		Polygon{points: points, area: area, square: square, is_hole: clockwise, corners: corners,
 			transform: rcarr2(&[
 				[one.clone(), zero.clone(), zero.clone()],
 				[zero.clone(), one.clone(), zero.clone()],
 				[zero.clone(), zero.clone(), one.clone()]
-			])}
+			])
+		}
 	}
 
 	pub fn is_hole(&self) -> bool {
