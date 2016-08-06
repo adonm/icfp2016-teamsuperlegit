@@ -130,17 +130,16 @@ pub fn gradient<N:Num>(l: &Line<N>) -> N {
 }
 
 //reflect point p on axis l
-pub fn flip_point<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
-    let n = vertex2 - vertex1;
-    let d = p - vertex1;
-    let f = N::from_f64(2.0) * cross_scalar(&d,&n);
-    
-    let prod = Point{x: f.clone()*n.x.clone(), y: f.clone()*n.y.clone()};
-    
-    let r = d - prod;
-    
-    r+vertex1
-    
+// Inputs of (1,1) / (0,0) (1,0) should give (1,-1)
+pub fn flip_point<N:Num>(p: &Point<N>, l1: &Point<N>, l2: &Point<N>) -> Point<N> {
+    // y = ax + c
+    let a: N = (l2.y.clone() - l1.y.clone()) / (l2.x.clone() - l1.x.clone());
+    println!("{}", a);
+    let c: N = l1.y.clone() - a.clone() * l1.x.clone();
+
+    let d: N = (p.x.clone() + (p.y.clone() - c.clone()) * a.clone())/(N::from_f64(1.0) + a.clone() * a.clone());
+
+    Point{x: d.clone() + d.clone() - p.x.clone(), y: N::from_f64(2.0) * d.clone() * a.clone() - p.y.clone() + c.clone() + c.clone()}
 }
 
 //flips both points of a line on an axis
@@ -573,12 +572,14 @@ mod tests {
 	}
 
 	#[test]
-	fn flip_point_test(){
-        let p1 = pNum(0,1);
-        let v1 = pNum(0,0);
-        let v2 = pNum(1,1);
-        let p2 = flip_point(&p1,&v1,&v2);
+	fn test_flip_point(){
+        let mut p2 = flip_point(&pNum(1,1), &pNum(0,0), &pNum(1,0));
         println!("flip_point_test: {:?}",p2);
+        assert_eq!(pNum(1, -1), p2);
+
+        p2 = flip_point(&pNum(1,0), &pNum(0,0), &pNum(3,3));
+        println!("flip_point_test: {:?}",p2);
+        assert_eq!(pNum(1, -1), p2);
 	}
 
 	#[test]
