@@ -128,24 +128,21 @@ pub fn gradient<N:Num>(l: &Line<N>) -> N {
 	( l.p2.y.clone() - l.p1.y.clone() ) / ( l.p2.x.clone() - l.p1.x.clone() )
 }
 
-pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
+pub fn flip_point_matrix<N:Num>(p: Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
     
     let l = Line::new(vertex1.clone(),vertex2.clone());
     
     if vertex1.y.clone() == N::from_f64(0.0) && vertex2.y.clone() == N::from_f64(0.0) {
-        Matrix33::rotate(90.0.to_radians())
-            .scale(0,-1)
-            .rotate(-90.0.to_radians())
-            .transform(&p)
+//        (Matrix33::rotate(90.0.to_radians()) * Matrix33::scale(0,-1) * Matrix33::rotate(-90.0.to_radians())).transform(&p)
+        (Matrix33::rotate(90.0.to_radians()) * Matrix33::scale(0.0,-1.0)).transform(p)
+        
         
     } else {
-        let c = vertex1.y.clone() - gradient(&l) * vertex1.x.clone();
-        Matrix33::translate(0,-c)
-            .rotate(c.atan())
-            .scale(0,-1)
-            .rotate(-c.atan())
-            .translate(0,c)
-            .transform(&p)
+        let c = N::from_f64( vertex1.y.clone() - gradient(&l) * vertex1.x.clone() );
+//        (Matrix33::translate(0,-c) * Matrix33::rotate(c.atan()) * Matrix33::scale(0,-1) * Matrix33::rotate(-c.atan()) * Matrix33::translate(0,c)).transform(&p)
+        
+        
+        (Matrix33::translate(0,-c) * Matrix33::rotate(c.atan())).transform(&p)
     }
 }
 // Inputs of (1,1) / (0,0) (1,0) should give (1,-1)
@@ -601,7 +598,14 @@ mod tests {
 
         p2 = flip_point(&pNum(1.0,0.0), &pNum(0.0,0.0), &pNum(3.0,3.0));
         println!("flip_point_test: {:?}",p2);
-        assert_eq!(pNum(1.0, -1.0), p2);
+        assert_eq!(pNum(0.0, 1.0), p2);
+
+        p2 = flip_point(&pNum(1.0,0.0), &pNum(0.0,0.0), &pNum(0.866025403784439,0.5)); // unit vector along x, 30 deg line. Result should be unit vector 60 degrees to the x axis
+        println!("flip_point_test: {:?}",p2); 
+
+        // Compare with an epsilon
+        assert!(p2.x - 0.5 < 0.000001);
+        assert!(p2.y - 0.866025403784439 < 0.000001);
 	}
 
 	#[test]
