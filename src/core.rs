@@ -32,6 +32,7 @@ pub struct Polygon<N: Num> {
 	is_hole: bool,
 	square: bool,
 	area: f64,
+//    tranform: // 3x3 matrix
 	corners: Vec<(Line<N>, Line<N>)>,
 	pub points: Vec<Point<N>>,
 	pub transform: RcArray<BigRational, (Ix, Ix)>
@@ -100,14 +101,27 @@ pub fn intersect_lines<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 	None
 }
 
-// Return the points where a line intersects the unit square, if it is
-// extended to infinity in both directions.
-//
-// If the line does not intersect return an empty Vec
-pub fn intersect_unit(line: Line<f64>) -> Option<(Point<f64>, Point<f64>)> {
+// Use intersect_unit_inf or _discrete below instead of this function
+pub fn intersect_unit(line: Line<f64>, discrete: bool) -> Option<(Point<f64>, Point<f64>)> {
 	let mut candidates = Vec::new();
 	for boundary in unit_sq.iter() {
-		let point: Option<Point<f64>> = intersect_lines(&line, &boundary);
+		// If the beginning or end of the line are coincident to the boundary, they need to be added
+		if boundary.coincident(&line.p1) {
+			candidates.push(line.p1.clone());
+		}
+
+		if boundary.coincident(&line.p2) {
+			candidates.push(line.p2.clone());
+		}
+
+		// Check normal intersections
+		let point: Option<Point<f64>>;
+	  if discrete {
+			point = intersect_lines(&line, &boundary);
+		} else {
+			point = intersect(&line, &boundary);
+		}
+
 		if point != None {
 			let point_c = point.unwrap().clone();
 			candidates.push(point_c);
@@ -117,12 +131,33 @@ pub fn intersect_unit(line: Line<f64>) -> Option<(Point<f64>, Point<f64>)> {
 	candidates.sort();
 	candidates.dedup();
 
+	println!("intersect_unit (discrete={}) for {}, {} candidates - ", discrete, line, candidates.len());
+	for p in candidates.clone() {
+		println!("{}", p);
+	}
+
 	if candidates.len() == 2 {
 		return Some((candidates[0].clone(), candidates[1].clone()));
 	} else {
-		assert!(candidates.len() == 0);
+		assert!(candidates.len() == 0 || candidates.len() == 1);
 		return None
 	}
+}
+
+// Return the points where a line intersects the unit square, if it is
+// extended to infinity in both directions.
+//
+// If the line does not intersect return None
+pub fn intersect_unit_inf(line: Line<f64>) -> Option<(Point<f64>, Point<f64>)> {
+	intersect_unit(line, false)
+}
+
+// Return the pair of points where a line intersects the unit square (discrete lines). 
+//
+// If the line starts in the square and finishes outside, return None.
+// If the line does not intersect return None
+pub fn intersect_unit_discrete(line: Line<f64>) -> Option<(Point<f64>, Point<f64>)> {
+	intersect_unit(line, true)
 }
 
 pub fn gradient<N:Num>(l: &Line<N>) -> N {
@@ -147,8 +182,6 @@ pub fn flip_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Line<N> {
 	Line{ p1: flip_point(&line.p1,&fold), p2: flip_point(&line.p2,&fold) }
 }
 
-
-
 // If there is an intersection, assume line.p1 is the point that does not get flipped
 pub fn fold_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Vec<Line<N>> {
 	let intersect = intersect_lines(&line,&fold);
@@ -163,14 +196,18 @@ pub fn fold_line<N:Num>(line: &Line<N>, fold: &Line<N>) -> Vec<Line<N>> {
 	}
 }
 //
-//// current state: outline, lines
-//// new fold: vertex and dir (dir is a directional vector represented as a point)
-//// note: the vertex must be on the outline somewhere
-//// the fold reaches from the vertex all the way to the next intersection with the outline (but no further)
-//// all the lines found within the polygon created by that outline is flipped with the fold
-//// if a line intersects the fold, it is also folded
-//// returns the new state as a tuple
-//pub fn fold_origami<N: Num>(outline: &Polygon<N>, lines: Vec<Line<N>>, vertex: Point<N>, dir: Point<N>) -> (outline: Polygon<N>, lines: Vec<Line<N>>){
+// current state: outline, lines
+// new fold: vertex and dir (dir is a directional vector represented as a point)
+// note: the vertex must be on the outline somewhere
+// the fold reaches from the vertex all the way to the next intersection with the outline (but no further)
+// all the lines found within the polygon created by that outline is flipped with the fold
+// if a line intersects the fold, it is also folded
+// returns the new state as a tuple
+// 
+// When folding we apply the fold to the current outline and produce a new outline as a set of polygons
+// Then, we also apply the fold to the source, the source always remains as a unit square (just withmore polygons)
+// i.e. the source represents the cuts on the source, which
+//pub fn fold_origami<N: Num>(state: &Vec<(Polygon<N>)>, vertex1: Point<N>, vertex2: Point<N>) -> Vec<Polygon<N>>{
 //
 //
 //
@@ -260,16 +297,19 @@ impl<N: Num> Polygon<N> {
 		self.corners.clone()
 	}
 
+  // Test whether point contained within this polygon
 	pub fn contains(&self, test: &Point<N>) -> bool {
 		// https://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
 		let end = self.points.len();
 		let mut contains = false;
 		for offset in 0..end {
+			//println!("contains - offset={}/{}", offset, end);
 			let ref p1 = self.points[offset];
 			let ref p2 = self.points[(offset+1)%end];
 			let intersect = ((p1.y.clone() > test.y.clone()) != (p2.y.clone() > test.y.clone())) &&
 				(test.x.clone() < (p2.x.clone() - p1.x.clone())*(test.y.clone() - p1.y.clone()) / (p2.y.clone() - p1.y.clone()) + p1.x.clone());
 			if intersect {
+				//println!("intersect");
 				contains = !contains;
 			}
 		}
@@ -277,6 +317,7 @@ impl<N: Num> Polygon<N> {
 		contains
 	}
 
+  // Test whether point coincident on this polygon
 	pub fn coincident(&self, test: &Point<N>) -> bool {
 		let end = self.points.len();
 		for offset in 0..end {
@@ -303,13 +344,47 @@ impl<N: Num> Polygon<N> {
 		return longest;
 	}
 
+	// Return this polygon as a vector of lines
+	pub fn to_lines(self) -> Vec<Line<N>> {
+		let mut output = Vec::new();
+		for edge_p in self.points.windows(2) {
+			output.push(Line::new(edge_p[0].clone(), edge_p[1].clone()));
+		}
+
+		// n-1 -> 0
+		output.push(Line::new(self.points.last().unwrap().clone(), self.points[0].clone()));
+
+		output
+	}
+
 	// Return the set of edges of this polygon that slice the unit square.
 	//
 	// An edge qualifies if it
 	//  - crosses at least one boundary of the unit square.
 	//  - lies wholly within the unit square
-//	pub fn slicey_edges(self) -> Vec<Line<N>> {}
+	pub fn slicey_edges(self) -> Vec<Line<f64>> {
+		let mut candidates = Vec::new();
+		let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 0.0}, Point{x: 1.0, y: 1.0}]);
 
+		for edge in self.to_lines() {
+		  println!("slicey_edges - considering line {}", edge);
+		  println!("  contained {} {}", unit_sq_p.contains(&edge.p1.to_f64()), unit_sq_p.contains(&edge.p2.to_f64()));
+			let mut intersection: Option<(Point<f64>, Point<f64>)> = intersect_unit_discrete(edge.clone().to_f64());
+			if intersection == None {
+				// Line lies wholly within or wholly without the unit square, or straddles the boundary
+				if unit_sq_p.contains(&edge.p1.to_f64()) || unit_sq_p.contains(&edge.p2.to_f64()) {
+					intersection = intersect_unit_inf(edge.clone().to_f64());
+				}
+			}
+			// Poss. do something with intersection here
+			
+			if intersection != None {
+				candidates.push(edge.to_f64());
+			}
+		}
+
+		candidates
+	}
 
 	// Return the first vertex where this polygon departs the unit square - the
 	// vertex closest to 0,0 that lies on the unit square.
@@ -383,6 +458,10 @@ impl<N: Num> Shape<N> {
 impl<N: Num> Line<N> {
 	pub fn new(p1: Point<N>, p2: Point<N>) -> Line<N> {
 		return Line{p1: p1, p2: p2};
+	}
+
+	pub fn to_f64(self) -> Line<f64> {
+		Line::new(self.p1.to_f64(), self.p2.to_f64())
 	}
 
 	// Returns the length of this line
@@ -588,6 +667,12 @@ impl<N: Num> Ord for Point<N> {
 	}
 }
 
+impl<N: Num> Display for Line<N> {
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		write!(f, "{} -> {}", self.p1, self.p2)
+	}
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
@@ -683,6 +768,10 @@ mod tests {
 	#[test]
 	fn test_line_coincident() {
 		assert!(Line::new(p(0,0), p(0,10)).coincident(&p(0,5)));
+		assert!(Line::new(p(0,0), p(0,10)).coincident(&p(0,0)));
+		assert!(Line::new(p(0,0), p(0,10)).coincident(&p(0,10)));
+		assert!(Line::new(p64(0.0,0.0), p64(0.0,10.0)).coincident(&p64(0.0,0.0)));
+		assert!(Line::new(p64(0.0,0.0), p64(0.0,10.0)).coincident(&p64(0.0,10.0)));
 		assert!(!Line::new(p(0,0), p(0,10)).coincident(&p(1,5)));
 		assert!(!Line::new(p(0,0), p(0,10)).coincident(&p(0,11)));
 	}
@@ -693,6 +782,11 @@ mod tests {
 		assert!(Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(1,0)));
 		assert!(Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(1,1)));
 		assert!(!Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(3,3)));
+
+		assert!(Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(0.2,0.2)));
+		assert!(Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(0.2,0.7)));
+		assert!(Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(0.7,0.7)));
+		assert!(!Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(1.3,0.7)));
 	}
 
 	#[test]
@@ -751,11 +845,46 @@ mod tests {
 	}
 
 	#[test]
-	fn test_intersect_unit() {
+	fn test_intersect_unit_discrete() {
 		let line1 = Line::new(p64(2.0, 0.0), p64(1.0, 3.0));
-		assert_eq!(None, intersect_unit(line1));
+		assert_eq!(None, intersect_unit_discrete(line1));
 
 		let line2 = Line::new(p64(0.0, 0.0), p64(1.0, 3.0));
-		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.3333333333333333, y: 1.0 })), intersect_unit(line2));
+		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.3333333333333333, y: 1.0 })), intersect_unit_discrete(line2));
+	}
+
+	#[test]
+	fn test_slicey_edges() {
+		println!("## Polygon with vertices on unit sq corners/parallel lines");
+		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges();
+		println!("Number of intersecting edges: {}", a.len());
+		for edge in a.clone() {
+			println!("{}", edge);
+		}
+		assert_eq!(4, a.len());
+
+		println!("## 'normal' polygon, some inside some out");
+		a = Polygon::new(vec!(p64(-1.3, -1.2), p64(0.5, -0.5), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges();
+		println!("Number of intersecting edges: {}", a.len());
+		for edge in a.clone() {
+			println!("{}", edge);
+		}
+		assert_eq!(2, a.len());
+
+		println!("## Polygon surrounds the unit sq");
+		a = Polygon::new(vec!(p64(-1.0, -1.0), p64(1.5, -0.5), p64(1.5, 1.5), p64(-1.0, 1.5))).slicey_edges();
+		println!("Number of intersecting edges: {}", a.len());
+		for edge in a.clone() {
+			println!("{}", edge);
+		}
+		assert_eq!(0, a.len());
+
+		println!("## Polygon contained within the unit");
+		a = Polygon::new(vec!(p64(0.2, 0.2), p64(0.7, 0.2), p64(0.7, 0.7), p64(0.2, 0.7))).slicey_edges();
+		println!("Number of intersecting edges: {}", a.len());
+		for edge in a.clone() {
+			println!("{}", edge);
+		}
+		assert_eq!(4, a.len());
 	}
 }
