@@ -17,23 +17,6 @@ pub fn fold<N: Num>(input: &FoldState<N>, axis: Line<N>) -> Option<FoldState<N>>
     None
 }
 
-// http://stackoverflow.com/a/1968345
-pub fn intersect<N: Num>(line_a: &Line<N>, line_b: &Line<N>) -> Option<Point<N>> {
-    let s1 = &line_a.p2 - &line_a.p1;
-    let s2 = &line_b.p2 - &line_b.p1;
-    let c1 = &line_a.p1 - &line_b.p1;
-
-    let s = (- s1.y.clone() * c1.x.clone() + s1.x.clone() * c1.y.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
-    let t = ( s2.x.clone() * c1.y.clone() - s2.y.clone() * c1.x.clone()) / (-s2.x.clone() * s1.y.clone() + s1.x.clone() * s2.y.clone());
-    
-    println!("{:?} {:?} {:?} {:?}", s1, s2, s, t);
-
-    if (s.to_f64() >= 0.0) && (s.to_f64() <= 1.0) && (t.to_f64() >= 0.0) && (t.to_f64() <= 1.0) {
-        return Some(Point{x: line_a.p1.x.clone() + t.clone()*s1.x.clone(), y: line_a.p1.y.clone() + t.clone()*s1.y.clone()})
-    }
-
-    None
-}
 
 // http://stackoverflow.com/questions/2667748/how-do-i-combine-complex-polygons
 pub fn union<N: Num>(a: &Polygon<N>, b: &Polygon<N>) -> Option<Polygon<N>> {
@@ -76,7 +59,7 @@ pub fn union<N: Num>(a: &Polygon<N>, b: &Polygon<N>) -> Option<Polygon<N>> {
         for j in 0..input_b.points.len() {
             let line2 = Line{p1: input_b.points[j].clone(), p2: input_b.points[(j+1)%len_b].clone()};
             println!("{:?} comp {:?}", line1, line2);
-            let join = intersect(&line1, &line2);
+            let join = intersect_lines(&line1, &line2);
             match join {
                 Some(x) => {
                     let point_id = points.len();
@@ -114,19 +97,6 @@ mod tests {
 	fn p(x: f64, y: f64) -> Point<f64> {
 		Point{x: x, y: y}
 	}
-    #[test]
-    fn test_intersect_1() {
-        let l1 = Line::<f64>{p1: p(0.0, 0.0), p2: p(1.0, 1.0)};
-        let l2 = Line::<f64>{p1: p(0.0, 1.0), p2: p(1.0, 0.0)};
-        assert_eq!(intersect(&l1,&l2).unwrap(), p(0.5, 0.5));
-    }
-
-    #[test]
-    fn test_intersect_2() {
-        let l1 = Line::<f64>{p1: p(0.0, 0.0), p2: p(0.25, 0.25)};
-        let l2 = Line::<f64>{p1: p(0.0, 1.0), p2: p(1.0, 0.0)};
-        assert_eq!(intersect(&l1,&l2), None);
-    }
 
     #[test]
     fn test_union_1() {
