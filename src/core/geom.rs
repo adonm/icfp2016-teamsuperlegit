@@ -367,6 +367,7 @@ impl<N: Num> Polygon<N> {
 		for (i, point) in self.points.iter().enumerate() {
 			let edge = Line{p1: self.points[previous].clone(), p2: point.clone()};
 			edges.push(edge);
+            previous = i;
 		}
 		return edges;
 	}
@@ -719,7 +720,7 @@ mod tests {
         let v2 = pNum(2.0,1.0);
         let ret = fold_polygon(&poly,&v1,&v2);
         
-        println!("input fold_polygon_test: {:?}",poly);
+        println!("input fold_polygon_test: {:?}",poly.edges());
         println!("fold_polygon_test: {:?} \n\n {:?}",ret, ret);
     }
     
