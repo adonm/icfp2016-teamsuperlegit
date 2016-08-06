@@ -16,8 +16,6 @@ pub struct Line<N: Num> {
 
 #[derive(Debug,Clone,PartialEq)]
 pub struct Polygon<N: Num> {
-	is_hole: bool,
-	area: f64,
 	pub points: Vec<Point<N>>,
 	pub transform: Matrix33<N>
 }
@@ -321,14 +319,28 @@ impl<N: Num> Point<N> {
 
 impl<N: Num> Polygon<N> {
 	pub fn new(points: Vec<Point<N>>) -> Polygon<N> {
-		let (clockwise, area) = orient_area(&points);
 		// transform is setup to do nothing by default
 		// should represent the transformation to go back to unit square
-		Polygon{points: points, area: area, is_hole: clockwise, transform: Matrix33::identity()}
+		Polygon{points: points, transform: Matrix33::identity()}
 	}
 
+	fn double_signed_area(&self) -> f64 {
+		let mut sum = N::zero();
+		for edge in self.edges() {
+			sum = sum + (edge.p2.x.clone() - edge.p1.x.clone()) * (edge.p2.y.clone() + edge.p1.y.clone());
+		}
+		return sum.to_f64();
+	}
+
+	pub fn area(&self) -> f64 {
+		return (self.double_signed_area() / 2.0_f64).abs();
+	}
+
+	/* returns true where the poly points are in clockwise order,
+	** based on area contained within. thx to:
+	** http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-points-are-in-clockwise-order */
 	pub fn is_hole(&self) -> bool {
-		self.is_hole
+		return self.double_signed_area() >= 0.0;
 	}
 
 	pub fn square(&self) -> bool {
@@ -338,10 +350,6 @@ impl<N: Num> Polygon<N> {
 			}
 		}
 		return false
-	}
-
-	pub fn area(&self) -> f64 {
-		self.area
 	}
 
 	pub fn corners(&self) -> Vec<(Line<N>, Line<N>)> {
@@ -512,25 +520,6 @@ impl<N: Num> Skeleton<N> {
 pub fn angle<'a, N: Num>(p0: &'a Point<N>, p1: &'a Point<N>) -> f64 {
 	let d = p1 - p0;
 	return d.x.to_f64().atan2(d.y.to_f64());
-}
-
-fn half_tri_area<'a, N: Num>(p0: &'a Point<N>, p1: &'a Point<N>) -> N {
-	(p1.x.clone() - p0.x.clone()) * (p1.y.clone() + p0.y.clone())
-}
-
-/* returns a tuple where the first element is true if the poly points are in clockwise order,
-** and the second element is the area contained within. thx to:
-** http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-points-are-in-clockwise-order */
-fn orient_area<N: Num>(points: &Vec<Point<N>>) -> (bool, f64) {
-	let n = points.len();
-	// first case
-	let mut sum = half_tri_area(&points[n-1], &points[0]);
-	// rest of polygon
-	for segment in points.windows(2) {
-		sum = sum + half_tri_area(&segment[0], &segment[1]);
-	}
-	let f = sum.to_f64();
-	return (f >= 0.0, f.abs() / 2.0)
 }
 
 /*pub fn mirror<N: Num>(shapes: &Vec<Polygon<N>>, axis: Line<N>) -> Vec<Polygon<N>> {
