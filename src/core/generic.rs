@@ -79,6 +79,12 @@ pub fn find_close_rational_point<N: Num>(p: Point<N>) -> Point<BigRational> {
 
 pub fn find_close_rational<N:Num>( x: N ) -> Option<BigRational> {
     
+    let do_i_do = false;
+    
+    if do_i_do ==false {
+        return None;
+    }
+    
     for i in 0..100 {
         
         for j in 1..100 {

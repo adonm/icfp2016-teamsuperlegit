@@ -87,14 +87,14 @@ pub fn from_polys<W: Write>(writer: W, polys: Vec<Polygon<BigRational>>, base: B
 		let mut orig = Vec::new();
 		for point in poly.points {
 			let i = {
-				let e = seen.entry(qntz(snap(point.clone()), base.clone()));
+				let e = seen.entry(find_close_rational_point(qntz(snap(point.clone()), base.clone())));
 				match e {
 					Entry::Occupied(e) => {
 						*e.get()
 					},
 					Entry::Vacant(e) => {
-						src.push(qntz(snap(poly.transform.inverse().transform(point.clone())), base.clone()));
-						dst.push(qntz(snap(poly.transform.transform(point.clone())), base.clone()));
+						src.push(find_close_rational_point(qntz(snap(poly.transform.inverse().transform(point.clone())), base.clone())));
+						dst.push(find_close_rational_point(qntz(snap(poly.transform.transform(point.clone())), base.clone())));
 						let i = dst.len() - 1;
 						println!("   POINT {} {} -> {}", i, src[i], dst[i]);
 						*e.insert(i)
