@@ -8,7 +8,7 @@ use rustc_serialize::json::Json;
 use std::process::Command;
 
 pub fn submit(problem_id: i64) {
-	// submit a problem
+	// submit a solution
 	// easily submit all uncommitted solutions using e.g: 
 	// # git -C icfp2016problems status | grep solution.txt | grep -E -o "[0-9]+" | xargs -n1 cargo run submit
 	let path = format!("{}/{:05}.solution.txt", BASEPATH, problem_id);
@@ -27,6 +27,29 @@ pub fn submit(problem_id: i64) {
 		);
 		thread::sleep(Duration::from_millis(1000));
 	}
+}
+
+pub fn submit_problem(problem_id: i64) {
+	// submit a problem
+	let path = format!("{}/custom/{:05}.solution.txt", BASEPATH, problem_id);
+    println!("Taking problem from path: {}",path);
+	let path_arg = path.clone();
+	let output = Path::new(&path);
+	if output.exists() {
+        println!("Uploading solution {}", path);
+		println!("{:?}", 
+			Command::new("curl").arg("--compressed").arg("-Ssv").arg("-L").arg("-H").arg("Expect:").arg("-H")
+			.arg(format!("X-API-Key: 60-d7840e0fce3dc9e9a4e2693153ccd9bc")).arg("-F").arg(format!("problem_id={}", problem_id))
+			.arg("-F").arg(format!("solution_spec=@{}", path_arg))
+      .arg("-F").arg("publish_time=1470592800")
+			.arg("http://2016sv.icfpcontest.org/api/problem/submit")
+			.output()
+			.expect("uh-oh")
+		);
+		thread::sleep(Duration::from_millis(1000));
+  } else {
+    println!("File doesn't exist");
+  }
 }
 
 fn download(filename: &str, apipathname: &str) {

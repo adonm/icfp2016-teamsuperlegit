@@ -92,6 +92,9 @@ fn main() {
 		"submit" => {
 			restapi::submit(env::args().nth(2).unwrap().parse::<i64>().unwrap())
 		},
+		"submitproblem" => {
+			restapi::submit_problem(env::args().nth(2).unwrap().parse::<i64>().unwrap())
+		},
 		_ => {
 			println!("{:?}", help_string);
 			process::exit(1);
