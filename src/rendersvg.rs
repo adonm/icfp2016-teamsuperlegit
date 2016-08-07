@@ -132,7 +132,12 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 			let mut state = Vec::new();
 			let mut statepolys = element::Group::new();
 			state.push(unitsquare.clone());
+			for polygon in state.clone() {
+				statepolys = statepolys.add(draw_polygon(&polygon, "#ff0"));
+			}
+			println!("{:?}", state);
 			let folded = fold_origami(&state, &p1.to_num(), &p2.to_num());
+			println!("{:?}", folded);
 			println!("folded {} into {}", filename, folded.len());
 			for polygon in folded.clone() {
 				statepolys = statepolys.add(draw_polygon(&polygon, "#000"));

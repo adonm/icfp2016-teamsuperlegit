@@ -221,7 +221,7 @@ pub fn flip_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Poi
     }
     poly_f.reverse();
     let mut ret = Polygon::new(poly_f);
-    ret.transform = poly.clone().transform * reflect_matrix(&vertex1,&vertex2);
+    ret.transform = poly.clone().transform * reflect_matrix(&vertex1,&vertex2).inverse();
     ret
 }
 
@@ -239,6 +239,8 @@ pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) ->
     
     let mut vertex1 = v1;
     let mut vertex2 = v2;
+
+	let transform = poly.transform.clone();
     
     for edge in poly.edges() {
         poly1.push(edge.clone().p1);
@@ -268,9 +270,12 @@ pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) ->
             None => ()
         }
     }
+    let mut poly1 = Polygon::new(poly1);
+	poly1.transform = transform.clone();
+	let mut poly2 = Polygon::new(poly2);
+	poly2.transform = transform.clone();
     
-    
-    (Polygon::new(poly1),Polygon::new(poly2))
+    return (poly1,poly2);
 }
 
 pub fn can_fold<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> bool {
