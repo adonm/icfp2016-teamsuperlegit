@@ -95,8 +95,8 @@ mod tests {
 
 		let result: Line<f64> = get_next_edge_to_fold(base, a).unwrap();
 		println!("Folding along edge {} -> {}", result.p1, result.p2);
-		assert_eq!(Point{x: 0.0, y: 0.0}, result.p1);
-		assert_eq!(Point{x: 1.0, y: 1.0}, result.p2);
+		assert_eq!(Point{x: 0.0, y: 0.5}, result.p1);
+		assert_eq!(Point{x: 1.0, y: 0.5}, result.p2);
 
 		println!("## Rotated square base, silhouette as above");
 		base = Polygon::new(vec!(p(-4.0, 0.0), p(0.0, -4.0), p(4.0, 0.0), p(0.0, 4.0)));
