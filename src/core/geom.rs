@@ -209,7 +209,6 @@ pub fn fold_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Poi
 	let mut polys = split_polygon(&poly,&vertex1,&vertex2);
 	for poly in polys.iter_mut() {
 		if !poly.contains(anchor) {
-			println!("flippity flip flip");
 			*poly = flip_polygon(&poly, &vertex1, &vertex2);
 		}
 	}
@@ -222,25 +221,28 @@ pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) ->
 	let fold = Line::new(v1.clone(), v2.clone());
 
 	let intersections = intersect_poly_inf(fold, poly);
+	//println!("intersections: {:?}", intersections);
 
 	polys.push(Vec::new());
 	let mut cur = 0;
 
 	for edge in poly.edges() {
-		polys[cur].push(edge.clone().p1);
+		//println!("starting edge {}; on poly {}/{}", edge, cur+1, polys.len());
+		polys[cur].push(edge.p1.clone());
 
 		let mut co = None;
-		for isect in intersections.iter() {
-			if edge.coincident(&isect.0) {
-				co = Some(isect.clone());
+		for i in 0..intersections.len() {
+			if edge.coincident(&intersections[i].0) && edge.p1 != intersections[i].0 {
+				co = Some(intersections[i].clone());
 				break;
-			} else if edge.coincident(&isect.1) {
-				co = Some((isect.1.clone(), isect.0.clone()));
+			} else if edge.coincident(&intersections[i].1) && edge.p1 != intersections[i].1 {
+				co = Some((intersections[i].1.clone(), intersections[i].0.clone()));
 				break;
 			}
 		}
 
 		if let Some((a,b)) = co {
+			//println!("intersected point {}; poly {} now waiting for point {}", a, cur+1, b);
 			polys[cur].push(a.clone());
 			resume.insert(b.clone(), cur);
 
@@ -252,7 +254,9 @@ pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) ->
 					polys.len() - 1
 				}
 			};
-			polys[cur].push(a.clone());
+			if edge.p2 != a {
+				polys[cur].push(a.clone());
+			}
 		}
 	}
 
@@ -590,21 +594,22 @@ mod tests {
         assert_eq!(vec!(Line::new(p(1.0,1.0),p(0.0,2.0)),Line::new(p(1.0,1.0),p(0.0,2.0))), l2);
     }
 
-    #[test]
-    fn fold_polygon_test(){
-        let poly = Polygon::new(vec!( p(0.0,0.0),p(2.0,0.0),p(2.0,2.0),p(0.0,2.0) ));
-        let v1 = p(0.0,1.0);
-        let v2 = p(2.0,1.0);
-        let ret = fold_polygon(&poly,&v1,&v2,&p(0.0, 2.0));
-        
-        println!("fold_polygon_test: {:?}",ret);
-        
-        let ans = vec!( p(0.0,1.0),p(0.0,2.0),p(2.0,2.0),p(2.0,1.0));
-        for pt in ans {
-            assert!(ret[0].points.contains(&pt));
-            assert!(ret[1].points.contains(&pt));
-        }
-    }
+	#[test]
+	fn fold_polygon_test(){
+		let poly = Polygon::new(vec!( p(0.0,0.0),p(2.0,0.0),p(2.0,2.0),p(0.0,2.0) ));
+		let v1 = p(0.0,1.0);
+		let v2 = p(2.0,1.0);
+		let ret = fold_polygon(&poly,&v1,&v2,&p(0.0, 2.0));
+
+		println!("fold_polygon_test: {:?}",ret);
+
+		let ans = vec!( p(0.0,1.0),p(0.0,2.0),p(2.0,2.0),p(2.0,1.0));
+		for pt in ans {
+			assert!(ret[0].points.contains(&pt));
+			assert!(ret[1].points.contains(&pt));
+		}
+		assert!(ret.len() == 2);
+	}
     
 	#[test]
 	fn test_intersect_discrete() {

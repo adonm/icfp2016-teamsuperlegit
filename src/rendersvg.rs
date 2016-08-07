@@ -145,12 +145,13 @@ pub fn draw_svg(shape: Shape<BigRational>, skel: Skeleton<BigRational>, filename
 		let unitsquare = square_from_corner(&l1, &l2);
 
 		// draw intersect vertices
+		const MAX_FOLDS: i32 = 2;
 		let silhouette = shape.polys[0].clone(); // target silhouette
 		let mut state = vec![unitsquare.clone()]; // update each loop iteration
 		let mut iteration = 1;
 		loop {
 			let foldedge = get_next_edge_to_fold(state[0].clone(), silhouette.clone());
-			if !foldedge.is_ok() {
+			if !foldedge.is_ok() || iteration > MAX_FOLDS {
 				break;
 			}
 			let fe = foldedge.unwrap();
