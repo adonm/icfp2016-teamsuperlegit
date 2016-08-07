@@ -1,4 +1,5 @@
 use super::*;
+use std::panic;
 
 use super::super::matrix::Matrix33;
 
@@ -147,7 +148,11 @@ pub fn intersect_poly_inf<N:Num>(line: Line<N>, other: Polygon<N>) -> Option<(Po
 }
 
 pub fn gradient<N:Num>(l: &Line<N>) -> N {
-	( l.p2.y.clone() - l.p1.y.clone() ) / ( l.p2.x.clone() - l.p1.x.clone() )
+	let result = panic::catch_unwind(|| {
+		( l.p2.y.clone() - l.p1.y.clone() ) / ( l.p2.x.clone() - l.p1.x.clone() )
+	});
+	if result.is_ok() { return result.unwrap() }
+	return N::one();
 }
 
 pub fn reflect_matrix<N:Num>(vertex1: &Point<N>, vertex2: &Point<N>) -> Matrix33<N> {
