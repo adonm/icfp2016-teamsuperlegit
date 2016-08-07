@@ -141,10 +141,10 @@ pub fn draw_svg(shape: Shape<BigRational>, skel: Skeleton<BigRational>, filename
 		let foldedge = get_next_edge_to_fold(unitsquare.clone(), poly.clone());
 		if foldedge.is_ok() {
 //			let (p1, p2) = foldedge.unwrap();
-            let fe = foldedge.unwrap();
-            let p1 = fe.p1;
-            let p2 = fe.p2;
-            
+			let fe = foldedge.unwrap();
+			let p1 = fe.p1;
+			let p2 = fe.p2;
+
 			for p in [p1.clone(), p2.clone()].iter() {
 				let intersect = element::Circle::new()
 					.set("cx", p.x.to_f64()).set("cy", p.y.to_f64())
