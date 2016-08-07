@@ -47,7 +47,7 @@ pub fn intersect_inf<N:Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> {
 
   // If the lines are very close to parallel return None
   let d = (x1.clone() - x2.clone())*(y3.clone() - y4.clone()) - (y1.clone() - y2.clone())*(x3.clone() - x4.clone());
-  if eq_eps(&d, &N::from_f64(0.0)) {
+  if eq_eps(&d, &N::zero()) {
     return None;
   }
 
@@ -159,20 +159,20 @@ pub fn reflect_matrix<N:Num>(vertex1: &Point<N>, vertex2: &Point<N>) -> Matrix33
     
     let l = Line::new(vertex1.clone(),vertex2.clone());
     
-    if vertex1.x.clone() == N::from_f64(0.0) && vertex2.x.clone() == N::from_f64(0.0) {
-        Matrix33::rotate(N::from_f64(1.0),N::from_f64(0.0))
-            .then_scale(N::from_f64(1.0),N::from_f64(-1.0))
-            .then_rotate(N::from_f64(-1.0),N::from_f64(0.0))
+    if vertex1.x.clone() == N::zero() && vertex2.x.clone() == N::zero() {
+        Matrix33::rotate(N::one(),N::zero())
+            .then_scale(N::one(),N::from_f64(-1.0))
+            .then_rotate(N::from_f64(-1.0),N::zero())
     } else {
         let g = gradient(&l);
         let c = vertex1.y.clone() - g.clone() * vertex1.x.clone();
         let d = vertex2 - vertex1;
         
-        Matrix33::translate(N::from_f64(0.0),-c.clone())
+        Matrix33::translate(N::zero(),-c.clone())
             .then_rotate( - d.clone().y / v_distance(&d), d.clone().x / v_distance(&d) )
-            .then_scale(N::from_f64(1.0),N::from_f64(-1.0))
+            .then_scale(N::one(),N::from_f64(-1.0))
             .then_rotate( d.clone().y / v_distance(&d), d.clone().x / v_distance(&d) )
-            .then_translate(N::from_f64(0.0),c.clone())
+            .then_translate(N::zero(),c.clone())
     }
 }
 
@@ -298,7 +298,7 @@ pub fn v_distance<N: Num>(p: &Point<N>) -> N {
 
 
 pub fn normalize_line<N:Num>(start: &Point<N>, dir: &Point<N>) -> Point<N> {
-	let ratio = N::from_f64(1.0) / v_distance(dir);
+	let ratio = N::one() / v_distance(dir);
 	let scaled = dir.scale(ratio);
 	start + &scaled
 }

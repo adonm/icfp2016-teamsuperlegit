@@ -10,6 +10,7 @@ pub fn square_from_corner<N:Num>(line0: &Line<N>, line1: &Line<N>) -> Polygon<N>
 		Point{x:N::zero(), y:N::zero()}, Point{x:N::zero(), y:N::one()},
 		Point{x:N::one(), y:N::one()}, Point{x:N::one(), y:N::zero()}
 	]);
+	// swap coords on lines around to make them touch at expected point
 	let line0sw = Line{p1: line0.p2.clone(), p2: line0.p1.clone()};
 	let line1sw = Line{p1: line1.p2.clone(), p2: line1.p1.clone()};
 	let l0 = if line0.p1 == line1.p2 { &line0sw } else { line0 };
@@ -18,6 +19,10 @@ pub fn square_from_corner<N:Num>(line0: &Line<N>, line1: &Line<N>) -> Polygon<N>
 		panic!("Lines must join {}, {}; {}, {}", l0.p1, l0.p2, l1.p1, l1.p2);
 	}
 	let mut transform = Matrix33::translate(l0.p2.clone().x, l0.p2.clone().y);
+	let o = l0.p1.clone().x - l0.p2.clone().x;
+	let a = l0.p1.clone().y - l0.p2.clone().y;
+	let h = N::from_f64((o.clone() * o.clone() + a.clone() * a.clone()).to_f64().sqrt());
+	// transform = Matrix33::rotate(o.clone()/h.clone(), a.clone()/h.clone());
 	transform = Matrix33::rotate_angle(180.0_f64.to_radians() - angle(&l0.p1, &l0.p2)) * transform;
 	let mut points = Vec::new();
 	for point in unit_sq_p.points {

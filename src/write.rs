@@ -62,6 +62,10 @@ pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>) -> Result
 			};
 			facet.push(i);
 			orig.push(src[i].clone());
+			if src[i].x > N::one() || src[i].x < N::zero()
+			 || src[i].y > N::one() || src[i].y < N::zero() {
+				 println!("Point {}, {} outside source bounds", src[i].to_f64(), src[i])
+			} 
 		}
 		facets.push(facet);
 		unfolded.push(Polygon::new(orig));
