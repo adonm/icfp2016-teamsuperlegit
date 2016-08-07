@@ -205,28 +205,28 @@ pub fn fold_line<N:Num>(line: &Line<N>, vertex1: &Point<N>, vertex2: &Point<N>) 
 }
 
 pub fn flip_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Polygon<N> {
-    let mut poly_f = Vec::new();
-    let affine = reflect_matrix(&vertex1,&vertex2);
-    
-    for pt in poly.clone().points {
-        poly_f.push(affine.transform(pt.clone()));
-    }
-    poly_f.reverse();
-    let mut ret = Polygon::new(poly_f);
-    ret.transform = poly.transform.clone() * affine;
-    ret
+	let mut poly_f = Vec::new();
+	let affine = reflect_matrix(&vertex1,&vertex2);
+
+	for pt in poly.clone().points {
+		poly_f.push(affine.transform(pt.clone()));
+	}
+	poly_f.reverse();
+	let mut ret = Polygon::new(poly_f);
+	ret.transform = poly.transform.clone() * affine;
+	ret
 }
 
 pub fn fold_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>, anchor: &Point<N>) -> (Polygon<N>,Polygon<N>) {
-    let (poly1, poly2) = split_polygon(&poly,&vertex1,&vertex2);
+	let (poly1, poly2) = split_polygon(&poly,&vertex1,&vertex2);
 	for point in poly1.clone().points {
 		if point == *anchor {
 			let poly2 = flip_polygon(&poly2, &vertex1, &vertex2);
 			return (poly1, poly2);
 		}
 	}
-    let poly1 = flip_polygon(&poly1, &vertex1, &vertex2);
-    return (poly1,poly2)
+	let poly1 = flip_polygon(&poly1, &vertex1, &vertex2);
+	return (poly1,poly2)
 }
 
 pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) -> (Polygon<N>,Polygon<N>) {
