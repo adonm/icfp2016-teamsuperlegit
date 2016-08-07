@@ -326,6 +326,10 @@ impl<N: Num> Point<N> {
 	pub fn scale(&self, alpha: N) -> Point<N> {
 		Point{x: self.x.clone() * alpha.clone(), y: self.y.clone() * alpha}
 	}
+
+	pub fn dot(&self, other: Point<N>) -> N {
+		self.x.clone()*other.x.clone() + self.y.clone()*other.y.clone()
+	}
 }
 
 impl<N: Num> Polygon<N> {
