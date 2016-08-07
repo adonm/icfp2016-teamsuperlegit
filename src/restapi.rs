@@ -12,6 +12,7 @@ pub fn submit(problem_id: i64) {
 	// easily submit all uncommitted solutions using e.g: 
 	// # git -C icfp2016problems status | grep solution.txt | grep -E -o "[0-9]+" | xargs -n1 cargo run submit
 	let path = format!("{}/{:05}.solution.txt", BASEPATH, problem_id);
+    println!("{}",path);
 	let path_arg = path.clone();
 	let output = Path::new(&path);
 	if output.exists() {

@@ -76,14 +76,14 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 				.set("x1", p1.x.to_f64()).set("y1", p1.y.to_f64())
 				.set("x2", p2.x.to_f64()).set("y2", p2.y.to_f64())
 				.set("stroke", "#00ff00").set("stroke-opacity", 0.5).set("stroke-width", 0.007);
-			length += p_distance(&p1, &p2);
+			length += p_distance(&p1, &p2).to_f64();
 			corners = corners.add(line1);
 			let (p1, p2) = (corner.1.p1.clone(), corner.1.p2.clone());
 			let line2 = element::Line::new()
 				.set("x1", p1.x.to_f64()).set("y1", p1.y.to_f64())
 				.set("x2", p2.x.to_f64()).set("y2", p2.y.to_f64())
 				.set("stroke", "#00ff00").set("stroke-opacity", 0.5).set("stroke-width", 0.007);
-			length += p_distance(&p1, &p2);
+			length += p_distance(&p1, &p2).to_f64();
 			corners = corners.add(line2);
 			if length > anchorlength {
 				anchorcnr = Ok(corner.clone());
@@ -121,7 +121,11 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 		let ref poly = shape.polys[0];
 		let foldedge = get_next_edge_to_fold(unitsquare.clone(), poly.clone());
 		if foldedge.is_ok() {
-			let (p1, p2) = foldedge.unwrap();
+//			let (p1, p2) = foldedge.unwrap();
+            let fe = foldedge.unwrap();
+            let p1 = fe.p1;
+            let p2 = fe.p2;
+            
 			for p in [p1.clone(), p2.clone()].iter() {
 				let intersect = element::Circle::new()
 					.set("cx", p.x.to_f64()).set("cy", p.y.to_f64())

@@ -33,20 +33,20 @@ pub fn square_from_corner<N:Num>(line0: &Line<N>, line1: &Line<N>) -> Polygon<N>
 }
 
 // This function figures out the next line to fold along
-pub fn get_next_edge_to_fold<N: Num>(base: Polygon<N>, silhouette: Polygon<N>) -> Result<(Point<N>, Point<N>), bool> {
+pub fn get_next_edge_to_fold<N: Num>(base: Polygon<N>, silhouette: Polygon<N>) -> Result<Line<N>, bool> {
 	let candidates: Vec<Line<N>> = silhouette.slicey_edges(base.clone());
 
 	if candidates.len() == 0 { return Err(false) }
-	let mut longest: Line<N> = candidates[0].clone();
+	let mut longest: Result<Line<N>, bool>  = Err(false);// = candidates[0].clone();
 	for line in candidates {
-		//println!("get_next_edge_to_fold: considering {}, length {}", line, line.len());
-		if line.len() > longest.len() && ( base.clone().points.contains(&line.p1)==false || base.clone().points.contains(&line.p2)==false ) {
-			longest = line;
+		println!("get_next_edge_to_fold: considering {}, length {}", line, line.len());
+		if (longest.clone().is_err() || line.len() > longest.clone().unwrap().len()) && ( base.clone().points.contains(&line.p1)==false || base.clone().points.contains(&line.p2)==false ) {
+			longest = Ok(line.clone());
+            println!("did make longest");
 		}
 	}
-
-	// The point order here is sometimes flipped, making folds go in odd direction
-	return Ok((longest.p1.clone(), longest.p2.clone()));
+    
+    return longest;
 }
 
 pub fn fold_origami<N: Num>(state: &Vec<(Polygon<N>)>, vertex1: &Point<N>, vertex2: &Point<N>, anchor: &Point<N>) -> Vec<Polygon<N>>{
@@ -79,8 +79,8 @@ mod tests {
 
 	#[test]
 	fn square_from_corner_test(){
-		let l1 = Line{ p1: p64(-1.0/2.0,1.0/2.0), p2: p64(0.0,0.0) };
-		let l2 = Line{ p1: p64(0.0,0.0), p2: p64(1.0/2.0,1.0/2.0) };
+		let l1 = Line{ p1: p(-1.0/2.0,1.0/2.0), p2: p(0.0,0.0) };
+		let l2 = Line{ p1: p(0.0,0.0), p2: p(1.0/2.0,1.0/2.0) };
 
 		let poly = square_from_corner(&l1,&l2);
 
@@ -91,21 +91,21 @@ mod tests {
 	fn test_get_next_edge_to_fold() {
 		println!("## Unit square base, silhouette as above");
 		let mut base = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
-		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5)));
+		let mut a = Polygon::new(vec!(p(0.0, 0.0), p(0.5, 0.0), p(2.0, 0.5), p(0.5, 0.5)));
 
-		let result: (Point<f64>, Point<f64>) = get_next_edge_to_fold(base, a).unwrap();
-		println!("Folding along edge {} -> {}", result.0, result.1);
-		assert_eq!(Point{x: 0.0, y: 0.0}, result.0);
-		assert_eq!(Point{x: 1.0, y: 1.0}, result.1);
+		let result: Line<f64> = get_next_edge_to_fold(base, a).unwrap();
+		println!("Folding along edge {} -> {}", result.p1, result.p2);
+		assert_eq!(Point{x: 0.0, y: 0.0}, result.p1);
+		assert_eq!(Point{x: 1.0, y: 1.0}, result.p2);
 
 		println!("## Rotated square base, silhouette as above");
-		base = Polygon::new(vec!(p64(-4.0, 0.0), p64(0.0, -4.0), p64(4.0, 0.0), p64(0.0, 4.0)));
-		a = Polygon::new(vec!(p64(-1.0, 0.5), p64(1.0, 0.5), p64(1.0, 1.0), p64(-1.0, 1.0)));
+		base = Polygon::new(vec!(p(-4.0, 0.0), p(0.0, -4.0), p(4.0, 0.0), p(0.0, 4.0)));
+		a = Polygon::new(vec!(p(-1.0, 0.5), p(1.0, 0.5), p(1.0, 1.0), p(-1.0, 1.0)));
 
-		let result: (Point<f64>, Point<f64>) = get_next_edge_to_fold(base, a).unwrap();
-		println!("Folding along edge {} -> {}", result.0, result.1);
-		assert_eq!(Point{x: -3.5, y: 0.5}, result.0);
-		assert_eq!(Point{x: 3.5, y: 0.5}, result.1);
+		let result: Line<f64> = get_next_edge_to_fold(base, a).unwrap();
+		println!("Folding along edge {} -> {}", result.p2, result.p2);
+		assert_eq!(Point{x: -3.5, y: 0.5}, result.p1);
+		assert_eq!(Point{x: 3.5, y: 0.5}, result.p2);
 
 	}
 }
