@@ -49,7 +49,7 @@ pub fn from_skeleton<N: Num, F: Folds<N>, W: Write>(writer: W, skel: Skeleton<N>
 
 fn snap(p: Point<BigRational>) -> Point<BigRational> {
 	let mut p = p.clone();
-	let snapdist = 0.000001;
+	let snapdist = 0.0000000001;
 	for (float, snap) in vec![(0.0, Zero::zero()),(1.0, One::one())] {
 		let snap: BigRational = snap;
 		p.x = if (p.x.to_f64() - float).abs() < snapdist { snap.clone() } else { p.x };
@@ -67,7 +67,7 @@ fn qntz(p: Point<BigRational>, base: BigInt) -> Point<BigRational> {
 		x: BigRational::new(BigInt::from(xnum), BigInt::from(base.clone())),
 		y: BigRational::new(BigInt::from(ynum), BigInt::from(base.clone()))
 	};
-	if (p.x.to_f64() - p2.x.to_f64()).abs() < 0.0001 && (p.y.to_f64() - p2.y.to_f64()).abs() < 0.0001 {
+	if (p.x.to_f64() - p2.x.to_f64()).abs() < 0.0000000001 && (p.y.to_f64() - p2.y.to_f64()).abs() < 0.0000000001 {
 		return p2;
 	} else {
 		return p;
