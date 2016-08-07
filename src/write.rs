@@ -81,20 +81,21 @@ pub fn from_polys<W: Write>(writer: W, polys: Vec<Polygon<BigRational>>, base: B
 	let mut facets = Vec::new();
 	let mut unfolded: Vec<Polygon<BigRational>> = Vec::new();
 	for poly in polys {
-		poly.printcongruency();
-		poly.source_poly().printcongruency();
+		//poly.printcongruency();
+		//poly.source_poly().printcongruency();
 		let mut facet = Vec::new();
 		let mut orig = Vec::new();
 		for point in poly.points {
+			let p = find_close_rational_point(qntz(snap(point.clone()), base.clone()));
 			let i = {
-				let e = seen.entry(find_close_rational_point(qntz(snap(point.clone()), base.clone())));
+				let e = seen.entry(p.clone());
 				match e {
 					Entry::Occupied(e) => {
 						*e.get()
 					},
 					Entry::Vacant(e) => {
-						src.push(find_close_rational_point(qntz(snap(poly.transform.inverse().transform(point.clone())), base.clone())));
-						dst.push(find_close_rational_point(qntz(snap(poly.transform.transform(point.clone())), base.clone())));
+						src.push(find_close_rational_point(qntz(snap(poly.transform.inverse().transform(p.clone())), base.clone())));
+						dst.push(p.clone());
 						let i = dst.len() - 1;
 						println!("   POINT {} {} -> {}", i, src[i], dst[i]);
 						*e.insert(i)
