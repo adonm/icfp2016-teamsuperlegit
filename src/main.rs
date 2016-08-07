@@ -8,9 +8,7 @@ use std::path::Path;
 use rustc_serialize::json::Json;
 
 mod core;
-mod generator;
 mod matrix;
-mod solver;
 mod parse;
 mod rendersvg;
 mod restapi;
@@ -83,12 +81,6 @@ fn main() {
 			let (shape, skeleton) = parse::parse::<BigRational, std::fs::File>(file).unwrap();
 			rendersvg::draw_svg(shape, skeleton, &filename)
 		},
-        "solveproblem" => {
-            let id = env::args().nth(2).unwrap().parse::<i64>().unwrap();
-			let file = std::fs::File::open(format!("{}/{:05}.problem.txt", BASEPATH, id)).unwrap();
-			let (shape, skeleton) = parse::parse::<BigRational, std::fs::File>(file).unwrap();
-            solver::solve(shape, skeleton)
-        },
 		"submit" => {
 			restapi::submit(env::args().nth(2).unwrap().parse::<i64>().unwrap())
 		},
