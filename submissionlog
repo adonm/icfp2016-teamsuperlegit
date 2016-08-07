@@ -5314,3 +5314,583 @@ Running "submit"
 icfp2016problems/06022.solution.txt
 Uploading solution icfp2016problems/06022.solution.txt
 Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 01587`
+Running "submit"
+icfp2016problems/01587.solution.txt
+Uploading solution icfp2016problems/01587.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 01627`
+Running "submit"
+icfp2016problems/01627.solution.txt
+Uploading solution icfp2016problems/01627.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Parse error in the number of source vertices.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 01758`
+Running "submit"
+icfp2016problems/01758.solution.txt
+Uploading solution icfp2016problems/01758.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Parse error in the number of source vertices.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 01763`
+Running "submit"
+icfp2016problems/01763.solution.txt
+Uploading solution icfp2016problems/01763.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Parse error in the number of source vertices.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 01834`
+Running "submit"
+icfp2016problems/01834.solution.txt
+Uploading solution icfp2016problems/01834.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 01949`
+Running "submit"
+icfp2016problems/01949.solution.txt
+Uploading solution icfp2016problems/01949.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 01952`
+Running "submit"
+icfp2016problems/01952.solution.txt
+Uploading solution icfp2016problems/01952.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 02205`
+Running "submit"
+icfp2016problems/02205.solution.txt
+Uploading solution icfp2016problems/02205.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Parse error in the number of source vertices.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 02250`
+Running "submit"
+icfp2016problems/02250.solution.txt
+Uploading solution icfp2016problems/02250.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Parse error in the number of source vertices.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 02264`
+Running "submit"
+icfp2016problems/02264.solution.txt
+Uploading solution icfp2016problems/02264.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Parse error in the number of source vertices.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 02396`
+Running "submit"
+icfp2016problems/02396.solution.txt
+Uploading solution icfp2016problems/02396.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 02415`
+Running "submit"
+icfp2016problems/02415.solution.txt
+Uploading solution icfp2016problems/02415.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Parse error in the number of source vertices.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 02537`
+Running "submit"
+icfp2016problems/02537.solution.txt
+Uploading solution icfp2016problems/02537.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Parse error in the number of source vertices.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04022`
+Running "submit"
+icfp2016problems/04022.solution.txt
+Uploading solution icfp2016problems/04022.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04028`
+Running "submit"
+icfp2016problems/04028.solution.txt
+Uploading solution icfp2016problems/04028.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04030`
+Running "submit"
+icfp2016problems/04030.solution.txt
+Uploading solution icfp2016problems/04030.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04032`
+Running "submit"
+icfp2016problems/04032.solution.txt
+Uploading solution icfp2016problems/04032.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04034`
+Running "submit"
+icfp2016problems/04034.solution.txt
+Uploading solution icfp2016problems/04034.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04036`
+Running "submit"
+icfp2016problems/04036.solution.txt
+Uploading solution icfp2016problems/04036.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04040`
+Running "submit"
+icfp2016problems/04040.solution.txt
+Uploading solution icfp2016problems/04040.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04041`
+Running "submit"
+icfp2016problems/04041.solution.txt
+Uploading solution icfp2016problems/04041.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04044`
+Running "submit"
+icfp2016problems/04044.solution.txt
+Uploading solution icfp2016problems/04044.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04046`
+Running "submit"
+icfp2016problems/04046.solution.txt
+Uploading solution icfp2016problems/04046.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04047`
+Running "submit"
+icfp2016problems/04047.solution.txt
+Uploading solution icfp2016problems/04047.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04048`
+Running "submit"
+icfp2016problems/04048.solution.txt
+Uploading solution icfp2016problems/04048.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04049`
+Running "submit"
+icfp2016problems/04049.solution.txt
+Uploading solution icfp2016problems/04049.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04050`
+Running "submit"
+icfp2016problems/04050.solution.txt
+Uploading solution icfp2016problems/04050.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04051`
+Running "submit"
+icfp2016problems/04051.solution.txt
+Uploading solution icfp2016problems/04051.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04052`
+Running "submit"
+icfp2016problems/04052.solution.txt
+Uploading solution icfp2016problems/04052.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04053`
+Running "submit"
+icfp2016problems/04053.solution.txt
+Uploading solution icfp2016problems/04053.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04054`
+Running "submit"
+icfp2016problems/04054.solution.txt
+Uploading solution icfp2016problems/04054.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04059`
+Running "submit"
+icfp2016problems/04059.solution.txt
+Uploading solution icfp2016problems/04059.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04060`
+Running "submit"
+icfp2016problems/04060.solution.txt
+Uploading solution icfp2016problems/04060.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04070`
+Running "submit"
+icfp2016problems/04070.solution.txt
+Uploading solution icfp2016problems/04070.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04072`
+Running "submit"
+icfp2016problems/04072.solution.txt
+Uploading solution icfp2016problems/04072.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (7\\/12, 0) must not lie on an edge.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04073`
+Running "submit"
+icfp2016problems/04073.solution.txt
+Uploading solution icfp2016problems/04073.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04077`
+Running "submit"
+icfp2016problems/04077.solution.txt
+Uploading solution icfp2016problems/04077.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04081`
+Running "submit"
+icfp2016problems/04081.solution.txt
+Uploading solution icfp2016problems/04081.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04088`
+Running "submit"
+icfp2016problems/04088.solution.txt
+Uploading solution icfp2016problems/04088.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (2576108820065624\\/4865983326790625, 0) must not lie on an edge.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 04090`
+Running "submit"
+icfp2016problems/04090.solution.txt
+Uploading solution icfp2016problems/04090.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (8\\/15, 0) must not lie on an edge.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05014`
+Running "submit"
+icfp2016problems/05014.solution.txt
+Uploading solution icfp2016problems/05014.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05015`
+Running "submit"
+icfp2016problems/05015.solution.txt
+Uploading solution icfp2016problems/05015.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05026`
+Running "submit"
+icfp2016problems/05026.solution.txt
+Uploading solution icfp2016problems/05026.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05028`
+Running "submit"
+icfp2016problems/05028.solution.txt
+Uploading solution icfp2016problems/05028.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05029`
+Running "submit"
+icfp2016problems/05029.solution.txt
+Uploading solution icfp2016problems/05029.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05040`
+Running "submit"
+icfp2016problems/05040.solution.txt
+Uploading solution icfp2016problems/05040.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05043`
+Running "submit"
+icfp2016problems/05043.solution.txt
+Uploading solution icfp2016problems/05043.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05045`
+Running "submit"
+icfp2016problems/05045.solution.txt
+Uploading solution icfp2016problems/05045.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05048`
+Running "submit"
+icfp2016problems/05048.solution.txt
+Uploading solution icfp2016problems/05048.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05051`
+Running "submit"
+icfp2016problems/05051.solution.txt
+Uploading solution icfp2016problems/05051.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05053`
+Running "submit"
+icfp2016problems/05053.solution.txt
+Uploading solution icfp2016problems/05053.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05054`
+Running "submit"
+icfp2016problems/05054.solution.txt
+Uploading solution icfp2016problems/05054.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06084`
+Running "submit"
+icfp2016problems/06084.solution.txt
+Uploading solution icfp2016problems/06084.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":116,\"ok\":true,\"resemblance\":0.223602,\"problem_id\":6084,\"solution_spec_hash\":\"6230ff7df5efa7cf453070377a694eedd1c0979d\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06083`
+Running "submit"
+icfp2016problems/06083.solution.txt
+Uploading solution icfp2016problems/06083.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06082`
+Running "submit"
+icfp2016problems/06082.solution.txt
+Uploading solution icfp2016problems/06082.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (127147175096423\\/217877336248320, 1) must not lie on an edge.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06078`
+Running "submit"
+icfp2016problems/06078.solution.txt
+Uploading solution icfp2016problems/06078.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06076`
+Running "submit"
+icfp2016problems/06076.solution.txt
+Uploading solution icfp2016problems/06076.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06073`
+Running "submit"
+icfp2016problems/06073.solution.txt
+Uploading solution icfp2016problems/06073.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/4\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06072`
+Running "submit"
+icfp2016problems/06072.solution.txt
+Uploading solution icfp2016problems/06072.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06071`
+Running "submit"
+icfp2016problems/06071.solution.txt
+Uploading solution icfp2016problems/06071.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":259,\"ok\":true,\"resemblance\":0.0,\"problem_id\":6071,\"solution_spec_hash\":\"6514306edccbcb1e52c4c7c16a73679d33c13ac0\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06070`
+Running "submit"
+icfp2016problems/06070.solution.txt
+Uploading solution icfp2016problems/06070.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06067`
+Running "submit"
+icfp2016problems/06067.solution.txt
+Uploading solution icfp2016problems/06067.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06066`
+Running "submit"
+icfp2016problems/06066.solution.txt
+Uploading solution icfp2016problems/06066.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06065`
+Running "submit"
+icfp2016problems/06065.solution.txt
+Uploading solution icfp2016problems/06065.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06061`
+Running "submit"
+icfp2016problems/06061.solution.txt
+Uploading solution icfp2016problems/06061.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06060`
+Running "submit"
+icfp2016problems/06060.solution.txt
+Uploading solution icfp2016problems/06060.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06058`
+Running "submit"
+icfp2016problems/06058.solution.txt
+Uploading solution icfp2016problems/06058.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06056`
+Running "submit"
+icfp2016problems/06056.solution.txt
+Uploading solution icfp2016problems/06056.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":44,\"ok\":true,\"resemblance\":0.5,\"problem_id\":6056,\"solution_spec_hash\":\"fa82518423e93c3e18f4e84fd09b3eab6a1f79ce\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06055`
+Running "submit"
+icfp2016problems/06055.solution.txt
+Uploading solution icfp2016problems/06055.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06052`
+Running "submit"
+icfp2016problems/06052.solution.txt
+Uploading solution icfp2016problems/06052.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06050`
+Running "submit"
+icfp2016problems/06050.solution.txt
+Uploading solution icfp2016problems/06050.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06046`
+Running "submit"
+icfp2016problems/06046.solution.txt
+Uploading solution icfp2016problems/06046.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (23\\/45, 0) must not lie on an edge.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06039`
+Running "submit"
+icfp2016problems/06039.solution.txt
+Uploading solution icfp2016problems/06039.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":160,\"ok\":true,\"resemblance\":0.404455,\"problem_id\":6039,\"solution_spec_hash\":\"5f938cf9b2ce3acdd4c17b39902f273e00475767\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06038`
+Running "submit"
+icfp2016problems/06038.solution.txt
+Uploading solution icfp2016problems/06038.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06037`
+Running "submit"
+icfp2016problems/06037.solution.txt
+Uploading solution icfp2016problems/06037.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06036`
+Running "submit"
+icfp2016problems/06036.solution.txt
+Uploading solution icfp2016problems/06036.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/4\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06035`
+Running "submit"
+icfp2016problems/06035.solution.txt
+Uploading solution icfp2016problems/06035.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06033`
+Running "submit"
+icfp2016problems/06033.solution.txt
+Uploading solution icfp2016problems/06033.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06032`
+Running "submit"
+icfp2016problems/06032.solution.txt
+Uploading solution icfp2016problems/06032.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":214,\"ok\":true,\"resemblance\":0.0592,\"problem_id\":6032,\"solution_spec_hash\":\"45c01afa8a7fa3867ee84bedcd6ecac9810429cb\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06031`
+Running "submit"
+icfp2016problems/06031.solution.txt
+Uploading solution icfp2016problems/06031.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06030`
+Running "submit"
+icfp2016problems/06030.solution.txt
+Uploading solution icfp2016problems/06030.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":31,\"ok\":true,\"resemblance\":0.5,\"problem_id\":6030,\"solution_spec_hash\":\"47c110afddeac937ca91798473b4495c63fdea7f\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06029`
+Running "submit"
+icfp2016problems/06029.solution.txt
+Uploading solution icfp2016problems/06029.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06028`
+Running "submit"
+icfp2016problems/06028.solution.txt
+Uploading solution icfp2016problems/06028.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06027`
+Running "submit"
+icfp2016problems/06027.solution.txt
+Uploading solution icfp2016problems/06027.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06026`
+Running "submit"
+icfp2016problems/06026.solution.txt
+Uploading solution icfp2016problems/06026.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06025`
+Running "submit"
+icfp2016problems/06025.solution.txt
+Uploading solution icfp2016problems/06025.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06023`
+Running "submit"
+icfp2016problems/06023.solution.txt
+Uploading solution icfp2016problems/06023.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06008`
+Running "submit"
+icfp2016problems/06008.solution.txt
+Uploading solution icfp2016problems/06008.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06007`
+Running "submit"
+icfp2016problems/06007.solution.txt
+Uploading solution icfp2016problems/06007.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06006`
+Running "submit"
+icfp2016problems/06006.solution.txt
+Uploading solution icfp2016problems/06006.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06005`
+Running "submit"
+icfp2016problems/06005.solution.txt
+Uploading solution icfp2016problems/06005.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06004`
+Running "submit"
+icfp2016problems/06004.solution.txt
+Uploading solution icfp2016problems/06004.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06003`
+Running "submit"
+icfp2016problems/06003.solution.txt
+Uploading solution icfp2016problems/06003.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 06002`
+Running "submit"
+icfp2016problems/06002.solution.txt
+Uploading solution icfp2016problems/06002.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Solution size limit exceeded.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05999`
+Running "submit"
+icfp2016problems/05999.solution.txt
+Uploading solution icfp2016problems/05999.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05998`
+Running "submit"
+icfp2016problems/05998.solution.txt
+Uploading solution icfp2016problems/05998.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05996`
+Running "submit"
+icfp2016problems/05996.solution.txt
+Uploading solution icfp2016problems/05996.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05992`
+Running "submit"
+icfp2016problems/05992.solution.txt
+Uploading solution icfp2016problems/05992.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05990`
+Running "submit"
+icfp2016problems/05990.solution.txt
+Uploading solution icfp2016problems/05990.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05989`
+Running "submit"
+icfp2016problems/05989.solution.txt
+Uploading solution icfp2016problems/05989.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05988`
+Running "submit"
+icfp2016problems/05988.solution.txt
+Uploading solution icfp2016problems/05988.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05987`
+Running "submit"
+icfp2016problems/05987.solution.txt
+Uploading solution icfp2016problems/05987.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05986`
+Running "submit"
+icfp2016problems/05986.solution.txt
+Uploading solution icfp2016problems/05986.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05985`
+Running "submit"
+icfp2016problems/05985.solution.txt
+Uploading solution icfp2016problems/05985.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":103,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5985,\"solution_spec_hash\":\"3fb6bacce7d310f098cefc03822ed882fbb9414f\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05984`
+Running "submit"
+icfp2016problems/05984.solution.txt
+Uploading solution icfp2016problems/05984.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05979`
+Running "submit"
+icfp2016problems/05979.solution.txt
+Uploading solution icfp2016problems/05979.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05978`
+Running "submit"
+icfp2016problems/05978.solution.txt
+Uploading solution icfp2016problems/05978.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Rate limit exceeded (per-hour limit).\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05977`
+Running "submit"
+icfp2016problems/05977.solution.txt
+Uploading solution icfp2016problems/05977.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "<!DOCTYPE html>\n<html lang=en>\n  <meta charset=utf-8>\n  <meta name=viewport content=\"initial-scale=1, minimum-scale=1, width=device-width\">\n  <title>Error 502 (Server Error)!!1</title>\n  <style>\n    *{margin:0;padding:0}html,code{font:15px/22px arial,sans-serif}html{background:#fff;color:#222;padding:15px}body{margin:7% auto 0;max-width:390px;min-height:180px;padding:30px 0 15px}* > body{background:url(//www.google.com/images/errors/robot.png) 100% 5px no-repeat;padding-right:205px}p{margin:11px 0 22px;overflow:hidden}ins{color:#777;text-decoration:none}a img{border:0}@media screen and (max-width:772px){body{background:none;margin-top:0;max-width:none;padding-right:0}}#logo{background:url(//www.google.com/images/branding/googlelogo/1x/googlelogo_color_150x54dp.png) no-repeat;margin-left:-5px}@media only screen and (min-resolution:192dpi){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat 0% 0%/100% 100%;-moz-border-image:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) 0}}@media only screen and (-webkit-min-device-pixel-ratio:2){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat;-webkit-background-size:100% 100%}}#logo{display:inline-block;height:54px;width:150px}\n  </style>\n  <a href=//www.google.com/><span id=logo aria-label=Google></span></a>\n  <p><b>502.</b> <ins>That\u{2019}s an error.</ins>\n  <p>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.  <ins>That\u{2019}s all we know.</ins>\n", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05976`
+Running "submit"
+icfp2016problems/05976.solution.txt
+Uploading solution icfp2016problems/05976.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Rate limit exceeded (per-hour limit).\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05974`
+Running "submit"
+icfp2016problems/05974.solution.txt
+Uploading solution icfp2016problems/05974.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Rate limit exceeded (per-hour limit).\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05973`
+Running "submit"
+icfp2016problems/05973.solution.txt
+Uploading solution icfp2016problems/05973.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Rate limit exceeded (per-hour limit).\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05972`
+Running "submit"
+icfp2016problems/05972.solution.txt
+Uploading solution icfp2016problems/05972.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "<!DOCTYPE html>\n<html lang=en>\n  <meta charset=utf-8>\n  <meta name=viewport content=\"initial-scale=1, minimum-scale=1, width=device-width\">\n  <title>Error 502 (Server Error)!!1</title>\n  <style>\n    *{margin:0;padding:0}html,code{font:15px/22px arial,sans-serif}html{background:#fff;color:#222;padding:15px}body{margin:7% auto 0;max-width:390px;min-height:180px;padding:30px 0 15px}* > body{background:url(//www.google.com/images/errors/robot.png) 100% 5px no-repeat;padding-right:205px}p{margin:11px 0 22px;overflow:hidden}ins{color:#777;text-decoration:none}a img{border:0}@media screen and (max-width:772px){body{background:none;margin-top:0;max-width:none;padding-right:0}}#logo{background:url(//www.google.com/images/branding/googlelogo/1x/googlelogo_color_150x54dp.png) no-repeat;margin-left:-5px}@media only screen and (min-resolution:192dpi){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat 0% 0%/100% 100%;-moz-border-image:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) 0}}@media only screen and (-webkit-min-device-pixel-ratio:2){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat;-webkit-background-size:100% 100%}}#logo{display:inline-block;height:54px;width:150px}\n  </style>\n  <a href=//www.google.com/><span id=logo aria-label=Google></span></a>\n  <p><b>502.</b> <ins>That\u{2019}s an error.</ins>\n  <p>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.  <ins>That\u{2019}s all we know.</ins>\n", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05971`
+Running "submit"
+icfp2016problems/05971.solution.txt
+Uploading solution icfp2016problems/05971.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Rate limit exceeded (per-hour limit).\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05970`
+Running "submit"
+icfp2016problems/05970.solution.txt
+Uploading solution icfp2016problems/05970.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "<!DOCTYPE html>\n<html lang=en>\n  <meta charset=utf-8>\n  <meta name=viewport content=\"initial-scale=1, minimum-scale=1, width=device-width\">\n  <title>Error 502 (Server Error)!!1</title>\n  <style>\n    *{margin:0;padding:0}html,code{font:15px/22px arial,sans-serif}html{background:#fff;color:#222;padding:15px}body{margin:7% auto 0;max-width:390px;min-height:180px;padding:30px 0 15px}* > body{background:url(//www.google.com/images/errors/robot.png) 100% 5px no-repeat;padding-right:205px}p{margin:11px 0 22px;overflow:hidden}ins{color:#777;text-decoration:none}a img{border:0}@media screen and (max-width:772px){body{background:none;margin-top:0;max-width:none;padding-right:0}}#logo{background:url(//www.google.com/images/branding/googlelogo/1x/googlelogo_color_150x54dp.png) no-repeat;margin-left:-5px}@media only screen and (min-resolution:192dpi){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat 0% 0%/100% 100%;-moz-border-image:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) 0}}@media only screen and (-webkit-min-device-pixel-ratio:2){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat;-webkit-background-size:100% 100%}}#logo{display:inline-block;height:54px;width:150px}\n  </style>\n  <a href=//www.google.com/><span id=logo aria-label=Google></span></a>\n  <p><b>502.</b> <ins>That\u{2019}s an error.</ins>\n  <p>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.  <ins>That\u{2019}s all we know.</ins>\n", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05968`
+Running "submit"
+icfp2016problems/05968.solution.txt
+Uploading solution icfp2016problems/05968.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "<!DOCTYPE html>\n<html lang=en>\n  <meta charset=utf-8>\n  <meta name=viewport content=\"initial-scale=1, minimum-scale=1, width=device-width\">\n  <title>Error 502 (Server Error)!!1</title>\n  <style>\n    *{margin:0;padding:0}html,code{font:15px/22px arial,sans-serif}html{background:#fff;color:#222;padding:15px}body{margin:7% auto 0;max-width:390px;min-height:180px;padding:30px 0 15px}* > body{background:url(//www.google.com/images/errors/robot.png) 100% 5px no-repeat;padding-right:205px}p{margin:11px 0 22px;overflow:hidden}ins{color:#777;text-decoration:none}a img{border:0}@media screen and (max-width:772px){body{background:none;margin-top:0;max-width:none;padding-right:0}}#logo{background:url(//www.google.com/images/branding/googlelogo/1x/googlelogo_color_150x54dp.png) no-repeat;margin-left:-5px}@media only screen and (min-resolution:192dpi){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat 0% 0%/100% 100%;-moz-border-image:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) 0}}@media only screen and (-webkit-min-device-pixel-ratio:2){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat;-webkit-background-size:100% 100%}}#logo{display:inline-block;height:54px;width:150px}\n  </style>\n  <a href=//www.google.com/><span id=logo aria-label=Google></span></a>\n  <p><b>502.</b> <ins>That\u{2019}s an error.</ins>\n  <p>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.  <ins>That\u{2019}s all we know.</ins>\n", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 05967`
+Running "submit"
+icfp2016problems/05967.solution.txt
+Uploading solution icfp2016problems/05967.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "<!DOCTYPE html>\n<html lang=en>\n  <meta charset=utf-8>\n  <meta name=viewport content=\"initial-scale=1, minimum-scale=1, width=device-width\">\n  <title>Error 502 (Server Error)!!1</title>\n  <style>\n    *{margin:0;padding:0}html,code{font:15px/22px arial,sans-serif}html{background:#fff;color:#222;padding:15px}body{margin:7% auto 0;max-width:390px;min-height:180px;padding:30px 0 15px}* > body{background:url(//www.google.com/images/errors/robot.png) 100% 5px no-repeat;padding-right:205px}p{margin:11px 0 22px;overflow:hidden}ins{color:#777;text-decoration:none}a img{border:0}@media screen and (max-width:772px){body{background:none;margin-top:0;max-width:none;padding-right:0}}#logo{background:url(//www.google.com/images/branding/googlelogo/1x/googlelogo_color_150x54dp.png) no-repeat;margin-left:-5px}@media only screen and (min-resolution:192dpi){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat 0% 0%/100% 100%;-moz-border-image:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) 0}}@media only screen and (-webkit-min-device-pixel-ratio:2){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat;-webkit-background-size:100% 100%}}#logo{display:inline-block;height:54px;width:150px}\n  </style>\n  <a href=//www.google.com/><span id=logo aria-label=Google></span></a>\n  <p><b>502.</b> <ins>That\u{2019}s an error.</ins>\n  <p>The server encountered a temporary error and could not complete your request.<p>Please try again in 30 seconds.  <ins>That\u{2019}s all we know.</ins>\n", stderr: "" }
