@@ -1,4 +1,4 @@
-use std::ops::{Index,Mul,Div};
+use std::ops::{Div,Index,Mul,MulAssign};
 
 pub use core::*;
 
@@ -160,6 +160,13 @@ impl<N: Num> Mul for Matrix33<N> {
 	}
 }
 
+impl<N: Num> MulAssign for Matrix33<N> {
+	fn mul_assign(&mut self, other: Matrix33<N>) {
+		let m = (*self).clone() * other;
+		self.points = m.points;
+	}
+}
+
 impl<N: Num> Clone for Matrix33<N> {
 	fn clone(&self) -> Matrix33<N> {
 		Matrix33{points: [
@@ -194,6 +201,15 @@ mod tests {
 		assert_eq!(318.0, c[(2,0)]);
 		assert_eq!(342.0, c[(2,1)]);
 		assert_eq!(366.0, c[(2,2)]);
+	}
+
+	#[test]
+	fn test_mulassign() {
+		let mut a = Matrix33::translate(1.0, 1.0);
+		a *= Matrix33::scale(2.0, 1.0);
+		a *= Matrix33::translate(-1.0, -1.0);
+
+		assert_eq!(p(5.0, 4.0), a.transform(p(2.0, 4.0)));
 	}
 
 	#[test]
