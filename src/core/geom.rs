@@ -164,7 +164,7 @@ pub fn reflect_matrix<N:Num>(vertex1: &Point<N>, vertex2: &Point<N>) -> Matrix33
     let l = Line::new(vertex1.clone(),vertex2.clone());
     
     
-    match gradient(&l) {
+    let m = match gradient(&l) {
         Some(g) =>{
             let c = vertex1.y.clone() - g.clone() * vertex1.x.clone();
             let d = vertex2 - vertex1;
@@ -180,8 +180,10 @@ pub fn reflect_matrix<N:Num>(vertex1: &Point<N>, vertex2: &Point<N>) -> Matrix33
                 .then_scale(N::one(),N::from_f64(-1.0))
                 .then_rotate(N::from_f64(-1.0),N::zero())
         }
-    }
-    
+    };
+
+    println!("{}", m);
+    return m;
 }
 
 //flips both points of a line on an axis
@@ -326,6 +328,10 @@ impl<N: Num> Point<N> {
 	pub fn scale(&self, alpha: N) -> Point<N> {
 		Point{x: self.x.clone() * alpha.clone(), y: self.y.clone() * alpha}
 	}
+
+	pub fn dot(&self, other: Point<N>) -> N {
+		self.x.clone()*other.x.clone() + self.y.clone()*other.y.clone()
+	}
 }
 
 impl<N: Num> Polygon<N> {
@@ -345,6 +351,29 @@ impl<N: Num> Polygon<N> {
 
 	pub fn area(&self) -> f64 {
 		return (self.double_signed_area() / 2.0_f64).abs();
+	}
+
+	pub fn printcongruency(&self) {
+		let mut p = self.edges().last().unwrap().clone();
+		for edge in self.edges() {
+			let (u, v) = (&p.p2 - &p.p1, &edge.p2 - &edge.p1);
+			let angle = (u.dot(v.clone()) / (v_distance(&u) * v_distance(&v))).to_f64().acos().to_degrees();
+			print!(" {}° ", angle);
+			print!("<{} -> {}>({})", edge.p1, edge.p2, edge.len());
+			p = edge;
+		}
+		println!("");
+	}
+
+	pub fn source_poly(&self) -> Polygon<N> {
+		let affine = self.transform.inverse();
+		let mut points = Vec::new();
+		for p in self.points.iter() {
+			points.push(affine.transform(p.clone()));
+		}
+		let mut poly = Polygon::new(points);
+		poly.transform = affine;
+		poly
 	}
 
 	/* returns true where the poly points are in clockwise order,
@@ -385,12 +414,12 @@ impl<N: Num> Polygon<N> {
 		for (i, point) in self.points.iter().enumerate() {
 			let edge = Line{p1: self.points[previous].clone(), p2: point.clone()};
 			edges.push(edge);
-            previous = i;
+			previous = i;
 		}
 		return edges;
 	}
 
-  // Test whether point contained within this polygon
+	// Test whether point contained within this polygon
 	pub fn contains(&self, test: &Point<N>) -> bool {
 		// https://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
 		let end = self.points.len();
@@ -410,7 +439,7 @@ impl<N: Num> Polygon<N> {
 		contains
 	}
 
-  // Test whether point coincident on this polygon
+	// Test whether point coincident on this polygon
 	pub fn coincident(&self, test: &Point<N>) -> bool {
 		let end = self.points.len();
 		for offset in 0..end {

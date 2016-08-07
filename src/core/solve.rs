@@ -42,11 +42,10 @@ pub fn get_next_edge_to_fold<N: Num>(base: Polygon<N>, silhouette: Polygon<N>) -
 		println!("get_next_edge_to_fold: considering {}, length {}", line, line.len());
 		if (longest.clone().is_err() || line.len() > longest.clone().unwrap().len()) && ( base.clone().points.contains(&line.p1)==false || base.clone().points.contains(&line.p2)==false ) {
 			longest = Ok(line.clone());
-            println!("did make longest");
+			println!("did make longest");
 		}
 	}
-    
-    return longest;
+	return longest;
 }
 
 pub fn fold_origami<N: Num>(state: &Vec<(Polygon<N>)>, vertex1: &Point<N>, vertex2: &Point<N>, anchor: &Point<N>) -> Vec<Polygon<N>>{
