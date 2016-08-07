@@ -178,7 +178,14 @@ pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Poin
 // Inputs of (1,1) / (0,0) (1,0) should give (1,-1)
 pub fn flip_point<N: Num>(p: &Point<N>, l1: &Point<N>, l2: &Point<N>) -> Point<N> {
     // y = ax + c
-    let a = (l2.y.clone() - l1.y.clone()) / (l2.x.clone() - l1.x.clone());
+	let denom = l2.x.clone() - l1.x.clone();
+	if denom == N::zero() { // flipping over line point is on, results in no move
+		return p.clone()
+	}
+    let a = (l2.y.clone() - l1.y.clone()) / denom;
+	if a == N::zero() {
+		return p.clone()
+	}
 
     let c = l1.y.clone() - a.clone() * l1.x.clone();
 
@@ -300,6 +307,12 @@ pub fn normalize_line<N:Num>(start: &Point<N>, dir: &Point<N>) -> Point<N> {
 	let ratio = N::from_f64(1.0) / v_distance(dir);
 	let scaled = dir.scale(ratio);
 	start + &scaled
+}
+
+impl Point<f64> {
+	pub fn to_num<N: Num>(&self) -> Point<N> {
+		Point{x: N::from_f64(self.x), y: N::from_f64(self.y)}
+	}
 }
 
 impl<N: Num> Point<N> {

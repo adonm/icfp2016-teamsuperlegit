@@ -7,6 +7,20 @@ use core::*;
 use std;
 use std::io::Write;
 
+fn draw_polygon<N: Num>(polygon: &Polygon<N>, fill: &str) -> element::Polygon {
+	let mut points = String::from("");
+	for point in polygon.clone().points.iter() {
+		let coord = format!("{},{} ", point.x.to_f64(), point.y.to_f64());
+		points.push_str(&coord);
+	}
+	let poly = element::Polygon::new()
+		.set("fill", fill).set("fill-opacity", "0.5")
+		.set("stroke", "black").set("stroke-opacity", "0.5")
+		.set("stroke-width", 0.005)
+		.set("points", points.trim());
+	return poly;
+}
+
 pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	let filename = format!("{}/{}", BASEPATH, filename);
 	/* Draw shapes as areas and skeletons as lines */
@@ -42,26 +56,16 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	let mut anchorlength = 0.0_f64;
 	let mut psquare: Result<Polygon<N>, bool> = Err(false);
 	for polygon in shape.clone().polys {
-		let mut points = String::from("");
-		for point in polygon.points.iter() {
-			let coord = format!("{},{} ", point.x.to_f64(), point.y.to_f64());
-			points.push_str(&coord);
-		}
-		let fill = if polygon.is_hole() {
+		let poly = if polygon.is_hole() {
 			// holes are green
-			"#2dff47"
+			draw_polygon(&polygon, "#2dff47")
 		} else {
 			// silhouettes are pink
-			"#ff2df7"
+			draw_polygon(&polygon, "#ff2df7")
 		};
 		if polygon.square() {
 			psquare = Ok(polygon.clone());
 		}
-		let poly = element::Polygon::new()
-				.set("fill", fill).set("fill-opacity", "0.5")
-				.set("stroke", "black").set("stroke-opacity", "0.5")
-				.set("stroke-width", 0.005)
-				.set("points", points.trim());
 		silhouette = silhouette.add(poly);
 		// highlight corners
 		for corner in polygon.corners() {
@@ -111,31 +115,33 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	if anchorcnr != Err(false) {
 		let (l1, l2) = anchorcnr.unwrap();
 		let unitsquare = square_from_corner(&l1, &l2);
-		let mut points = String::from("");
-		for point in unitsquare.points.iter() {
-			let coord = format!("{},{} ", point.x.to_f64(), point.y.to_f64());
-			points.push_str(&coord);
-		}
+
 		// draw intersect vertices
 		let ref poly = shape.polys[0];
 		let foldedge = get_next_edge_to_fold(unitsquare.clone(), poly.clone());
 		if foldedge.is_ok() {
 			let (p1, p2) = foldedge.unwrap();
-			for p in [p1, p2].iter() {
+			for p in [p1.clone(), p2.clone()].iter() {
 				let intersect = element::Circle::new()
 					.set("cx", p.x.to_f64()).set("cy", p.y.to_f64())
 					.set("fill", "#f00").set("fill-opacity", "0.5")
 					.set("r", "0.01");
 				document = document.add(intersect);
 			}
+			let mut state = Vec::new();
+			let mut statepolys = element::Group::new();
+			state.push(unitsquare.clone());
+			let folded = fold_origami(&state, &p1.to_num(), &p2.to_num());
+			println!("folded {} into {}", filename, folded.len());
+			for polygon in folded {
+				statepolys = statepolys.add(draw_polygon(&polygon, "#000"));
+			}
+			document = document.add(statepolys);
+		} else {
+			// just draw anchored square
+			document = document.add(draw_polygon(&unitsquare, "#000"));
 		}
 
-		let poly = element::Polygon::new()
-					.set("fill", "#000").set("fill-opacity", "0.3")
-					.set("stroke", "black").set("stroke-opacity", "0.5")
-					.set("stroke-width", 0.005)
-					.set("points", points.trim());
-		document = document.add(poly);
 		if psquare != Err(false) {
 			let p = psquare.unwrap().clone();
 			if p.area() == unitsquare.area() {

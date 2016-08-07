@@ -22,7 +22,10 @@ use num::rational::BigRational;
 
 pub const BASEPATH: &'static str = "icfp2016problems";
 
-fn draw_problems(problems: Vec<Json>) -> Vec<Json> {
+fn draw_problems(problems: Vec<Json>, attempts: i64) -> Vec<Json> {
+	println!("Attempting to solve {}/{} problems", attempts, problems.len());
+	let mut skipped = 0;
+	let mut attempted = 0;
 	for problem in &problems {
 		let id = problem.find_path(&["problem_id"]).unwrap().as_i64().unwrap();
 		let filename = format!("{:05}.problem.svg", id);
@@ -33,10 +36,15 @@ fn draw_problems(problems: Vec<Json>) -> Vec<Json> {
 		if data.is_ok() && !solution.exists() {
 			let (shape, skeleton) = data.unwrap();
 			rendersvg::draw_svg(shape, skeleton, &filename);
+			attempted += 1;
+			if attempted > attempts { break }
 		} else if !solution.exists() {
 			println!("Problem {} can't be parsed", id);
+		} else {
+			skipped += 1;
 		}
 	}
+	println!("Skipped {} with existing solutions", skipped);
 	return problems
 }
 
@@ -64,10 +72,11 @@ fn main() {
 			restapi::save_problems(problems);
 		},
 		"drawproblems" => {
-			// draw svgs of each one
+			// draw svgs of each one, attempts is numner to try
 			let problems = restapi::get_contest_meta();
 			let problems = restapi::save_problems(problems);
-			draw_problems(problems);
+			let attempts = env::args().nth(2).unwrap_or("100".to_string()).parse::<i64>().unwrap_or(100);
+			draw_problems(problems, attempts);
 		},
 		"drawproblem" => {
 			let id = env::args().nth(2).unwrap().parse::<i64>().unwrap();
