@@ -4,6 +4,7 @@ use svg::node::element;
 
 use ::BASEPATH;
 use core::*;
+use write::from_polys;
 use std;
 use std::io::Write;
 
@@ -133,10 +134,12 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 			state.push(unitsquare.clone());
 			let folded = fold_origami(&state, &p1.to_num(), &p2.to_num());
 			println!("folded {} into {}", filename, folded.len());
-			for polygon in folded {
+			for polygon in folded.clone() {
 				statepolys = statepolys.add(draw_polygon(&polygon, "#000"));
 			}
 			document = document.add(statepolys);
+			let mut writer = std::fs::File::create(filename.clone().replace("problem.svg", "test-solution.txt")).unwrap();
+			from_polys(writer, folded);
 		} else {
 			// just draw anchored square
 			document = document.add(draw_polygon(&unitsquare, "#000"));

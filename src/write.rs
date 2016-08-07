@@ -74,12 +74,13 @@ fn write<N: Num, W: Write>(mut writer: W, src: Vec<Point<N>>, facets: Vec<Vec<us
 		try!(write!(writer, "{}\n", p));
 	}
 	try!(write!(writer, "{}\n", facets.len()));
-	for facet in facets {
+	for (i, facet) in facets.iter().enumerate() {
+		try!(write!(writer, "{} ", facet.len()));
 		for index in facet {
 			try!(write!(writer, "{} ", index));
 		}
+		try!(write!(writer, "\n"));
 	}
-	try!(write!(writer, "\n"));
 	for p in dst {
 		try!(write!(writer, "{}\n", p));
 	}
