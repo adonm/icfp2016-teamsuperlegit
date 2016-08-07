@@ -120,7 +120,7 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 		// draw intersect vertices
 		let ref poly = shape.polys[0];
 		let foldedge = get_next_edge_to_fold(unitsquare.clone(), poly.clone());
-		if false && foldedge.is_ok() {
+		if foldedge.is_ok() {
 			let (p1, p2) = foldedge.unwrap();
 			for p in [p1.clone(), p2.clone()].iter() {
 				let intersect = element::Circle::new()
