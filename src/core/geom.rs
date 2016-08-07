@@ -160,9 +160,7 @@ pub fn gradient<N:Num>(l: &Line<N>) -> Option<N> {
 }
 
 pub fn reflect_matrix<N:Num>(vertex1: &Point<N>, vertex2: &Point<N>) -> Matrix33<N> {
-    
     let l = Line::new(vertex1.clone(),vertex2.clone());
-    
     
     let m = match gradient(&l) {
         Some(g) =>{
@@ -182,7 +180,7 @@ pub fn reflect_matrix<N:Num>(vertex1: &Point<N>, vertex2: &Point<N>) -> Matrix33
         }
     };
 
-    println!("{}", m);
+    //println!("{}", m);
     return m;
 }
 

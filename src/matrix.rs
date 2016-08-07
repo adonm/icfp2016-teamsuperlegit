@@ -14,7 +14,7 @@ fn idx(index: (usize, usize)) -> usize {
 
 impl<N: Num> Matrix33<N> {
 	pub fn scale(sx: N, sy: N) -> Matrix33<N> {
-		println!("scale {} {}", sx, sy);
+		//println!("scale {} {}", sx, sy);
 		Matrix33::new(
 			(sx, N::zero(), N::zero()),
 			(N::zero(), sy, N::zero()),
@@ -37,7 +37,7 @@ impl<N: Num> Matrix33<N> {
 	}
 
 	pub fn rotate(sine: N, cosine: N) -> Matrix33<N> {
-		println!("rotate {} {}", sine, cosine);
+		//println!("rotate {} {}", sine, cosine);
 		Matrix33::new(
 			(cosine.clone(), sine.clone(), N::zero()),
 			(-sine, cosine, N::zero()),
@@ -46,7 +46,7 @@ impl<N: Num> Matrix33<N> {
 	}
 
 	pub fn translate(tx: N, ty: N) -> Matrix33<N> {
-		println!("translate {} {}", tx, ty);
+		//println!("translate {} {}", tx, ty);
 		Matrix33::new(
 			(N::one(), N::zero(), N::zero()),
 			(N::zero(), N::one(), N::zero()),
