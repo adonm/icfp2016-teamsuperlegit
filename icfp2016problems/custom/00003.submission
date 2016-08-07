@@ -1,0 +1,1 @@
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"publish_time\":1470600000,\"ok\":true,\"solution_spec_hash\":\"198f5facdf7edca81d63caab760187cc4bd669b2\",\"solution_size\":60,\"problem_spec_hash\":\"0ba68e234d37a5ece048a4b00e8505cf68af9435\",\"problem_size\":61,\"problem_id\":6234}"
