@@ -8,7 +8,6 @@ use std::fmt;
 use std::f64::INFINITY;
 use std::ops::{Add,Sub,Mul,Div,Neg};
 use std::str::FromStr;
-use std::panic;
 
 extern crate num;
 use num::rational::BigRational;
@@ -59,8 +58,8 @@ impl SuperLegit for BigRational {
 	fn one() -> Self { num::one::<BigRational>() }
 }
 
-pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + Display + PartialOrd + PartialEq + Clone + panic::RefUnwindSafe + SuperLegit {}
-impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + Display + PartialOrd + PartialEq + Clone + panic::RefUnwindSafe + SuperLegit {}
+pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + Display + PartialOrd + PartialEq + Clone + SuperLegit {}
+impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + Display + PartialOrd + PartialEq + Clone + SuperLegit {}
 
 impl<N: Num> Add for Point<N> {
 	type Output=Self;
