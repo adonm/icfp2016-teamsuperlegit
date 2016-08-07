@@ -354,14 +354,13 @@ impl<N: Num> Polygon<N> {
 	}
 
 	pub fn printcongruency(&self) {
-		let mut prev: Option<Line<N>> = None;
+		let mut p = self.edges().last().unwrap().clone();
 		for edge in self.edges() {
-			if let Some(p) = prev {
-				let angle = (&p.p2 - &p.p1).dot(&edge.p2 - &edge.p1).to_f64().acos().to_degrees();
-				print!(" {}° ", angle);
-			}
+			let (u, v) = (&p.p2 - &p.p1, &edge.p2 - &edge.p1);
+			let angle = (u.dot(v.clone()) / (v_distance(&u) * v_distance(&v))).to_f64().acos().to_degrees();
+			print!(" {}° ", angle);
 			print!("<{} -> {}>({})", edge.p1, edge.p2, edge.len());
-			prev = Some(edge)
+			p = edge;
 		}
 		println!("");
 	}
