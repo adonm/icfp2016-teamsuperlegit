@@ -50,3 +50,347 @@ Running "submit"
 icfp2016problems/03040.solution.txt
 Uploading solution icfp2016problems/03040.solution.txt
 Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 has duplicated vertices.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00008.solution.txt
+Uploading solution icfp2016problems/00008.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00009.solution.txt
+Uploading solution icfp2016problems/00009.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.5,\"problem_id\":9,\"solution_spec_hash\":\"198f5facdf7edca81d63caab760187cc4bd669b2\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00010.solution.txt
+Uploading solution icfp2016problems/00010.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":76,\"ok\":true,\"resemblance\":0.714285,\"problem_id\":10,\"solution_spec_hash\":\"8706064fd416bf3d4bffb34133ce8aa176f1fc67\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00017.solution.txt
+Uploading solution icfp2016problems/00017.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":65,\"ok\":true,\"resemblance\":0.821428,\"problem_id\":17,\"solution_spec_hash\":\"d64714e928e2df487471750e7a6d659fe28750f5\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00018.solution.txt
+Uploading solution icfp2016problems/00018.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":65,\"ok\":true,\"resemblance\":0.727272,\"problem_id\":18,\"solution_spec_hash\":\"1c0df48080b554eff5a47ee9934a05aa8ab82213\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00019.solution.txt
+Uploading solution icfp2016problems/00019.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00020.solution.txt
+Uploading solution icfp2016problems/00020.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 has duplicated vertices.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00021.solution.txt
+Uploading solution icfp2016problems/00021.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00023.solution.txt
+Uploading solution icfp2016problems/00023.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00024.solution.txt
+Uploading solution icfp2016problems/00024.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00025.solution.txt
+Uploading solution icfp2016problems/00025.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":72,\"ok\":true,\"resemblance\":0.03409,\"problem_id\":25,\"solution_spec_hash\":\"c2e4c762f549a3129a7eda0c4021cda858b06aac\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00026.solution.txt
+Uploading solution icfp2016problems/00026.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00027.solution.txt
+Uploading solution icfp2016problems/00027.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00028.solution.txt
+Uploading solution icfp2016problems/00028.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00031.solution.txt
+Uploading solution icfp2016problems/00031.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00032.solution.txt
+Uploading solution icfp2016problems/00032.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00033.solution.txt
+Uploading solution icfp2016problems/00033.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":81,\"ok\":true,\"resemblance\":0.139941,\"problem_id\":33,\"solution_spec_hash\":\"6af8dc0f7f7b6ece902db861ea9aa5d5de7d6785\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00034.solution.txt
+Uploading solution icfp2016problems/00034.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00035.solution.txt
+Uploading solution icfp2016problems/00035.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":158,\"ok\":true,\"resemblance\":0.038368,\"problem_id\":35,\"solution_spec_hash\":\"cb5895cebde73d715470dabd407ff7b72d5695e4\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00036.solution.txt
+Uploading solution icfp2016problems/00036.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.017857,\"problem_id\":36,\"solution_spec_hash\":\"fdec8b459d73e91fc067c4903e89ef3e4acf26d1\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00037.solution.txt
+Uploading solution icfp2016problems/00037.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00038.solution.txt
+Uploading solution icfp2016problems/00038.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 has duplicated vertices.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00039.solution.txt
+Uploading solution icfp2016problems/00039.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":72,\"ok\":true,\"resemblance\":0.857142,\"problem_id\":39,\"solution_spec_hash\":\"4cdd23baa62f4994597e371470b0a5d10b5c44d0\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00040.solution.txt
+Uploading solution icfp2016problems/00040.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":63,\"ok\":true,\"resemblance\":0.875,\"problem_id\":40,\"solution_spec_hash\":\"69b706c0268a0b8e8e124e6187955e3a8ecf1ba3\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00041.solution.txt
+Uploading solution icfp2016problems/00041.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":68,\"ok\":true,\"resemblance\":0.857142,\"problem_id\":41,\"solution_spec_hash\":\"af33e838ff127a887071f0c2fce89b22196ce868\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00042.solution.txt
+Uploading solution icfp2016problems/00042.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":68,\"ok\":true,\"resemblance\":0.7707,\"problem_id\":42,\"solution_spec_hash\":\"a11a834a00e30e7ae1366f9e9f84ee7df05a615f\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00043.solution.txt
+Uploading solution icfp2016problems/00043.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":149,\"ok\":true,\"resemblance\":0.496466,\"problem_id\":43,\"solution_spec_hash\":\"af000fb562bcbeea75bfba9f438b4b1f8a4b090b\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00044.solution.txt
+Uploading solution icfp2016problems/00044.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (1, 16426859889615518731540016911158333998671501570576785300942532313837191148173502915409508203\\/28356927455466082043064124740847934902214540929100993101688787987350325299977384956534980608) must not lie on an edge.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00045.solution.txt
+Uploading solution icfp2016problems/00045.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00046.solution.txt
+Uploading solution icfp2016problems/00046.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00047.solution.txt
+Uploading solution icfp2016problems/00047.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00048.solution.txt
+Uploading solution icfp2016problems/00048.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00049.solution.txt
+Uploading solution icfp2016problems/00049.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00050.solution.txt
+Uploading solution icfp2016problems/00050.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00051.solution.txt
+Uploading solution icfp2016problems/00051.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00052.solution.txt
+Uploading solution icfp2016problems/00052.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00053.solution.txt
+Uploading solution icfp2016problems/00053.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00054.solution.txt
+Uploading solution icfp2016problems/00054.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00055.solution.txt
+Uploading solution icfp2016problems/00055.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00056.solution.txt
+Uploading solution icfp2016problems/00056.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00057.solution.txt
+Uploading solution icfp2016problems/00057.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00058.solution.txt
+Uploading solution icfp2016problems/00058.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00059.solution.txt
+Uploading solution icfp2016problems/00059.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00060.solution.txt
+Uploading solution icfp2016problems/00060.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00061.solution.txt
+Uploading solution icfp2016problems/00061.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00062.solution.txt
+Uploading solution icfp2016problems/00062.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (1030435691550772236453102674312404603735611379629407600992381593650650674782476465208368951099865924545\\/246480217418941706992568618769168913863957660811387786615191069658715045802449234933366664696198579879936, 1) must not lie on an edge.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00063.solution.txt
+Uploading solution icfp2016problems/00063.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00064.solution.txt
+Uploading solution icfp2016problems/00064.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00065.solution.txt
+Uploading solution icfp2016problems/00065.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00066.solution.txt
+Uploading solution icfp2016problems/00066.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00067.solution.txt
+Uploading solution icfp2016problems/00067.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00068.solution.txt
+Uploading solution icfp2016problems/00068.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00069.solution.txt
+Uploading solution icfp2016problems/00069.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00071.solution.txt
+Uploading solution icfp2016problems/00071.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00072.solution.txt
+Uploading solution icfp2016problems/00072.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00083.solution.txt
+Uploading solution icfp2016problems/00083.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00084.solution.txt
+Uploading solution icfp2016problems/00084.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":82,\"ok\":true,\"resemblance\":0.332361,\"problem_id\":84,\"solution_spec_hash\":\"ff8bd4d0e937b24499fc9acc2502ddc7d207689b\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00085.solution.txt
+Uploading solution icfp2016problems/00085.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":70,\"ok\":true,\"resemblance\":0.244897,\"problem_id\":85,\"solution_spec_hash\":\"9ce461e60aff4faf19b4f3d986dd914a1c6ff218\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00086.solution.txt
+Uploading solution icfp2016problems/00086.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00087.solution.txt
+Uploading solution icfp2016problems/00087.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00088.solution.txt
+Uploading solution icfp2016problems/00088.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00089.solution.txt
+Uploading solution icfp2016problems/00089.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00090.solution.txt
+Uploading solution icfp2016problems/00090.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":93,\"ok\":true,\"resemblance\":0.016216,\"problem_id\":90,\"solution_spec_hash\":\"5032606380a274d44ac8293ab33fb2919e05d7d3\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00091.solution.txt
+Uploading solution icfp2016problems/00091.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00092.solution.txt
+Uploading solution icfp2016problems/00092.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":69,\"ok\":true,\"resemblance\":0.083623,\"problem_id\":92,\"solution_spec_hash\":\"d6be545907009cd8c47802721dc3ee7b37975b08\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00093.solution.txt
+Uploading solution icfp2016problems/00093.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00094.solution.txt
+Uploading solution icfp2016problems/00094.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":72,\"ok\":true,\"resemblance\":0.1,\"problem_id\":94,\"solution_spec_hash\":\"3463779e76bfa99afc27090dc3717922f51d68e1\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00095.solution.txt
+Uploading solution icfp2016problems/00095.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00096.solution.txt
+Uploading solution icfp2016problems/00096.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00097.solution.txt
+Uploading solution icfp2016problems/00097.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00098.solution.txt
+Uploading solution icfp2016problems/00098.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":78,\"ok\":true,\"resemblance\":0.458333,\"problem_id\":98,\"solution_spec_hash\":\"cefde9dfcc1975db7cf3f05194840b82e0f99666\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00100.solution.txt
+Uploading solution icfp2016problems/00100.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00101.solution.txt
+Uploading solution icfp2016problems/00101.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00105.solution.txt
+Uploading solution icfp2016problems/00105.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":72,\"ok\":true,\"resemblance\":0.488084,\"problem_id\":105,\"solution_spec_hash\":\"1ad714f022b45233b9c76104709b71770a5e72ac\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00158.solution.txt
+Uploading solution icfp2016problems/00158.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":1.0,\"problem_id\":158,\"solution_spec_hash\":\"8638b16eac64d11076db7a39aab33c61e2fc555a\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00160.solution.txt
+Uploading solution icfp2016problems/00160.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00162.solution.txt
+Uploading solution icfp2016problems/00162.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00172.solution.txt
+Uploading solution icfp2016problems/00172.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":531,\"ok\":true,\"resemblance\":1.0,\"problem_id\":172,\"solution_spec_hash\":\"d265dd786f0bcb99edcefd433c30033211212903\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00175.solution.txt
+Uploading solution icfp2016problems/00175.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00179.solution.txt
+Uploading solution icfp2016problems/00179.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.652173,\"problem_id\":179,\"solution_spec_hash\":\"a27b3a411119339e2eac1a71bd46658db168bdc9\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00181.solution.txt
+Uploading solution icfp2016problems/00181.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":66,\"ok\":true,\"resemblance\":0.319327,\"problem_id\":181,\"solution_spec_hash\":\"05acb8b3aa419ea0377118722dccf98a3695add8\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00183.solution.txt
+Uploading solution icfp2016problems/00183.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 has duplicated vertices.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00285.solution.txt
+Uploading solution icfp2016problems/00285.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00287.solution.txt
+Uploading solution icfp2016problems/00287.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":93,\"ok\":true,\"resemblance\":0.027703,\"problem_id\":287,\"solution_spec_hash\":\"0913530ef810cd78c3bb14158f3e8cf8ea52c5cc\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00328.solution.txt
+Uploading solution icfp2016problems/00328.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+Running "submit"
+icfp2016problems/00357.solution.txt
+Uploading solution icfp2016problems/00357.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
