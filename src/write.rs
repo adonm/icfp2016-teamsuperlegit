@@ -118,7 +118,7 @@ fn write<N: Num, W: Write>(mut writer: W, src: Vec<Point<N>>, facets: Vec<Vec<us
 	assert_eq!(src.len(), dst.len());
 	try!(write!(writer, "{}\n", src.len()));
 	for p in src {
-		try!(write!(writer, "{}\n", p));
+		try!(write!(writer, "{}\n", find_close_rational_point(p)));
 	}
 	try!(write!(writer, "{}\n", facets.len()));
 	for facet in facets {
@@ -129,7 +129,7 @@ fn write<N: Num, W: Write>(mut writer: W, src: Vec<Point<N>>, facets: Vec<Vec<us
 		try!(write!(writer, "\n"));
 	}
 	for p in dst {
-		try!(write!(writer, "{}\n", p));
+		try!(write!(writer, "{}\n", find_close_rational_point(p)));
 	}
 	Ok(())
 }
