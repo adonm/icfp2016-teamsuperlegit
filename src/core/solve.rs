@@ -49,23 +49,12 @@ pub fn get_next_edge_to_fold<N: Num>(base: Polygon<N>, silhouette: Polygon<N>) -
 }
 
 pub fn fold_origami<N: Num>(state: &Vec<(Polygon<N>)>, vertex1: &Point<N>, vertex2: &Point<N>, anchor: &Point<N>) -> Vec<Polygon<N>>{
+	let mut folded = Vec::new();
 
-    let mut newState = vec!();
-    
-    for poly in state {
-        if can_fold(&poly, &vertex1, &vertex2){
-            
-            let (poly1, poly2) = fold_polygon(&poly,&vertex1,&vertex2,&anchor);
-            
-            newState.push(poly1);
-            newState.push(poly2);
-            
-        } else {
-            newState.push(poly.clone());
-        }
-    }
-    
-    newState
+	for poly in state {
+		folded.append(&mut fold_polygon(&poly, &vertex1, &vertex2, &anchor));
+	}
+	folded
 }
 
 
@@ -95,8 +84,8 @@ mod tests {
 
 		let result: Line<f64> = get_next_edge_to_fold(base, a).unwrap();
 		println!("Folding along edge {} -> {}", result.p1, result.p2);
-		assert_eq!(Point{x: 0.0, y: 0.5}, result.p1);
-		assert_eq!(Point{x: 1.0, y: 0.5}, result.p2);
+		assert_eq!(Point{x: 0.0, y: 0.5}, result.p2);
+		assert_eq!(Point{x: 1.0, y: 0.5}, result.p1);
 
 		println!("## Rotated square base, silhouette as above");
 		base = Polygon::new(vec!(p(-4.0, 0.0), p(0.0, -4.0), p(4.0, 0.0), p(0.0, 4.0)));
