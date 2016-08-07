@@ -9,7 +9,7 @@ use std;
 use std::io::Write;
 use num::integer::lcm;
 use num::rational::BigRational;
-use num::{BigInt, One};
+use num::BigInt;
 
 fn draw_polygon(polygon: &Polygon<BigRational>, fill: &str) -> element::Polygon {
 	let mut points = String::from("");

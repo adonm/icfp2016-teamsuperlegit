@@ -230,49 +230,47 @@ pub fn fold_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Poi
 }
 
 pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) -> (Polygon<N>,Polygon<N>) {
-    
-    let mut poly1 = Vec::new();
-    let mut poly2 = Vec::new();
-    
-    let mut vertex1 = v1;
-    let mut vertex2 = v2;
+	let mut poly1 = Vec::new();
+	let mut poly2 = Vec::new();
+
+	let mut vertex1 = v1;
+	let mut vertex2 = v2;
 
 	let transform = poly.transform.clone();
-    
-    for edge in poly.edges() {
-        poly1.push(edge.clone().p1);
-        
-        let co = if edge.clone().coincident(&vertex1) {
-            Some(vertex1)
-        } else if edge.clone().coincident(&vertex2) {
-            Some(vertex2)
-        } else {
-            None
-        };
-        
-        match co {
-            Some(v)=> {
-                poly1.push(v.clone());
-                
-                poly2.push(v.clone());
-                
-                let (a, b) = (vertex2,vertex1);
-                vertex1 = a;
-                vertex2 = b;
 
-                let (c,d) = (poly2,poly1);
-                poly1 = c;
-                poly2 = d;
-            }
-            None => ()
-        }
-    }
-    let mut poly1 = Polygon::new(poly1);
+	for edge in poly.edges() {
+		poly1.push(edge.clone().p1);
+
+		let co = if edge.clone().coincident(&vertex1) {
+			Some(vertex1)
+		} else if edge.clone().coincident(&vertex2) {
+			Some(vertex2)
+		} else {
+			None
+		};
+
+		match co {
+			Some(v)=> {
+				poly1.push(v.clone());
+				poly2.push(v.clone());
+
+				let (a, b) = (vertex2,vertex1);
+				vertex1 = a;
+				vertex2 = b;
+
+				let (c,d) = (poly2,poly1);
+				poly1 = c;
+				poly2 = d;
+			}
+			None => ()
+		}
+	}
+	let mut poly1 = Polygon::new(poly1);
 	poly1.transform = transform.clone();
 	let mut poly2 = Polygon::new(poly2);
 	poly2.transform = transform.clone();
-    
-    return (poly1,poly2);
+
+	return (poly1,poly2);
 }
 
 pub fn can_fold<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> bool {

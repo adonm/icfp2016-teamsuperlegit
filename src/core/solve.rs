@@ -73,6 +73,7 @@ pub fn fold_origami<N: Num>(state: &Vec<(Polygon<N>)>, vertex1: &Point<N>, verte
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use super::super::generic::*;
 	use super::super::geom::*;
 	use super::super::tests::*;
 
@@ -106,5 +107,35 @@ mod tests {
 		assert_eq!(Point{x: -3.5, y: 0.5}, result.p1);
 		assert_eq!(Point{x: 3.5, y: 0.5}, result.p2);
 
+	}
+
+	fn printpolys<N: Num>(polys: &Vec<Polygon<N>>) {
+		for poly in polys {
+			print!("[");
+			for p in poly.points.iter() {
+				print!(" {:.3} ", p);
+			}
+			println!("]");
+		}
+		println!("");
+	}
+
+	#[test]
+	fn test_fold_origami() {
+		let base = vec![Polygon::new(vec![p(0.0, 0.0), p(1.0, 0.0), p(1.0, 1.0), p(0.0, 1.0)])];
+		printpolys(&base);
+
+		// fold top-right corner onto bottom-left
+		let fold1 = (p(0.0, 0.0), p(1.0, 1.0));
+		//let fold1 = (p(0.25, 0.25), p(0.75, 0.75));
+		let polys1 = fold_origami(&base, &fold1.0, &fold1.1, &p(0.0, 0.0));
+		printpolys(&polys1);
+
+		// fold top-left corner directly downwards
+		let fold2 = (p(0.0, 0.25), p(1.0, 0.25));
+		let polys2 = fold_origami(&polys1, &fold2.0, &fold2.1, &p(0.0, 0.0));
+		printpolys(&polys2);
+
+		assert!(false);
 	}
 }

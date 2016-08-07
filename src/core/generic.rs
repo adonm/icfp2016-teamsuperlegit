@@ -231,7 +231,6 @@ mod tests {
     use super::*;
 
     extern crate num;
-    use num::ToPrimitive;
     use self::num::bigint::BigInt;
 	#[test]
 	fn test_ops() {
