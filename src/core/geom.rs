@@ -1,5 +1,4 @@
 use super::*;
-use std::panic;
 
 use super::super::matrix::Matrix33;
 
@@ -166,8 +165,7 @@ pub fn reflect_matrix<N:Num>(vertex1: &Point<N>, vertex2: &Point<N>) -> Matrix33
     
     
     match gradient(&l) {
-        Some(N) =>{
-            let g = gradient(&l).unwrap();
+        Some(g) =>{
             let c = vertex1.y.clone() - g.clone() * vertex1.x.clone();
             let d = vertex2 - vertex1;
 
@@ -302,7 +300,9 @@ pub fn p_distance<N: Num>(p1: &Point<N>, p2: &Point<N>) -> N {
 }
 
 pub fn v_distance<N: Num>(p: &Point<N>) -> N {
-	return N::from_f64((p.x.clone() * p.x.clone() + p.y.clone() * p.y.clone()).to_f64().sqrt());
+	if p.x == N::zero() { p.y.abs() }
+	else if p.y == N::zero() { p.x.abs() }
+	else { N::from_f64((p.x.clone() * p.x.clone() + p.y.clone() * p.y.clone()).to_f64().sqrt()) }
 }
 
 
@@ -333,14 +333,6 @@ impl<N: Num> Polygon<N> {
 		// transform is setup to do nothing by default
 		// should represent the transformation to go back to unit square
 		Polygon{points: points, transform: Matrix33::identity()}
-	}
-
-	pub fn to_f64(self) -> Polygon<f64> {
-		let mut points: Vec<Point<f64>> = Vec::new();
-		for p in self.points {
-			points.push(p.to_f64());
-		}
-		return Polygon::new(points);
 	}
 
 	fn double_signed_area(&self) -> f64 {
@@ -477,10 +469,6 @@ impl<N: Num> Shape<N> {
 impl<N: Num> Line<N> {
 	pub fn new(p1: Point<N>, p2: Point<N>) -> Line<N> {
 		return Line{p1: p1, p2: p2};
-	}
-
-	pub fn to_f64(self) -> Line<f64> {
-		Line::new(self.p1.to_f64(), self.p2.to_f64())
 	}
 
 	// Returns the length of this line

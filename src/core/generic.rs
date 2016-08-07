@@ -8,7 +8,6 @@ use std::fmt;
 use std::f64::INFINITY;
 use std::ops::{Add,Sub,Mul,Div,Neg};
 use std::str::FromStr;
-use std::panic;
 
 extern crate num;
 use num::rational::BigRational;
@@ -19,6 +18,7 @@ pub trait SuperLegit {
 	fn from_f64(f64) -> Self;
 	fn zero() -> Self;
 	fn one() -> Self;
+	fn abs(&self) -> Self;
 }
 
 impl SuperLegit for i32 {
@@ -26,6 +26,7 @@ impl SuperLegit for i32 {
 	fn from_f64(f: f64) -> Self { f as i32 }
 	fn zero() -> Self { 0 }
 	fn one() -> Self { 1 }
+	fn abs(&self) -> Self { if self < &0 { -self } else { *self }}
 }
 
 impl SuperLegit for f64 {
@@ -33,6 +34,7 @@ impl SuperLegit for f64 {
 	fn from_f64(f: f64) -> Self { f }
 	fn zero() -> Self { 0.0 }
 	fn one() -> Self { 1.0 }
+	fn abs(&self) -> Self { if self < &0.0 { -self } else { *self } }
 }
 
 pub fn divide<N:Num>( a: N, b: N ) -> Option<N> {
@@ -57,10 +59,11 @@ impl SuperLegit for BigRational {
 
 	fn zero() -> Self { num::zero::<BigRational>() }
 	fn one() -> Self { num::one::<BigRational>() }
+	fn abs(&self) -> Self { if self < &Self::zero() { -self } else { self.clone() }}
 }
 
-pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + Display + PartialOrd + PartialEq + Clone + panic::RefUnwindSafe + SuperLegit {}
-impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + Display + PartialOrd + PartialEq + Clone + panic::RefUnwindSafe + SuperLegit {}
+pub trait Num: Add<Output=Self> + Sub<Output=Self> + Mul<Output=Self> + Div<Output=Self> + Neg<Output=Self> + Sized + FromStr + Debug + Display + PartialOrd + PartialEq + Clone + SuperLegit {}
+impl<N> Num for N where N: Add<Output=N> + Sub<Output=N> + Mul<Output=N> + Div<Output=N> + Neg<Output=N> + Sized + FromStr + Debug + Display + PartialOrd + PartialEq + Clone + SuperLegit {}
 
 impl<N: Num> Add for Point<N> {
 	type Output=Self;
