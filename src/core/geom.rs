@@ -300,7 +300,9 @@ pub fn p_distance<N: Num>(p1: &Point<N>, p2: &Point<N>) -> N {
 }
 
 pub fn v_distance<N: Num>(p: &Point<N>) -> N {
-	return N::from_f64((p.x.clone() * p.x.clone() + p.y.clone() * p.y.clone()).to_f64().sqrt());
+	if p.x == N::zero() { p.y.abs() }
+	else if p.y == N::zero() { p.x.abs() }
+	else { N::from_f64((p.x.clone() * p.x.clone() + p.y.clone() * p.y.clone()).to_f64().sqrt()) }
 }
 
 

@@ -1,4 +1,5 @@
 use std::ops::{Div,Index,Mul,MulAssign};
+use std::fmt;
 
 pub use core::*;
 
@@ -175,6 +176,11 @@ impl<N: Num> Clone for Matrix33<N> {
 	}
 }
 
+impl<N: Num> fmt::Display for Matrix33<N> {
+	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+		write!(f, "[ {} {} {} ]\n[ {} {} {} ]\n[ {} {} {} ]\n", &self.points[0], &self.points[1], &self.points[2], &self.points[3], &self.points[4], &self.points[5], &self.points[6], &self.points[7], &self.points[8])
+	}
+}
 
 #[cfg(test)]
 mod tests {
