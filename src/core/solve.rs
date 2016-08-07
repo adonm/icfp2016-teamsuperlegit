@@ -1,8 +1,12 @@
 use super::*;
+use super::super::matrix::Matrix33;
 
 // l0.p2 and l1.p1 are the same since this is where the lines join
 // l0 and l1 must be perpendicular
 pub fn square_from_corner<N:Num>(line0: &Line<N>, line1: &Line<N>) -> Polygon<N> {
+	// lets start with a unit square, and rotate by angle of one line
+	// then we can translate so origin matches
+	let unit_sq_p = Polygon::new(vec![pNum(0.0, 0.0), pNum(0.0, 1.0), pNum(1.0, 1.0), pNum(1.0, 0.0)]);
 	let line0sw = Line{p1: line0.p2.clone(), p2: line0.p1.clone()};
 	let line1sw = Line{p1: line1.p2.clone(), p2: line1.p1.clone()};
 	let l0 = if line0.p1 == line1.p2 { &line0sw } else { line0 };
@@ -13,11 +17,16 @@ pub fn square_from_corner<N:Num>(line0: &Line<N>, line1: &Line<N>) -> Polygon<N>
 
 	let p1 = normalize_line(&l0.p2, &(&l0.p1-&l0.p2));
 	let p2 = normalize_line(&p1, &(&l1.p2-&l1.p1));
-	let poly = Polygon::new(vec!(
+	let mut poly = Polygon::new(vec!(
 		l0.p2.clone(),
-		p1,
-		p2,
+		p1.clone(),
+		p2.clone(),
 		normalize_line(&l0.p2, &(&l1.p2-&l0.p2))));
+
+	println!("{}", l0.p2.clone().y);
+	
+	poly.transform = poly.clone().transform * Matrix33::translate(l0.p2.clone().x, l0.p2.clone().y);
+	//poly.transform = poly.clone().transform * Matrix33::rotate_angle(angle(&p1, &p2));
 
 	poly
 }
@@ -35,6 +44,7 @@ pub fn get_next_edge_to_fold<N: Num>(base: Polygon<N>, silhouette: Polygon<N>) -
 		}
 	}
 
+	// The point order here is sometimes flipped, making folds go in odd direction
 	return Ok((longest.p1.clone(), longest.p2.clone()));
 }
 
