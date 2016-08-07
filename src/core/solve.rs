@@ -34,14 +34,14 @@ pub fn square_from_corner<N:Num>(line0: &Line<N>, line1: &Line<N>) -> Polygon<N>
 }
 
 // This function figures out the next line to fold along
-pub fn get_next_edge_to_fold<N: Num>(base: Polygon<N>, silhouette: Polygon<N>) -> Result<(Point<f64>, Point<f64>), bool> {
-	let candidates: Vec<Line<f64>> = silhouette.slicey_edges(base.to_f64());
+pub fn get_next_edge_to_fold<N: Num>(base: Polygon<N>, silhouette: Polygon<N>) -> Result<(Point<N>, Point<N>), bool> {
+	let candidates: Vec<Line<N>> = silhouette.slicey_edges(base.clone());
 
 	if candidates.len() == 0 { return Err(false) }
-	let mut longest: Line<f64> = candidates[0].clone();
+	let mut longest: Line<N> = candidates[0].clone();
 	for line in candidates {
 		//println!("get_next_edge_to_fold: considering {}, length {}", line, line.len());
-		if line.len() > longest.len() {
+		if line.len() > longest.len() && ( base.clone().points.contains(&line.p1)==false || base.clone().points.contains(&line.p2)==false ) {
 			longest = line;
 		}
 	}
