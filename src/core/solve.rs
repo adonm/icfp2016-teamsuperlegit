@@ -45,14 +45,14 @@ pub fn get_next_edge_to_fold<N: Num>(base: Polygon<N>, silhouette: Polygon<N>) -
 	return Ok((longest.p1.clone(), longest.p2.clone()));
 }
 
-pub fn fold_origami<N: Num>(state: &Vec<(Polygon<N>)>, vertex1: &Point<N>, vertex2: &Point<N>) -> Vec<Polygon<N>>{
+pub fn fold_origami<N: Num>(state: &Vec<(Polygon<N>)>, vertex1: &Point<N>, vertex2: &Point<N>, anchor: &Point<N>) -> Vec<Polygon<N>>{
 
     let mut newState = vec!();
     
     for poly in state {
         if can_fold(&poly, &vertex1, &vertex2){
             
-            let (poly1, poly2) = fold_polygon(&poly,&vertex1,&vertex2);
+            let (poly1, poly2) = fold_polygon(&poly,&vertex1,&vertex2,&anchor);
             
             newState.push(poly1);
             newState.push(poly2);

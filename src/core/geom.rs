@@ -202,11 +202,16 @@ pub fn flip_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Poi
     ret
 }
 
-pub fn fold_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> (Polygon<N>,Polygon<N>) {
-    let (poly1, poly2Old) = split_polygon(&poly,&vertex1,&vertex2);
-    let poly2 = flip_polygon(&poly2Old, &vertex1, &vertex2);
-    
-    (poly1,poly2)
+pub fn fold_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N>, anchor: &Point<N>) -> (Polygon<N>,Polygon<N>) {
+    let (poly1, poly2) = split_polygon(&poly,&vertex1,&vertex2);
+	for point in poly1.clone().points {
+		if point == *anchor {
+			let poly2 = flip_polygon(&poly2, &vertex1, &vertex2);
+			return (poly1, poly2);
+		}
+	}
+    let poly1 = flip_polygon(&poly1, &vertex1, &vertex2);
+    return (poly1,poly2)
 }
 
 pub fn split_polygon<N: Num>(poly: &Polygon<N>, v1: &Point<N>, v2: &Point<N>) -> (Polygon<N>,Polygon<N>) {
