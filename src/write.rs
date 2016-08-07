@@ -65,13 +65,20 @@ pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>) -> Result
 			if src[i].x > N::one() || src[i].x < N::zero()
 			 || src[i].y > N::one() || src[i].y < N::zero() {
 				 println!("Point {}, {} outside source bounds", src[i].to_f64(), src[i])
-			} 
+			}
 		}
 		facets.push(facet);
 		unfolded.push(Polygon::new(orig));
 	}
 	write(writer, src, facets, dst).unwrap();
 	return Ok(unfolded);
+}
+
+fn snap<N: Num>(p: Point<N>) -> Point<N> {
+	let mut p = p.clone();
+	p.x = if (p.x.to_f64() - 0.0 < 0.000001) { N::zero() } else { p.x };
+	p.y = if (p.y.to_f64() - 0.0 < 0.000001) { N::zero() } else { p.y };
+	return p; 
 }
 
 // currently private but may be a better entry point in the future?
@@ -81,7 +88,7 @@ fn write<N: Num, W: Write>(mut writer: W, src: Vec<Point<N>>, facets: Vec<Vec<us
 	assert_eq!(src.len(), dst.len());
 	try!(write!(writer, "{}\n", src.len()));
 	for p in src {
-		try!(write!(writer, "{}\n", p));
+		try!(write!(writer, "{}\n", snap(p)));
 	}
 	try!(write!(writer, "{}\n", facets.len()));
 	for facet in facets {
