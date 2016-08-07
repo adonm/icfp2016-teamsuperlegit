@@ -42,6 +42,16 @@ pub fn from_skeleton<N: Num, F: Folds<N>, W: Write>(writer: W, skel: Skeleton<N>
 	write(writer, points, facets, dst)
 }
 
+fn snap<N: Num>(p: Point<N>) -> Point<N> {
+	let mut p = p.clone();
+	let snapdist = 0.000001;
+	for (float, snap) in vec![(0.0, N::zero()),(1.0, N::one())] {
+		p.x = if (p.x.to_f64() - float).abs() < snapdist { snap.clone() } else { p.x };
+		p.y = if (p.y.to_f64() - float).abs() < snapdist { snap.clone() } else { p.y };
+	}
+	return p;
+}
+
 pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>) -> Result<Vec<Polygon<N>>, Error> {
 	let mut src = Vec::new();
 	let mut dst: Vec<Point<N>> = Vec::new();
@@ -55,8 +65,9 @@ pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>) -> Result
 				if let Some(i) = dst.iter().position(|p| &point == p) {
 					i
 				} else {
-					src.push(poly.transform.inverse().transform(point.clone()));
-					dst.push(point);
+					let snapped = snap(poly.transform.inverse().transform(point.clone()));
+					src.push(snapped.clone());
+					dst.push(poly.transform.transform(snapped));
 					dst.len() - 1
 				}
 			};
@@ -74,13 +85,6 @@ pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>) -> Result
 	return Ok(unfolded);
 }
 
-fn snap<N: Num>(p: Point<N>) -> Point<N> {
-	let mut p = p.clone();
-	p.x = if (p.x.to_f64() - 0.0 < 0.000001) { N::zero() } else { p.x };
-	p.y = if (p.y.to_f64() - 0.0 < 0.000001) { N::zero() } else { p.y };
-	return p; 
-}
-
 // currently private but may be a better entry point in the future?
 // `points` is the list of vertices that make up the facet corners
 // `facets` is a list of integer sequences, where each integer is an index into `points`
@@ -88,7 +92,7 @@ fn write<N: Num, W: Write>(mut writer: W, src: Vec<Point<N>>, facets: Vec<Vec<us
 	assert_eq!(src.len(), dst.len());
 	try!(write!(writer, "{}\n", src.len()));
 	for p in src {
-		try!(write!(writer, "{}\n", snap(p)));
+		try!(write!(writer, "{}\n", p));
 	}
 	try!(write!(writer, "{}\n", facets.len()));
 	for facet in facets {
