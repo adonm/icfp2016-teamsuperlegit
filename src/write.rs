@@ -2,7 +2,7 @@ use std::io::{Error,Write};
 use std::collections::BTreeMap;
 use std::collections::btree_map::Entry;
 use num::rational::BigRational;
-use num::{BigInt, One};
+use num::{BigInt, One, Zero};
 use num::ToPrimitive;
 
 use core::*;
@@ -47,29 +47,34 @@ pub fn from_skeleton<N: Num, F: Folds<N>, W: Write>(writer: W, skel: Skeleton<N>
 	write(writer, points, facets, dst)
 }
 
-fn snap<N: Num>(p: Point<N>) -> Point<N> {
+fn snap(p: Point<BigRational>) -> Point<BigRational> {
 	let mut p = p.clone();
 	let snapdist = 0.000001;
-	for (float, snap) in vec![(0.0, N::zero()),(1.0, N::one())] {
+	for (float, snap) in vec![(0.0, Zero::zero()),(1.0, One::one())] {
+		let snap: BigRational = snap;
 		p.x = if (p.x.to_f64() - float).abs() < snapdist { snap.clone() } else { p.x };
 		p.y = if (p.y.to_f64() - float).abs() < snapdist { snap.clone() } else { p.y };
 	}
 	return p;
 }
 
-fn qntz<N: Num>(p: Point<N>, base: BigInt) -> Point<BigRational> {
+fn qntz(p: Point<BigRational>, base: BigInt) -> Point<BigRational> {
 	use num::bigint::BigInt;
 	let p = p.clone();
 	let xnum = (p.x.to_f64() * base.to_f64().unwrap()).round() as i64;
 	let ynum = (p.x.to_f64() * base.to_f64().unwrap()).round() as i64;
-	let p = Point{
+	let p2 = Point{
 		x: BigRational::new(BigInt::from(xnum), BigInt::from(base.clone())),
 		y: BigRational::new(BigInt::from(ynum), BigInt::from(base.clone()))
 	};
-	return p;
+	if (p.x.to_f64() - p2.x.to_f64()).abs() < 0.0001 && (p.y.to_f64() - p2.y.to_f64()).abs() < 0.0001 {
+		return p2;
+	} else {
+		return p;
+	}
 }
 
-pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>, base: BigInt) -> Result<Vec<Polygon<BigRational>>, Error> {
+pub fn from_polys<W: Write>(writer: W, polys: Vec<Polygon<BigRational>>, base: BigInt) -> Result<Vec<Polygon<BigRational>>, Error> {
 	let mut seen = BTreeMap::new();
 	let mut src = Vec::new();
 	let mut dst: Vec<Point<BigRational>> = Vec::new();

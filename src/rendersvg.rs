@@ -36,7 +36,7 @@ fn lcm_points(base: BigInt, points: Vec<Point<BigRational>>) -> BigInt {
 }
 
 pub fn draw_svg(shape: Shape<BigRational>, skel: Skeleton<BigRational>, filename: &str) {
-	let mut basemultiple: BigInt = One::one();
+	let mut basemultiple: BigInt = "360".parse::<BigInt>().unwrap();
 	let filename = format!("{}/{}", BASEPATH, filename);
 	/* Draw shapes as areas and skeletons as lines */
 	let mut document = Document::new().set("viewBox", (-1, -1, 3, 3))
@@ -110,7 +110,10 @@ pub fn draw_svg(shape: Shape<BigRational>, skel: Skeleton<BigRational>, filename
 
 	// draw skeleton
 	let mut skeleton = element::Group::new();
+	let mut skelpoints = Vec::new();
 	for bone in skel.lines() {
+		skelpoints.push(bone.p1.clone());
+		skelpoints.push(bone.p2.clone());
 		let skel_data = element::path::Data::new()
 			.move_to((bone.p1.x.to_f64(), bone.p1.y.to_f64()))
 			.line_to((bone.p2.x.to_f64(), bone.p2.y.to_f64()));
@@ -124,6 +127,7 @@ pub fn draw_svg(shape: Shape<BigRational>, skel: Skeleton<BigRational>, filename
 			.set("d", skel_data);
 		skeleton = skeleton.add(skel_path);
 	}
+	basemultiple = lcm_points(basemultiple, skelpoints);
 	document = document.add(skeleton);
 
 	// corners ontop looks nicer
