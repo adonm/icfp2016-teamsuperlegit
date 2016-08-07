@@ -171,32 +171,9 @@ pub fn reflect_matrix<N:Num>(vertex1: &Point<N>, vertex2: &Point<N>) -> Matrix33
     }
 }
 
-pub fn flip_point_matrix<N:Num>(p: &Point<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Point<N> {
-    
-    reflect_matrix(&vertex1,&vertex2).transform(p.clone())
-}
-// Inputs of (1,1) / (0,0) (1,0) should give (1,-1)
-pub fn flip_point<N: Num>(p: &Point<N>, l1: &Point<N>, l2: &Point<N>) -> Point<N> {
-    // y = ax + c
-	let denom = l2.x.clone() - l1.x.clone();
-	if denom == N::zero() { // flipping over line point is on, results in no move
-		return p.clone()
-	}
-    let a = (l2.y.clone() - l1.y.clone()) / denom;
-	if a == N::zero() {
-		return p.clone()
-	}
-
-    let c = l1.y.clone() - a.clone() * l1.x.clone();
-
-    let d = (p.x.clone() + (p.y.clone() - c.clone()) * a.clone())/(N::from_f64(1.0) + a.clone() * a.clone());
-
-    Point{x: d.clone() + d.clone() - p.x.clone(), y: N::from_f64(2.0) * d.clone() * a.clone() - p.y.clone() + c.clone() + c.clone()}
-}
-
 //flips both points of a line on an axis
 pub fn flip_line<N:Num>(line: &Line<N>, vertex1: &Point<N>, vertex2: &Point<N>) -> Line<N> {
-	Line{ p1: flip_point_matrix(&line.p1,&vertex1,&vertex2), p2: flip_point_matrix(&line.p2,&vertex1,&vertex2) }
+	Line{ p1: reflect_matrix(&vertex1,&vertex2).transform(line.p1.clone()), p2: reflect_matrix(&vertex1,&vertex2).transform(line.p2.clone()) }
 }
 
 // If there is an intersection, assume line.p1 is the point that does not get flipped
@@ -206,7 +183,7 @@ pub fn fold_line<N:Num>(line: &Line<N>, vertex1: &Point<N>, vertex2: &Point<N>) 
 	match intersect {
 		Some(p) => {
 			let l1 = Line{p1: p.clone(), p2: line.p1.clone() };
-			let l2 = Line{p1: p.clone(), p2: flip_point(&line.p2,&vertex1,&vertex2) };
+			let l2 = Line{p1: p.clone(), p2: reflect_matrix(&vertex1,&vertex2).transform(line.p2.clone()) };
 			vec!(l1,l2)
 		}
         None => vec!(flip_line(&line,&vertex1,&vertex2))
@@ -217,11 +194,11 @@ pub fn flip_polygon<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Poi
     let mut poly_f = Vec::new();
     
     for pt in poly.clone().points {
-        poly_f.push( flip_point( &pt, &vertex1, &vertex2 ) );
+        poly_f.push(reflect_matrix(&vertex1,&vertex2).transform(pt.clone()));
     }
     poly_f.reverse();
     let mut ret = Polygon::new(poly_f);
-    ret.transform = poly.clone().transform * reflect_matrix(&vertex1,&vertex2).inverse();
+    ret.transform = poly.clone().transform * reflect_matrix(&vertex1,&vertex2);
     ret
 }
 
@@ -558,44 +535,6 @@ mod tests {
         let g = gradient(&Line{p1:p1,p2:p2});
         println!("gradient_test: {:?}",g);
         assert_eq!(g,1);
-	}
-
-	#[test]
-	fn test_flip_point(){
-        let mut p2 = flip_point(&pNum(1.0,1.0), &pNum(0.0,0.0), &pNum(1.0,0.0));
-        println!("flip_point_test: {:?}",p2);
-        assert_eq!(pNum(1.0, -1.0), p2);
-
-        p2 = flip_point(&pNum(1.0,0.0), &pNum(0.0,0.0), &pNum(3.0,3.0));
-        println!("flip_point_test: {:?}",p2);
-        assert_eq!(pNum(0.0, 1.0), p2);
-
-        p2 = flip_point(&pNum(1.0,0.0), &pNum(0.0,0.0), &pNum(0.866025403784439,0.5)); // unit vector along x, 30 deg line. Result should be unit vector 60 degrees to the x axis
-        println!("flip_point_test: {:?}",p2); 
-
-        // Compare with an epsilon
-        assert!(p2.x - 0.5 < 0.000001);
-        assert!(p2.y - 0.866025403784439 < 0.000001);
-	}
-
-	#[test]
-	fn test_flip_point_matrix(){
-        
-        let mut p2 = flip_point_matrix(&pNum(1.0,1.0), &pNum(0.0,0.0), &pNum(1.0,0.0));
-        println!("flip_point_test: {:?}",p2);
-        assert_eq!(pNum(1.0, -1.0), p2);
-
-        p2 = flip_point_matrix(&pNum(1.0,0.0), &pNum(0.0,0.0), &pNum(3.0,3.0));
-        println!("flip_point_test: {:?}",p2);
-        assert_eq!(pNum(0.0, 1.0), p2);
-
-        p2 = flip_point_matrix(&pNum(1.0,0.0), &pNum(0.0,0.0), &pNum(0.866025403784439,0.5)); // unit vector along x, 30 deg line. Result should be unit vector 60 degrees to the x axis
-        println!("flip_point_test: {:?}",p2); 
-        
-        
-        p2 = flip_point_matrix(&pNum(-1.0,1.0), &pNum(0.0,0.0), &pNum(0.0,3.0));
-        println!("flip_point_test: {:?}",p2);
-        assert_eq!(pNum(1.0, 1.0), p2);
 	}
 
 	#[test]
