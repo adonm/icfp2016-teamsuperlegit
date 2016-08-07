@@ -6,7 +6,10 @@ use super::super::matrix::Matrix33;
 pub fn square_from_corner<N:Num>(line0: &Line<N>, line1: &Line<N>) -> Polygon<N> {
 	// lets start with a unit square, and rotate by angle of one line
 	// then we can translate so origin matches
-	let unit_sq_p = Polygon::new(vec![pNum(0.0, 0.0), pNum(0.0, 1.0), pNum(1.0, 1.0), pNum(1.0, 0.0)]);
+	let unit_sq_p = Polygon::new(vec![
+		Point{x:N::zero(), y:N::zero()}, Point{x:N::zero(), y:N::one()},
+		Point{x:N::one(), y:N::one()}, Point{x:N::one(), y:N::zero()}
+	]);
 	let line0sw = Line{p1: line0.p2.clone(), p2: line0.p1.clone()};
 	let line1sw = Line{p1: line1.p2.clone(), p2: line1.p1.clone()};
 	let l0 = if line0.p1 == line1.p2 { &line0sw } else { line0 };
@@ -14,21 +17,15 @@ pub fn square_from_corner<N:Num>(line0: &Line<N>, line1: &Line<N>) -> Polygon<N>
 	if l0.p2 != l1.p1 {
 		panic!("Lines must join {}, {}; {}, {}", l0.p1, l0.p2, l1.p1, l1.p2);
 	}
-
-	let p1 = normalize_line(&l0.p2, &(&l0.p1-&l0.p2));
-	let p2 = normalize_line(&p1, &(&l1.p2-&l1.p1));
-	let mut poly = Polygon::new(vec!(
-		l0.p2.clone(),
-		p1.clone(),
-		p2.clone(),
-		normalize_line(&l0.p2, &(&l1.p2-&l0.p2))));
-
-	println!("{}", l0.p2.clone().y);
-	
-	poly.transform = poly.clone().transform * Matrix33::translate(l0.p2.clone().x, l0.p2.clone().y);
-	//poly.transform = poly.clone().transform * Matrix33::rotate_angle(angle(&p1, &p2));
-
-	poly
+	let mut transform = Matrix33::translate(l0.p2.clone().x, l0.p2.clone().y);
+	transform = Matrix33::rotate_angle(180.0_f64.to_radians() - angle(&l0.p1, &l0.p2)) * transform;
+	let mut points = Vec::new();
+	for point in unit_sq_p.points {
+		points.push(transform.transform(point));
+	}
+	let mut poly = Polygon::new(points);
+	poly.transform = transform;
+	return poly;
 }
 
 // This function figures out the next line to fold along

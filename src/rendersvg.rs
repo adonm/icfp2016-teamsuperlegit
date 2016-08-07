@@ -138,8 +138,13 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 				statepolys = statepolys.add(draw_polygon(&polygon, "#000"));
 			}
 			document = document.add(statepolys);
-			let mut writer = std::fs::File::create(filename.clone().replace("problem.svg", "test-solution.txt")).unwrap();
-			from_polys(writer, folded);
+			let writer = std::fs::File::create(filename.clone().replace("problem.svg", "test-solution.txt")).unwrap();
+			let unfolded = from_polys(writer, folded).unwrap();
+			let mut unfoldedpolys = element::Group::new();
+			for polygon in unfolded.clone() {
+				unfoldedpolys = unfoldedpolys.add(draw_polygon(&polygon, "#00f"));
+			}
+			document = document.add(unfoldedpolys);
 		} else {
 			// just draw anchored square
 			document = document.add(draw_polygon(&unitsquare, "#000"));

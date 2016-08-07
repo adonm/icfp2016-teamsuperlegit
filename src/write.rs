@@ -41,27 +41,33 @@ pub fn from_skeleton<N: Num, F: Folds<N>, W: Write>(writer: W, skel: Skeleton<N>
 	write(writer, points, facets, dst)
 }
 
-pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>) -> Result<(), Error> {
+pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>) -> Result<Vec<Polygon<N>>, Error> {
 	let mut src = Vec::new();
 	let mut dst: Vec<Point<N>> = Vec::new();
 	let mut facets = Vec::new();
+	let mut unfolded: Vec<Polygon<N>> = Vec::new();
 	for poly in polys {
 		let mut facet = Vec::new();
+		let mut orig = Vec::new();
 		for point in poly.points {
 			let i = {
 				if let Some(i) = dst.iter().position(|p| &point == p) {
 					i
 				} else {
 					dst.push(point.clone());
-					src.push(poly.transform.inverse().transform(point));
+					let origpoint = poly.transform.inverse().transform(point);
+					src.push(origpoint.clone());
+					orig.push(origpoint);
 					dst.len() - 1
 				}
 			};
 			facet.push(i);
 		}
 		facets.push(facet);
+		unfolded.push(Polygon::new(orig));
 	}
-	write(writer, src, facets, dst)
+	write(writer, src, facets, dst).unwrap();
+	return Ok(unfolded);
 }
 
 // currently private but may be a better entry point in the future?
@@ -74,7 +80,7 @@ fn write<N: Num, W: Write>(mut writer: W, src: Vec<Point<N>>, facets: Vec<Vec<us
 		try!(write!(writer, "{}\n", p));
 	}
 	try!(write!(writer, "{}\n", facets.len()));
-	for (i, facet) in facets.iter().enumerate() {
+	for facet in facets {
 		try!(write!(writer, "{} ", facet.len()));
 		for index in facet {
 			try!(write!(writer, "{} ", index));

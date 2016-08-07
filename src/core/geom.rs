@@ -538,16 +538,6 @@ pub fn angle<'a, N: Num>(p0: &'a Point<N>, p1: &'a Point<N>) -> f64 {
 	return d.x.to_f64().atan2(d.y.to_f64());
 }
 
-/*pub fn mirror<N: Num>(shapes: &Vec<Polygon<N>>, axis: Line<N>) -> Vec<Polygon<N>> {
-		let mut results: Vec<Polygon<N>> = Vec::new();
-		for shape in shapes {
-				let new_shape = (*shape).clone();
-				results.push(new_shape);
-		}
-		results
-}*/
-
-
 #[cfg(test)]
 mod tests {
 	use super::*;
