@@ -53,18 +53,15 @@ pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>) -> Result
 		for point in poly.points {
 			let i = {
 				if let Some(i) = dst.iter().position(|p| &point == p) {
-					let origpoint = poly.transform.inverse().transform(point.clone());
-					orig.push(origpoint);
 					i
 				} else {
-					dst.push(point.clone());
-					let origpoint = poly.transform.inverse().transform(point.clone());
-					src.push(origpoint.clone());
-					orig.push(origpoint);
+					src.push(poly.transform.inverse().transform(point.clone()));
+					dst.push(point);
 					dst.len() - 1
 				}
 			};
 			facet.push(i);
+			orig.push(src[i].clone());
 		}
 		facets.push(facet);
 		unfolded.push(Polygon::new(orig));
