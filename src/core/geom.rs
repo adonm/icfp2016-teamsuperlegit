@@ -426,17 +426,17 @@ impl<N: Num> Polygon<N> {
 	// An edge qualifies if it
 	//  - crosses at least one boundary of the unit square.
 	//  - lies wholly within the unit square
-	pub fn slicey_edges(self, other: Polygon<f64>) -> Vec<Line<f64>> {
+	pub fn slicey_edges(self, other: Polygon<N>) -> Vec<Line<N>> {
 		let mut candidates = Vec::new();
 
 		for edge in self.edges() {
 			// println!("slicey_edges - considering line {}", edge);
 			// println!("  contained {} {}", other.contains(&edge.p1.to_f64()), other.contains(&edge.p2.to_f64()));
-			let mut intersection: Option<(Point<f64>, Point<f64>)> = intersect_poly_discrete(edge.clone().to_f64(), other.clone());
+			let mut intersection: Option<(Point<N>, Point<N>)> = intersect_poly_discrete(edge.clone(), other.clone());
 			if intersection == None {
 				// Line lies wholly within or wholly without the unit square, or straddles the boundary
-				if other.contains(&edge.p1.to_f64()) || other.contains(&edge.p2.to_f64()) {
-					intersection = intersect_poly_inf(edge.clone().to_f64(), other.clone());
+				if other.contains(&edge.p1) || other.contains(&edge.p2) {
+					intersection = intersect_poly_inf(edge.clone(), other.clone());
 				}
 			}
 			// Poss. do something with intersection here

@@ -135,7 +135,7 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 			for polygon in state.clone() {
 				statepolys = statepolys.add(draw_polygon(&polygon, "#ff0"));
 			}
-			let folded = fold_origami(&state, &p1.to_num(), &p2.to_num(), &unitsquare.clone().points[0]);
+			let folded = fold_origami(&state, &p1, &p2, &unitsquare.clone().points[0]);
 			println!("folded {} into {}", filename, folded.len());
 			for polygon in folded.clone() {
 				statepolys = statepolys.add(draw_polygon(&polygon, "#000"));
