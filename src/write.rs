@@ -76,6 +76,8 @@ pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>, base: Big
 	let mut facets = Vec::new();
 	let mut unfolded: Vec<Polygon<BigRational>> = Vec::new();
 	for poly in polys {
+		poly.printcongruency();
+		poly.source_poly().printcongruency();
 		let mut facet = Vec::new();
 		let mut orig = Vec::new();
 		for point in poly.points {
@@ -89,6 +91,7 @@ pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>, base: Big
 						src.push(qntz(snap(poly.transform.inverse().transform(point.clone())), base.clone()));
 						dst.push(qntz(snap(poly.transform.transform(point.clone())), base.clone()));
 						let i = dst.len() - 1;
+						println!("   POINT {} {} -> {}", i, src[i], dst[i]);
 						*e.insert(i)
 					}
 				}
