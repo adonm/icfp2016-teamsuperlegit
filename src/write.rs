@@ -2,6 +2,8 @@ use std::io::{Error,Write};
 use std::collections::BTreeMap;
 use std::collections::btree_map::Entry;
 use num::rational::BigRational;
+use num::{BigInt, One};
+use num::ToPrimitive;
 
 use core::*;
 
@@ -55,19 +57,19 @@ fn snap<N: Num>(p: Point<N>) -> Point<N> {
 	return p;
 }
 
-fn qntz<N: Num>(p: Point<N>, base: u64) -> Point<BigRational> {
+fn qntz<N: Num>(p: Point<N>, base: BigInt) -> Point<BigRational> {
 	use num::bigint::BigInt;
 	let p = p.clone();
-	let xnum = (p.x.to_f64() * base as f64).round() as i64;
-	let ynum = (p.x.to_f64() * base as f64).round() as i64;
+	let xnum = (p.x.to_f64() * base.to_f64().unwrap()).round() as i64;
+	let ynum = (p.x.to_f64() * base.to_f64().unwrap()).round() as i64;
 	let p = Point{
-		x: BigRational::new(BigInt::from(xnum), BigInt::from(base)),
-		y: BigRational::new(BigInt::from(ynum), BigInt::from(base))
+		x: BigRational::new(BigInt::from(xnum), BigInt::from(base.clone())),
+		y: BigRational::new(BigInt::from(ynum), BigInt::from(base.clone()))
 	};
 	return p;
 }
 
-pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>, base: u64) -> Result<Vec<Polygon<BigRational>>, Error> {
+pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>, base: BigInt) -> Result<Vec<Polygon<BigRational>>, Error> {
 	let mut seen = BTreeMap::new();
 	let mut src = Vec::new();
 	let mut dst: Vec<Point<BigRational>> = Vec::new();
@@ -84,8 +86,8 @@ pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>, base: u64
 						*e.get()
 					},
 					Entry::Vacant(e) => {
-						src.push(qntz(snap(poly.transform.inverse().transform(point.clone())), base));
-						dst.push(qntz(snap(poly.transform.transform(point.clone())), base));
+						src.push(qntz(snap(poly.transform.inverse().transform(point.clone())), base.clone()));
+						dst.push(qntz(snap(poly.transform.transform(point.clone())), base.clone()));
 						let i = dst.len() - 1;
 						*e.insert(i)
 					}

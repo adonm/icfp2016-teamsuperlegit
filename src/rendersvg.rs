@@ -7,8 +7,11 @@ use core::*;
 use write::from_polys;
 use std;
 use std::io::Write;
+use num::integer::lcm;
+use num::rational::BigRational;
+use num::{BigInt, One};
 
-fn draw_polygon<N: Num>(polygon: &Polygon<N>, fill: &str) -> element::Polygon {
+fn draw_polygon(polygon: &Polygon<BigRational>, fill: &str) -> element::Polygon {
 	let mut points = String::from("");
 	for point in polygon.clone().points.iter() {
 		let coord = format!("{},{} ", point.x.to_f64(), point.y.to_f64());
@@ -22,7 +25,18 @@ fn draw_polygon<N: Num>(polygon: &Polygon<N>, fill: &str) -> element::Polygon {
 	return poly;
 }
 
-pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
+fn lcm_points(base: BigInt, points: Vec<Point<BigRational>>) -> BigInt {
+	let mut base = base.clone();
+	for point in points {
+		let (x, y) = (point.x.denom().clone(), point.y.denom().clone());
+		base = lcm(base, x);
+		base = lcm(base, y);
+	}
+	return base;
+}
+
+pub fn draw_svg(shape: Shape<BigRational>, skel: Skeleton<BigRational>, filename: &str) {
+	let mut basemultiple: BigInt = One::one();
 	let filename = format!("{}/{}", BASEPATH, filename);
 	/* Draw shapes as areas and skeletons as lines */
 	let mut document = Document::new().set("viewBox", (-1, -1, 3, 3))
@@ -53,10 +67,11 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 	// draw silhouette
 	let mut silhouette = element::Group::new();
 	let mut corners = element::Group::new();
-	let mut anchorcnr: Result<(Line<N>, Line<N>), bool> = Err(false);
+	let mut anchorcnr: Result<(Line<BigRational>, Line<BigRational>), bool> = Err(false);
 	let mut anchorlength = 0.0_f64;
-	let mut psquare: Result<Polygon<N>, bool> = Err(false);
+	let mut psquare: Result<Polygon<BigRational>, bool> = Err(false);
 	for polygon in shape.clone().polys {
+		basemultiple = lcm_points(basemultiple, polygon.clone().points);
 		let poly = if polygon.is_hole() {
 			// holes are green
 			draw_polygon(&polygon, "#2dff47")
@@ -140,13 +155,13 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 				statepolys = statepolys.add(draw_polygon(&polygon, "#ff0"));
 			}
 			let folded = fold_origami(&state, &p1, &p2, &unitsquare.clone().points[0]);
-			println!("folded {} into {}", filename, folded.len());
+			println!("folded {} into {} basemultiple {}", filename, folded.len(), basemultiple);
 			for polygon in folded.clone() {
 				statepolys = statepolys.add(draw_polygon(&polygon, "#000"));
 			}
 			document = document.add(statepolys);
 			let writer = std::fs::File::create(filename.clone().replace("problem.svg", "test-solution.txt")).unwrap();
-			let unfolded = from_polys(writer, folded, 3).unwrap();
+			let unfolded = from_polys(writer, folded, basemultiple).unwrap();
 			let mut unfoldedpolys = element::Group::new();
 			for polygon in unfolded.clone() {
 				unfoldedpolys = unfoldedpolys.add(draw_polygon(&polygon, "#00f"));
