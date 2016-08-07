@@ -353,6 +353,30 @@ impl<N: Num> Polygon<N> {
 		return (self.double_signed_area() / 2.0_f64).abs();
 	}
 
+	pub fn printcongruency(&self) {
+		let mut prev: Option<Line<N>> = None;
+		for edge in self.edges() {
+			if let Some(p) = prev {
+				let angle = (&p.p2 - &p.p1).dot(&edge.p2 - &edge.p1).to_f64().acos().to_degrees();
+				print!(" {}° ", angle);
+			}
+			print!("<{} -> {}>({})", edge.p1, edge.p2, edge.len());
+			prev = Some(edge)
+		}
+		println!("");
+	}
+
+	pub fn source_poly(&self) -> Polygon<N> {
+		let affine = self.transform.inverse();
+		let mut points = Vec::new();
+		for p in self.points.iter() {
+			points.push(affine.transform(p.clone()));
+		}
+		let mut poly = Polygon::new(points);
+		poly.transform = affine;
+		poly
+	}
+
 	/* returns true where the poly points are in clockwise order,
 	** based on area contained within. thx to:
 	** http://stackoverflow.com/questions/1165647/how-to-determine-if-a-list-of-polygon-points-are-in-clockwise-order */
@@ -391,12 +415,12 @@ impl<N: Num> Polygon<N> {
 		for (i, point) in self.points.iter().enumerate() {
 			let edge = Line{p1: self.points[previous].clone(), p2: point.clone()};
 			edges.push(edge);
-            previous = i;
+			previous = i;
 		}
 		return edges;
 	}
 
-  // Test whether point contained within this polygon
+	// Test whether point contained within this polygon
 	pub fn contains(&self, test: &Point<N>) -> bool {
 		// https://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
 		let end = self.points.len();
@@ -416,7 +440,7 @@ impl<N: Num> Polygon<N> {
 		contains
 	}
 
-  // Test whether point coincident on this polygon
+	// Test whether point coincident on this polygon
 	pub fn coincident(&self, test: &Point<N>) -> bool {
 		let end = self.points.len();
 		for offset in 0..end {
