@@ -1,4 +1,7 @@
 use std::io::{Error,Write};
+use std::collections::BTreeMap;
+use std::collections::btree_map::Entry;
+use num::rational::BigRational;
 
 use core::*;
 
@@ -52,31 +55,44 @@ fn snap<N: Num>(p: Point<N>) -> Point<N> {
 	return p;
 }
 
-pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>) -> Result<Vec<Polygon<N>>, Error> {
+fn qntz<N: Num>(p: Point<N>, base: u64) -> Point<BigRational> {
+	use num::bigint::BigInt;
+	let p = p.clone();
+	let xnum = (p.x.to_f64() * base as f64).round() as i64;
+	let ynum = (p.x.to_f64() * base as f64).round() as i64;
+	let p = Point{
+		x: BigRational::new(BigInt::from(xnum), BigInt::from(base)),
+		y: BigRational::new(BigInt::from(ynum), BigInt::from(base))
+	};
+	return p;
+}
+
+pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>, base: u64) -> Result<Vec<Polygon<BigRational>>, Error> {
+	let mut seen = BTreeMap::new();
 	let mut src = Vec::new();
-	let mut dst: Vec<Point<N>> = Vec::new();
+	let mut dst: Vec<Point<BigRational>> = Vec::new();
 	let mut facets = Vec::new();
-	let mut unfolded: Vec<Polygon<N>> = Vec::new();
+	let mut unfolded: Vec<Polygon<BigRational>> = Vec::new();
 	for poly in polys {
 		let mut facet = Vec::new();
 		let mut orig = Vec::new();
 		for point in poly.points {
 			let i = {
-				if let Some(i) = dst.iter().position(|p| &point == p) {
-					i
-				} else {
-					let snapped = snap(poly.transform.inverse().transform(point.clone()));
-					src.push(snapped.clone());
-					dst.push(poly.transform.transform(snapped));
-					dst.len() - 1
+				let e = seen.entry(point.clone());
+				match e {
+					Entry::Occupied(e) => {
+						*e.get()
+					},
+					Entry::Vacant(e) => {
+						src.push(qntz(snap(poly.transform.inverse().transform(point.clone())), base));
+						dst.push(qntz(snap(poly.transform.transform(point.clone())), base));
+						let i = dst.len() - 1;
+						*e.insert(i)
+					}
 				}
 			};
 			facet.push(i);
 			orig.push(src[i].clone());
-			if src[i].x > N::one() || src[i].x < N::zero()
-			 || src[i].y > N::one() || src[i].y < N::zero() {
-				 println!("Point {}, {} outside source bounds", src[i].to_f64(), src[i])
-			}
 		}
 		facets.push(facet);
 		unfolded.push(Polygon::new(orig));

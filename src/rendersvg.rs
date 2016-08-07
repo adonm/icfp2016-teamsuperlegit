@@ -146,7 +146,7 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 			}
 			document = document.add(statepolys);
 			let writer = std::fs::File::create(filename.clone().replace("problem.svg", "test-solution.txt")).unwrap();
-			let unfolded = from_polys(writer, folded).unwrap();
+			let unfolded = from_polys(writer, folded, 3).unwrap();
 			let mut unfoldedpolys = element::Group::new();
 			for polygon in unfolded.clone() {
 				unfoldedpolys = unfoldedpolys.add(draw_polygon(&polygon, "#00f"));
