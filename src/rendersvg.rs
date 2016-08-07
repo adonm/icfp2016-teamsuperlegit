@@ -35,6 +35,14 @@ fn lcm_points(base: BigInt, points: Vec<Point<BigRational>>) -> BigInt {
 	return base;
 }
 
+fn group(id: i32, name: &str) -> element::Group {
+	element::Group::new()
+	.set("inkscape:groupmode", "layer")
+	.set("id", format!("layer{}", id))
+	.set("inkscape:label", name)
+}
+
+
 pub fn draw_svg(shape: Shape<BigRational>, skel: Skeleton<BigRational>, filename: &str) {
 	let mut basemultiple: BigInt = "360".parse::<BigInt>().unwrap();
 	let filename = format!("{}/{}", BASEPATH, filename);
@@ -65,8 +73,8 @@ pub fn draw_svg(shape: Shape<BigRational>, skel: Skeleton<BigRational>, filename
 	document = document.add(defs);
 
 	// draw silhouette
-	let mut silhouette = element::Group::new();
-	let mut corners = element::Group::new();
+	let mut silhouette = group(1, "silhouette");
+	let mut corners = group(2, "corners");
 	let mut anchorcnr: Result<(Line<BigRational>, Line<BigRational>), bool> = Err(false);
 	let mut anchorlength = 0.0_f64;
 	let mut psquare: Result<Polygon<BigRational>, bool> = Err(false);
@@ -109,7 +117,7 @@ pub fn draw_svg(shape: Shape<BigRational>, skel: Skeleton<BigRational>, filename
 	document = document.add(silhouette);
 
 	// draw skeleton
-	let mut skeleton = element::Group::new();
+	let mut skeleton = group(3, "skeleton");
 	let mut skelpoints = Vec::new();
 	for bone in skel.lines() {
 		skelpoints.push(bone.p1.clone());
@@ -137,10 +145,14 @@ pub fn draw_svg(shape: Shape<BigRational>, skel: Skeleton<BigRational>, filename
 		let unitsquare = square_from_corner(&l1, &l2);
 
 		// draw intersect vertices
-		let ref poly = shape.polys[0];
-		let foldedge = get_next_edge_to_fold(unitsquare.clone(), poly.clone());
-		if foldedge.is_ok() {
-//			let (p1, p2) = foldedge.unwrap();
+		let silhouette = shape.polys[0].clone(); // target silhouette
+		let mut state = vec![unitsquare.clone()]; // update each loop iteration
+		let mut iteration = 1;
+		loop {
+			let foldedge = get_next_edge_to_fold(state[0].clone(), silhouette.clone());
+			if !foldedge.is_ok() {
+				break;
+			}
 			let fe = foldedge.unwrap();
 			let p1 = fe.p1;
 			let p2 = fe.p2;
@@ -152,29 +164,29 @@ pub fn draw_svg(shape: Shape<BigRational>, skel: Skeleton<BigRational>, filename
 					.set("r", "0.01");
 				document = document.add(intersect);
 			}
-			let mut state = Vec::new();
-			let mut statepolys = element::Group::new();
-			state.push(unitsquare.clone());
+			let mut statepolys = group(4 + iteration, &format!("Fold {}", iteration));
 			for polygon in state.clone() {
 				statepolys = statepolys.add(draw_polygon(&polygon, "#ff0"));
 			}
-			let folded = fold_origami(&state, &p1, &p2, &unitsquare.clone().points[0]);
+			let folded = fold_origami(&state, &p1, &p2, &state[0].clone().points[0]);
 			println!("folded {} into {} basemultiple {}", filename, folded.len(), basemultiple);
 			for polygon in folded.clone() {
 				statepolys = statepolys.add(draw_polygon(&polygon, "#000"));
 			}
 			document = document.add(statepolys);
-			let writer = std::fs::File::create(filename.clone().replace("problem.svg", "solution.txt")).unwrap();
-			let unfolded = from_polys(writer, folded, basemultiple).unwrap();
-			let mut unfoldedpolys = element::Group::new();
-			for polygon in unfolded.clone() {
-				unfoldedpolys = unfoldedpolys.add(draw_polygon(&polygon, "#00f"));
-			}
-			document = document.add(unfoldedpolys);
-		} else {
-			// just draw anchored square
-			document = document.add(draw_polygon(&unitsquare, "#000"));
+
+			state = folded;
+			iteration += 1;
 		}
+
+
+		let writer = std::fs::File::create(filename.clone().replace("problem.svg", "solution.txt")).unwrap();
+		let unfolded = from_polys(writer, state, basemultiple).unwrap();
+		let mut unfoldedpolys = group(4, "Unfolded");
+		for polygon in unfolded.clone() {
+			unfoldedpolys = unfoldedpolys.add(draw_polygon(&polygon, "#00f"));
+		}
+		document = document.add(unfoldedpolys);
 
 		if psquare != Err(false) {
 			let p = psquare.unwrap().clone();
