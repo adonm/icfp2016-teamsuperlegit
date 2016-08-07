@@ -38,10 +38,10 @@ pub fn submit_problem(problem_id: i64) {
 	if output.exists() {
         println!("Uploading solution {}", path);
 		println!("{:?}", 
-			Command::new("curl").arg("--compressed").arg("-Ssv").arg("-L").arg("-H").arg("Expect:").arg("-H")
+			Command::new("curl").arg("--compressed").arg("-Ss").arg("-L").arg("-H").arg("Expect:").arg("-H")
 			.arg(format!("X-API-Key: 60-d7840e0fce3dc9e9a4e2693153ccd9bc")).arg("-F").arg(format!("problem_id={}", problem_id))
 			.arg("-F").arg(format!("solution_spec=@{}", path_arg))
-      .arg("-F").arg("publish_time=1470592800")
+      .arg("-F").arg("publish_time=1470603600")
 			.arg("http://2016sv.icfpcontest.org/api/problem/submit")
 			.output()
 			.expect("uh-oh")
