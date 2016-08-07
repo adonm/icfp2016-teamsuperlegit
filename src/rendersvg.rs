@@ -76,14 +76,14 @@ pub fn draw_svg<N: Num>(shape: Shape<N>, skel: Skeleton<N>, filename: &str) {
 				.set("x1", p1.x.to_f64()).set("y1", p1.y.to_f64())
 				.set("x2", p2.x.to_f64()).set("y2", p2.y.to_f64())
 				.set("stroke", "#00ff00").set("stroke-opacity", 0.5).set("stroke-width", 0.007);
-			length += p_distance(&p1, &p2);
+			length += p_distance(&p1, &p2).to_f64();
 			corners = corners.add(line1);
 			let (p1, p2) = (corner.1.p1.clone(), corner.1.p2.clone());
 			let line2 = element::Line::new()
 				.set("x1", p1.x.to_f64()).set("y1", p1.y.to_f64())
 				.set("x2", p2.x.to_f64()).set("y2", p2.y.to_f64())
 				.set("stroke", "#00ff00").set("stroke-opacity", 0.5).set("stroke-width", 0.007);
-			length += p_distance(&p1, &p2);
+			length += p_distance(&p1, &p2).to_f64();
 			corners = corners.add(line2);
 			if length > anchorlength {
 				anchorcnr = Ok(corner.clone());

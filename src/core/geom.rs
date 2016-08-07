@@ -297,13 +297,12 @@ pub fn can_fold<N: Num>(poly: &Polygon<N>, vertex1: &Point<N>, vertex2: &Point<N
     return coincident1 && coincident2
 }
 
-pub fn p_distance<N: Num>(p1: &Point<N>, p2: &Point<N>) -> f64 {
-	let d = p1 - p2;
-	return (d.x.to_f64().powi(2) + d.y.to_f64().powi(2)).sqrt();
+pub fn p_distance<N: Num>(p1: &Point<N>, p2: &Point<N>) -> N {
+	v_distance(&(p1 - p2))
 }
 
 pub fn v_distance<N: Num>(p: &Point<N>) -> N {
-	return N::from_f64((p.x.to_f64().powi(2) + p.y.to_f64().powi(2)).sqrt());
+	return N::from_f64((p.x.clone() * p.x.clone() + p.y.clone() * p.y.clone()).to_f64().sqrt());
 }
 
 
@@ -485,7 +484,7 @@ impl<N: Num> Line<N> {
 	}
 
 	// Returns the length of this line
-	pub fn len(&self) -> f64 {
+	pub fn len(&self) -> N {
 		return p_distance(&self.p1, &self.p2);
 	}
 
@@ -556,7 +555,7 @@ mod tests {
         let p2 = pNum(0,0);
         let g = gradient(&Line{p1:p1,p2:p2});
         println!("gradient_test: {:?}",g);
-        assert_eq!(g,1);
+        assert_eq!(g,Some(1));
 	}
 
 	#[test]
@@ -673,8 +672,8 @@ mod tests {
 		assert!(Line::new(p64(0.0,0.0), p64(0.0,10.0)).coincident(&p64(0.0,0.0)));
 		assert!(Line::new(p64(0.0,0.0), p64(0.0,10.0)).coincident(&p64(0.0,10.0)));
 		assert!(Line::new(p64(-4.0,0.0), p64(0.0,-4.0)).coincident(&p64(-2.875,-1.125)));
-		assert!(!Line::new(p(0,0), p(0,10)).coincident(&p(1,5)));
-		assert!(!Line::new(p(0,0), p(0,10)).coincident(&p(0,11)));
+		assert!(!Line::new(p64(0.0,0.0), p64(0.0,10.0)).coincident(&p64(1.0,5.0)));
+		assert!(!Line::new(p64(0.0,0.0), p64(0.0,10.0)).coincident(&p64(0.0,11.0)));
 	}
 
 	#[test]
@@ -694,8 +693,8 @@ mod tests {
 	fn test_poly_coincident() {
 		assert!(Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).coincident(&p(0,0)));
 		assert!(Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).coincident(&p(1,0)));
-		assert!(!Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).coincident(&p(1,1)));
-		assert!(!Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).coincident(&p(3,3)));
+		assert!(!Polygon::new(vec!(p(0.0, 0.0), p(2.0, 0.0), p(2.0, 2.0), p(0.0, 2.0))).coincident(&p(1.0,1.0)));
+		assert!(!Polygon::new(vec!(p(0.0, 0.0), p(2.0, 0.0), p(2.0, 2.0), p(0.0, 2.0))).coincident(&p(3.0,3.0)));
 	}
 
 	#[test]
