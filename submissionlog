@@ -2230,3 +2230,3087 @@ Running "submit"
 icfp2016problems/01522.solution.txt
 Uploading solution icfp2016problems/01522.solution.txt
 Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit icfp2016problems/01522.solution.txt`
+Running "submit"
+thread '<main>' panicked at 'called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }', ../src/libcore/result.rs:785
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+error: Process didn't exit successfully: `target/debug/teamsuperlegit submit icfp2016problems/01522.solution.txt` (exit code: 101)
+     Running `target/debug/teamsuperlegit submit icfp2016problems/01527.solution.txt`
+Running "submit"
+thread '<main>' panicked at 'called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }', ../src/libcore/result.rs:785
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+error: Process didn't exit successfully: `target/debug/teamsuperlegit submit icfp2016problems/01527.solution.txt` (exit code: 101)
+     Running `target/debug/teamsuperlegit submit icfp2016problems/01533.solution.txt`
+Running "submit"
+thread '<main>' panicked at 'called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }', ../src/libcore/result.rs:785
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+error: Process didn't exit successfully: `target/debug/teamsuperlegit submit icfp2016problems/01533.solution.txt` (exit code: 101)
+     Running `target/debug/teamsuperlegit submit icfp2016problems/01536.solution.txt`
+Running "submit"
+thread '<main>' panicked at 'called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }', ../src/libcore/result.rs:785
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+error: Process didn't exit successfully: `target/debug/teamsuperlegit submit icfp2016problems/01536.solution.txt` (exit code: 101)
+     Running `target/debug/teamsuperlegit submit icfp2016problems/01539.solution.txt`
+Running "submit"
+thread '<main>' panicked at 'called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }', ../src/libcore/result.rs:785
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+error: Process didn't exit successfully: `target/debug/teamsuperlegit submit icfp2016problems/01539.solution.txt` (exit code: 101)
+     Running `target/debug/teamsuperlegit submit icfp2016problems/01540.solution.txt`
+Running "submit"
+thread '<main>' panicked at 'called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }', ../src/libcore/result.rs:785
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+error: Process didn't exit successfully: `target/debug/teamsuperlegit submit icfp2016problems/01540.solution.txt` (exit code: 101)
+     Running `target/debug/teamsuperlegit submit icfp2016problems/01542.solution.txt`
+Running "submit"
+thread '<main>' panicked at 'called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }', ../src/libcore/result.rs:785
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+error: Process didn't exit successfully: `target/debug/teamsuperlegit submit icfp2016problems/01542.solution.txt` (exit code: 101)
+     Running `target/debug/teamsuperlegit submit icfp2016problems/01544.solution.txt`
+Running "submit"
+thread '<main>' panicked at 'called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }', ../src/libcore/result.rs:785
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+error: Process didn't exit successfully: `target/debug/teamsuperlegit submit icfp2016problems/01544.solution.txt` (exit code: 101)
+     Running `target/debug/teamsuperlegit submit icfp2016problems/01545.solution.txt`
+Running "submit"
+thread '<main>' panicked at 'called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }', ../src/libcore/result.rs:785
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+error: Process didn't exit successfully: `target/debug/teamsuperlegit submit icfp2016problems/01545.solution.txt` (exit code: 101)
+     Running `target/debug/teamsuperlegit submit icfp2016problems/01546.solution.txt`
+Running "submit"
+thread '<main>' panicked at 'called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }', ../src/libcore/result.rs:785
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+error: Process didn't exit successfully: `target/debug/teamsuperlegit submit icfp2016problems/01546.solution.txt` (exit code: 101)
+     Running `target/debug/teamsuperlegit submit icfp2016problems/01558.solution.txt`
+Running "submit"
+thread '<main>' panicked at 'called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }', ../src/libcore/result.rs:785
+note: Run with `RUST_BACKTRACE=1` for a backtrace.
+error: Process didn't exit successfully: `target/debug/teamsuperlegit submit icfp2016problems/01558.solution.txt` (exit code: 101)
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+     Running `target/debug/teamsuperlegit submit 01522`
+Running "submit"
+icfp2016problems/01522.solution.txt
+Uploading solution icfp2016problems/01522.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+     Running `target/debug/teamsuperlegit submit 01527`
+Running "submit"
+icfp2016problems/01527.solution.txt
+Uploading solution icfp2016problems/01527.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+     Running `target/debug/teamsuperlegit submit 01533`
+Running "submit"
+icfp2016problems/01533.solution.txt
+Uploading solution icfp2016problems/01533.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+     Running `target/debug/teamsuperlegit submit 01536`
+Running "submit"
+icfp2016problems/01536.solution.txt
+Uploading solution icfp2016problems/01536.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+     Running `target/debug/teamsuperlegit submit 01539`
+Running "submit"
+icfp2016problems/01539.solution.txt
+Uploading solution icfp2016problems/01539.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+     Running `target/debug/teamsuperlegit submit 01522`
+Running "submit"
+icfp2016problems/01522.solution.txt
+Uploading solution icfp2016problems/01522.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+     Running `target/debug/teamsuperlegit submit 01527`
+Running "submit"
+icfp2016problems/01527.solution.txt
+Uploading solution icfp2016problems/01527.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+     Running `target/debug/teamsuperlegit submit 01533`
+Running "submit"
+icfp2016problems/01533.solution.txt
+Uploading solution icfp2016problems/01533.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+     Running `target/debug/teamsuperlegit submit 01536`
+Running "submit"
+icfp2016problems/01536.solution.txt
+Uploading solution icfp2016problems/01536.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+     Running `target/debug/teamsuperlegit submit 01539`
+Running "submit"
+icfp2016problems/01539.solution.txt
+Uploading solution icfp2016problems/01539.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+     Running `target/debug/teamsuperlegit submit 01540`
+Running "submit"
+icfp2016problems/01540.solution.txt
+Uploading solution icfp2016problems/01540.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+2016
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+01522
+     Running `target/debug/teamsuperlegit submit 01522`
+Running "submit"
+icfp2016problems/01522.solution.txt
+Uploading solution icfp2016problems/01522.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+2016
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+01527
+     Running `target/debug/teamsuperlegit submit 01527`
+Running "submit"
+icfp2016problems/01527.solution.txt
+Uploading solution icfp2016problems/01527.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+2016
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+01533
+     Running `target/debug/teamsuperlegit submit 01533`
+Running "submit"
+icfp2016problems/01533.solution.txt
+Uploading solution icfp2016problems/01533.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+2016
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+01536
+     Running `target/debug/teamsuperlegit submit 01536`
+Running "submit"
+icfp2016problems/01536.solution.txt
+Uploading solution icfp2016problems/01536.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+2016
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+fatal: pathspec 'icfp2016problems/2016.solution.txt' did not match any files
+01539
+     Running `target/debug/teamsuperlegit submit 01539`
+Running "submit"
+icfp2016problems/01539.solution.txt
+Uploading solution icfp2016problems/01539.solution.txt
+2016
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+git add icfp2016problems/2016.solution.txt
+01522
+     Running `target/debug/teamsuperlegit submit 01522`
+Running "submit"
+icfp2016problems/01522.solution.txt
+Uploading solution icfp2016problems/01522.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+2016
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+git add icfp2016problems/*2016.solution.txt
+01522
+     Running `target/debug/teamsuperlegit submit 01522`
+Running "submit"
+icfp2016problems/01522.solution.txt
+Uploading solution icfp2016problems/01522.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+git add icfp2016problems/01522.solution.txt
+2016
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+git add icfp2016problems/*2016.solution.txt
+01527
+     Running `target/debug/teamsuperlegit submit 01527`
+Running "submit"
+icfp2016problems/01527.solution.txt
+Uploading solution icfp2016problems/01527.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+2016
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+git add icfp2016problems/2016.solution.txt
+01522
+     Running `target/debug/teamsuperlegit submit 01522`
+Running "submit"
+icfp2016problems/01522.solution.txt
+Uploading solution icfp2016problems/01522.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+git add icfp2016problems/01522.solution.txt
+2016
+     Running `target/debug/teamsuperlegit submit 2016`
+Running "submit"
+icfp2016problems/02016.solution.txt
+git add icfp2016problems/2016.solution.txt
+01527
+     Running `target/debug/teamsuperlegit submit 01527`
+Running "submit"
+icfp2016problems/01527.solution.txt
+Uploading solution icfp2016problems/01527.solution.txt
+01522
+     Running `target/debug/teamsuperlegit submit 01522`
+Running "submit"
+icfp2016problems/01522.solution.txt
+Uploading solution icfp2016problems/01522.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+git add icfp2016problems/01522.solution.txt
+01527
+     Running `target/debug/teamsuperlegit submit 01527`
+Running "submit"
+icfp2016problems/01527.solution.txt
+Uploading solution icfp2016problems/01527.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+01522
+     Running `target/debug/teamsuperlegit submit 01522`
+Running "submit"
+icfp2016problems/01522.solution.txt
+Uploading solution icfp2016problems/01522.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01527
+     Running `target/debug/teamsuperlegit submit 01527`
+Running "submit"
+icfp2016problems/01527.solution.txt
+Uploading solution icfp2016problems/01527.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+01533
+     Running `target/debug/teamsuperlegit submit 01533`
+Running "submit"
+icfp2016problems/01533.solution.txt
+Uploading solution icfp2016problems/01533.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+01536
+     Running `target/debug/teamsuperlegit submit 01536`
+Running "submit"
+icfp2016problems/01536.solution.txt
+Uploading solution icfp2016problems/01536.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+01539
+     Running `target/debug/teamsuperlegit submit 01539`
+Running "submit"
+icfp2016problems/01539.solution.txt
+Uploading solution icfp2016problems/01539.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+01540
+     Running `target/debug/teamsuperlegit submit 01540`
+Running "submit"
+icfp2016problems/01540.solution.txt
+Uploading solution icfp2016problems/01540.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+01542
+     Running `target/debug/teamsuperlegit submit 01542`
+Running "submit"
+icfp2016problems/01542.solution.txt
+Uploading solution icfp2016problems/01542.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+01544
+     Running `target/debug/teamsuperlegit submit 01544`
+Running "submit"
+icfp2016problems/01544.solution.txt
+Uploading solution icfp2016problems/01544.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+01545
+     Running `target/debug/teamsuperlegit submit 01545`
+Running "submit"
+icfp2016problems/01545.solution.txt
+Uploading solution icfp2016problems/01545.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+01546
+     Running `target/debug/teamsuperlegit submit 01546`
+Running "submit"
+icfp2016problems/01546.solution.txt
+Uploading solution icfp2016problems/01546.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+01558
+     Running `target/debug/teamsuperlegit submit 01558`
+Running "submit"
+icfp2016problems/01558.solution.txt
+Uploading solution icfp2016problems/01558.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.666666,\"problem_id\":1558,\"solution_spec_hash\":\"198f5facdf7edca81d63caab760187cc4bd669b2\"}", stderr: "" }
+01567
+     Running `target/debug/teamsuperlegit submit 01567`
+Running "submit"
+icfp2016problems/01567.solution.txt
+Uploading solution icfp2016problems/01567.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+01570
+     Running `target/debug/teamsuperlegit submit 01570`
+Running "submit"
+icfp2016problems/01570.solution.txt
+Uploading solution icfp2016problems/01570.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":68,\"ok\":true,\"resemblance\":0.857142,\"problem_id\":1570,\"solution_spec_hash\":\"af33e838ff127a887071f0c2fce89b22196ce868\"}", stderr: "" }
+01585
+     Running `target/debug/teamsuperlegit submit 01585`
+Running "submit"
+icfp2016problems/01585.solution.txt
+Uploading solution icfp2016problems/01585.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.521739,\"problem_id\":1585,\"solution_spec_hash\":\"47dec523c2fe84afc82fb783d1d51a5933526340\"}", stderr: "" }
+01586
+     Running `target/debug/teamsuperlegit submit 01586`
+Running "submit"
+icfp2016problems/01586.solution.txt
+Uploading solution icfp2016problems/01586.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01588
+    Blocking waiting for file lock on build directory
+     Running `target/debug/teamsuperlegit submit 01588`
+Running "submit"
+icfp2016problems/01588.solution.txt
+Uploading solution icfp2016problems/01588.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (0, 2521127891415658128620121077340423158571634571267264115638797\\/17391051111561639246653507228313449945811455763720049719771136) must not lie on an edge.\"}", stderr: "" }
+01589
+     Running `target/debug/teamsuperlegit submit 01589`
+Running "submit"
+icfp2016problems/01589.solution.txt
+Uploading solution icfp2016problems/01589.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01590
+     Running `target/debug/teamsuperlegit submit 01590`
+Running "submit"
+icfp2016problems/01590.solution.txt
+Uploading solution icfp2016problems/01590.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01591
+     Running `target/debug/teamsuperlegit submit 01591`
+Running "submit"
+icfp2016problems/01591.solution.txt
+Uploading solution icfp2016problems/01591.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01592
+     Running `target/debug/teamsuperlegit submit 01592`
+Running "submit"
+icfp2016problems/01592.solution.txt
+Uploading solution icfp2016problems/01592.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01593
+     Running `target/debug/teamsuperlegit submit 01593`
+Running "submit"
+icfp2016problems/01593.solution.txt
+Uploading solution icfp2016problems/01593.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01603
+     Running `target/debug/teamsuperlegit submit 01603`
+Running "submit"
+icfp2016problems/01603.solution.txt
+Uploading solution icfp2016problems/01603.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.017857,\"problem_id\":1603,\"solution_spec_hash\":\"fdec8b459d73e91fc067c4903e89ef3e4acf26d1\"}", stderr: "" }
+01605
+     Running `target/debug/teamsuperlegit submit 01605`
+Running "submit"
+icfp2016problems/01605.solution.txt
+Uploading solution icfp2016problems/01605.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+01606
+     Running `target/debug/teamsuperlegit submit 01606`
+Running "submit"
+icfp2016problems/01606.solution.txt
+Uploading solution icfp2016problems/01606.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":72,\"ok\":true,\"resemblance\":0.666666,\"problem_id\":1606,\"solution_spec_hash\":\"3d09c9c31b9b3b0c3dce872bdef5efc236c9e868\"}", stderr: "" }
+01607
+     Running `target/debug/teamsuperlegit submit 01607`
+Running "submit"
+icfp2016problems/01607.solution.txt
+Uploading solution icfp2016problems/01607.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01608
+     Running `target/debug/teamsuperlegit submit 01608`
+Running "submit"
+icfp2016problems/01608.solution.txt
+Uploading solution icfp2016problems/01608.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":68,\"ok\":true,\"resemblance\":0.291666,\"problem_id\":1608,\"solution_spec_hash\":\"44817568a5fee26fa1b3700fd28d41b375ebfd0d\"}", stderr: "" }
+01609
+    Blocking waiting for file lock on build directory
+     Running `target/debug/teamsuperlegit submit 01609`
+Running "submit"
+icfp2016problems/01609.solution.txt
+Uploading solution icfp2016problems/01609.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":66,\"ok\":true,\"resemblance\":0.42512,\"problem_id\":1609,\"solution_spec_hash\":\"85651e616682f6e9b297a7504266b5e29bf2f8cd\"}", stderr: "" }
+01610
+     Running `target/debug/teamsuperlegit submit 01610`
+Running "submit"
+icfp2016problems/01610.solution.txt
+Uploading solution icfp2016problems/01610.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.666666,\"problem_id\":1610,\"solution_spec_hash\":\"0211f0542219507ae851d11029f928426953194e\"}", stderr: "" }
+01611
+     Running `target/debug/teamsuperlegit submit 01611`
+Running "submit"
+icfp2016problems/01611.solution.txt
+Uploading solution icfp2016problems/01611.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":242,\"ok\":true,\"resemblance\":0.066666,\"problem_id\":1611,\"solution_spec_hash\":\"807c3efb8ceef300b4ca69efb4c2806570ff5a96\"}", stderr: "" }
+01612
+     Running `target/debug/teamsuperlegit submit 01612`
+Running "submit"
+icfp2016problems/01612.solution.txt
+Uploading solution icfp2016problems/01612.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":72,\"ok\":true,\"resemblance\":0.5,\"problem_id\":1612,\"solution_spec_hash\":\"c7bff62314dd830b8829902552a765346207ea03\"}", stderr: "" }
+01616
+     Running `target/debug/teamsuperlegit submit 01616`
+Running "submit"
+icfp2016problems/01616.solution.txt
+Uploading solution icfp2016problems/01616.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01623
+     Running `target/debug/teamsuperlegit submit 01623`
+Running "submit"
+icfp2016problems/01623.solution.txt
+Uploading solution icfp2016problems/01623.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":80,\"ok\":true,\"resemblance\":0.333333,\"problem_id\":1623,\"solution_spec_hash\":\"663739f8404d014c406384d65890570cfabd77bb\"}", stderr: "" }
+01624
+     Running `target/debug/teamsuperlegit submit 01624`
+Running "submit"
+icfp2016problems/01624.solution.txt
+Uploading solution icfp2016problems/01624.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+01625
+     Running `target/debug/teamsuperlegit submit 01625`
+Running "submit"
+icfp2016problems/01625.solution.txt
+Uploading solution icfp2016problems/01625.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+01626
+     Running `target/debug/teamsuperlegit submit 01626`
+Running "submit"
+icfp2016problems/01626.solution.txt
+Uploading solution icfp2016problems/01626.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01639
+     Running `target/debug/teamsuperlegit submit 01639`
+Running "submit"
+icfp2016problems/01639.solution.txt
+Uploading solution icfp2016problems/01639.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":168,\"ok\":true,\"resemblance\":0.142857,\"problem_id\":1639,\"solution_spec_hash\":\"d771509b6434498b8bd23b827b060ee9643c4efd\"}", stderr: "" }
+01649
+     Running `target/debug/teamsuperlegit submit 01649`
+Running "submit"
+icfp2016problems/01649.solution.txt
+Uploading solution icfp2016problems/01649.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01670
+     Running `target/debug/teamsuperlegit submit 01670`
+Running "submit"
+icfp2016problems/01670.solution.txt
+Uploading solution icfp2016problems/01670.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":81,\"ok\":true,\"resemblance\":0.123563,\"problem_id\":1670,\"solution_spec_hash\":\"89a0d6f8adb05409162026dad386fd3b69c0deab\"}", stderr: "" }
+01705
+     Running `target/debug/teamsuperlegit submit 01705`
+Running "submit"
+icfp2016problems/01705.solution.txt
+Uploading solution icfp2016problems/01705.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+01711
+     Running `target/debug/teamsuperlegit submit 01711`
+Running "submit"
+icfp2016problems/01711.solution.txt
+Uploading solution icfp2016problems/01711.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 has duplicated vertices.\"}", stderr: "" }
+01712
+     Running `target/debug/teamsuperlegit submit 01712`
+Running "submit"
+icfp2016problems/01712.solution.txt
+Uploading solution icfp2016problems/01712.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 has duplicated vertices.\"}", stderr: "" }
+01713
+     Running `target/debug/teamsuperlegit submit 01713`
+Running "submit"
+icfp2016problems/01713.solution.txt
+Uploading solution icfp2016problems/01713.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 has duplicated vertices.\"}", stderr: "" }
+01715
+     Running `target/debug/teamsuperlegit submit 01715`
+Running "submit"
+icfp2016problems/01715.solution.txt
+Uploading solution icfp2016problems/01715.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 has duplicated vertices.\"}", stderr: "" }
+01716
+     Running `target/debug/teamsuperlegit submit 01716`
+Running "submit"
+icfp2016problems/01716.solution.txt
+Uploading solution icfp2016problems/01716.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 has duplicated vertices.\"}", stderr: "" }
+01717
+     Running `target/debug/teamsuperlegit submit 01717`
+Running "submit"
+icfp2016problems/01717.solution.txt
+Uploading solution icfp2016problems/01717.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01731
+     Running `target/debug/teamsuperlegit submit 01731`
+Running "submit"
+icfp2016problems/01731.solution.txt
+Uploading solution icfp2016problems/01731.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":63,\"ok\":true,\"resemblance\":0.875,\"problem_id\":1731,\"solution_spec_hash\":\"69b706c0268a0b8e8e124e6187955e3a8ecf1ba3\"}", stderr: "" }
+01743
+     Running `target/debug/teamsuperlegit submit 01743`
+Running "submit"
+icfp2016problems/01743.solution.txt
+Uploading solution icfp2016problems/01743.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":66,\"ok\":true,\"resemblance\":0.206896,\"problem_id\":1743,\"solution_spec_hash\":\"e6b59ecde4ac5bb5ba7e572f2dfaa661031eca7a\"}", stderr: "" }
+01757
+     Running `target/debug/teamsuperlegit submit 01757`
+Running "submit"
+icfp2016problems/01757.solution.txt
+Uploading solution icfp2016problems/01757.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 has duplicated vertices.\"}", stderr: "" }
+01759
+     Running `target/debug/teamsuperlegit submit 01759`
+Running "submit"
+icfp2016problems/01759.solution.txt
+Uploading solution icfp2016problems/01759.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":31,\"ok\":true,\"resemblance\":0.5,\"problem_id\":1759,\"solution_spec_hash\":\"b516d49c6c3429338f0981462e8755ff49b294f0\"}", stderr: "" }
+01760
+     Running `target/debug/teamsuperlegit submit 01760`
+Running "submit"
+icfp2016problems/01760.solution.txt
+Uploading solution icfp2016problems/01760.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":183,\"ok\":true,\"resemblance\":0.765259,\"problem_id\":1760,\"solution_spec_hash\":\"bd75693a8f0ed674499390a626720df919c7c992\"}", stderr: "" }
+01762
+     Running `target/debug/teamsuperlegit submit 01762`
+Running "submit"
+icfp2016problems/01762.solution.txt
+Uploading solution icfp2016problems/01762.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":65,\"ok\":true,\"resemblance\":0.727272,\"problem_id\":1762,\"solution_spec_hash\":\"1c0df48080b554eff5a47ee9934a05aa8ab82213\"}", stderr: "" }
+01764
+     Running `target/debug/teamsuperlegit submit 01764`
+Running "submit"
+icfp2016problems/01764.solution.txt
+Uploading solution icfp2016problems/01764.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":65,\"ok\":true,\"resemblance\":0.821428,\"problem_id\":1764,\"solution_spec_hash\":\"d64714e928e2df487471750e7a6d659fe28750f5\"}", stderr: "" }
+01765
+     Running `target/debug/teamsuperlegit submit 01765`
+Running "submit"
+icfp2016problems/01765.solution.txt
+Uploading solution icfp2016problems/01765.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":85,\"ok\":true,\"resemblance\":0.027703,\"problem_id\":1765,\"solution_spec_hash\":\"cb2bda4b1d3fcb5a44236125b41d8679baa9342b\"}", stderr: "" }
+01766
+     Running `target/debug/teamsuperlegit submit 01766`
+Running "submit"
+icfp2016problems/01766.solution.txt
+Uploading solution icfp2016problems/01766.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":68,\"ok\":true,\"resemblance\":1.0,\"problem_id\":1766,\"solution_spec_hash\":\"084d7f84efe997bc8e63265b13a73c32dccd52b3\"}", stderr: "" }
+01767
+     Running `target/debug/teamsuperlegit submit 01767`
+Running "submit"
+icfp2016problems/01767.solution.txt
+Uploading solution icfp2016problems/01767.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":85,\"ok\":true,\"resemblance\":0.049504,\"problem_id\":1767,\"solution_spec_hash\":\"d5334d91e77211140aa545d78e140bdac841ee9b\"}", stderr: "" }
+01768
+     Running `target/debug/teamsuperlegit submit 01768`
+Running "submit"
+icfp2016problems/01768.solution.txt
+Uploading solution icfp2016problems/01768.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":66,\"ok\":true,\"resemblance\":1.0,\"problem_id\":1768,\"solution_spec_hash\":\"d3892b24c8c3da12549376ddff96f0a8e5db85b1\"}", stderr: "" }
+01769
+     Running `target/debug/teamsuperlegit submit 01769`
+Running "submit"
+icfp2016problems/01769.solution.txt
+Uploading solution icfp2016problems/01769.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":247,\"ok\":true,\"resemblance\":0.142857,\"problem_id\":1769,\"solution_spec_hash\":\"e060e38b77f931569eda287e99b105b16504b466\"}", stderr: "" }
+01771
+     Running `target/debug/teamsuperlegit submit 01771`
+Running "submit"
+icfp2016problems/01771.solution.txt
+Uploading solution icfp2016problems/01771.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":70,\"ok\":true,\"resemblance\":0.111111,\"problem_id\":1771,\"solution_spec_hash\":\"68f45cd08146ff1c84f5b2863b7058fcca487c1d\"}", stderr: "" }
+01776
+     Running `target/debug/teamsuperlegit submit 01776`
+Running "submit"
+icfp2016problems/01776.solution.txt
+Uploading solution icfp2016problems/01776.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":31,\"ok\":true,\"resemblance\":0.5,\"problem_id\":1776,\"solution_spec_hash\":\"a7f56a6759ecab83657663bb2e0b8426795bfd5a\"}", stderr: "" }
+01777
+     Running `target/debug/teamsuperlegit submit 01777`
+Running "submit"
+icfp2016problems/01777.solution.txt
+Uploading solution icfp2016problems/01777.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":100,\"ok\":true,\"resemblance\":0.833212,\"problem_id\":1777,\"solution_spec_hash\":\"06907060cbfc260fed57f99948b352b54e350997\"}", stderr: "" }
+01778
+     Running `target/debug/teamsuperlegit submit 01778`
+Running "submit"
+icfp2016problems/01778.solution.txt
+Uploading solution icfp2016problems/01778.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+01779
+     Running `target/debug/teamsuperlegit submit 01779`
+Running "submit"
+icfp2016problems/01779.solution.txt
+Uploading solution icfp2016problems/01779.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+01780
+     Running `target/debug/teamsuperlegit submit 01780`
+Running "submit"
+icfp2016problems/01780.solution.txt
+Uploading solution icfp2016problems/01780.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+01781
+     Running `target/debug/teamsuperlegit submit 01781`
+Running "submit"
+icfp2016problems/01781.solution.txt
+Uploading solution icfp2016problems/01781.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+01782
+     Running `target/debug/teamsuperlegit submit 01782`
+Running "submit"
+icfp2016problems/01782.solution.txt
+Uploading solution icfp2016problems/01782.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+01783
+     Running `target/debug/teamsuperlegit submit 01783`
+Running "submit"
+icfp2016problems/01783.solution.txt
+Uploading solution icfp2016problems/01783.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+01784
+     Running `target/debug/teamsuperlegit submit 01784`
+Running "submit"
+icfp2016problems/01784.solution.txt
+Uploading solution icfp2016problems/01784.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01790
+     Running `target/debug/teamsuperlegit submit 01790`
+Running "submit"
+icfp2016problems/01790.solution.txt
+Uploading solution icfp2016problems/01790.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":670,\"ok\":true,\"resemblance\":0.083333,\"problem_id\":1790,\"solution_spec_hash\":\"46f993d97e55a3a24800eb6c6fa72df603db5308\"}", stderr: "" }
+01829
+     Running `target/debug/teamsuperlegit submit 01829`
+Running "submit"
+icfp2016problems/01829.solution.txt
+Uploading solution icfp2016problems/01829.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+01831
+     Running `target/debug/teamsuperlegit submit 01831`
+Running "submit"
+icfp2016problems/01831.solution.txt
+Uploading solution icfp2016problems/01831.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01832
+     Running `target/debug/teamsuperlegit submit 01832`
+Running "submit"
+icfp2016problems/01832.solution.txt
+Uploading solution icfp2016problems/01832.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":70,\"ok\":true,\"resemblance\":0.559139,\"problem_id\":1832,\"solution_spec_hash\":\"954b6913bb39007c15c3c18cf086929275341038\"}", stderr: "" }
+01840
+     Running `target/debug/teamsuperlegit submit 01840`
+Running "submit"
+icfp2016problems/01840.solution.txt
+Uploading solution icfp2016problems/01840.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01842
+     Running `target/debug/teamsuperlegit submit 01842`
+Running "submit"
+icfp2016problems/01842.solution.txt
+Uploading solution icfp2016problems/01842.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":72,\"ok\":true,\"resemblance\":0.069565,\"problem_id\":1842,\"solution_spec_hash\":\"9be147ace795f0023bf89c1413815db391ea71f0\"}", stderr: "" }
+01843
+     Running `target/debug/teamsuperlegit submit 01843`
+Running "submit"
+icfp2016problems/01843.solution.txt
+Uploading solution icfp2016problems/01843.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01844
+     Running `target/debug/teamsuperlegit submit 01844`
+Running "submit"
+icfp2016problems/01844.solution.txt
+Uploading solution icfp2016problems/01844.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":65,\"ok\":true,\"resemblance\":0.821428,\"problem_id\":1844,\"solution_spec_hash\":\"d64714e928e2df487471750e7a6d659fe28750f5\"}", stderr: "" }
+01847
+     Running `target/debug/teamsuperlegit submit 01847`
+Running "submit"
+icfp2016problems/01847.solution.txt
+Uploading solution icfp2016problems/01847.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 has duplicated vertices.\"}", stderr: "" }
+01848
+     Running `target/debug/teamsuperlegit submit 01848`
+Running "submit"
+icfp2016problems/01848.solution.txt
+Uploading solution icfp2016problems/01848.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":1.0,\"problem_id\":1848,\"solution_spec_hash\":\"6d815911237c309ac8a2024a55044043ee73fc21\"}", stderr: "" }
+01853
+     Running `target/debug/teamsuperlegit submit 01853`
+Running "submit"
+icfp2016problems/01853.solution.txt
+Uploading solution icfp2016problems/01853.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01854
+     Running `target/debug/teamsuperlegit submit 01854`
+Running "submit"
+icfp2016problems/01854.solution.txt
+Uploading solution icfp2016problems/01854.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":639,\"ok\":true,\"resemblance\":0.692307,\"problem_id\":1854,\"solution_spec_hash\":\"4c04a30934c2de8758b4494a994f36fabcb7186f\"}", stderr: "" }
+01875
+     Running `target/debug/teamsuperlegit submit 01875`
+Running "submit"
+icfp2016problems/01875.solution.txt
+Uploading solution icfp2016problems/01875.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01885
+     Running `target/debug/teamsuperlegit submit 01885`
+Running "submit"
+icfp2016problems/01885.solution.txt
+Uploading solution icfp2016problems/01885.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 has duplicated vertices.\"}", stderr: "" }
+01899
+     Running `target/debug/teamsuperlegit submit 01899`
+Running "submit"
+icfp2016problems/01899.solution.txt
+Uploading solution icfp2016problems/01899.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01901
+     Running `target/debug/teamsuperlegit submit 01901`
+Running "submit"
+icfp2016problems/01901.solution.txt
+Uploading solution icfp2016problems/01901.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":664,\"ok\":true,\"resemblance\":0.692307,\"problem_id\":1901,\"solution_spec_hash\":\"cde74fffd66658581ad55667b5f12f6beb05f951\"}", stderr: "" }
+01902
+     Running `target/debug/teamsuperlegit submit 01902`
+Running "submit"
+icfp2016problems/01902.solution.txt
+Uploading solution icfp2016problems/01902.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01903
+     Running `target/debug/teamsuperlegit submit 01903`
+Running "submit"
+icfp2016problems/01903.solution.txt
+Uploading solution icfp2016problems/01903.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01933
+     Running `target/debug/teamsuperlegit submit 01933`
+Running "submit"
+icfp2016problems/01933.solution.txt
+Uploading solution icfp2016problems/01933.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":126,\"ok\":true,\"resemblance\":0.153034,\"problem_id\":1933,\"solution_spec_hash\":\"52bb2f7c79b868b15f4b2c590f8056d95958f8d3\"}", stderr: "" }
+01938
+     Running `target/debug/teamsuperlegit submit 01938`
+Running "submit"
+icfp2016problems/01938.solution.txt
+Uploading solution icfp2016problems/01938.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01941
+     Running `target/debug/teamsuperlegit submit 01941`
+Running "submit"
+icfp2016problems/01941.solution.txt
+Uploading solution icfp2016problems/01941.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01942
+     Running `target/debug/teamsuperlegit submit 01942`
+Running "submit"
+icfp2016problems/01942.solution.txt
+Uploading solution icfp2016problems/01942.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+01943
+     Running `target/debug/teamsuperlegit submit 01943`
+Running "submit"
+icfp2016problems/01943.solution.txt
+Uploading solution icfp2016problems/01943.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01947
+     Running `target/debug/teamsuperlegit submit 01947`
+Running "submit"
+icfp2016problems/01947.solution.txt
+Uploading solution icfp2016problems/01947.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+01983
+     Running `target/debug/teamsuperlegit submit 01983`
+Running "submit"
+icfp2016problems/01983.solution.txt
+Uploading solution icfp2016problems/01983.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+01997
+     Running `target/debug/teamsuperlegit submit 01997`
+Running "submit"
+icfp2016problems/01997.solution.txt
+Uploading solution icfp2016problems/01997.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02000
+     Running `target/debug/teamsuperlegit submit 02000`
+Running "submit"
+icfp2016problems/02000.solution.txt
+Uploading solution icfp2016problems/02000.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":72,\"ok\":true,\"resemblance\":0.030303,\"problem_id\":2000,\"solution_spec_hash\":\"f55480acec7ff9bdd3c887daf5aa25c14022eb05\"}", stderr: "" }
+02002
+     Running `target/debug/teamsuperlegit submit 02002`
+Running "submit"
+icfp2016problems/02002.solution.txt
+Uploading solution icfp2016problems/02002.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02003
+     Running `target/debug/teamsuperlegit submit 02003`
+Running "submit"
+icfp2016problems/02003.solution.txt
+Uploading solution icfp2016problems/02003.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02004
+     Running `target/debug/teamsuperlegit submit 02004`
+Running "submit"
+icfp2016problems/02004.solution.txt
+Uploading solution icfp2016problems/02004.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.141304,\"problem_id\":2004,\"solution_spec_hash\":\"9cb35d9fb37b8fa441e197643117419d97c0f4d1\"}", stderr: "" }
+02005
+     Running `target/debug/teamsuperlegit submit 02005`
+Running "submit"
+icfp2016problems/02005.solution.txt
+Uploading solution icfp2016problems/02005.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":68,\"ok\":true,\"resemblance\":0.32258,\"problem_id\":2005,\"solution_spec_hash\":\"ff80f8fe9574e97e860db87f7037f059c374e78b\"}", stderr: "" }
+02006
+     Running `target/debug/teamsuperlegit submit 02006`
+Running "submit"
+icfp2016problems/02006.solution.txt
+Uploading solution icfp2016problems/02006.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02007
+     Running `target/debug/teamsuperlegit submit 02007`
+Running "submit"
+icfp2016problems/02007.solution.txt
+Uploading solution icfp2016problems/02007.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":224,\"ok\":true,\"resemblance\":0.458333,\"problem_id\":2007,\"solution_spec_hash\":\"d7cf77d4e154b0f272974951858f42e1df7470c6\"}", stderr: "" }
+02025
+     Running `target/debug/teamsuperlegit submit 02025`
+Running "submit"
+icfp2016problems/02025.solution.txt
+Uploading solution icfp2016problems/02025.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02026
+     Running `target/debug/teamsuperlegit submit 02026`
+Running "submit"
+icfp2016problems/02026.solution.txt
+Uploading solution icfp2016problems/02026.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02027
+     Running `target/debug/teamsuperlegit submit 02027`
+Running "submit"
+icfp2016problems/02027.solution.txt
+Uploading solution icfp2016problems/02027.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02028
+     Running `target/debug/teamsuperlegit submit 02028`
+Running "submit"
+icfp2016problems/02028.solution.txt
+Uploading solution icfp2016problems/02028.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02029
+     Running `target/debug/teamsuperlegit submit 02029`
+Running "submit"
+icfp2016problems/02029.solution.txt
+Uploading solution icfp2016problems/02029.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02030
+     Running `target/debug/teamsuperlegit submit 02030`
+Running "submit"
+icfp2016problems/02030.solution.txt
+Uploading solution icfp2016problems/02030.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02065
+     Running `target/debug/teamsuperlegit submit 02065`
+Running "submit"
+icfp2016problems/02065.solution.txt
+Uploading solution icfp2016problems/02065.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":72,\"ok\":true,\"resemblance\":0.857142,\"problem_id\":2065,\"solution_spec_hash\":\"4cdd23baa62f4994597e371470b0a5d10b5c44d0\"}", stderr: "" }
+02068
+     Running `target/debug/teamsuperlegit submit 02068`
+Running "submit"
+icfp2016problems/02068.solution.txt
+Uploading solution icfp2016problems/02068.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02069
+     Running `target/debug/teamsuperlegit submit 02069`
+Running "submit"
+icfp2016problems/02069.solution.txt
+Uploading solution icfp2016problems/02069.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":571,\"ok\":true,\"resemblance\":1.0,\"problem_id\":2069,\"solution_spec_hash\":\"515af35ddc0f4e2abee4ff77d0f4dd51b43ee9b2\"}", stderr: "" }
+02071
+     Running `target/debug/teamsuperlegit submit 02071`
+Running "submit"
+icfp2016problems/02071.solution.txt
+Uploading solution icfp2016problems/02071.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":116,\"ok\":true,\"resemblance\":0.616907,\"problem_id\":2071,\"solution_spec_hash\":\"1e24d9fc369e5b2ff38f2f91a93e4b7d45a105bb\"}", stderr: "" }
+02072
+     Running `target/debug/teamsuperlegit submit 02072`
+Running "submit"
+icfp2016problems/02072.solution.txt
+Uploading solution icfp2016problems/02072.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02074
+     Running `target/debug/teamsuperlegit submit 02074`
+Running "submit"
+icfp2016problems/02074.solution.txt
+Uploading solution icfp2016problems/02074.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":93,\"ok\":true,\"resemblance\":0.475,\"problem_id\":2074,\"solution_spec_hash\":\"929f28b46658355692da2207579a40011d7bbbdd\"}", stderr: "" }
+02080
+     Running `target/debug/teamsuperlegit submit 02080`
+Running "submit"
+icfp2016problems/02080.solution.txt
+Uploading solution icfp2016problems/02080.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+02081
+     Running `target/debug/teamsuperlegit submit 02081`
+Running "submit"
+icfp2016problems/02081.solution.txt
+Uploading solution icfp2016problems/02081.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02084
+     Running `target/debug/teamsuperlegit submit 02084`
+Running "submit"
+icfp2016problems/02084.solution.txt
+Uploading solution icfp2016problems/02084.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 has duplicated vertices.\"}", stderr: "" }
+02087
+     Running `target/debug/teamsuperlegit submit 02087`
+Running "submit"
+icfp2016problems/02087.solution.txt
+Uploading solution icfp2016problems/02087.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":83,\"ok\":true,\"resemblance\":0.240111,\"problem_id\":2087,\"solution_spec_hash\":\"ca795541dc4ae9f13990943f687dad9b41516eed\"}", stderr: "" }
+02088
+    Blocking waiting for file lock on build directory
+     Running `target/debug/teamsuperlegit submit 02088`
+Running "submit"
+icfp2016problems/02088.solution.txt
+Uploading solution icfp2016problems/02088.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":76,\"ok\":true,\"resemblance\":0.365591,\"problem_id\":2088,\"solution_spec_hash\":\"ae2854c70cdf62c72dd2c5682aa21cfabeef0967\"}", stderr: "" }
+02090
+     Running `target/debug/teamsuperlegit submit 02090`
+Running "submit"
+icfp2016problems/02090.solution.txt
+Uploading solution icfp2016problems/02090.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":77,\"ok\":true,\"resemblance\":0.178961,\"problem_id\":2090,\"solution_spec_hash\":\"5acd982e9dad21a840b16bd039af6a52bd98ca91\"}", stderr: "" }
+02091
+     Running `target/debug/teamsuperlegit submit 02091`
+Running "submit"
+icfp2016problems/02091.solution.txt
+Uploading solution icfp2016problems/02091.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02092
+     Running `target/debug/teamsuperlegit submit 02092`
+Running "submit"
+icfp2016problems/02092.solution.txt
+Uploading solution icfp2016problems/02092.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02102
+     Running `target/debug/teamsuperlegit submit 02102`
+Running "submit"
+icfp2016problems/02102.solution.txt
+Uploading solution icfp2016problems/02102.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":199,\"ok\":true,\"resemblance\":0.458333,\"problem_id\":2102,\"solution_spec_hash\":\"f6bd57a3600be6ffaac0f6acac0ab5dc10f2de42\"}", stderr: "" }
+02104
+     Running `target/debug/teamsuperlegit submit 02104`
+Running "submit"
+icfp2016problems/02104.solution.txt
+Uploading solution icfp2016problems/02104.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02105
+     Running `target/debug/teamsuperlegit submit 02105`
+Running "submit"
+icfp2016problems/02105.solution.txt
+Uploading solution icfp2016problems/02105.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02106
+     Running `target/debug/teamsuperlegit submit 02106`
+Running "submit"
+icfp2016problems/02106.solution.txt
+Uploading solution icfp2016problems/02106.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02107
+     Running `target/debug/teamsuperlegit submit 02107`
+Running "submit"
+icfp2016problems/02107.solution.txt
+Uploading solution icfp2016problems/02107.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02109
+     Running `target/debug/teamsuperlegit submit 02109`
+Running "submit"
+icfp2016problems/02109.solution.txt
+Uploading solution icfp2016problems/02109.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":70,\"ok\":true,\"resemblance\":0.393617,\"problem_id\":2109,\"solution_spec_hash\":\"3ac9576d1bc61a1d75b54f62804d01bcf7d2546a\"}", stderr: "" }
+02112
+     Running `target/debug/teamsuperlegit submit 02112`
+Running "submit"
+icfp2016problems/02112.solution.txt
+Uploading solution icfp2016problems/02112.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 has duplicated vertices.\"}", stderr: "" }
+02113
+     Running `target/debug/teamsuperlegit submit 02113`
+Running "submit"
+icfp2016problems/02113.solution.txt
+Uploading solution icfp2016problems/02113.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02114
+     Running `target/debug/teamsuperlegit submit 02114`
+Running "submit"
+icfp2016problems/02114.solution.txt
+Uploading solution icfp2016problems/02114.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02118
+     Running `target/debug/teamsuperlegit submit 02118`
+Running "submit"
+icfp2016problems/02118.solution.txt
+Uploading solution icfp2016problems/02118.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":93,\"ok\":true,\"resemblance\":0.318667,\"problem_id\":2118,\"solution_spec_hash\":\"6f8c5fe34c7104e4a261cb001b25da6c1a7fbd17\"}", stderr: "" }
+02119
+     Running `target/debug/teamsuperlegit submit 02119`
+Running "submit"
+icfp2016problems/02119.solution.txt
+Uploading solution icfp2016problems/02119.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02125
+     Running `target/debug/teamsuperlegit submit 02125`
+Running "submit"
+icfp2016problems/02125.solution.txt
+Uploading solution icfp2016problems/02125.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02146
+     Running `target/debug/teamsuperlegit submit 02146`
+Running "submit"
+icfp2016problems/02146.solution.txt
+Uploading solution icfp2016problems/02146.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.006451,\"problem_id\":2146,\"solution_spec_hash\":\"fa9dc262e0f39da21413a42e4b30ca7bdc98dec3\"}", stderr: "" }
+02147
+     Running `target/debug/teamsuperlegit submit 02147`
+Running "submit"
+icfp2016problems/02147.solution.txt
+Uploading solution icfp2016problems/02147.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02148
+     Running `target/debug/teamsuperlegit submit 02148`
+Running "submit"
+icfp2016problems/02148.solution.txt
+Uploading solution icfp2016problems/02148.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":82,\"ok\":true,\"resemblance\":0.857142,\"problem_id\":2148,\"solution_spec_hash\":\"84fa14c9151796c6a28997d79d84d9410e2ade0f\"}", stderr: "" }
+02166
+     Running `target/debug/teamsuperlegit submit 02166`
+Running "submit"
+icfp2016problems/02166.solution.txt
+Uploading solution icfp2016problems/02166.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02168
+     Running `target/debug/teamsuperlegit submit 02168`
+Running "submit"
+icfp2016problems/02168.solution.txt
+Uploading solution icfp2016problems/02168.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+02175
+     Running `target/debug/teamsuperlegit submit 02175`
+Running "submit"
+icfp2016problems/02175.solution.txt
+Uploading solution icfp2016problems/02175.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":66,\"ok\":true,\"resemblance\":0.319327,\"problem_id\":2175,\"solution_spec_hash\":\"05acb8b3aa419ea0377118722dccf98a3695add8\"}", stderr: "" }
+02186
+     Running `target/debug/teamsuperlegit submit 02186`
+Running "submit"
+icfp2016problems/02186.solution.txt
+Uploading solution icfp2016problems/02186.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.652173,\"problem_id\":2186,\"solution_spec_hash\":\"a27b3a411119339e2eac1a71bd46658db168bdc9\"}", stderr: "" }
+02187
+     Running `target/debug/teamsuperlegit submit 02187`
+Running "submit"
+icfp2016problems/02187.solution.txt
+Uploading solution icfp2016problems/02187.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02188
+     Running `target/debug/teamsuperlegit submit 02188`
+Running "submit"
+icfp2016problems/02188.solution.txt
+Uploading solution icfp2016problems/02188.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+02189
+     Running `target/debug/teamsuperlegit submit 02189`
+Running "submit"
+icfp2016problems/02189.solution.txt
+Uploading solution icfp2016problems/02189.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.208333,\"problem_id\":2189,\"solution_spec_hash\":\"47dec523c2fe84afc82fb783d1d51a5933526340\"}", stderr: "" }
+02196
+     Running `target/debug/teamsuperlegit submit 02196`
+Running "submit"
+icfp2016problems/02196.solution.txt
+Uploading solution icfp2016problems/02196.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.47826,\"problem_id\":2196,\"solution_spec_hash\":\"83701ecbb58873c028cec8955b442aa4365d15e3\"}", stderr: "" }
+02197
+     Running `target/debug/teamsuperlegit submit 02197`
+Running "submit"
+icfp2016problems/02197.solution.txt
+Uploading solution icfp2016problems/02197.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":100,\"ok\":true,\"resemblance\":0.833212,\"problem_id\":2197,\"solution_spec_hash\":\"06907060cbfc260fed57f99948b352b54e350997\"}", stderr: "" }
+02200
+     Running `target/debug/teamsuperlegit submit 02200`
+Running "submit"
+icfp2016problems/02200.solution.txt
+Uploading solution icfp2016problems/02200.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":78,\"ok\":true,\"resemblance\":0.1875,\"problem_id\":2200,\"solution_spec_hash\":\"dd8903f43460bb0fa03fcb24f2bb7ff804894106\"}", stderr: "" }
+02201
+     Running `target/debug/teamsuperlegit submit 02201`
+Running "submit"
+icfp2016problems/02201.solution.txt
+Uploading solution icfp2016problems/02201.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02206
+     Running `target/debug/teamsuperlegit submit 02206`
+Running "submit"
+icfp2016problems/02206.solution.txt
+Uploading solution icfp2016problems/02206.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":78,\"ok\":true,\"resemblance\":0.458333,\"problem_id\":2206,\"solution_spec_hash\":\"cefde9dfcc1975db7cf3f05194840b82e0f99666\"}", stderr: "" }
+02209
+     Running `target/debug/teamsuperlegit submit 02209`
+Running "submit"
+icfp2016problems/02209.solution.txt
+Uploading solution icfp2016problems/02209.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 has duplicated vertices.\"}", stderr: "" }
+02210
+     Running `target/debug/teamsuperlegit submit 02210`
+Running "submit"
+icfp2016problems/02210.solution.txt
+Uploading solution icfp2016problems/02210.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+02215
+     Running `target/debug/teamsuperlegit submit 02215`
+Running "submit"
+icfp2016problems/02215.solution.txt
+Uploading solution icfp2016problems/02215.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02216
+     Running `target/debug/teamsuperlegit submit 02216`
+Running "submit"
+icfp2016problems/02216.solution.txt
+Uploading solution icfp2016problems/02216.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":89,\"ok\":true,\"resemblance\":0.039215,\"problem_id\":2216,\"solution_spec_hash\":\"592943c6ccb1f53fa206d5837293e4c08301fd03\"}", stderr: "" }
+02217
+     Running `target/debug/teamsuperlegit submit 02217`
+Running "submit"
+icfp2016problems/02217.solution.txt
+Uploading solution icfp2016problems/02217.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.528846,\"problem_id\":2217,\"solution_spec_hash\":\"8a3722a15b3d82c47c58d322fc52f651b56a3a82\"}", stderr: "" }
+02218
+     Running `target/debug/teamsuperlegit submit 02218`
+Running "submit"
+icfp2016problems/02218.solution.txt
+Uploading solution icfp2016problems/02218.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02225
+     Running `target/debug/teamsuperlegit submit 02225`
+Running "submit"
+icfp2016problems/02225.solution.txt
+Uploading solution icfp2016problems/02225.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":80,\"ok\":true,\"resemblance\":0.007968,\"problem_id\":2225,\"solution_spec_hash\":\"6cb4b4dfa3288ffade61df6b630920d84790ec32\"}", stderr: "" }
+02226
+     Running `target/debug/teamsuperlegit submit 02226`
+Running "submit"
+icfp2016problems/02226.solution.txt
+Uploading solution icfp2016problems/02226.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":76,\"ok\":true,\"resemblance\":0.340425,\"problem_id\":2226,\"solution_spec_hash\":\"ae2854c70cdf62c72dd2c5682aa21cfabeef0967\"}", stderr: "" }
+02227
+     Running `target/debug/teamsuperlegit submit 02227`
+Running "submit"
+icfp2016problems/02227.solution.txt
+Uploading solution icfp2016problems/02227.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02228
+     Running `target/debug/teamsuperlegit submit 02228`
+Running "submit"
+icfp2016problems/02228.solution.txt
+Uploading solution icfp2016problems/02228.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":71,\"ok\":true,\"resemblance\":1.0,\"problem_id\":2228,\"solution_spec_hash\":\"28ce0824face171574e4d01017c573d89c5f42a1\"}", stderr: "" }
+02229
+     Running `target/debug/teamsuperlegit submit 02229`
+Running "submit"
+icfp2016problems/02229.solution.txt
+Uploading solution icfp2016problems/02229.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02230
+     Running `target/debug/teamsuperlegit submit 02230`
+Running "submit"
+icfp2016problems/02230.solution.txt
+Uploading solution icfp2016problems/02230.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":72,\"ok\":true,\"resemblance\":0.030303,\"problem_id\":2230,\"solution_spec_hash\":\"5be37213d1d6e0409ebf5457d9e769c193b3e9ae\"}", stderr: "" }
+02231
+     Running `target/debug/teamsuperlegit submit 02231`
+Running "submit"
+icfp2016problems/02231.solution.txt
+Uploading solution icfp2016problems/02231.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02232
+     Running `target/debug/teamsuperlegit submit 02232`
+Running "submit"
+icfp2016problems/02232.solution.txt
+Uploading solution icfp2016problems/02232.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02233
+     Running `target/debug/teamsuperlegit submit 02233`
+Running "submit"
+icfp2016problems/02233.solution.txt
+Uploading solution icfp2016problems/02233.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02235
+     Running `target/debug/teamsuperlegit submit 02235`
+Running "submit"
+icfp2016problems/02235.solution.txt
+Uploading solution icfp2016problems/02235.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 has duplicated vertices.\"}", stderr: "" }
+02236
+     Running `target/debug/teamsuperlegit submit 02236`
+Running "submit"
+icfp2016problems/02236.solution.txt
+Uploading solution icfp2016problems/02236.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+02237
+     Running `target/debug/teamsuperlegit submit 02237`
+Running "submit"
+icfp2016problems/02237.solution.txt
+Uploading solution icfp2016problems/02237.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02238
+     Running `target/debug/teamsuperlegit submit 02238`
+Running "submit"
+icfp2016problems/02238.solution.txt
+Uploading solution icfp2016problems/02238.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+02240
+     Running `target/debug/teamsuperlegit submit 02240`
+Running "submit"
+icfp2016problems/02240.solution.txt
+Uploading solution icfp2016problems/02240.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":93,\"ok\":true,\"resemblance\":0.475,\"problem_id\":2240,\"solution_spec_hash\":\"929f28b46658355692da2207579a40011d7bbbdd\"}", stderr: "" }
+02241
+     Running `target/debug/teamsuperlegit submit 02241`
+Running "submit"
+icfp2016problems/02241.solution.txt
+Uploading solution icfp2016problems/02241.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":93,\"ok\":true,\"resemblance\":0.475,\"problem_id\":2241,\"solution_spec_hash\":\"929f28b46658355692da2207579a40011d7bbbdd\"}", stderr: "" }
+02244
+     Running `target/debug/teamsuperlegit submit 02244`
+Running "submit"
+icfp2016problems/02244.solution.txt
+Uploading solution icfp2016problems/02244.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":71,\"ok\":true,\"resemblance\":1.0,\"problem_id\":2244,\"solution_spec_hash\":\"28ce0824face171574e4d01017c573d89c5f42a1\"}", stderr: "" }
+02245
+     Running `target/debug/teamsuperlegit submit 02245`
+Running "submit"
+icfp2016problems/02245.solution.txt
+Uploading solution icfp2016problems/02245.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":82,\"ok\":true,\"resemblance\":1.0,\"problem_id\":2245,\"solution_spec_hash\":\"65dad840d55c9ed2dade88a828d8640910a30372\"}", stderr: "" }
+02251
+     Running `target/debug/teamsuperlegit submit 02251`
+Running "submit"
+icfp2016problems/02251.solution.txt
+Uploading solution icfp2016problems/02251.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":201,\"ok\":true,\"resemblance\":0.939166,\"problem_id\":2251,\"solution_spec_hash\":\"9fbc467a6a2cab798e9836428f73fbbe3e4deacc\"}", stderr: "" }
+02266
+     Running `target/debug/teamsuperlegit submit 02266`
+Running "submit"
+icfp2016problems/02266.solution.txt
+Uploading solution icfp2016problems/02266.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.006451,\"problem_id\":2266,\"solution_spec_hash\":\"fa9dc262e0f39da21413a42e4b30ca7bdc98dec3\"}", stderr: "" }
+02267
+     Running `target/debug/teamsuperlegit submit 02267`
+Running "submit"
+icfp2016problems/02267.solution.txt
+Uploading solution icfp2016problems/02267.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+02268
+     Running `target/debug/teamsuperlegit submit 02268`
+Running "submit"
+icfp2016problems/02268.solution.txt
+Uploading solution icfp2016problems/02268.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02272
+     Running `target/debug/teamsuperlegit submit 02272`
+Running "submit"
+icfp2016problems/02272.solution.txt
+Uploading solution icfp2016problems/02272.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02274
+     Running `target/debug/teamsuperlegit submit 02274`
+Running "submit"
+icfp2016problems/02274.solution.txt
+Uploading solution icfp2016problems/02274.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02275
+     Running `target/debug/teamsuperlegit submit 02275`
+Running "submit"
+icfp2016problems/02275.solution.txt
+Uploading solution icfp2016problems/02275.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":116,\"ok\":true,\"resemblance\":0.340054,\"problem_id\":2275,\"solution_spec_hash\":\"72cd8e3dcb27445704c2c5960ddadd8e4bda0a94\"}", stderr: "" }
+02276
+     Running `target/debug/teamsuperlegit submit 02276`
+Running "submit"
+icfp2016problems/02276.solution.txt
+Uploading solution icfp2016problems/02276.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":116,\"ok\":true,\"resemblance\":0.340054,\"problem_id\":2276,\"solution_spec_hash\":\"72cd8e3dcb27445704c2c5960ddadd8e4bda0a94\"}", stderr: "" }
+02277
+     Running `target/debug/teamsuperlegit submit 02277`
+Running "submit"
+icfp2016problems/02277.solution.txt
+Uploading solution icfp2016problems/02277.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":198,\"ok\":true,\"resemblance\":0.230738,\"problem_id\":2277,\"solution_spec_hash\":\"730997b83eb25ad72dbc079342936e9914052c9e\"}", stderr: "" }
+02308
+     Running `target/debug/teamsuperlegit submit 02308`
+Running "submit"
+icfp2016problems/02308.solution.txt
+Uploading solution icfp2016problems/02308.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":249,\"ok\":true,\"resemblance\":0.458333,\"problem_id\":2308,\"solution_spec_hash\":\"133e3c62f7ebd512dcd04adb2f6f2427ce0639cc\"}", stderr: "" }
+02311
+     Running `target/debug/teamsuperlegit submit 02311`
+Running "submit"
+icfp2016problems/02311.solution.txt
+Uploading solution icfp2016problems/02311.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02330
+     Running `target/debug/teamsuperlegit submit 02330`
+Running "submit"
+icfp2016problems/02330.solution.txt
+Uploading solution icfp2016problems/02330.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02331
+     Running `target/debug/teamsuperlegit submit 02331`
+Running "submit"
+icfp2016problems/02331.solution.txt
+Uploading solution icfp2016problems/02331.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":75,\"ok\":true,\"resemblance\":0.030303,\"problem_id\":2331,\"solution_spec_hash\":\"462ac804474457874e087023c89e93972ec1b58d\"}", stderr: "" }
+02332
+     Running `target/debug/teamsuperlegit submit 02332`
+Running "submit"
+icfp2016problems/02332.solution.txt
+Uploading solution icfp2016problems/02332.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+02333
+     Running `target/debug/teamsuperlegit submit 02333`
+Running "submit"
+icfp2016problems/02333.solution.txt
+Uploading solution icfp2016problems/02333.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02334
+     Running `target/debug/teamsuperlegit submit 02334`
+Running "submit"
+icfp2016problems/02334.solution.txt
+Uploading solution icfp2016problems/02334.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02335
+     Running `target/debug/teamsuperlegit submit 02335`
+Running "submit"
+icfp2016problems/02335.solution.txt
+Uploading solution icfp2016problems/02335.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+02338
+     Running `target/debug/teamsuperlegit submit 02338`
+Running "submit"
+icfp2016problems/02338.solution.txt
+Uploading solution icfp2016problems/02338.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+02355
+     Running `target/debug/teamsuperlegit submit 02355`
+Running "submit"
+icfp2016problems/02355.solution.txt
+Uploading solution icfp2016problems/02355.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":92,\"ok\":true,\"resemblance\":0.458333,\"problem_id\":2355,\"solution_spec_hash\":\"31f574303ab2c9377144856787f6774aed29d305\"}", stderr: "" }
+02357
+     Running `target/debug/teamsuperlegit submit 02357`
+Running "submit"
+icfp2016problems/02357.solution.txt
+Uploading solution icfp2016problems/02357.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":81,\"ok\":true,\"resemblance\":0.122857,\"problem_id\":2357,\"solution_spec_hash\":\"89a0d6f8adb05409162026dad386fd3b69c0deab\"}", stderr: "" }
+02358
+     Running `target/debug/teamsuperlegit submit 02358`
+Running "submit"
+icfp2016problems/02358.solution.txt
+Uploading solution icfp2016problems/02358.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02397
+     Running `target/debug/teamsuperlegit submit 02397`
+Running "submit"
+icfp2016problems/02397.solution.txt
+Uploading solution icfp2016problems/02397.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02398
+     Running `target/debug/teamsuperlegit submit 02398`
+Running "submit"
+icfp2016problems/02398.solution.txt
+Uploading solution icfp2016problems/02398.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":72,\"ok\":true,\"resemblance\":0.1,\"problem_id\":2398,\"solution_spec_hash\":\"3463779e76bfa99afc27090dc3717922f51d68e1\"}", stderr: "" }
+02402
+     Running `target/debug/teamsuperlegit submit 02402`
+Running "submit"
+icfp2016problems/02402.solution.txt
+Uploading solution icfp2016problems/02402.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+02403
+     Running `target/debug/teamsuperlegit submit 02403`
+Running "submit"
+icfp2016problems/02403.solution.txt
+Uploading solution icfp2016problems/02403.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.319148,\"problem_id\":2403,\"solution_spec_hash\":\"83701ecbb58873c028cec8955b442aa4365d15e3\"}", stderr: "" }
+02404
+     Running `target/debug/teamsuperlegit submit 02404`
+Running "submit"
+icfp2016problems/02404.solution.txt
+Uploading solution icfp2016problems/02404.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":80,\"ok\":true,\"resemblance\":0.34375,\"problem_id\":2404,\"solution_spec_hash\":\"7fb392538de9e9e213b21703903707e7fd7cd7ff\"}", stderr: "" }
+02405
+     Running `target/debug/teamsuperlegit submit 02405`
+Running "submit"
+icfp2016problems/02405.solution.txt
+Uploading solution icfp2016problems/02405.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+02407
+     Running `target/debug/teamsuperlegit submit 02407`
+Running "submit"
+icfp2016problems/02407.solution.txt
+Uploading solution icfp2016problems/02407.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":64,\"ok\":true,\"resemblance\":0.142857,\"problem_id\":2407,\"solution_spec_hash\":\"386b2245b464eadfed3942e528ef183b0d95247b\"}", stderr: "" }
+02409
+     Running `target/debug/teamsuperlegit submit 02409`
+Running "submit"
+icfp2016problems/02409.solution.txt
+Uploading solution icfp2016problems/02409.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02412
+     Running `target/debug/teamsuperlegit submit 02412`
+Running "submit"
+icfp2016problems/02412.solution.txt
+Uploading solution icfp2016problems/02412.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02428
+     Running `target/debug/teamsuperlegit submit 02428`
+Running "submit"
+icfp2016problems/02428.solution.txt
+Uploading solution icfp2016problems/02428.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02429
+     Running `target/debug/teamsuperlegit submit 02429`
+Running "submit"
+icfp2016problems/02429.solution.txt
+Uploading solution icfp2016problems/02429.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02466
+     Running `target/debug/teamsuperlegit submit 02466`
+Running "submit"
+icfp2016problems/02466.solution.txt
+Uploading solution icfp2016problems/02466.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":96,\"ok\":true,\"resemblance\":0.151898,\"problem_id\":2466,\"solution_spec_hash\":\"6934be094da5af0bba6a8f9fca20d267ab593dad\"}", stderr: "" }
+02467
+     Running `target/debug/teamsuperlegit submit 02467`
+Running "submit"
+icfp2016problems/02467.solution.txt
+Uploading solution icfp2016problems/02467.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+02468
+     Running `target/debug/teamsuperlegit submit 02468`
+Running "submit"
+icfp2016problems/02468.solution.txt
+Uploading solution icfp2016problems/02468.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+02474
+     Running `target/debug/teamsuperlegit submit 02474`
+Running "submit"
+icfp2016problems/02474.solution.txt
+Uploading solution icfp2016problems/02474.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02482
+     Running `target/debug/teamsuperlegit submit 02482`
+Running "submit"
+icfp2016problems/02482.solution.txt
+Uploading solution icfp2016problems/02482.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":60,\"ok\":true,\"resemblance\":0.416666,\"problem_id\":2482,\"solution_spec_hash\":\"9cb35d9fb37b8fa441e197643117419d97c0f4d1\"}", stderr: "" }
+02493
+     Running `target/debug/teamsuperlegit submit 02493`
+Running "submit"
+icfp2016problems/02493.solution.txt
+Uploading solution icfp2016problems/02493.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":72,\"ok\":true,\"resemblance\":0.689655,\"problem_id\":2493,\"solution_spec_hash\":\"7bfe0bbb47a7eadd2bc3adaa4b9bc4c6d848c97b\"}", stderr: "" }
+02494
+     Running `target/debug/teamsuperlegit submit 02494`
+Running "submit"
+icfp2016problems/02494.solution.txt
+Uploading solution icfp2016problems/02494.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+02495
+     Running `target/debug/teamsuperlegit submit 02495`
+Running "submit"
+icfp2016problems/02495.solution.txt
+Uploading solution icfp2016problems/02495.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02496
+     Running `target/debug/teamsuperlegit submit 02496`
+Running "submit"
+icfp2016problems/02496.solution.txt
+Uploading solution icfp2016problems/02496.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+02504
+     Running `target/debug/teamsuperlegit submit 02504`
+Running "submit"
+icfp2016problems/02504.solution.txt
+Uploading solution icfp2016problems/02504.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02513
+     Running `target/debug/teamsuperlegit submit 02513`
+Running "submit"
+icfp2016problems/02513.solution.txt
+Uploading solution icfp2016problems/02513.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02519
+     Running `target/debug/teamsuperlegit submit 02519`
+Running "submit"
+icfp2016problems/02519.solution.txt
+Uploading solution icfp2016problems/02519.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02521
+     Running `target/debug/teamsuperlegit submit 02521`
+Running "submit"
+icfp2016problems/02521.solution.txt
+Uploading solution icfp2016problems/02521.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+02523
+     Running `target/debug/teamsuperlegit submit 02523`
+Running "submit"
+icfp2016problems/02523.solution.txt
+Uploading solution icfp2016problems/02523.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02528
+     Running `target/debug/teamsuperlegit submit 02528`
+Running "submit"
+icfp2016problems/02528.solution.txt
+Uploading solution icfp2016problems/02528.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02531
+     Running `target/debug/teamsuperlegit submit 02531`
+Running "submit"
+icfp2016problems/02531.solution.txt
+Uploading solution icfp2016problems/02531.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+02533
+     Running `target/debug/teamsuperlegit submit 02533`
+Running "submit"
+icfp2016problems/02533.solution.txt
+Uploading solution icfp2016problems/02533.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+02534
+     Running `target/debug/teamsuperlegit submit 02534`
+Running "submit"
+icfp2016problems/02534.solution.txt
+Uploading solution icfp2016problems/02534.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+04000
+     Running `target/debug/teamsuperlegit submit 04000`
+Running "submit"
+icfp2016problems/04000.solution.txt
+Uploading solution icfp2016problems/04000.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+04008
+     Running `target/debug/teamsuperlegit submit 04008`
+Running "submit"
+icfp2016problems/04008.solution.txt
+Uploading solution icfp2016problems/04008.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+04010
+     Running `target/debug/teamsuperlegit submit 04010`
+Running "submit"
+icfp2016problems/04010.solution.txt
+Uploading solution icfp2016problems/04010.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+04017
+     Running `target/debug/teamsuperlegit submit 04017`
+Running "submit"
+icfp2016problems/04017.solution.txt
+Uploading solution icfp2016problems/04017.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+04026
+     Running `target/debug/teamsuperlegit submit 04026`
+Running "submit"
+icfp2016problems/04026.solution.txt
+Uploading solution icfp2016problems/04026.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (1, 4531231829351969\\/5686251707422080) must not lie on an edge.\"}", stderr: "" }
+05000
+     Running `target/debug/teamsuperlegit submit 05000`
+Running "submit"
+icfp2016problems/05000.solution.txt
+Uploading solution icfp2016problems/05000.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #3 must not intersect with itself.\"}", stderr: "" }
+05001
+     Running `target/debug/teamsuperlegit submit 05001`
+Running "submit"
+icfp2016problems/05001.solution.txt
+Uploading solution icfp2016problems/05001.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #3 must not intersect with itself.\"}", stderr: "" }
+05002
+     Running `target/debug/teamsuperlegit submit 05002`
+Running "submit"
+icfp2016problems/05002.solution.txt
+Uploading solution icfp2016problems/05002.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #3 must not intersect with itself.\"}", stderr: "" }
+05003
+     Running `target/debug/teamsuperlegit submit 05003`
+Running "submit"
+icfp2016problems/05003.solution.txt
+Uploading solution icfp2016problems/05003.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #3 must not intersect with itself.\"}", stderr: "" }
+05004
+     Running `target/debug/teamsuperlegit submit 05004`
+Running "submit"
+icfp2016problems/05004.solution.txt
+Uploading solution icfp2016problems/05004.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #3 must not intersect with itself.\"}", stderr: "" }
+05005
+     Running `target/debug/teamsuperlegit submit 05005`
+Running "submit"
+icfp2016problems/05005.solution.txt
+Uploading solution icfp2016problems/05005.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #3 must not intersect with itself.\"}", stderr: "" }
+05006
+     Running `target/debug/teamsuperlegit submit 05006`
+Running "submit"
+icfp2016problems/05006.solution.txt
+Uploading solution icfp2016problems/05006.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #3 must not intersect with itself.\"}", stderr: "" }
+05007
+     Running `target/debug/teamsuperlegit submit 05007`
+Running "submit"
+icfp2016problems/05007.solution.txt
+Uploading solution icfp2016problems/05007.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #3 must not intersect with itself.\"}", stderr: "" }
+05008
+     Running `target/debug/teamsuperlegit submit 05008`
+Running "submit"
+icfp2016problems/05008.solution.txt
+Uploading solution icfp2016problems/05008.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #3 must not intersect with itself.\"}", stderr: "" }
+05009
+     Running `target/debug/teamsuperlegit submit 05009`
+Running "submit"
+icfp2016problems/05009.solution.txt
+Uploading solution icfp2016problems/05009.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05010
+     Running `target/debug/teamsuperlegit submit 05010`
+Running "submit"
+icfp2016problems/05010.solution.txt
+Uploading solution icfp2016problems/05010.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #3 must not intersect with itself.\"}", stderr: "" }
+05011
+     Running `target/debug/teamsuperlegit submit 05011`
+Running "submit"
+icfp2016problems/05011.solution.txt
+Uploading solution icfp2016problems/05011.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #3 must not intersect with itself.\"}", stderr: "" }
+05012
+     Running `target/debug/teamsuperlegit submit 05012`
+Running "submit"
+icfp2016problems/05012.solution.txt
+Uploading solution icfp2016problems/05012.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #3 must not intersect with itself.\"}", stderr: "" }
+05013
+     Running `target/debug/teamsuperlegit submit 05013`
+Running "submit"
+icfp2016problems/05013.solution.txt
+Uploading solution icfp2016problems/05013.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #3 must not intersect with itself.\"}", stderr: "" }
+05017
+     Running `target/debug/teamsuperlegit submit 05017`
+Running "submit"
+icfp2016problems/05017.solution.txt
+Uploading solution icfp2016problems/05017.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05018
+     Running `target/debug/teamsuperlegit submit 05018`
+Running "submit"
+icfp2016problems/05018.solution.txt
+Uploading solution icfp2016problems/05018.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05019
+     Running `target/debug/teamsuperlegit submit 05019`
+Running "submit"
+icfp2016problems/05019.solution.txt
+Uploading solution icfp2016problems/05019.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05020
+     Running `target/debug/teamsuperlegit submit 05020`
+Running "submit"
+icfp2016problems/05020.solution.txt
+Uploading solution icfp2016problems/05020.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05021
+     Running `target/debug/teamsuperlegit submit 05021`
+Running "submit"
+icfp2016problems/05021.solution.txt
+Uploading solution icfp2016problems/05021.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":141,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5021,\"solution_spec_hash\":\"aa98c1402d1a0598314b8ddece7859c59813a2cf\"}", stderr: "" }
+05022
+     Running `target/debug/teamsuperlegit submit 05022`
+Running "submit"
+icfp2016problems/05022.solution.txt
+Uploading solution icfp2016problems/05022.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":100,\"ok\":true,\"resemblance\":0.041095,\"problem_id\":5022,\"solution_spec_hash\":\"a595e9a28643d8eccf9758a3eed6900f181e8959\"}", stderr: "" }
+05023
+     Running `target/debug/teamsuperlegit submit 05023`
+Running "submit"
+icfp2016problems/05023.solution.txt
+Uploading solution icfp2016problems/05023.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+05027
+     Running `target/debug/teamsuperlegit submit 05027`
+Running "submit"
+icfp2016problems/05027.solution.txt
+Uploading solution icfp2016problems/05027.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05031
+     Running `target/debug/teamsuperlegit submit 05031`
+Running "submit"
+icfp2016problems/05031.solution.txt
+Uploading solution icfp2016problems/05031.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05032
+     Running `target/debug/teamsuperlegit submit 05032`
+Running "submit"
+icfp2016problems/05032.solution.txt
+Uploading solution icfp2016problems/05032.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05035
+     Running `target/debug/teamsuperlegit submit 05035`
+Running "submit"
+icfp2016problems/05035.solution.txt
+Uploading solution icfp2016problems/05035.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":161,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5035,\"solution_spec_hash\":\"ae4f5b98148239680db9dc703058c8143a2f881b\"}", stderr: "" }
+05036
+     Running `target/debug/teamsuperlegit submit 05036`
+Running "submit"
+icfp2016problems/05036.solution.txt
+Uploading solution icfp2016problems/05036.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05038
+    Blocking waiting for file lock on build directory
+     Running `target/debug/teamsuperlegit submit 05038`
+Running "submit"
+icfp2016problems/05038.solution.txt
+Uploading solution icfp2016problems/05038.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05039
+     Running `target/debug/teamsuperlegit submit 05039`
+Running "submit"
+icfp2016problems/05039.solution.txt
+Uploading solution icfp2016problems/05039.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+05042
+     Running `target/debug/teamsuperlegit submit 05042`
+Running "submit"
+icfp2016problems/05042.solution.txt
+Uploading solution icfp2016problems/05042.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05044
+     Running `target/debug/teamsuperlegit submit 05044`
+Running "submit"
+icfp2016problems/05044.solution.txt
+Uploading solution icfp2016problems/05044.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05046
+     Running `target/debug/teamsuperlegit submit 05046`
+Running "submit"
+icfp2016problems/05046.solution.txt
+Uploading solution icfp2016problems/05046.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05050
+     Running `target/debug/teamsuperlegit submit 05050`
+Running "submit"
+icfp2016problems/05050.solution.txt
+Uploading solution icfp2016problems/05050.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05055
+     Running `target/debug/teamsuperlegit submit 05055`
+Running "submit"
+icfp2016problems/05055.solution.txt
+Uploading solution icfp2016problems/05055.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+05057
+     Running `target/debug/teamsuperlegit submit 05057`
+Running "submit"
+icfp2016problems/05057.solution.txt
+Uploading solution icfp2016problems/05057.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05200
+     Running `target/debug/teamsuperlegit submit 05200`
+Running "submit"
+icfp2016problems/05200.solution.txt
+Uploading solution icfp2016problems/05200.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":141,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5200,\"solution_spec_hash\":\"ca137313a59b7859162c1014bf3f8571e1f5800c\"}", stderr: "" }
+05202
+     Running `target/debug/teamsuperlegit submit 05202`
+Running "submit"
+icfp2016problems/05202.solution.txt
+Uploading solution icfp2016problems/05202.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":174,\"ok\":true,\"resemblance\":0.086956,\"problem_id\":5202,\"solution_spec_hash\":\"9d3cde9b91b01cae86530d0e3b88eb745c150f8a\"}", stderr: "" }
+05203
+     Running `target/debug/teamsuperlegit submit 05203`
+Running "submit"
+icfp2016problems/05203.solution.txt
+Uploading solution icfp2016problems/05203.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05204
+     Running `target/debug/teamsuperlegit submit 05204`
+Running "submit"
+icfp2016problems/05204.solution.txt
+Uploading solution icfp2016problems/05204.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05205
+     Running `target/debug/teamsuperlegit submit 05205`
+Running "submit"
+icfp2016problems/05205.solution.txt
+Uploading solution icfp2016problems/05205.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+05206
+     Running `target/debug/teamsuperlegit submit 05206`
+Running "submit"
+icfp2016problems/05206.solution.txt
+Uploading solution icfp2016problems/05206.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":188,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5206,\"solution_spec_hash\":\"507448b0f05a16c95621ab909e77a3df118b63ee\"}", stderr: "" }
+05207
+     Running `target/debug/teamsuperlegit submit 05207`
+Running "submit"
+icfp2016problems/05207.solution.txt
+Uploading solution icfp2016problems/05207.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/4\"}", stderr: "" }
+05209
+     Running `target/debug/teamsuperlegit submit 05209`
+Running "submit"
+icfp2016problems/05209.solution.txt
+Uploading solution icfp2016problems/05209.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05210
+     Running `target/debug/teamsuperlegit submit 05210`
+Running "submit"
+icfp2016problems/05210.solution.txt
+Uploading solution icfp2016problems/05210.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05212
+     Running `target/debug/teamsuperlegit submit 05212`
+Running "submit"
+icfp2016problems/05212.solution.txt
+Uploading solution icfp2016problems/05212.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05213
+     Running `target/debug/teamsuperlegit submit 05213`
+Running "submit"
+icfp2016problems/05213.solution.txt
+Uploading solution icfp2016problems/05213.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05214
+     Running `target/debug/teamsuperlegit submit 05214`
+Running "submit"
+icfp2016problems/05214.solution.txt
+Uploading solution icfp2016problems/05214.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05215
+     Running `target/debug/teamsuperlegit submit 05215`
+Running "submit"
+icfp2016problems/05215.solution.txt
+Uploading solution icfp2016problems/05215.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05216
+     Running `target/debug/teamsuperlegit submit 05216`
+Running "submit"
+icfp2016problems/05216.solution.txt
+Uploading solution icfp2016problems/05216.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05217
+     Running `target/debug/teamsuperlegit submit 05217`
+Running "submit"
+icfp2016problems/05217.solution.txt
+Uploading solution icfp2016problems/05217.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05218
+     Running `target/debug/teamsuperlegit submit 05218`
+Running "submit"
+icfp2016problems/05218.solution.txt
+Uploading solution icfp2016problems/05218.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05219
+     Running `target/debug/teamsuperlegit submit 05219`
+Running "submit"
+icfp2016problems/05219.solution.txt
+Uploading solution icfp2016problems/05219.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05220
+     Running `target/debug/teamsuperlegit submit 05220`
+Running "submit"
+icfp2016problems/05220.solution.txt
+Uploading solution icfp2016problems/05220.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05221
+     Running `target/debug/teamsuperlegit submit 05221`
+Running "submit"
+icfp2016problems/05221.solution.txt
+Uploading solution icfp2016problems/05221.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05222
+     Running `target/debug/teamsuperlegit submit 05222`
+Running "submit"
+icfp2016problems/05222.solution.txt
+Uploading solution icfp2016problems/05222.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05223
+     Running `target/debug/teamsuperlegit submit 05223`
+Running "submit"
+icfp2016problems/05223.solution.txt
+Uploading solution icfp2016problems/05223.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05224
+     Running `target/debug/teamsuperlegit submit 05224`
+Running "submit"
+icfp2016problems/05224.solution.txt
+Uploading solution icfp2016problems/05224.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05226
+     Running `target/debug/teamsuperlegit submit 05226`
+Running "submit"
+icfp2016problems/05226.solution.txt
+Uploading solution icfp2016problems/05226.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05227
+     Running `target/debug/teamsuperlegit submit 05227`
+Running "submit"
+icfp2016problems/05227.solution.txt
+Uploading solution icfp2016problems/05227.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05230
+     Running `target/debug/teamsuperlegit submit 05230`
+Running "submit"
+icfp2016problems/05230.solution.txt
+Uploading solution icfp2016problems/05230.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+05231
+     Running `target/debug/teamsuperlegit submit 05231`
+Running "submit"
+icfp2016problems/05231.solution.txt
+Uploading solution icfp2016problems/05231.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+05232
+     Running `target/debug/teamsuperlegit submit 05232`
+Running "submit"
+icfp2016problems/05232.solution.txt
+Uploading solution icfp2016problems/05232.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #1 is not mapped congruently.\"}", stderr: "" }
+05236
+     Running `target/debug/teamsuperlegit submit 05236`
+Running "submit"
+icfp2016problems/05236.solution.txt
+Uploading solution icfp2016problems/05236.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05237
+     Running `target/debug/teamsuperlegit submit 05237`
+Running "submit"
+icfp2016problems/05237.solution.txt
+Uploading solution icfp2016problems/05237.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/4\"}", stderr: "" }
+05238
+     Running `target/debug/teamsuperlegit submit 05238`
+Running "submit"
+icfp2016problems/05238.solution.txt
+Uploading solution icfp2016problems/05238.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/4\"}", stderr: "" }
+05239
+     Running `target/debug/teamsuperlegit submit 05239`
+Running "submit"
+icfp2016problems/05239.solution.txt
+Uploading solution icfp2016problems/05239.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":687,\"ok\":true,\"resemblance\":1.0,\"problem_id\":5239,\"solution_spec_hash\":\"f4ec3a356be81b2fdcce0d0b2aa873cff7d1ec21\"}", stderr: "" }
+05244
+     Running `target/debug/teamsuperlegit submit 05244`
+Running "submit"
+icfp2016problems/05244.solution.txt
+Uploading solution icfp2016problems/05244.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05245
+     Running `target/debug/teamsuperlegit submit 05245`
+Running "submit"
+icfp2016problems/05245.solution.txt
+Uploading solution icfp2016problems/05245.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+05252
+     Running `target/debug/teamsuperlegit submit 05252`
+Running "submit"
+icfp2016problems/05252.solution.txt
+Uploading solution icfp2016problems/05252.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (1, 9\\/10) must not lie on an edge.\"}", stderr: "" }
+05261
+     Running `target/debug/teamsuperlegit submit 05261`
+Running "submit"
+icfp2016problems/05261.solution.txt
+Uploading solution icfp2016problems/05261.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05262
+     Running `target/debug/teamsuperlegit submit 05262`
+Running "submit"
+icfp2016problems/05262.solution.txt
+Uploading solution icfp2016problems/05262.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05264
+     Running `target/debug/teamsuperlegit submit 05264`
+Running "submit"
+icfp2016problems/05264.solution.txt
+Uploading solution icfp2016problems/05264.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05265
+     Running `target/debug/teamsuperlegit submit 05265`
+Running "submit"
+icfp2016problems/05265.solution.txt
+Uploading solution icfp2016problems/05265.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05266
+     Running `target/debug/teamsuperlegit submit 05266`
+Running "submit"
+icfp2016problems/05266.solution.txt
+Uploading solution icfp2016problems/05266.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05267
+     Running `target/debug/teamsuperlegit submit 05267`
+Running "submit"
+icfp2016problems/05267.solution.txt
+Uploading solution icfp2016problems/05267.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Source vertex (6629267685676308893083557681514831763311784093913738767377487913118359379882094245\\/6638463855152608580005308235091010623651581885202766579670680458107265827221798912, -16852764130834160698947303544372528711149254379165400681179384675365623300201\\/61467257918079709074123224398990839107885017455581172033987782019511720622424064) is out of the unit square.\"}", stderr: "" }
+05268
+     Running `target/debug/teamsuperlegit submit 05268`
+Running "submit"
+icfp2016problems/05268.solution.txt
+Uploading solution icfp2016problems/05268.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05269
+     Running `target/debug/teamsuperlegit submit 05269`
+Running "submit"
+icfp2016problems/05269.solution.txt
+Uploading solution icfp2016problems/05269.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (15\\/29, 0) must not lie on an edge.\"}", stderr: "" }
+05270
+     Running `target/debug/teamsuperlegit submit 05270`
+Running "submit"
+icfp2016problems/05270.solution.txt
+Uploading solution icfp2016problems/05270.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (16\\/31, 0) must not lie on an edge.\"}", stderr: "" }
+05271
+     Running `target/debug/teamsuperlegit submit 05271`
+Running "submit"
+icfp2016problems/05271.solution.txt
+Uploading solution icfp2016problems/05271.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05272
+     Running `target/debug/teamsuperlegit submit 05272`
+Running "submit"
+icfp2016problems/05272.solution.txt
+Uploading solution icfp2016problems/05272.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05273
+     Running `target/debug/teamsuperlegit submit 05273`
+Running "submit"
+icfp2016problems/05273.solution.txt
+Uploading solution icfp2016problems/05273.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05277
+     Running `target/debug/teamsuperlegit submit 05277`
+Running "submit"
+icfp2016problems/05277.solution.txt
+Uploading solution icfp2016problems/05277.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":203,\"ok\":true,\"resemblance\":1.0,\"problem_id\":5277,\"solution_spec_hash\":\"fb86f2738cc65f9d22f7ac5d6ed20c0b83a0e5b2\"}", stderr: "" }
+05285
+     Running `target/debug/teamsuperlegit submit 05285`
+Running "submit"
+icfp2016problems/05285.solution.txt
+Uploading solution icfp2016problems/05285.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05286
+     Running `target/debug/teamsuperlegit submit 05286`
+Running "submit"
+icfp2016problems/05286.solution.txt
+Uploading solution icfp2016problems/05286.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05287
+     Running `target/debug/teamsuperlegit submit 05287`
+Running "submit"
+icfp2016problems/05287.solution.txt
+Uploading solution icfp2016problems/05287.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05288
+     Running `target/debug/teamsuperlegit submit 05288`
+Running "submit"
+icfp2016problems/05288.solution.txt
+Uploading solution icfp2016problems/05288.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05289
+     Running `target/debug/teamsuperlegit submit 05289`
+Running "submit"
+icfp2016problems/05289.solution.txt
+Uploading solution icfp2016problems/05289.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05290
+     Running `target/debug/teamsuperlegit submit 05290`
+Running "submit"
+icfp2016problems/05290.solution.txt
+Uploading solution icfp2016problems/05290.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05291
+     Running `target/debug/teamsuperlegit submit 05291`
+Running "submit"
+icfp2016problems/05291.solution.txt
+Uploading solution icfp2016problems/05291.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05292
+     Running `target/debug/teamsuperlegit submit 05292`
+Running "submit"
+icfp2016problems/05292.solution.txt
+Uploading solution icfp2016problems/05292.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05293
+     Running `target/debug/teamsuperlegit submit 05293`
+Running "submit"
+icfp2016problems/05293.solution.txt
+Uploading solution icfp2016problems/05293.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05294
+     Running `target/debug/teamsuperlegit submit 05294`
+Running "submit"
+icfp2016problems/05294.solution.txt
+Uploading solution icfp2016problems/05294.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05295
+     Running `target/debug/teamsuperlegit submit 05295`
+Running "submit"
+icfp2016problems/05295.solution.txt
+Uploading solution icfp2016problems/05295.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05296
+     Running `target/debug/teamsuperlegit submit 05296`
+Running "submit"
+icfp2016problems/05296.solution.txt
+Uploading solution icfp2016problems/05296.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05297
+     Running `target/debug/teamsuperlegit submit 05297`
+Running "submit"
+icfp2016problems/05297.solution.txt
+Uploading solution icfp2016problems/05297.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05298
+     Running `target/debug/teamsuperlegit submit 05298`
+Running "submit"
+icfp2016problems/05298.solution.txt
+Uploading solution icfp2016problems/05298.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05299
+     Running `target/debug/teamsuperlegit submit 05299`
+Running "submit"
+icfp2016problems/05299.solution.txt
+Uploading solution icfp2016problems/05299.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05300
+     Running `target/debug/teamsuperlegit submit 05300`
+Running "submit"
+icfp2016problems/05300.solution.txt
+Uploading solution icfp2016problems/05300.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05301
+     Running `target/debug/teamsuperlegit submit 05301`
+Running "submit"
+icfp2016problems/05301.solution.txt
+Uploading solution icfp2016problems/05301.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05302
+     Running `target/debug/teamsuperlegit submit 05302`
+Running "submit"
+icfp2016problems/05302.solution.txt
+Uploading solution icfp2016problems/05302.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+05314
+     Running `target/debug/teamsuperlegit submit 05314`
+Running "submit"
+icfp2016problems/05314.solution.txt
+Uploading solution icfp2016problems/05314.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":637,\"ok\":true,\"resemblance\":1.0,\"problem_id\":5314,\"solution_spec_hash\":\"6663fc1776a04c7d34ff3dc1ee64e1561850ab53\"}", stderr: "" }
+05316
+     Running `target/debug/teamsuperlegit submit 05316`
+Running "submit"
+icfp2016problems/05316.solution.txt
+Uploading solution icfp2016problems/05316.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":118,\"ok\":true,\"resemblance\":0.129032,\"problem_id\":5316,\"solution_spec_hash\":\"e403fb92f3735649d1e947f3a8088ee8ba2d6291\"}", stderr: "" }
+05317
+     Running `target/debug/teamsuperlegit submit 05317`
+Running "submit"
+icfp2016problems/05317.solution.txt
+Uploading solution icfp2016problems/05317.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":118,\"ok\":true,\"resemblance\":0.129032,\"problem_id\":5317,\"solution_spec_hash\":\"e403fb92f3735649d1e947f3a8088ee8ba2d6291\"}", stderr: "" }
+05318
+     Running `target/debug/teamsuperlegit submit 05318`
+Running "submit"
+icfp2016problems/05318.solution.txt
+Uploading solution icfp2016problems/05318.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":118,\"ok\":true,\"resemblance\":0.129032,\"problem_id\":5318,\"solution_spec_hash\":\"e403fb92f3735649d1e947f3a8088ee8ba2d6291\"}", stderr: "" }
+05319
+     Running `target/debug/teamsuperlegit submit 05319`
+Running "submit"
+icfp2016problems/05319.solution.txt
+Uploading solution icfp2016problems/05319.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":118,\"ok\":true,\"resemblance\":0.129032,\"problem_id\":5319,\"solution_spec_hash\":\"e403fb92f3735649d1e947f3a8088ee8ba2d6291\"}", stderr: "" }
+05320
+     Running `target/debug/teamsuperlegit submit 05320`
+Running "submit"
+icfp2016problems/05320.solution.txt
+Uploading solution icfp2016problems/05320.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":118,\"ok\":true,\"resemblance\":0.129032,\"problem_id\":5320,\"solution_spec_hash\":\"e403fb92f3735649d1e947f3a8088ee8ba2d6291\"}", stderr: "" }
+05321
+     Running `target/debug/teamsuperlegit submit 05321`
+Running "submit"
+icfp2016problems/05321.solution.txt
+Uploading solution icfp2016problems/05321.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":118,\"ok\":true,\"resemblance\":0.129032,\"problem_id\":5321,\"solution_spec_hash\":\"e403fb92f3735649d1e947f3a8088ee8ba2d6291\"}", stderr: "" }
+05322
+     Running `target/debug/teamsuperlegit submit 05322`
+Running "submit"
+icfp2016problems/05322.solution.txt
+Uploading solution icfp2016problems/05322.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":118,\"ok\":true,\"resemblance\":0.129032,\"problem_id\":5322,\"solution_spec_hash\":\"e403fb92f3735649d1e947f3a8088ee8ba2d6291\"}", stderr: "" }
+05323
+     Running `target/debug/teamsuperlegit submit 05323`
+Running "submit"
+icfp2016problems/05323.solution.txt
+Uploading solution icfp2016problems/05323.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":118,\"ok\":true,\"resemblance\":0.129032,\"problem_id\":5323,\"solution_spec_hash\":\"e403fb92f3735649d1e947f3a8088ee8ba2d6291\"}", stderr: "" }
+05324
+     Running `target/debug/teamsuperlegit submit 05324`
+Running "submit"
+icfp2016problems/05324.solution.txt
+Uploading solution icfp2016problems/05324.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":118,\"ok\":true,\"resemblance\":0.129032,\"problem_id\":5324,\"solution_spec_hash\":\"e403fb92f3735649d1e947f3a8088ee8ba2d6291\"}", stderr: "" }
+05326
+     Running `target/debug/teamsuperlegit submit 05326`
+Running "submit"
+icfp2016problems/05326.solution.txt
+Uploading solution icfp2016problems/05326.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":118,\"ok\":true,\"resemblance\":0.129032,\"problem_id\":5326,\"solution_spec_hash\":\"e403fb92f3735649d1e947f3a8088ee8ba2d6291\"}", stderr: "" }
+05327
+     Running `target/debug/teamsuperlegit submit 05327`
+Running "submit"
+icfp2016problems/05327.solution.txt
+Uploading solution icfp2016problems/05327.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":118,\"ok\":true,\"resemblance\":0.129032,\"problem_id\":5327,\"solution_spec_hash\":\"e403fb92f3735649d1e947f3a8088ee8ba2d6291\"}", stderr: "" }
+05328
+     Running `target/debug/teamsuperlegit submit 05328`
+Running "submit"
+icfp2016problems/05328.solution.txt
+Uploading solution icfp2016problems/05328.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":118,\"ok\":true,\"resemblance\":0.129032,\"problem_id\":5328,\"solution_spec_hash\":\"e403fb92f3735649d1e947f3a8088ee8ba2d6291\"}", stderr: "" }
+05329
+     Running `target/debug/teamsuperlegit submit 05329`
+Running "submit"
+icfp2016problems/05329.solution.txt
+Uploading solution icfp2016problems/05329.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":118,\"ok\":true,\"resemblance\":0.129032,\"problem_id\":5329,\"solution_spec_hash\":\"e403fb92f3735649d1e947f3a8088ee8ba2d6291\"}", stderr: "" }
+05330
+     Running `target/debug/teamsuperlegit submit 05330`
+Running "submit"
+icfp2016problems/05330.solution.txt
+Uploading solution icfp2016problems/05330.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":118,\"ok\":true,\"resemblance\":0.129032,\"problem_id\":5330,\"solution_spec_hash\":\"e403fb92f3735649d1e947f3a8088ee8ba2d6291\"}", stderr: "" }
+05332
+     Running `target/debug/teamsuperlegit submit 05332`
+Running "submit"
+icfp2016problems/05332.solution.txt
+Uploading solution icfp2016problems/05332.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+05333
+     Running `target/debug/teamsuperlegit submit 05333`
+Running "submit"
+icfp2016problems/05333.solution.txt
+Uploading solution icfp2016problems/05333.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05334
+     Running `target/debug/teamsuperlegit submit 05334`
+Running "submit"
+icfp2016problems/05334.solution.txt
+Uploading solution icfp2016problems/05334.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05338
+     Running `target/debug/teamsuperlegit submit 05338`
+Running "submit"
+icfp2016problems/05338.solution.txt
+Uploading solution icfp2016problems/05338.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05339
+     Running `target/debug/teamsuperlegit submit 05339`
+Running "submit"
+icfp2016problems/05339.solution.txt
+Uploading solution icfp2016problems/05339.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05340
+     Running `target/debug/teamsuperlegit submit 05340`
+Running "submit"
+icfp2016problems/05340.solution.txt
+Uploading solution icfp2016problems/05340.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05341
+     Running `target/debug/teamsuperlegit submit 05341`
+Running "submit"
+icfp2016problems/05341.solution.txt
+Uploading solution icfp2016problems/05341.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05342
+     Running `target/debug/teamsuperlegit submit 05342`
+Running "submit"
+icfp2016problems/05342.solution.txt
+Uploading solution icfp2016problems/05342.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05343
+     Running `target/debug/teamsuperlegit submit 05343`
+Running "submit"
+icfp2016problems/05343.solution.txt
+Uploading solution icfp2016problems/05343.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":151,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5343,\"solution_spec_hash\":\"d41a4e689ff64df59b4a0f39a9d073d9719aaf0f\"}", stderr: "" }
+05344
+     Running `target/debug/teamsuperlegit submit 05344`
+Running "submit"
+icfp2016problems/05344.solution.txt
+Uploading solution icfp2016problems/05344.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":164,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5344,\"solution_spec_hash\":\"2b20f3f8d5a9074ecf6e72a1a84ed70f4759c736\"}", stderr: "" }
+05345
+     Running `target/debug/teamsuperlegit submit 05345`
+Running "submit"
+icfp2016problems/05345.solution.txt
+Uploading solution icfp2016problems/05345.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":152,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5345,\"solution_spec_hash\":\"8b5270d4582ba88ac177661ad4dae90bf7869afa\"}", stderr: "" }
+05346
+     Running `target/debug/teamsuperlegit submit 05346`
+Running "submit"
+icfp2016problems/05346.solution.txt
+Uploading solution icfp2016problems/05346.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":133,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5346,\"solution_spec_hash\":\"cbd0d1b414e34527e8d6624d9786315b55237a79\"}", stderr: "" }
+05348
+     Running `target/debug/teamsuperlegit submit 05348`
+Running "submit"
+icfp2016problems/05348.solution.txt
+Uploading solution icfp2016problems/05348.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05349
+    Blocking waiting for file lock on build directory
+     Running `target/debug/teamsuperlegit submit 05349`
+Running "submit"
+icfp2016problems/05349.solution.txt
+Uploading solution icfp2016problems/05349.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Source vertex (114629331843328576\\/114629331843328575, 337010235619385984\\/343887995529985725) is out of the unit square.\"}", stderr: "" }
+05351
+     Running `target/debug/teamsuperlegit submit 05351`
+Running "submit"
+icfp2016problems/05351.solution.txt
+Uploading solution icfp2016problems/05351.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05352
+     Running `target/debug/teamsuperlegit submit 05352`
+Running "submit"
+icfp2016problems/05352.solution.txt
+Uploading solution icfp2016problems/05352.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05357
+     Running `target/debug/teamsuperlegit submit 05357`
+Running "submit"
+icfp2016problems/05357.solution.txt
+Uploading solution icfp2016problems/05357.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Source vertex (0, -2212960733321849989473825456698115204607845602966711422627405695405778946044135465074144630271\\/166016824805141877807644709240701626048250069287385434497725749750950299872376553635411941250146762752) is out of the unit square.\"}", stderr: "" }
+05358
+     Running `target/debug/teamsuperlegit submit 05358`
+Running "submit"
+icfp2016problems/05358.solution.txt
+Uploading solution icfp2016problems/05358.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05361
+     Running `target/debug/teamsuperlegit submit 05361`
+Running "submit"
+icfp2016problems/05361.solution.txt
+Uploading solution icfp2016problems/05361.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05363
+     Running `target/debug/teamsuperlegit submit 05363`
+Running "submit"
+icfp2016problems/05363.solution.txt
+Uploading solution icfp2016problems/05363.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05365
+     Running `target/debug/teamsuperlegit submit 05365`
+Running "submit"
+icfp2016problems/05365.solution.txt
+Uploading solution icfp2016problems/05365.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05366
+     Running `target/debug/teamsuperlegit submit 05366`
+Running "submit"
+icfp2016problems/05366.solution.txt
+Uploading solution icfp2016problems/05366.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05371
+     Running `target/debug/teamsuperlegit submit 05371`
+Running "submit"
+icfp2016problems/05371.solution.txt
+Uploading solution icfp2016problems/05371.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/4\"}", stderr: "" }
+05372
+     Running `target/debug/teamsuperlegit submit 05372`
+Running "submit"
+icfp2016problems/05372.solution.txt
+Uploading solution icfp2016problems/05372.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/4\"}", stderr: "" }
+05373
+     Running `target/debug/teamsuperlegit submit 05373`
+Running "submit"
+icfp2016problems/05373.solution.txt
+Uploading solution icfp2016problems/05373.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":575,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5373,\"solution_spec_hash\":\"24ff91bb2c11c7d20a90fb83c04f9a7fdf5cec50\"}", stderr: "" }
+05374
+     Running `target/debug/teamsuperlegit submit 05374`
+Running "submit"
+icfp2016problems/05374.solution.txt
+Uploading solution icfp2016problems/05374.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05375
+     Running `target/debug/teamsuperlegit submit 05375`
+Running "submit"
+icfp2016problems/05375.solution.txt
+Uploading solution icfp2016problems/05375.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Source vertex (13838243287313056\\/13838243287313055, 60542314381994624\\/69191216436565275) is out of the unit square.\"}", stderr: "" }
+05376
+     Running `target/debug/teamsuperlegit submit 05376`
+Running "submit"
+icfp2016problems/05376.solution.txt
+Uploading solution icfp2016problems/05376.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":562,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5376,\"solution_spec_hash\":\"ecd4c5ab8b30570ac85d7ce4ae2b4628f45018db\"}", stderr: "" }
+05377
+     Running `target/debug/teamsuperlegit submit 05377`
+Running "submit"
+icfp2016problems/05377.solution.txt
+Uploading solution icfp2016problems/05377.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05378
+     Running `target/debug/teamsuperlegit submit 05378`
+Running "submit"
+icfp2016problems/05378.solution.txt
+Uploading solution icfp2016problems/05378.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05379
+     Running `target/debug/teamsuperlegit submit 05379`
+Running "submit"
+icfp2016problems/05379.solution.txt
+Uploading solution icfp2016problems/05379.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Source vertex (33446205144787696\\/33446205144787695, 9755143167229744\\/11148735048262565) is out of the unit square.\"}", stderr: "" }
+05380
+     Running `target/debug/teamsuperlegit submit 05380`
+Running "submit"
+icfp2016problems/05380.solution.txt
+Uploading solution icfp2016problems/05380.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05381
+     Running `target/debug/teamsuperlegit submit 05381`
+Running "submit"
+icfp2016problems/05381.solution.txt
+Uploading solution icfp2016problems/05381.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (524834726696088704\\/524834726696088705, 27013552109357504\\/30872630982122865) must not lie on an edge.\"}", stderr: "" }
+05382
+     Running `target/debug/teamsuperlegit submit 05382`
+Running "submit"
+icfp2016problems/05382.solution.txt
+Uploading solution icfp2016problems/05382.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05383
+     Running `target/debug/teamsuperlegit submit 05383`
+Running "submit"
+icfp2016problems/05383.solution.txt
+Uploading solution icfp2016problems/05383.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05384
+     Running `target/debug/teamsuperlegit submit 05384`
+Running "submit"
+icfp2016problems/05384.solution.txt
+Uploading solution icfp2016problems/05384.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05385
+     Running `target/debug/teamsuperlegit submit 05385`
+Running "submit"
+icfp2016problems/05385.solution.txt
+Uploading solution icfp2016problems/05385.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (1345188098605082\\/3587168262946885, 32284514366521964\\/32284514366521965) must not lie on an edge.\"}", stderr: "" }
+05386
+     Running `target/debug/teamsuperlegit submit 05386`
+Running "submit"
+icfp2016problems/05386.solution.txt
+Uploading solution icfp2016problems/05386.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Source vertex (41342529830802304\\/41342529830802303, 60291189336586688\\/68904216384670505) is out of the unit square.\"}", stderr: "" }
+05387
+     Running `target/debug/teamsuperlegit submit 05387`
+Running "submit"
+icfp2016problems/05387.solution.txt
+Uploading solution icfp2016problems/05387.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05388
+     Running `target/debug/teamsuperlegit submit 05388`
+Running "submit"
+icfp2016problems/05388.solution.txt
+Uploading solution icfp2016problems/05388.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":687,\"ok\":true,\"resemblance\":1.0,\"problem_id\":5388,\"solution_spec_hash\":\"b4f4cd0eaf28acd86911f2f79a6665c9abd47591\"}", stderr: "" }
+05390
+     Running `target/debug/teamsuperlegit submit 05390`
+Running "submit"
+icfp2016problems/05390.solution.txt
+Uploading solution icfp2016problems/05390.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":701,\"ok\":true,\"resemblance\":1.0,\"problem_id\":5390,\"solution_spec_hash\":\"26d242b681611842bd2b51f1c7a0356429c574c4\"}", stderr: "" }
+05392
+     Running `target/debug/teamsuperlegit submit 05392`
+Running "submit"
+icfp2016problems/05392.solution.txt
+Uploading solution icfp2016problems/05392.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05393
+     Running `target/debug/teamsuperlegit submit 05393`
+Running "submit"
+icfp2016problems/05393.solution.txt
+Uploading solution icfp2016problems/05393.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (1, 484091297679395443298907360637441202010839784675186944664405736364572939\\/976381820474779786056539030105490596476744546170193772999960439029760000) must not lie on an edge.\"}", stderr: "" }
+05411
+     Running `target/debug/teamsuperlegit submit 05411`
+Running "submit"
+icfp2016problems/05411.solution.txt
+Uploading solution icfp2016problems/05411.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05412
+     Running `target/debug/teamsuperlegit submit 05412`
+Running "submit"
+icfp2016problems/05412.solution.txt
+Uploading solution icfp2016problems/05412.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05413
+     Running `target/debug/teamsuperlegit submit 05413`
+Running "submit"
+icfp2016problems/05413.solution.txt
+Uploading solution icfp2016problems/05413.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05414
+     Running `target/debug/teamsuperlegit submit 05414`
+Running "submit"
+icfp2016problems/05414.solution.txt
+Uploading solution icfp2016problems/05414.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05415
+     Running `target/debug/teamsuperlegit submit 05415`
+Running "submit"
+icfp2016problems/05415.solution.txt
+Uploading solution icfp2016problems/05415.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05416
+     Running `target/debug/teamsuperlegit submit 05416`
+Running "submit"
+icfp2016problems/05416.solution.txt
+Uploading solution icfp2016problems/05416.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05426
+     Running `target/debug/teamsuperlegit submit 05426`
+Running "submit"
+icfp2016problems/05426.solution.txt
+Uploading solution icfp2016problems/05426.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Source vertex (114629331843328576\\/114629331843328575, 337010235619385984\\/343887995529985725) is out of the unit square.\"}", stderr: "" }
+05427
+     Running `target/debug/teamsuperlegit submit 05427`
+Running "submit"
+icfp2016problems/05427.solution.txt
+Uploading solution icfp2016problems/05427.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":203,\"ok\":true,\"resemblance\":1.0,\"problem_id\":5427,\"solution_spec_hash\":\"e89cefa41f6c6584d5cf8d7e4ffb7cc4b6f902b4\"}", stderr: "" }
+05436
+     Running `target/debug/teamsuperlegit submit 05436`
+Running "submit"
+icfp2016problems/05436.solution.txt
+Uploading solution icfp2016problems/05436.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05439
+     Running `target/debug/teamsuperlegit submit 05439`
+Running "submit"
+icfp2016problems/05439.solution.txt
+Uploading solution icfp2016problems/05439.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+05445
+     Running `target/debug/teamsuperlegit submit 05445`
+Running "submit"
+icfp2016problems/05445.solution.txt
+Uploading solution icfp2016problems/05445.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+05447
+     Running `target/debug/teamsuperlegit submit 05447`
+Running "submit"
+icfp2016problems/05447.solution.txt
+Uploading solution icfp2016problems/05447.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":190,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5447,\"solution_spec_hash\":\"9080d1baabc307487ebd55da5787659aa6c7a7a5\"}", stderr: "" }
+05448
+     Running `target/debug/teamsuperlegit submit 05448`
+Running "submit"
+icfp2016problems/05448.solution.txt
+Uploading solution icfp2016problems/05448.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":194,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5448,\"solution_spec_hash\":\"68071468e02aaaa17496be6e9be533736c34b715\"}", stderr: "" }
+05449
+     Running `target/debug/teamsuperlegit submit 05449`
+Running "submit"
+icfp2016problems/05449.solution.txt
+Uploading solution icfp2016problems/05449.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":182,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5449,\"solution_spec_hash\":\"3b617b08204c0dec6e1e4b6e1bf7c0a8fe603b50\"}", stderr: "" }
+05450
+     Running `target/debug/teamsuperlegit submit 05450`
+Running "submit"
+icfp2016problems/05450.solution.txt
+Uploading solution icfp2016problems/05450.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":206,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5450,\"solution_spec_hash\":\"2a31908207c77d15ba357f952743decd37c7f731\"}", stderr: "" }
+05454
+     Running `target/debug/teamsuperlegit submit 05454`
+Running "submit"
+icfp2016problems/05454.solution.txt
+Uploading solution icfp2016problems/05454.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05456
+     Running `target/debug/teamsuperlegit submit 05456`
+Running "submit"
+icfp2016problems/05456.solution.txt
+Uploading solution icfp2016problems/05456.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":213,\"ok\":true,\"resemblance\":0.710022,\"problem_id\":5456,\"solution_spec_hash\":\"28f4def8ac7c2006f229a49b4dccb5a676f5e0be\"}", stderr: "" }
+05457
+     Running `target/debug/teamsuperlegit submit 05457`
+Running "submit"
+icfp2016problems/05457.solution.txt
+Uploading solution icfp2016problems/05457.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":705,\"ok\":true,\"resemblance\":1.0,\"problem_id\":5457,\"solution_spec_hash\":\"676774678c64a72a3576a689b3f2c08d8c581593\"}", stderr: "" }
+05459
+     Running `target/debug/teamsuperlegit submit 05459`
+Running "submit"
+icfp2016problems/05459.solution.txt
+Uploading solution icfp2016problems/05459.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":175,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5459,\"solution_spec_hash\":\"ef45e15a38c0c59c55d5a5486c272b444d2c68ac\"}", stderr: "" }
+05473
+     Running `target/debug/teamsuperlegit submit 05473`
+Running "submit"
+icfp2016problems/05473.solution.txt
+Uploading solution icfp2016problems/05473.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":173,\"ok\":true,\"resemblance\":1.0,\"problem_id\":5473,\"solution_spec_hash\":\"bedb115ca2ed90689e2c6243c04ea43ab47d80f5\"}", stderr: "" }
+05476
+     Running `target/debug/teamsuperlegit submit 05476`
+Running "submit"
+icfp2016problems/05476.solution.txt
+Uploading solution icfp2016problems/05476.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05486
+     Running `target/debug/teamsuperlegit submit 05486`
+Running "submit"
+icfp2016problems/05486.solution.txt
+Uploading solution icfp2016problems/05486.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05487
+     Running `target/debug/teamsuperlegit submit 05487`
+Running "submit"
+icfp2016problems/05487.solution.txt
+Uploading solution icfp2016problems/05487.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (27803946770604333781122596552239342317972098300416519057290560298667391015807319872531381757\\/58206286708551796788761780533912846430793515938775946018465244741177994010632423189197619200, 1) must not lie on an edge.\"}", stderr: "" }
+05490
+     Running `target/debug/teamsuperlegit submit 05490`
+Running "submit"
+icfp2016problems/05490.solution.txt
+Uploading solution icfp2016problems/05490.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":31,\"ok\":true,\"resemblance\":0.5,\"problem_id\":5490,\"solution_spec_hash\":\"d141fbf7b43b4107082cc072a852db13ca920605\"}", stderr: "" }
+05491
+     Running `target/debug/teamsuperlegit submit 05491`
+Running "submit"
+icfp2016problems/05491.solution.txt
+Uploading solution icfp2016problems/05491.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05495
+     Running `target/debug/teamsuperlegit submit 05495`
+Running "submit"
+icfp2016problems/05495.solution.txt
+Uploading solution icfp2016problems/05495.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+05496
+     Running `target/debug/teamsuperlegit submit 05496`
+Running "submit"
+icfp2016problems/05496.solution.txt
+Uploading solution icfp2016problems/05496.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (0, 16248474481503727179599056462960714861508745771789100393808634527558729209181362592940151507893129022026546182722899270133504775143125749\\/23260452404695175691236860030107694445827830508934707403847729055374896259169068350471485987387244853606650254884077810851516006021464064) must not lie on an edge.\"}", stderr: "" }
+05497
+     Running `target/debug/teamsuperlegit submit 05497`
+Running "submit"
+icfp2016problems/05497.solution.txt
+Uploading solution icfp2016problems/05497.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05501
+     Running `target/debug/teamsuperlegit submit 05501`
+Running "submit"
+icfp2016problems/05501.solution.txt
+Uploading solution icfp2016problems/05501.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05505
+     Running `target/debug/teamsuperlegit submit 05505`
+Running "submit"
+icfp2016problems/05505.solution.txt
+Uploading solution icfp2016problems/05505.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05507
+     Running `target/debug/teamsuperlegit submit 05507`
+Running "submit"
+icfp2016problems/05507.solution.txt
+Uploading solution icfp2016problems/05507.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+05508
+     Running `target/debug/teamsuperlegit submit 05508`
+Running "submit"
+icfp2016problems/05508.solution.txt
+Uploading solution icfp2016problems/05508.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05509
+     Running `target/debug/teamsuperlegit submit 05509`
+Running "submit"
+icfp2016problems/05509.solution.txt
+Uploading solution icfp2016problems/05509.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05510
+     Running `target/debug/teamsuperlegit submit 05510`
+Running "submit"
+icfp2016problems/05510.solution.txt
+Uploading solution icfp2016problems/05510.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05511
+     Running `target/debug/teamsuperlegit submit 05511`
+Running "submit"
+icfp2016problems/05511.solution.txt
+Uploading solution icfp2016problems/05511.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05512
+     Running `target/debug/teamsuperlegit submit 05512`
+Running "submit"
+icfp2016problems/05512.solution.txt
+Uploading solution icfp2016problems/05512.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05513
+     Running `target/debug/teamsuperlegit submit 05513`
+Running "submit"
+icfp2016problems/05513.solution.txt
+Uploading solution icfp2016problems/05513.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05514
+     Running `target/debug/teamsuperlegit submit 05514`
+Running "submit"
+icfp2016problems/05514.solution.txt
+Uploading solution icfp2016problems/05514.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
+05515
+     Running `target/debug/teamsuperlegit submit 05515`
+Running "submit"
+icfp2016problems/05515.solution.txt
+Uploading solution icfp2016problems/05515.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05516
+     Running `target/debug/teamsuperlegit submit 05516`
+Running "submit"
+icfp2016problems/05516.solution.txt
+Uploading solution icfp2016problems/05516.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05517
+     Running `target/debug/teamsuperlegit submit 05517`
+Running "submit"
+icfp2016problems/05517.solution.txt
+Uploading solution icfp2016problems/05517.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05519
+     Running `target/debug/teamsuperlegit submit 05519`
+Running "submit"
+icfp2016problems/05519.solution.txt
+Uploading solution icfp2016problems/05519.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05524
+     Running `target/debug/teamsuperlegit submit 05524`
+Running "submit"
+icfp2016problems/05524.solution.txt
+Uploading solution icfp2016problems/05524.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05525
+     Running `target/debug/teamsuperlegit submit 05525`
+Running "submit"
+icfp2016problems/05525.solution.txt
+Uploading solution icfp2016problems/05525.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05526
+     Running `target/debug/teamsuperlegit submit 05526`
+Running "submit"
+icfp2016problems/05526.solution.txt
+Uploading solution icfp2016problems/05526.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":163,\"ok\":true,\"resemblance\":0.0,\"problem_id\":5526,\"solution_spec_hash\":\"237907edc94139b1315a530091b422ecb9a1649c\"}", stderr: "" }
+05527
+     Running `target/debug/teamsuperlegit submit 05527`
+Running "submit"
+icfp2016problems/05527.solution.txt
+Uploading solution icfp2016problems/05527.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05530
+     Running `target/debug/teamsuperlegit submit 05530`
+Running "submit"
+icfp2016problems/05530.solution.txt
+Uploading solution icfp2016problems/05530.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05531
+     Running `target/debug/teamsuperlegit submit 05531`
+Running "submit"
+icfp2016problems/05531.solution.txt
+Uploading solution icfp2016problems/05531.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05532
+     Running `target/debug/teamsuperlegit submit 05532`
+Running "submit"
+icfp2016problems/05532.solution.txt
+Uploading solution icfp2016problems/05532.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":136,\"ok\":true,\"resemblance\":0.075,\"problem_id\":5532,\"solution_spec_hash\":\"c9f6fb3fc03990ad6eeb9b47ac38b35f17e6a112\"}", stderr: "" }
+05535
+     Running `target/debug/teamsuperlegit submit 05535`
+Running "submit"
+icfp2016problems/05535.solution.txt
+Uploading solution icfp2016problems/05535.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (1, 3\\/8) must not lie on an edge.\"}", stderr: "" }
+05536
+     Running `target/debug/teamsuperlegit submit 05536`
+Running "submit"
+icfp2016problems/05536.solution.txt
+Uploading solution icfp2016problems/05536.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The union set of all facets at source positions must cover the unit square. Current coverage area = 1\\/2\"}", stderr: "" }
+05538
+     Running `target/debug/teamsuperlegit submit 05538`
+Running "submit"
+icfp2016problems/05538.solution.txt
+Uploading solution icfp2016problems/05538.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":172,\"ok\":true,\"resemblance\":0.172619,\"problem_id\":5538,\"solution_spec_hash\":\"17b548346ed111a54b4d240854f898dca9aa222f\"}", stderr: "" }
+05554
+     Running `target/debug/teamsuperlegit submit 05554`
+Running "submit"
+icfp2016problems/05554.solution.txt
+Uploading solution icfp2016problems/05554.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":173,\"ok\":true,\"resemblance\":1.0,\"problem_id\":5554,\"solution_spec_hash\":\"27ddfb59c8bfb8310e4ba1ed82f7b40bec482f8f\"}", stderr: "" }
+05555
+     Running `target/debug/teamsuperlegit submit 05555`
+Running "submit"
+icfp2016problems/05555.solution.txt
+Uploading solution icfp2016problems/05555.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (14400591491215966445311211153530667114733283978440817186030110534885292973813499\\/102861367794399803021592841987762407884499145392880222895499407426302634885120000, 1) must not lie on an edge.\"}", stderr: "" }
+05600
+     Running `target/debug/teamsuperlegit submit 05600`
+Running "submit"
+icfp2016problems/05600.solution.txt
+Uploading solution icfp2016problems/05600.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05603
+     Running `target/debug/teamsuperlegit submit 05603`
+Running "submit"
+icfp2016problems/05603.solution.txt
+Uploading solution icfp2016problems/05603.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05607
+     Running `target/debug/teamsuperlegit submit 05607`
+Running "submit"
+icfp2016problems/05607.solution.txt
+Uploading solution icfp2016problems/05607.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05608
+     Running `target/debug/teamsuperlegit submit 05608`
+Running "submit"
+icfp2016problems/05608.solution.txt
+Uploading solution icfp2016problems/05608.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (17\\/33, 0) must not lie on an edge.\"}", stderr: "" }
+05609
+     Running `target/debug/teamsuperlegit submit 05609`
+Running "submit"
+icfp2016problems/05609.solution.txt
+Uploading solution icfp2016problems/05609.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05610
+     Running `target/debug/teamsuperlegit submit 05610`
+Running "submit"
+icfp2016problems/05610.solution.txt
+Uploading solution icfp2016problems/05610.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05612
+     Running `target/debug/teamsuperlegit submit 05612`
+Running "submit"
+icfp2016problems/05612.solution.txt
+Uploading solution icfp2016problems/05612.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05621
+     Running `target/debug/teamsuperlegit submit 05621`
+Running "submit"
+icfp2016problems/05621.solution.txt
+Uploading solution icfp2016problems/05621.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05622
+     Running `target/debug/teamsuperlegit submit 05622`
+Running "submit"
+icfp2016problems/05622.solution.txt
+Uploading solution icfp2016problems/05622.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (1, 8929467055951743840464812196221257\\/11065478991640304980250320128966656) must not lie on an edge.\"}", stderr: "" }
+05625
+     Running `target/debug/teamsuperlegit submit 05625`
+Running "submit"
+icfp2016problems/05625.solution.txt
+Uploading solution icfp2016problems/05625.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05628
+     Running `target/debug/teamsuperlegit submit 05628`
+Running "submit"
+icfp2016problems/05628.solution.txt
+Uploading solution icfp2016problems/05628.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05629
+     Running `target/debug/teamsuperlegit submit 05629`
+Running "submit"
+icfp2016problems/05629.solution.txt
+Uploading solution icfp2016problems/05629.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05635
+     Running `target/debug/teamsuperlegit submit 05635`
+Running "submit"
+icfp2016problems/05635.solution.txt
+Uploading solution icfp2016problems/05635.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05637
+     Running `target/debug/teamsuperlegit submit 05637`
+Running "submit"
+icfp2016problems/05637.solution.txt
+Uploading solution icfp2016problems/05637.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05638
+     Running `target/debug/teamsuperlegit submit 05638`
+Running "submit"
+icfp2016problems/05638.solution.txt
+Uploading solution icfp2016problems/05638.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":153,\"ok\":true,\"resemblance\":0.14074,\"problem_id\":5638,\"solution_spec_hash\":\"8307b5b15c5377d8c7601b070c04394378cd24df\"}", stderr: "" }
+05705
+     Running `target/debug/teamsuperlegit submit 05705`
+Running "submit"
+icfp2016problems/05705.solution.txt
+Uploading solution icfp2016problems/05705.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05719
+     Running `target/debug/teamsuperlegit submit 05719`
+Running "submit"
+icfp2016problems/05719.solution.txt
+Uploading solution icfp2016problems/05719.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05723
+     Running `target/debug/teamsuperlegit submit 05723`
+Running "submit"
+icfp2016problems/05723.solution.txt
+Uploading solution icfp2016problems/05723.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":129,\"ok\":true,\"resemblance\":0.088888,\"problem_id\":5723,\"solution_spec_hash\":\"ba9fcbdb24b0b3792bae75fbea1edc8a2844cabe\"}", stderr: "" }
+05724
+     Running `target/debug/teamsuperlegit submit 05724`
+Running "submit"
+icfp2016problems/05724.solution.txt
+Uploading solution icfp2016problems/05724.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05725
+     Running `target/debug/teamsuperlegit submit 05725`
+Running "submit"
+icfp2016problems/05725.solution.txt
+Uploading solution icfp2016problems/05725.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05726
+     Running `target/debug/teamsuperlegit submit 05726`
+Running "submit"
+icfp2016problems/05726.solution.txt
+Uploading solution icfp2016problems/05726.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05904
+     Running `target/debug/teamsuperlegit submit 05904`
+Running "submit"
+icfp2016problems/05904.solution.txt
+Uploading solution icfp2016problems/05904.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":241,\"ok\":true,\"resemblance\":0.038764,\"problem_id\":5904,\"solution_spec_hash\":\"d8af3852043c38159a6e38a286f80d398c85fa60\"}", stderr: "" }
+05905
+     Running `target/debug/teamsuperlegit submit 05905`
+Running "submit"
+icfp2016problems/05905.solution.txt
+Uploading solution icfp2016problems/05905.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+05906
+     Running `target/debug/teamsuperlegit submit 05906`
+Running "submit"
+icfp2016problems/05906.solution.txt
+Uploading solution icfp2016problems/05906.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":242,\"ok\":true,\"resemblance\":0.024855,\"problem_id\":5906,\"solution_spec_hash\":\"7aab76f89ca1bcbf4272d97d8f1698651797f161\"}", stderr: "" }
+05907
+     Running `target/debug/teamsuperlegit submit 05907`
+Running "submit"
+icfp2016problems/05907.solution.txt
+Uploading solution icfp2016problems/05907.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"solution_size\":189,\"ok\":true,\"resemblance\":1.0,\"problem_id\":5907,\"solution_spec_hash\":\"8905feaaad3f82aeaba45af17095b1f7976b4cf5\"}", stderr: "" }
+05910
+     Running `target/debug/teamsuperlegit submit 05910`
+Running "submit"
+icfp2016problems/05910.solution.txt
+Uploading solution icfp2016problems/05910.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Facet #0 is not mapped congruently.\"}", stderr: "" }
+05912
+     Running `target/debug/teamsuperlegit submit 05912`
+Running "submit"
+icfp2016problems/05912.solution.txt
+Uploading solution icfp2016problems/05912.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+06000
+     Running `target/debug/teamsuperlegit submit 06000`
+Running "submit"
+icfp2016problems/06000.solution.txt
+Uploading solution icfp2016problems/06000.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+06011
+     Running `target/debug/teamsuperlegit submit 06011`
+Running "submit"
+icfp2016problems/06011.solution.txt
+Uploading solution icfp2016problems/06011.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: Vertex (22\\/43, 0) must not lie on an edge.\"}", stderr: "" }
+06012
+     Running `target/debug/teamsuperlegit submit 06012`
+Running "submit"
+icfp2016problems/06012.solution.txt
+Uploading solution icfp2016problems/06012.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: No coordinate should appear more than once in the source positions part.\"}", stderr: "" }
+06022
+     Running `target/debug/teamsuperlegit submit 06022`
+Running "submit"
+icfp2016problems/06022.solution.txt
+Uploading solution icfp2016problems/06022.solution.txt
+Output { status: ExitStatus(ExitStatus(0)), stdout: "{\"ok\":false,\"error\":\"Invalid solution spec: The size of facet #3 must be no less than three.\"}", stderr: "" }
