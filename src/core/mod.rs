@@ -19,12 +19,4 @@ mod tests {
 	pub fn p<N: Num>(x: N, y: N) -> Point<N> {
 		Point{x: x, y: y}
 	}
-
-	pub fn p64(x: f64, y: f64) -> Point<f64> {
-		Point{x: x, y: y}
-	}
-    
-    pub fn pNum<N:Num>(x: N, y:N) -> Point<N> {
-        Point{x: x, y: y}
-    }
 }

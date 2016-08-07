@@ -540,19 +540,19 @@ mod tests {
 
 	#[test]
 	fn test_point_eq(){
-    assert_eq!(pNum(0,0), pNum(0,0));
-    assert_eq!(pNum(0.0,0.0), pNum(0.0,0.0));
-    assert_eq!(pNum(0.0,0.0), pNum(0.0000000001,0.0000000001));
-    assert_eq!(pNum(1.0,1.0), pNum(1.0000000001,1.0000000001));
+    assert_eq!(p(0,0), p(0,0));
+    assert_eq!(p(0.0,0.0), p(0.0,0.0));
+    assert_eq!(p(0.0,0.0), p(0.0000000001,0.0000000001));
+    assert_eq!(p(1.0,1.0), p(1.0000000001,1.0000000001));
 
-    assert!(!(pNum(1,1) == pNum(0,0)));
-    assert!(!(pNum(1.0,1.0) == pNum(0.0000000001,0.0000000001)));
+    assert!(!(p(1,1) == p(0,0)));
+    assert!(!(p(1.0,1.0) == p(0.0000000001,0.0000000001)));
   }
 
 	#[test]
 	fn gradient_test(){
-        let p1 = pNum(1,1);
-        let p2 = pNum(0,0);
+        let p1 = p(1,1);
+        let p2 = p(0,0);
         let g = gradient(&Line{p1:p1,p2:p2});
         println!("gradient_test: {:?}",g);
         assert_eq!(g,Some(1));
@@ -560,54 +560,54 @@ mod tests {
 
 	#[test]
 	fn test_flip_point_matrix(){
-		let mut p2 = reflect_matrix(&pNum(0.0,0.0), &pNum(1.0,0.0)).transform(pNum(1.0,1.0));
+		let mut p2 = reflect_matrix(&p(0.0,0.0), &p(1.0,0.0)).transform(p(1.0,1.0));
 		println!("flip_point_test: {:?}",p2);
-		assert_eq!(pNum(1.0, -1.0), p2);
+		assert_eq!(p(1.0, -1.0), p2);
 
-		p2 = reflect_matrix(&pNum(0.0,0.0), &pNum(3.0,3.0)).transform(pNum(1.0,0.0));
+		p2 = reflect_matrix(&p(0.0,0.0), &p(3.0,3.0)).transform(p(1.0,0.0));
 		println!("flip_point_test: {:?}",p2);
-		assert_eq!(pNum(0.0, 1.0), p2);
+		assert_eq!(p(0.0, 1.0), p2);
 
-		p2 = reflect_matrix(&pNum(0.0,0.0), &pNum(0.866025403784439,0.5)).transform(pNum(1.0,0.0)); // unit vector along x, 30 deg line. Result should be unit vector 60 degrees to the x axis
+		p2 = reflect_matrix(&p(0.0,0.0), &p(0.866025403784439,0.5)).transform(p(1.0,0.0)); // unit vector along x, 30 deg line. Result should be unit vector 60 degrees to the x axis
 		println!("flip_point_test: {:?}",p2);
 
-		p2 = reflect_matrix(&pNum(0.0,0.0), &pNum(0.0,3.0)).transform(pNum(-1.0,1.0));
+		p2 = reflect_matrix(&p(0.0,0.0), &p(0.0,3.0)).transform(p(-1.0,1.0));
 		println!("flip_point_test: {:?}",p2);
-		assert_eq!(pNum(1.0, 1.0), p2);
+		assert_eq!(p(1.0, 1.0), p2);
 	}
 
 	#[test]
 	fn flip_line_test(){
-        let l1 = Line::new(pNum(0.0,2.0),pNum(0.0,3.0));
-        let v1 = pNum(1.0,1.0);
-        let v2 = pNum(2.0,2.0);
+        let l1 = Line::new(p(0.0,2.0),p(0.0,3.0));
+        let v1 = p(1.0,1.0);
+        let v2 = p(2.0,2.0);
         let l2 = flip_line(&l1,&v1,&v2);
         println!("flip_line_test: {:?}",l2);
         
-        assert_eq!(Line::new(pNum(2.0,0.0),pNum(3.0,0.0)), l2);
+        assert_eq!(Line::new(p(2.0,0.0),p(3.0,0.0)), l2);
 	}
     #[test]
     fn fold_line_test(){
         
-        let l1 = Line::new(pNum(0.0,2.0),pNum(2.0,0.0));
-        let v1 = pNum(0.0,0.0);
-        let v2 = pNum(2.0,2.0);
+        let l1 = Line::new(p(0.0,2.0),p(2.0,0.0));
+        let v1 = p(0.0,0.0);
+        let v2 = p(2.0,2.0);
         let l2 = fold_line(&l1,&v1,&v2);
         println!("fold_line_test: {:?}",l2);
         
-        assert_eq!(vec!(Line::new(pNum(1.0,1.0),pNum(0.0,2.0)),Line::new(pNum(1.0,1.0),pNum(0.0,2.0))), l2);
+        assert_eq!(vec!(Line::new(p(1.0,1.0),p(0.0,2.0)),Line::new(p(1.0,1.0),p(0.0,2.0))), l2);
     }
 
     #[test]
     fn fold_polygon_test(){
-        let poly = Polygon::new(vec!( pNum(0.0,0.0),pNum(2.0,0.0),pNum(2.0,2.0),pNum(0.0,2.0) ));
-        let v1 = pNum(0.0,1.0);
-        let v2 = pNum(2.0,1.0);
-        let ret = fold_polygon(&poly,&v1,&v2,&pNum(0.0, 2.0));
+        let poly = Polygon::new(vec!( p(0.0,0.0),p(2.0,0.0),p(2.0,2.0),p(0.0,2.0) ));
+        let v1 = p(0.0,1.0);
+        let v2 = p(2.0,1.0);
+        let ret = fold_polygon(&poly,&v1,&v2,&p(0.0, 2.0));
         
         println!("fold_polygon_test: {:?}",ret);
         
-        let ans = vec!( pNum(0.0,1.0),pNum(0.0,2.0),pNum(2.0,2.0),pNum(2.0,1.0));
+        let ans = vec!( p(0.0,1.0),p(0.0,2.0),p(2.0,2.0),p(2.0,1.0));
         for pt in ans {
             assert!(ret.0.points.contains(&pt));
             assert!(ret.1.points.contains(&pt));
@@ -616,26 +616,26 @@ mod tests {
     
 	#[test]
 	fn test_intersect_discrete_1() {
-		let l1 = Line::<f64>{p1: p64(0.0, 0.0), p2: p64(1.0, 1.0)};
-		let l2 = Line::<f64>{p1: p64(0.0, 1.0), p2: p64(1.0, 0.0)};
-		assert_eq!(intersect_discrete(&l1,&l2).unwrap(), p64(0.5, 0.5));
+		let l1 = Line::<f64>{p1: p(0.0, 0.0), p2: p(1.0, 1.0)};
+		let l2 = Line::<f64>{p1: p(0.0, 1.0), p2: p(1.0, 0.0)};
+		assert_eq!(intersect_discrete(&l1,&l2).unwrap(), p(0.5, 0.5));
 	}
 
 	#[test]
 	fn test_intersect_discrete_2() {
-		let l1 = Line::<f64>{p1: p64(0.0, 0.0), p2: p64(0.25, 0.25)};
-		let l2 = Line::<f64>{p1: p64(0.0, 1.0), p2: p64(1.0, 0.0)};
+		let l1 = Line::<f64>{p1: p(0.0, 0.0), p2: p(0.25, 0.25)};
+		let l2 = Line::<f64>{p1: p(0.0, 1.0), p2: p(1.0, 0.0)};
 		assert_eq!(intersect_discrete(&l1,&l2), None);
 	}
 
 	#[test]
 	fn test_intersect_infinite() {
-    let l1 = Line::new(pNum(0.1, 0.3), pNum(0.25, 0.75));
-    let l2 = Line::new(pNum(1.0, 0.0), pNum(1.0, 1.0));
-		assert_eq!(intersect_inf(&l1,&l2).unwrap(), pNum(1.0, 3.0));
+    let l1 = Line::new(p(0.1, 0.3), p(0.25, 0.75));
+    let l2 = Line::new(p(1.0, 0.0), p(1.0, 1.0));
+		assert_eq!(intersect_inf(&l1,&l2).unwrap(), p(1.0, 3.0));
 
-    let l1 = Line::new(pNum(2.0, 0.3), pNum(2.0, 0.75));
-    let l2 = Line::new(pNum(1.0, 0.0), pNum(1.0, 1.0));
+    let l1 = Line::new(p(2.0, 0.3), p(2.0, 0.75));
+    let l2 = Line::new(p(1.0, 0.0), p(1.0, 1.0));
 		assert_eq!(intersect_inf(&l1,&l2), None);
 	}
 
@@ -669,11 +669,11 @@ mod tests {
 		assert!(Line::new(p(0,0), p(0,10)).coincident(&p(0,5)));
 		assert!(Line::new(p(0,0), p(0,10)).coincident(&p(0,0)));
 		assert!(Line::new(p(0,0), p(0,10)).coincident(&p(0,10)));
-		assert!(Line::new(p64(0.0,0.0), p64(0.0,10.0)).coincident(&p64(0.0,0.0)));
-		assert!(Line::new(p64(0.0,0.0), p64(0.0,10.0)).coincident(&p64(0.0,10.0)));
-		assert!(Line::new(p64(-4.0,0.0), p64(0.0,-4.0)).coincident(&p64(-2.875,-1.125)));
-		assert!(!Line::new(p64(0.0,0.0), p64(0.0,10.0)).coincident(&p64(1.0,5.0)));
-		assert!(!Line::new(p64(0.0,0.0), p64(0.0,10.0)).coincident(&p64(0.0,11.0)));
+		assert!(Line::new(p(0.0,0.0), p(0.0,10.0)).coincident(&p(0.0,0.0)));
+		assert!(Line::new(p(0.0,0.0), p(0.0,10.0)).coincident(&p(0.0,10.0)));
+		assert!(Line::new(p(-4.0,0.0), p(0.0,-4.0)).coincident(&p(-2.875,-1.125)));
+		assert!(!Line::new(p(0.0,0.0), p(0.0,10.0)).coincident(&p(1.0,5.0)));
+		assert!(!Line::new(p(0.0,0.0), p(0.0,10.0)).coincident(&p(0.0,11.0)));
 	}
 
 	#[test]
@@ -683,10 +683,10 @@ mod tests {
 		assert!(Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(1,1)));
 		assert!(!Polygon::new(vec!(p(0, 0), p(2, 0), p(2, 2), p(0, 2))).contains(&p(3,3)));
 
-		assert!(Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(0.2,0.2)));
-		assert!(Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(0.2,0.7)));
-		assert!(Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(0.7,0.7)));
-		assert!(!Polygon::new(vec!(p64(0.0, 0.0), p64(1.0, 0.0), p64(1.0, 1.0), p64(0.0, 1.0))).contains(&p64(1.3,0.7)));
+		assert!(Polygon::new(vec!(p(0.0, 0.0), p(1.0, 0.0), p(1.0, 1.0), p(0.0, 1.0))).contains(&p(0.2,0.2)));
+		assert!(Polygon::new(vec!(p(0.0, 0.0), p(1.0, 0.0), p(1.0, 1.0), p(0.0, 1.0))).contains(&p(0.2,0.7)));
+		assert!(Polygon::new(vec!(p(0.0, 0.0), p(1.0, 0.0), p(1.0, 1.0), p(0.0, 1.0))).contains(&p(0.7,0.7)));
+		assert!(!Polygon::new(vec!(p(0.0, 0.0), p(1.0, 0.0), p(1.0, 1.0), p(0.0, 1.0))).contains(&p(1.3,0.7)));
 	}
 
 	#[test]
@@ -704,16 +704,16 @@ mod tests {
 
 	#[test]
 	fn test_split() {
-		let (start, mid, end) = (p64(1.0, 1.5), p64(1.125, 2.0), p64(1.25, 2.5));
+		let (start, mid, end) = (p(1.0, 1.5), p(1.125, 2.0), p(1.25, 2.5));
 		let line1 = Line::new(start.clone(), end.clone());
 		assert_eq!((Line::new(start.clone(), mid.clone()), Line::new(mid.clone(), end.clone())), line1.split(0.5))
 	}
 
 	#[test]
 	fn test_interpolate() {
-		let line1 = Line::new(p64(0.0, 0.0), p64(1.0, 3.0));
-		assert_eq!(p64(0.5, 1.5), line1.interpolate(0.5));
-		assert_eq!(p64(0.125, 0.375), line1.interpolate(0.125));
+		let line1 = Line::new(p(0.0, 0.0), p(1.0, 3.0));
+		assert_eq!(p(0.5, 1.5), line1.interpolate(0.5));
+		assert_eq!(p(0.125, 0.375), line1.interpolate(0.125));
 	}
 
 	#[test]
@@ -721,19 +721,19 @@ mod tests {
 	fn test_intersect_poly() {
 		let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
 
-		let line1 = Line::new(p64(2.0, 0.0), p64(1.0, 3.0));
+		let line1 = Line::new(p(2.0, 0.0), p(1.0, 3.0));
 		assert_eq!(None, intersect_poly_discrete(line1, unit_sq_p.clone()));
 
-		let line2 = Line::new(p64(0.0, 0.0), p64(1.0, 3.0));
+		let line2 = Line::new(p(0.0, 0.0), p(1.0, 3.0));
 		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.3333333333333333, y: 1.0 })), intersect_poly_discrete(line2, unit_sq_p.clone()));
 
-		let line3 = Line::new(p64(0.1, 0.3), p64(0.25, 0.75));
+		let line3 = Line::new(p(0.1, 0.3), p(0.25, 0.75));
 		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.33333333333333337, y: 1.0 })), intersect_poly_inf(line3, unit_sq_p.clone()));
 
-		let line4 = Line::new(p64(0.0, 0.0), p64(1.0, 3.0));
+		let line4 = Line::new(p(0.0, 0.0), p(1.0, 3.0));
 		assert_eq!(Some((Point { x: 0.0, y: 0.0 }, Point { x: 0.3333333333333333, y: 1.0 })), intersect_poly_inf(line4, unit_sq_p.clone()));
 
-		let line5 = Line::new(p64(2.0, 0.0), p64(1.0, 3.0));
+		let line5 = Line::new(p(2.0, 0.0), p(1.0, 3.0));
 		assert_eq!(None, intersect_poly_inf(line5, unit_sq_p.clone()));
 
 	}
@@ -741,10 +741,10 @@ mod tests {
 	#[test]
 	fn test_slicey_edges() {
 		let unit_sq_p = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
-		let base = Polygon::new(vec!(p64(-4.0, 0.0), p64(0.0, -4.0), p64(4.0, 0.0), p64(0.0, 4.0)));
+		let base = Polygon::new(vec!(p(-4.0, 0.0), p(0.0, -4.0), p(4.0, 0.0), p(0.0, 4.0)));
 
 		println!("## Rotated square base, silhouette as above");
-		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges(base.clone());
+		let mut a = Polygon::new(vec!(p(0.0, 0.0), p(0.5, 0.0), p(2.0, 0.5), p(0.5, 0.5))).slicey_edges(base.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
@@ -752,7 +752,7 @@ mod tests {
 		assert_eq!(4, a.len());
 
 		println!("## Rotated square base, some inside some out");
-		a = Polygon::new(vec!(p64(0.0, 0.0), p64(10.0, -10.0), p64(11.0, 0.5), p64(5.0, 5.0))).slicey_edges(base.clone());
+		a = Polygon::new(vec!(p(0.0, 0.0), p(10.0, -10.0), p(11.0, 0.5), p(5.0, 5.0))).slicey_edges(base.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
@@ -761,7 +761,7 @@ mod tests {
 
     	// Unit base
 		println!("## Polygon with vertices on unit sq corners/parallel lines");
-		a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges(unit_sq_p.clone());
+		a = Polygon::new(vec!(p(0.0, 0.0), p(0.5, 0.0), p(2.0, 0.5), p(0.5, 0.5))).slicey_edges(unit_sq_p.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
@@ -769,7 +769,7 @@ mod tests {
 		assert_eq!(4, a.len());
 
 		println!("## 'normal' polygon, some inside some out");
-		a = Polygon::new(vec!(p64(-1.3, -1.2), p64(0.5, -0.5), p64(2.0, 0.5), p64(0.5, 0.5))).slicey_edges(unit_sq_p.clone());
+		a = Polygon::new(vec!(p(-1.3, -1.2), p(0.5, -0.5), p(2.0, 0.5), p(0.5, 0.5))).slicey_edges(unit_sq_p.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
@@ -777,7 +777,7 @@ mod tests {
 		assert_eq!(2, a.len());
 
 		println!("## Polygon surrounds the unit sq");
-		a = Polygon::new(vec!(p64(-1.0, -1.0), p64(1.5, -0.5), p64(1.5, 1.5), p64(-1.0, 1.5))).slicey_edges(unit_sq_p.clone());
+		a = Polygon::new(vec!(p(-1.0, -1.0), p(1.5, -0.5), p(1.5, 1.5), p(-1.0, 1.5))).slicey_edges(unit_sq_p.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
@@ -785,7 +785,7 @@ mod tests {
 		assert_eq!(0, a.len());
 
 		println!("## Polygon contained within the unit");
-		a = Polygon::new(vec!(p64(0.2, 0.2), p64(0.7, 0.2), p64(0.7, 0.7), p64(0.2, 0.7))).slicey_edges(unit_sq_p.clone());
+		a = Polygon::new(vec!(p(0.2, 0.2), p(0.7, 0.2), p(0.7, 0.7), p(0.2, 0.7))).slicey_edges(unit_sq_p.clone());
 		println!("Number of intersecting edges: {}", a.len());
 		for edge in a.clone() {
 			println!("{}", edge);
@@ -803,7 +803,7 @@ mod tests {
 
 	#[test]
 	fn test_normalize_line() {
-		let (p1, p2) = (p64(1.0, 1.5), p64(0.5, 0.0));
-		assert_eq!(p64(2.0, 1.5), normalize_line(&p1, &p2));
+		let (p1, p2) = (p(1.0, 1.5), p(0.5, 0.0));
+		assert_eq!(p(2.0, 1.5), normalize_line(&p1, &p2));
 	}
 }

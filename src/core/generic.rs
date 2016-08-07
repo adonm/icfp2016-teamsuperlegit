@@ -166,12 +166,12 @@ mod tests {
 
 	#[test]
 	fn test_commutivity() {
-		let (p1, p2) = (p64(1.0, 1.5), p64(1.25, 2.5));
-		assert_eq!(p64(2.25, 4.0), &p1 + &p2);
-		assert_eq!(p64(2.25, 4.0), &p2 + &p1);
-		assert_eq!(p64(3.5, 6.5), &p1 + &(p2.scale(2.0)));
-		assert_eq!(p64(3.25, 5.5), &(p1.scale(2.0)) + &p2);
+		let (p1, p2) = (p(1.0, 1.5), p(1.25, 2.5));
+		assert_eq!(p(2.25, 4.0), &p1 + &p2);
+		assert_eq!(p(2.25, 4.0), &p2 + &p1);
+		assert_eq!(p(3.5, 6.5), &p1 + &(p2.scale(2.0)));
+		assert_eq!(p(3.25, 5.5), &(p1.scale(2.0)) + &p2);
 
-		assert_eq!(p64(0.25, 1.0), p2 - &p1);
+		assert_eq!(p(0.25, 1.0), p2 - &p1);
 	}
 }
