@@ -70,8 +70,15 @@ pub fn intersect_discrete<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> 
 	let s2 = &b.p2 - &b.p1;
 	let c1 = &a.p1 - &b.p1;
 
-	let s = cross_scalar(&s1, &c1) / cross_scalar(&s1, &s2);
-	let t = cross_scalar(&s2, &c1) / cross_scalar(&s1, &s2);
+	let x = divide( cross_scalar(&s1, &c1), cross_scalar(&s1, &s2) );
+	let y = divide( cross_scalar(&s2, &c1), cross_scalar(&s1, &s2) );
+    
+    if x==None || y==None{
+        return None;
+    }
+    
+    let s = x.unwrap();
+    let t = y.unwrap();
 
 	if (s >= N::zero()) && (s < N::one()) && (t >= N::zero()) && (t <= N::one()) {
 		return Some(&a.p1 + s1.scale(t));
@@ -79,6 +86,8 @@ pub fn intersect_discrete<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> 
 
 	None
 }
+
+
 
 // Use intersect_poly_inf or _discrete below instead of this function
 pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) -> Option<(Point<N>, Point<N>)> {
@@ -147,33 +156,34 @@ pub fn intersect_poly_inf<N:Num>(line: Line<N>, other: Polygon<N>) -> Option<(Po
 	intersect_poly(line, other, false)
 }
 
-pub fn gradient<N:Num>(l: &Line<N>) -> N {
-	let result = panic::catch_unwind(|| {
-		( l.p2.y.clone() - l.p1.y.clone() ) / ( l.p2.x.clone() - l.p1.x.clone() )
-	});
-	if result.is_ok() { return result.unwrap() }
-	return N::one();
+pub fn gradient<N:Num>(l: &Line<N>) -> Option<N> {
+	divide(  l.p2.y.clone() - l.p1.y.clone(),  l.p2.x.clone() - l.p1.x.clone() )
 }
 
 pub fn reflect_matrix<N:Num>(vertex1: &Point<N>, vertex2: &Point<N>) -> Matrix33<N> {
     
     let l = Line::new(vertex1.clone(),vertex2.clone());
     
-    if vertex1.x.clone() == N::zero() && vertex2.x.clone() == N::zero() {
-        Matrix33::rotate(N::one(),N::zero())
-            .then_scale(N::one(),N::from_f64(-1.0))
-            .then_rotate(N::from_f64(-1.0),N::zero())
-    } else {
-        let g = gradient(&l);
-        let c = vertex1.y.clone() - g.clone() * vertex1.x.clone();
-        let d = vertex2 - vertex1;
-        
-        Matrix33::translate(N::zero(),-c.clone())
-            .then_rotate( - d.clone().y / v_distance(&d), d.clone().x / v_distance(&d) )
-            .then_scale(N::one(),N::from_f64(-1.0))
-            .then_rotate( d.clone().y / v_distance(&d), d.clone().x / v_distance(&d) )
-            .then_translate(N::zero(),c.clone())
+    
+    match gradient(&l) {
+        Some(N) =>{
+            let g = gradient(&l).unwrap();
+            let c = vertex1.y.clone() - g.clone() * vertex1.x.clone();
+            let d = vertex2 - vertex1;
+
+            Matrix33::translate(N::zero(),-c.clone())
+                .then_rotate( - d.clone().y / v_distance(&d), d.clone().x / v_distance(&d) )
+                .then_scale(N::one(),N::from_f64(-1.0))
+                .then_rotate( d.clone().y / v_distance(&d), d.clone().x / v_distance(&d) )
+                .then_translate(N::zero(),c.clone())
+        }
+        None => {
+            Matrix33::rotate(N::one(),N::zero())
+                .then_scale(N::one(),N::from_f64(-1.0))
+                .then_rotate(N::from_f64(-1.0),N::zero())
+        }
     }
+    
 }
 
 //flips both points of a line on an axis
