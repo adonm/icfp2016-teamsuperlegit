@@ -160,7 +160,7 @@ pub fn draw_svg(shape: Shape<BigRational>, skel: Skeleton<BigRational>, filename
 				statepolys = statepolys.add(draw_polygon(&polygon, "#000"));
 			}
 			document = document.add(statepolys);
-			let writer = std::fs::File::create(filename.clone().replace("problem.svg", "test-solution.txt")).unwrap();
+			let writer = std::fs::File::create(filename.clone().replace("problem.svg", "solution.txt")).unwrap();
 			let unfolded = from_polys(writer, folded, basemultiple).unwrap();
 			let mut unfoldedpolys = element::Group::new();
 			for polygon in unfolded.clone() {

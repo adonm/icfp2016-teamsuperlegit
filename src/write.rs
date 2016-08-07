@@ -80,7 +80,7 @@ pub fn from_polys<N: Num, W: Write>(writer: W, polys: Vec<Polygon<N>>, base: Big
 		let mut orig = Vec::new();
 		for point in poly.points {
 			let i = {
-				let e = seen.entry(point.clone());
+				let e = seen.entry(qntz(snap(point.clone()), base.clone()));
 				match e {
 					Entry::Occupied(e) => {
 						*e.get()
