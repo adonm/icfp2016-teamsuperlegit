@@ -164,7 +164,7 @@ pub fn reflect_matrix<N:Num>(vertex1: &Point<N>, vertex2: &Point<N>) -> Matrix33
     let l = Line::new(vertex1.clone(),vertex2.clone());
     
     
-    match gradient(&l) {
+    let m = match gradient(&l) {
         Some(g) =>{
             let c = vertex1.y.clone() - g.clone() * vertex1.x.clone();
             let d = vertex2 - vertex1;
@@ -180,8 +180,10 @@ pub fn reflect_matrix<N:Num>(vertex1: &Point<N>, vertex2: &Point<N>) -> Matrix33
                 .then_scale(N::one(),N::from_f64(-1.0))
                 .then_rotate(N::from_f64(-1.0),N::zero())
         }
-    }
-    
+    };
+
+    println!("{}", m);
+    return m;
 }
 
 //flips both points of a line on an axis
