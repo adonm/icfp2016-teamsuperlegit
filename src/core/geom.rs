@@ -589,14 +589,14 @@ mod tests {
         let poly = Polygon::new(vec!( pNum(0.0,0.0),pNum(2.0,0.0),pNum(2.0,2.0),pNum(0.0,2.0) ));
         let v1 = pNum(0.0,1.0);
         let v2 = pNum(2.0,1.0);
-        let ret = fold_polygon(&poly,&v1,&v2);
+        let ret = fold_polygon(&poly,&v1,&v2,&pNum(0.0, 2.0));
         
         println!("fold_polygon_test: {:?}",ret);
         
         let ans = vec!( pNum(0.0,1.0),pNum(0.0,2.0),pNum(2.0,2.0),pNum(2.0,1.0));
         for pt in ans {
             assert!(ret.0.points.contains(&pt));
-            assert!(ret.0.points.contains(&pt));
+            assert!(ret.1.points.contains(&pt));
         }
     }
     
