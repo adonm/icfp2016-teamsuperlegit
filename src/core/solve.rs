@@ -22,7 +22,7 @@ pub fn square_from_corner<N:Num>(line0: &Line<N>, line1: &Line<N>) -> Polygon<N>
 	let o = l0.p1.clone().x - l0.p2.clone().x;
 	let a = l0.p1.clone().y - l0.p2.clone().y;
 	let h = N::from_f64((o.clone() * o.clone() + a.clone() * a.clone()).to_f64().sqrt());
-	transform = Matrix33::rotate(- o.clone()/h.clone(), a.clone()/h.clone()) * transform;
+	transform *= Matrix33::rotate(- o.clone()/h.clone(), a.clone()/h.clone());
 	let mut points = Vec::new();
 	for point in unit_sq_p.points {
 		points.push(transform.transform(point));
