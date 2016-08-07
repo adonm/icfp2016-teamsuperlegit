@@ -35,6 +35,15 @@ impl SuperLegit for f64 {
 	fn one() -> Self { 1.0 }
 }
 
+pub fn divide<N:Num>( a: N, b: N ) -> Option<N> {
+    if b == N::from_f64(0.0){
+        None
+    } else {
+        Some( a / b )
+    }
+    
+}
+
 impl SuperLegit for BigRational {
 	fn to_f64(&self) -> f64 {
 		// BUG converts very large negatives to positive infinity

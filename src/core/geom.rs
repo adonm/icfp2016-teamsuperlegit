@@ -70,8 +70,15 @@ pub fn intersect_discrete<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> 
 	let s2 = &b.p2 - &b.p1;
 	let c1 = &a.p1 - &b.p1;
 
-	let s = cross_scalar(&s1, &c1) / cross_scalar(&s1, &s2);
-	let t = cross_scalar(&s2, &c1) / cross_scalar(&s1, &s2);
+	let x = divide( cross_scalar(&s1, &c1), cross_scalar(&s1, &s2) );
+	let y = divide( cross_scalar(&s2, &c1), cross_scalar(&s1, &s2) );
+    
+    if x==None || y==None{
+        return None;
+    }
+    
+    let s = x.unwrap();
+    let t = y.unwrap();
 
 	if (s >= N::zero()) && (s < N::one()) && (t >= N::zero()) && (t <= N::one()) {
 		return Some(&a.p1 + s1.scale(t));
@@ -79,6 +86,8 @@ pub fn intersect_discrete<N: Num>(a: &Line<N>, b: &Line<N>) -> Option<Point<N>> 
 
 	None
 }
+
+
 
 // Use intersect_poly_inf or _discrete below instead of this function
 pub fn intersect_poly<N: Num>(line: Line<N>, other: Polygon<N>, discrete: bool) -> Option<(Point<N>, Point<N>)> {
