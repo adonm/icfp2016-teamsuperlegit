@@ -1,5 +1,3 @@
-// Kill rustc dead code warnings because we have ALL THE DEAD CODE
-#![allow(dead_code)]
 #![allow(non_snake_case)]
 
 extern crate num;

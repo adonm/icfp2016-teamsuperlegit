@@ -1,3 +1,5 @@
+#![allow(dead_code)] // recommend turning warning back on while actively developing
+
 extern crate num;
 
 pub use core::*;

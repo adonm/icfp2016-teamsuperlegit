@@ -89,7 +89,7 @@ mod tests {
 		let mut base = Polygon::new(vec![Point{x: 0.0, y: 0.0}, Point{x: 0.0, y: 1.0}, Point{x:1.0, y: 1.0}, Point{x: 1.0, y: 0.0}]);
 		let mut a = Polygon::new(vec!(p64(0.0, 0.0), p64(0.5, 0.0), p64(2.0, 0.5), p64(0.5, 0.5)));
 
-		let result: (Point<f64>, Point<f64>) = get_next_edge_to_fold(base, a);
+		let result: (Point<f64>, Point<f64>) = get_next_edge_to_fold(base, a).unwrap();
 		println!("Folding along edge {} -> {}", result.0, result.1);
 		assert_eq!(Point{x: 0.0, y: 0.0}, result.0);
 		assert_eq!(Point{x: 1.0, y: 1.0}, result.1);
@@ -98,7 +98,7 @@ mod tests {
 		base = Polygon::new(vec!(p64(-4.0, 0.0), p64(0.0, -4.0), p64(4.0, 0.0), p64(0.0, 4.0)));
 		a = Polygon::new(vec!(p64(-1.0, 0.5), p64(1.0, 0.5), p64(1.0, 1.0), p64(-1.0, 1.0)));
 
-		let result: (Point<f64>, Point<f64>) = get_next_edge_to_fold(base, a);
+		let result: (Point<f64>, Point<f64>) = get_next_edge_to_fold(base, a).unwrap();
 		println!("Folding along edge {} -> {}", result.0, result.1);
 		assert_eq!(Point{x: -3.5, y: 0.5}, result.0);
 		assert_eq!(Point{x: 3.5, y: 0.5}, result.1);

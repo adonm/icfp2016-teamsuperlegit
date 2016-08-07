@@ -32,6 +32,7 @@ fn facets<N: Num>(skel: Skeleton<N>) -> (Vec<Point<N>>, Vec<Vec<usize>>) {
 	(points, facets)
 }
 
+#[allow(dead_code)]
 pub fn from_skeleton<N: Num, F: Folds<N>, W: Write>(writer: W, skel: Skeleton<N>, folds: F) -> Result<(), Error> {
 	let (points, facets) = facets(skel);
 	let mut dst = Vec::new();

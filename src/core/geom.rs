@@ -507,19 +507,11 @@ impl<N: Num> Line<N> {
 		let l2 = Line::new(mid, self.p2.clone());
 		(l1, l2)
 	}
-    
-    pub fn length(&self) -> f64{
-        p_distance(&self.p1,&self.p2)
-    }
 }
 
 impl<N: Num> Skeleton<N> {
 	pub fn new(lines: Vec<Line<N>>) -> Skeleton<N> {
 		return Skeleton{lines: lines};
-	}
-
-	pub fn clone(self) -> Skeleton<N> {
-		return Skeleton{lines: self.lines.clone()};
 	}
 
 	pub fn push(self, line: Line<N>) -> Skeleton<N> {
@@ -829,5 +821,11 @@ mod tests {
 		for (i, _) in poly.edges().iter().enumerate() {
 			assert!(i < poly.edges().len());
 		}
+	}
+
+	#[test]
+	fn test_normalize_line() {
+		let (p1, p2) = (p64(1.0, 1.5), p64(0.5, 0.0));
+		assert_eq!(p64(2.0, 1.5), normalize_line(&p1, &p2));
 	}
 }

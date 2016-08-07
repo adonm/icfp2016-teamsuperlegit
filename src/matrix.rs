@@ -20,6 +20,7 @@ impl<N: Num> Matrix33<N> {
 		)
 	}
 
+	#[allow(dead_code)]
 	pub fn shear(hx: N, hy: N) -> Matrix33<N> {
 		Matrix33::new(
 			(N::one(), hx, N::zero()),
@@ -69,6 +70,7 @@ impl<N: Num> Matrix33<N> {
 		self * Matrix33::rotate(sine, cosine)
 	}
 
+	#[allow(dead_code)]
 	pub fn then_rotate_angle(self, angle: f64) -> Matrix33<N> {
 		self * Matrix33::rotate_angle(angle)
 	}
@@ -81,10 +83,6 @@ impl<N: Num> Matrix33<N> {
 		let x = p.x.clone() * self[(0, 0)].clone() + p.y.clone() * self[(1, 0)].clone() + self[(2, 0)].clone();
 		let y = p.x.clone() * self[(0, 1)].clone() + p.y.clone() * self[(1, 1)].clone() + self[(2, 1)].clone();
 		Point{x: x, y: y}
-	}
-
-	fn refs(&self) -> (&N, &N, &N, &N, &N, &N, &N, &N, &N) {
-		(&self.points[0], &self.points[1], &self.points[2], &self.points[3], &self.points[4], &self.points[5], &self.points[6], &self.points[7], &self.points[8])
 	}
 
 	fn clones(&self) -> (N, N, N, N, N, N, N, N, N) {
