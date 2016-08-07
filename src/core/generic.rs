@@ -120,7 +120,10 @@ impl<'a, N: Num> Sub<Point<N>> for &'a Point<N> {
 
 impl<N: Num> Display for Point<N> {
 	fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-		write!(f, "{},{}", self.x, self.y)
+		match f.precision() {
+			Some(p) => write!(f, "{:.prec$},{:.prec$}", self.x.to_f64(), self.y.to_f64(), prec=p),
+			_ => write!(f, "{},{}", self.x, self.y),
+		}
 	}
 }
 
@@ -166,12 +169,18 @@ mod tests {
 
 	#[test]
 	fn test_commutivity() {
-		let (p1, p2) = (p64(1.0, 1.5), p64(1.25, 2.5));
-		assert_eq!(p64(2.25, 4.0), &p1 + &p2);
-		assert_eq!(p64(2.25, 4.0), &p2 + &p1);
-		assert_eq!(p64(3.5, 6.5), &p1 + &(p2.scale(2.0)));
-		assert_eq!(p64(3.25, 5.5), &(p1.scale(2.0)) + &p2);
+		let (p1, p2) = (p(1.0, 1.5), p(1.25, 2.5));
+		assert_eq!(p(2.25, 4.0), &p1 + &p2);
+		assert_eq!(p(2.25, 4.0), &p2 + &p1);
+		assert_eq!(p(3.5, 6.5), &p1 + &(p2.scale(2.0)));
+		assert_eq!(p(3.25, 5.5), &(p1.scale(2.0)) + &p2);
 
-		assert_eq!(p64(0.25, 1.0), p2 - &p1);
+		assert_eq!(p(0.25, 1.0), p2 - &p1);
+	}
+
+	#[test]
+	fn test_format() {
+		assert_eq!("1.1234,2.2345", format!("{}", p(1.1234, 2.2345)));
+		assert_eq!("1.1,2.2", format!("{:.1}", p(1.1234, 2.2345)));
 	}
 }
