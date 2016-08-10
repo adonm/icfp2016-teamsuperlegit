@@ -11,6 +11,8 @@ If you are getting into Rust, the below references were top shelf:
  * [New Rustacean Podcast](http://www.newrustacean.com/)
  * [Rustlings](https://github.com/carols10cents/rustlings) - great for befriending the compiler
 
+![super legit team](superlegitteam.gif?raw=true "Team Super Legit")
+
 ## Day 1 - Problem announced
 Ohhh it's like a bit of trig with some tricky looking fractions... We can (with v.little actual Rust) download and commit problems, and draw a square as an SVG (our visualiser was inkscape, and our API library was curl, coz we are but unix men). This was also the day we discovered that rational numbers were quite new to Rust, and as such supporting libraries for matrix and geometry operations were lacking.
 
