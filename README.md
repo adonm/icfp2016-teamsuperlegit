@@ -6,6 +6,8 @@ Each year the [International Conference on Functional Programming](http://www.ic
 
 First up our (super legit) team consisted of Rowan, Scott, Patrick, Matt, Adon. A few of us had dabbled in Rust prior to the contest, but for the most part there was a couple hours of pre-reading before  engaging full combat with the borrow checker (and begging pointers/references/structs to stop hiding in closures!).
 
+At the start it literally did feel like fighting with the borrow checker, when we made code changes it was just expected that we would be battling with dozens of errors before it compiling properly. However this had it's positives, as we never got silly pointer/reference errors in our code thanks to Rust's safe typing and allocation. 
+
 If you are getting into Rust, the below references were top shelf:
  * [The Rust Book](https://doc.rust-lang.org/book/)
  * [New Rustacean Podcast](http://www.newrustacean.com/)
