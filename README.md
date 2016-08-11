@@ -20,6 +20,7 @@ If you are getting into Rust, the below references were top shelf:
 
 
 Our team is all of 5 people this year!! (last year 3, and before that was just Matt and Rowan). With 5 people it felt like we were a more serious/legit team, super legit in fact. Hence the name, "Team Super Legit". Kudos to Adon for this incredibly crafted team logo gif:
+
 ![super legit team](superlegitteam.gif?raw=true "Team Super Legit")
 
 ## Day 1 - Problem announced
