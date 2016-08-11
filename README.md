@@ -9,9 +9,9 @@ If you're interested check out some history: https://en.wikipedia.org/wiki/ICFP_
 
 ## Team Super Legit
 
-First up our (super legit) team consisted of Rowan, Scott, Patrick, Matt, Adon. A few of us had dabbled in Rust prior to the contest, but for the most part there was a couple hours of pre-reading before  engaging full combat with the borrow checker (and begging pointers/references/structs to stop hiding in closures!).
+First up our (super legit) team consisted of Rowan, Scott, Patrick, Matt, Adon, and 4 of us camped at Matts place most of the weekend :P, and Patrick was virtually there the whole time over Webex. A few of us had dabbled in Rust prior to the contest, but for the most part there was a couple hours of pre-reading before  engaging full combat with the borrow checker (and begging pointers/references/structs to stop hiding in closures!).
 
-At the start it literally did feel like fighting with the borrow checker, when we made code changes it was just expected that we would be battling with dozens of errors before it compiling properly. However this had it's positives, as we never got silly pointer/reference errors in our code thanks to Rust's safe typing and allocation. 
+At the start it literally did feel like fighting with the borrow checker, when we made code changes it was just expected that we would be battling with dozens of errors before it compiling properly. However this had it's positives, as we never got silly pointer/reference errors in our code thanks to Rust's super safe typing and allocation. 
 
 If you are getting into Rust, the below references were top shelf:
  * [The Rust Book](https://doc.rust-lang.org/book/)
