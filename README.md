@@ -1,6 +1,11 @@
 # Developing an origami unfolder in Rust
 
-Each year the [International Conference on Functional Programming](http://www.icfpconference.org) holds a ["a fun and challenging three-day programming competition"](http://www.icfpconference.org/contest) - this repository is our effort and some thoughts along the way.
+Each year the [International Conference on Functional Programming](http://www.icfpconference.org/index.html) holds a ["a fun and challenging three-day programming competition"](http://www.icfpconference.org/contest.html) - this repository is our effort and some thoughts along the way.
+
+This years contest site is located here: http://icfpc2016.blogspot.com.au/
+And the task description is here: http://icfpc2016.blogspot.com.au/2016/08/task-description.html
+
+If you're interested check out some history: https://en.wikipedia.org/wiki/ICFP_Programming_Contest
 
 ## Team Super Legit
 
